@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Builder.Factory;
-using Testura.Code.Generate.ArgumentTypes;
 using Testura.Code.Reference;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Generate
 {
@@ -14,68 +13,67 @@ namespace Testura.Code.Generate
     public static class Variable
     {
         /// <summary>
-        /// Create a local predefined variable 
+        /// Create a local predefined variable
         /// </summary>
         /// <param name="name">Name of variable</param>
-        /// <param name="type">Type of the variable</param>
-        /// <param name="value">Value of variable</param>
-        /// <param name="valueIsVariable"></param>
-        /// <param name="useVarKeyword"></param>
+        /// <param name="value">Value to assign variable</param>
+        /// <param name="useVarKeyword">True if we should use var keyword, otherwise we use type name</param>
         /// <returns>The generated local declaration statement</returns>
-        public static LocalDeclarationStatementSyntax CreateType(string name, Type type, object value, bool valueIsVariable = false, bool useVarKeyword = true)
+        public static LocalDeclarationStatementSyntax CreateLocalVariable<T>(string name, T value, bool useVarKeyword = true)
+            where T : struct
         {
-            if (type == typeof(string) && !valueIsVariable)
-            {
-                value = $@"""{value}""";
-            }
-            return SyntaxFactory.LocalDeclarationStatement(SyntaxFactory.VariableDeclaration(SyntaxFactory.IdentifierName(useVarKeyword ? "var" : type.Name))
-                .WithVariables(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(name))
-                    .WithInitializer(EqualsValueClauseFactory.GetEqualsValueClause(value).WithEqualsToken(SyntaxFactory.Token(SyntaxKind.EqualsToken))))));
+            return LocalDeclarationStatement(VariableDeclaration(IdentifierName(useVarKeyword ? "var" : typeof(T).Name))
+                .WithVariables(SingletonSeparatedList(VariableDeclarator(Identifier(name))
+                    .WithInitializer(EqualsValueClauseFactory.GetEqualsValueClause(value).WithEqualsToken(Token(SyntaxKind.EqualsToken))))));
         }
 
         /// <summary>
-        /// Create a local predefined variable 
+        /// Create a local predefined variable
+        /// </summary>
+        /// <param name="name">Name of variable</param>
+        /// <param name="value">Value to assign variable</param>
+        /// <param name="useVarKeyword">If we should created the variable with the var keyword</param>
+        /// <returns>The generated local declaration statement</returns>
+        public static LocalDeclarationStatementSyntax CreateLocalVariable(string name, string value, bool useVarKeyword = true)
+        {
+            return LocalDeclarationStatement(VariableDeclaration(IdentifierName(useVarKeyword ? "var" : typeof(string).Name))
+                .WithVariables(SingletonSeparatedList(VariableDeclarator(Identifier(name))
+                    .WithInitializer(EqualsValueClauseFactory.GetEqualsValueClause($@"""{value}""").WithEqualsToken(Token(SyntaxKind.EqualsToken))))));
+        }
+
+
+        /// <summary>
+        /// Create a local predefined variable
         /// </summary>
         /// <param name="name">Name of variable</param>
         /// <param name="type">Type of the variable</param>
         /// <param name="reference">Value of the variable</param>
         /// <param name="useVarKeyword">If we should created the variable with the var keyword</param>
         /// <returns>The generated local declaration statement</returns>
-        public static LocalDeclarationStatementSyntax CreateType(string name, Type type, VariableReference reference, bool useVarKeyword = true)
+        public static LocalDeclarationStatementSyntax CreateLocalVariable(string name, Type type, VariableReference reference, bool useVarKeyword = true)
         {
-            return SyntaxFactory.LocalDeclarationStatement(SyntaxFactory.VariableDeclaration(SyntaxFactory.IdentifierName(useVarKeyword ? "var" : type.Name))
-                .WithVariables(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(name))
-                    .WithInitializer(EqualsValueClauseFactory.GetEqualsValueClause(reference).WithEqualsToken(SyntaxFactory.Token(SyntaxKind.EqualsToken))))));
+            return LocalDeclarationStatement(VariableDeclaration(IdentifierName(useVarKeyword ? "var" : type.Name))
+                .WithVariables(SingletonSeparatedList(VariableDeclarator(Identifier(name))
+                    .WithInitializer(EqualsValueClauseFactory.GetEqualsValueClause(reference).WithEqualsToken(Token(SyntaxKind.EqualsToken))))));
         }
 
         /// <summary>
-        /// Create a local class variable 
+        /// Create a local variable and assign it to a new class instance
         /// </summary>
         /// <param name="name">Name of variable</param>
         /// <param name="type">Type of the variable</param>
         /// <param name="arguments">Arguments to use when creating the variable</param>
         /// <param name="useVarKeyword">If we should created the variable with the var keyword</param>
         /// <returns>The generated local declaration statement</returns>
-        public static LocalDeclarationStatementSyntax CreateInstance(string name, Type type, ArgumentListSyntax arguments, bool useVarKeyword = true)
+        public static LocalDeclarationStatementSyntax CreateLocalVariable(string name, Type type, ArgumentListSyntax arguments, bool useVarKeyword = true)
         {
             var typeName = NameConverters.ConvertGenericTypeName(type);
-            return SyntaxFactory.LocalDeclarationStatement(SyntaxFactory.VariableDeclaration(SyntaxFactory.IdentifierName(useVarKeyword ? "var" : typeName))
-                .WithVariables(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(name))
+            return LocalDeclarationStatement(VariableDeclaration(IdentifierName(useVarKeyword ? "var" : typeName))
+                .WithVariables(SingletonSeparatedList(VariableDeclarator(Identifier(name))
                     .WithInitializer(
-                        SyntaxFactory.EqualsValueClause(
-                            SyntaxFactory.ObjectCreationExpression(SyntaxFactory.IdentifierName(typeName)).WithArgumentList(arguments)
-                                .WithNewKeyword(SyntaxFactory.Token(SyntaxKind.NewKeyword)))))));
-        }
-
-        /// <summary>
-        /// Create a local class variable 
-        /// </summary>
-        /// <param name="name">Name of variable</param>
-        /// <param name="type">Type of the variable</param>
-        /// <returns>The generated local declaration statement</returns>
-        public static LocalDeclarationStatementSyntax CreateInstance(string name, Type type)
-        {
-            return CreateInstance(name, type, Argument.Create(new List<IArgument>()));
+                        EqualsValueClause(
+                            ObjectCreationExpression(IdentifierName(typeName)).WithArgumentList(arguments)
+                                .WithNewKeyword(Token(SyntaxKind.NewKeyword)))))));
         }
 
         /// <summary>
@@ -87,59 +85,54 @@ namespace Testura.Code.Generate
         /// <param name="castTo">Cast the expression to this type</param>
         /// <param name="useVarKeyword">If we should create the variable with the var keyword</param>
         /// <returns>The generated local decleration statement</returns>
-        public static LocalDeclarationStatementSyntax Create(string name, Type type, ExpressionSyntax expressionSyntax, Type castTo = null, bool useVarKeyword = true)
+        public static LocalDeclarationStatementSyntax CreateLocalVariable(string name, Type type, ExpressionSyntax expressionSyntax, Type castTo = null, bool useVarKeyword = true)
         {
             if (castTo != null && castTo != typeof(void))
-                expressionSyntax = SyntaxFactory.CastExpression(SyntaxFactory.IdentifierName(castTo.FullName), expressionSyntax);
-            
-            return SyntaxFactory.LocalDeclarationStatement(SyntaxFactory.VariableDeclaration(SyntaxFactory.IdentifierName(useVarKeyword ? "var" : type.Name))
-                .WithVariables(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(name))
-                    .WithInitializer(SyntaxFactory.EqualsValueClause(expressionSyntax)))));
+            {
+                expressionSyntax = CastExpression(IdentifierName(castTo.FullName), expressionSyntax);
+            }
+
+            return LocalDeclarationStatement(VariableDeclaration(IdentifierName(useVarKeyword ? "var" : type.Name))
+                .WithVariables(SingletonSeparatedList(VariableDeclarator(Identifier(name))
+                    .WithInitializer(EqualsValueClause(expressionSyntax)))));
         }
 
         /// <summary>
-        /// Create initialization of a new class variable
+        /// Assign a variable to a class instance
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="type"></param>
-        /// <param name="arguments"></param>
-        /// <returns></returns>
-        public static ExpressionStatementSyntax InitializeVariable(string name, Type type, ArgumentListSyntax arguments)
+        /// <param name="name">Name of the variable</param>
+        /// <param name="type">Type of the variable</param>
+        /// <param name="arguments">Árguments in the class constructor</param>
+        /// <returns>The generated assign decleration statement</returns>
+        public static ExpressionStatementSyntax AssignVariable(string name, Type type, ArgumentListSyntax arguments)
         {
             var typeName = NameConverters.ConvertGenericTypeName(type);
-            return SyntaxFactory.ExpressionStatement(SyntaxFactory.AssignmentExpression(SyntaxKind.SimpleAssignmentExpression, SyntaxFactory.IdentifierName(name),
-                SyntaxFactory.ObjectCreationExpression(SyntaxFactory.IdentifierName(typeName)).WithArgumentList(arguments)
-                    .WithNewKeyword(SyntaxFactory.Token(SyntaxKind.NewKeyword))));
+            return ExpressionStatement(
+                AssignmentExpression(
+                    SyntaxKind.SimpleAssignmentExpression,
+                    IdentifierName(name),
+                    ObjectCreationExpression(IdentifierName(typeName)).WithArgumentList(arguments).WithNewKeyword(Token(SyntaxKind.NewKeyword))));
         }
 
         /// <summary>
-        /// Create an assignation of an already existing variable
+        /// Assign a variable to an already declared expression syntax
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="expressionSyntax"></param>
-        /// <param name="castTo"></param>
-        /// <returns></returns>
-        public static ExpressionStatementSyntax AssignVariable(string name,
-            ExpressionSyntax expressionSyntax, Type castTo = null)
+        /// <param name="name">Name of variable</param>
+        /// <param name="expressionSyntax">The expression syntax </param>
+        /// <param name="castTo">If we should do a cast while assign the variable</param>
+        /// <returns>The generated assign decleration syntax</returns>
+        public static ExpressionStatementSyntax AssignVariable(string name, ExpressionSyntax expressionSyntax, Type castTo = null)
         {
-            if (castTo != null && castTo != typeof (void))
+            if (castTo != null && castTo != typeof(void))
             {
-                expressionSyntax = SyntaxFactory.CastExpression(SyntaxFactory.IdentifierName(castTo.Name), expressionSyntax);
+                expressionSyntax = CastExpression(IdentifierName(castTo.Name), expressionSyntax);
             }
-            return
-                SyntaxFactory.ExpressionStatement(SyntaxFactory.AssignmentExpression(SyntaxKind.SimpleAssignmentExpression, SyntaxFactory.IdentifierName(name),
-                    expressionSyntax));
-        }
 
-        /// <summary>
-        /// Create initialization of a new class without any arguments
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public static ExpressionStatementSyntax InitializeVariable(string name, Type type)
-        {
-            return InitializeVariable(name, type, Argument.Create(new List<IArgument>()));
+            return
+                ExpressionStatement(
+                    AssignmentExpression(SyntaxKind.SimpleAssignmentExpression, 
+                    IdentifierName(name),
+                    expressionSyntax));
         }
     }
 }
