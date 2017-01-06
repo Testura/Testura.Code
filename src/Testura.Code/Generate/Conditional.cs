@@ -32,6 +32,16 @@ namespace Testura.Code.Generate
             {
                 case ConditionalStatement.Equal:
                     return SyntaxKind.EqualsExpression;
+                case ConditionalStatement.NotEqual:
+                    return SyntaxKind.NotEqualsExpression;
+                case ConditionalStatement.GreaterThan:
+                    return SyntaxKind.GreaterThanExpression;
+                case ConditionalStatement.GreaterThanOrEqual:
+                    return SyntaxKind.GreaterThanOrEqualExpression;
+                case ConditionalStatement.LessThan:
+                    return SyntaxKind.LessThanExpression;
+                case ConditionalStatement.LessThanOrEqual:
+                    return SyntaxKind.LessThanOrEqualExpression;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(conditional), conditional, null);
             }

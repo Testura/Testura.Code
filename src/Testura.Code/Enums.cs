@@ -11,7 +11,12 @@
 
     public enum ConditionalStatement
     {
-        Equal
+        Equal,
+        NotEqual,
+        GreaterThan,
+        GreaterThanOrEqual,
+        LessThan,
+        LessThanOrEqual
     }
 
 
