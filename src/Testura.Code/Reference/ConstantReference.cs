@@ -5,12 +5,12 @@ namespace Testura.Code.Reference
     public class ConstantReference : VariableReference
     {
         public ConstantReference(object value)
-            : base(value.ToString(), value.GetType())
+            : base(value.ToString())
         {
         }
 
-        protected ConstantReference(string variableName, Type variableType, MemberReference member)
-            : base(variableName, variableType, member)
+        protected ConstantReference(string variableName, MemberReference member)
+            : base(variableName, member)
         {
         }
     }

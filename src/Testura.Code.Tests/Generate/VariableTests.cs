@@ -33,7 +33,7 @@ namespace Testura.Code.Tests.Generate
         [Test]
         public void CreateLocal_WhenCreateTypeAndAssignToVariableReference_ShouldAssignToVarible()
         {
-            Assert.AreEqual("vartest=myVariable;", Variable.CreateLocal("test", typeof(int), new VariableReference("myVariable", typeof(int))).ToString());
+            Assert.AreEqual("vartest=myVariable;", Variable.CreateLocal("test", typeof(int), new VariableReference("myVariable")).ToString());
         }
 
         [Test]
@@ -45,7 +45,7 @@ namespace Testura.Code.Tests.Generate
         [Test]
         public void CreateLocal_WhenCreateTypeAndAssignToVariableMember_ShouldAssignToVarible()
         {
-            Assert.AreEqual("vartest=var.member;", Variable.CreateLocal("test", typeof(int), new VariableReference("var", typeof(int), new MemberReference("member", typeof(int), typeof(int), MemberReferenceTypes.Field))).ToString());
+            Assert.AreEqual("vartest=var.member;", Variable.CreateLocal("test", typeof(int), new VariableReference("var", new MemberReference("member", MemberReferenceTypes.Field))).ToString());
         }
 
         [Test]

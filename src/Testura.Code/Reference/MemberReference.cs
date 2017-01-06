@@ -9,19 +9,14 @@ namespace Testura.Code.Reference
         /// </summary>
         public MemberReferenceTypes ReferenceType { get; set; }
 
-        /// <summary>
-        /// Gets or sets the type of the parent reference
-        /// </summary>
-        public Type ParentType { get; set; }
 
-        public MemberReference(string name, Type memberType, Type parentType, MemberReferenceTypes referenceType) : base(name, memberType)
+        public MemberReference(string name, MemberReferenceTypes referenceType) : base(name)
         {
             Name = name;
-            ParentType = parentType;
             ReferenceType = referenceType;
         }
 
-        public MemberReference(string name, Type memberType, Type parentType, MemberReferenceTypes referenceType, MemberReference memberReference) : this(name, memberType, parentType, referenceType)
+        public MemberReference(string name, MemberReferenceTypes referenceType, MemberReference memberReference) : this(name, referenceType)
         {
             Member = memberReference;
         }

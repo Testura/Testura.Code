@@ -22,22 +22,16 @@ namespace Testura.Code.Reference
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the type of the reference
-        /// </summary>
-        public Type Type { get; set; }
-
-        /// <summary>
         /// Gets or sets the memeber references
         /// </summary>
         public MemberReference Member { get; set; }
 
-        public VariableReference(string variableName, Type variableType)
+        public VariableReference(string variableName)
         {
             Name = variableName;
-            Type = variableType;
         }
 
-        public VariableReference(string variableName, Type variableType, MemberReference member) : this(variableName, variableType)
+        public VariableReference(string variableName, MemberReference member) : this(variableName)
         {
             Member = member;
         }

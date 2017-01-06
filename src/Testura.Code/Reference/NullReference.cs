@@ -4,11 +4,11 @@ namespace Testura.Code.Reference
 {
     public class NullReference : VariableReference
     {
-        public NullReference(Type variableType) : base("null", variableType)
+        public NullReference() : base("null")
         {
         }
 
-        protected NullReference(Type variableType, MemberReference member) : base("null", variableType, member)
+        protected NullReference(MemberReference member) : base("null", member)
         {
         }
     }
