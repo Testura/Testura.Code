@@ -19,7 +19,7 @@ namespace Testura.Code.Generate
         /// <param name="value">Value to assign variable</param>
         /// <param name="useVarKeyword">True if we should use var keyword, otherwise we use type name</param>
         /// <returns>The generated local declaration statement</returns>
-        public static LocalDeclarationStatementSyntax CreateLocalVariable<T>(string name, T value, bool useVarKeyword = true)
+        public static LocalDeclarationStatementSyntax CreateLocal<T>(string name, T value, bool useVarKeyword = true)
             where T : struct
         {
             return LocalDeclarationStatement(VariableDeclaration(IdentifierName(useVarKeyword ? "var" : typeof(T).Name))
@@ -34,7 +34,7 @@ namespace Testura.Code.Generate
         /// <param name="value">Value to assign variable</param>
         /// <param name="useVarKeyword">If we should created the variable with the var keyword</param>
         /// <returns>The generated local declaration statement</returns>
-        public static LocalDeclarationStatementSyntax CreateLocalVariable(string name, string value, bool useVarKeyword = true)
+        public static LocalDeclarationStatementSyntax CreateLocal(string name, string value, bool useVarKeyword = true)
         {
             return LocalDeclarationStatement(VariableDeclaration(IdentifierName(useVarKeyword ? "var" : typeof(string).Name))
                 .WithVariables(SingletonSeparatedList(VariableDeclarator(Identifier(name))
@@ -50,7 +50,7 @@ namespace Testura.Code.Generate
         /// <param name="reference">Value of the variable</param>
         /// <param name="useVarKeyword">If we should created the variable with the var keyword</param>
         /// <returns>The generated local declaration statement</returns>
-        public static LocalDeclarationStatementSyntax CreateLocalVariable(string name, Type type, VariableReference reference, bool useVarKeyword = true)
+        public static LocalDeclarationStatementSyntax CreateLocal(string name, Type type, VariableReference reference, bool useVarKeyword = true)
         {
             return LocalDeclarationStatement(VariableDeclaration(IdentifierName(useVarKeyword ? "var" : type.Name))
                 .WithVariables(SingletonSeparatedList(VariableDeclarator(Identifier(name))
@@ -65,7 +65,7 @@ namespace Testura.Code.Generate
         /// <param name="arguments">Arguments to use when creating the variable</param>
         /// <param name="useVarKeyword">If we should created the variable with the var keyword</param>
         /// <returns>The generated local declaration statement</returns>
-        public static LocalDeclarationStatementSyntax CreateLocalVariable(string name, Type type, ArgumentListSyntax arguments, bool useVarKeyword = true)
+        public static LocalDeclarationStatementSyntax CreateLocal(string name, Type type, ArgumentListSyntax arguments, bool useVarKeyword = true)
         {
             var typeName = NameConverters.ConvertGenericTypeName(type);
             return LocalDeclarationStatement(VariableDeclaration(IdentifierName(useVarKeyword ? "var" : typeName))
@@ -85,7 +85,7 @@ namespace Testura.Code.Generate
         /// <param name="castTo">Cast the expression to this type</param>
         /// <param name="useVarKeyword">If we should create the variable with the var keyword</param>
         /// <returns>The generated local decleration statement</returns>
-        public static LocalDeclarationStatementSyntax CreateLocalVariable(string name, Type type, ExpressionSyntax expressionSyntax, Type castTo = null, bool useVarKeyword = true)
+        public static LocalDeclarationStatementSyntax CreateLocal(string name, Type type, ExpressionSyntax expressionSyntax, Type castTo = null, bool useVarKeyword = true)
         {
             if (castTo != null && castTo != typeof(void))
             {
@@ -104,7 +104,7 @@ namespace Testura.Code.Generate
         /// <param name="type">Type of the variable</param>
         /// <param name="arguments">Árguments in the class constructor</param>
         /// <returns>The generated assign decleration statement</returns>
-        public static ExpressionStatementSyntax AssignVariable(string name, Type type, ArgumentListSyntax arguments)
+        public static ExpressionStatementSyntax Assign(string name, Type type, ArgumentListSyntax arguments)
         {
             var typeName = NameConverters.ConvertGenericTypeName(type);
             return ExpressionStatement(
@@ -121,7 +121,7 @@ namespace Testura.Code.Generate
         /// <param name="expressionSyntax">The expression syntax </param>
         /// <param name="castTo">If we should do a cast while assign the variable</param>
         /// <returns>The generated assign decleration syntax</returns>
-        public static ExpressionStatementSyntax AssignVariable(string name, ExpressionSyntax expressionSyntax, Type castTo = null)
+        public static ExpressionStatementSyntax Assign(string name, ExpressionSyntax expressionSyntax, Type castTo = null)
         {
             if (castTo != null && castTo != typeof(void))
             {

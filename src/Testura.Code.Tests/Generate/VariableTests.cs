@@ -13,51 +13,51 @@ namespace Testura.Code.Tests.Generate
     {
 
         [Test]
-        public void CreateLocalVariable_WhenCreatingVariableWithVar_ShouldUseVar()
+        public void CreateLocal_WhenCreatingVariableWithVar_ShouldUseVar()
         {
-            Assert.AreEqual("vartestVariable=1;", Variable.CreateLocalVariable("testVariable", 1).ToString());
+            Assert.AreEqual("vartestVariable=1;", Variable.CreateLocal("testVariable", 1).ToString());
         }
 
         [Test]
-        public void CreateLocalVariable_WhenCreatingVariableWithoutVar_ShouldUseType()
+        public void CreateLocal_WhenCreatingVariableWithoutVar_ShouldUseType()
         {
-            Assert.AreEqual("vartestVariable=1;", Variable.CreateLocalVariable("testVariable", 1).ToString());
+            Assert.AreEqual("vartestVariable=1;", Variable.CreateLocal("testVariable", 1).ToString());
         }
 
         [Test]
-        public void CreateLocalVariable_WhenCreatingStringVariable_ShouldAddQuotes()
+        public void CreateLocal_WhenCreatingStringVariable_ShouldAddQuotes()
         {
-            Assert.AreEqual("vartestVariable=\"hello\";", Variable.CreateLocalVariable("testVariable", "hello").ToString());
+            Assert.AreEqual("vartestVariable=\"hello\";", Variable.CreateLocal("testVariable", "hello").ToString());
         }
 
         [Test]
-        public void CreateLocalVariable_WhenCreateTypeAndAssignToVariableReference_ShouldAssignToVarible()
+        public void CreateLocal_WhenCreateTypeAndAssignToVariableReference_ShouldAssignToVarible()
         {
-            Assert.AreEqual("vartest=myVariable;", Variable.CreateLocalVariable("test", typeof(int), new VariableReference("myVariable", typeof(int))).ToString());
+            Assert.AreEqual("vartest=myVariable;", Variable.CreateLocal("test", typeof(int), new VariableReference("myVariable", typeof(int))).ToString());
         }
 
         [Test]
-        public void CreateLocalVariable_WhenCreateTypeAndAssignToVariableContant_ShouldAssignToVarible()
+        public void CreateLocal_WhenCreateTypeAndAssignToVariableContant_ShouldAssignToVarible()
         {
-            Assert.AreEqual("vartest=1;", Variable.CreateLocalVariable("test", typeof(int), new ConstantReference(1)).ToString());
+            Assert.AreEqual("vartest=1;", Variable.CreateLocal("test", typeof(int), new ConstantReference(1)).ToString());
         }
 
         [Test]
-        public void CreateLocalVariable_WhenCreateTypeAndAssignToVariableMember_ShouldAssignToVarible()
+        public void CreateLocal_WhenCreateTypeAndAssignToVariableMember_ShouldAssignToVarible()
         {
-            Assert.AreEqual("vartest=var.member;", Variable.CreateLocalVariable("test", typeof(int), new VariableReference("var", typeof(int), new MemberReference("member", typeof(int), typeof(int), MemberReferenceTypes.Field))).ToString());
+            Assert.AreEqual("vartest=var.member;", Variable.CreateLocal("test", typeof(int), new VariableReference("var", typeof(int), new MemberReference("member", typeof(int), typeof(int), MemberReferenceTypes.Field))).ToString());
         }
 
         [Test]
-        public void CreateLocalVariable_WhenCreateTypeAndAssignToClassInstance_ShouldAssignToClassInstance()
+        public void CreateLocal_WhenCreateTypeAndAssignToClassInstance_ShouldAssignToClassInstance()
         {
-            Assert.AreEqual("vartest=newString();", Variable.CreateLocalVariable("test", typeof(String), Argument.Create(new List<IArgument>())).ToString());
+            Assert.AreEqual("vartest=newString();", Variable.CreateLocal("test", typeof(String), Argument.Create(new List<IArgument>())).ToString());
         }
 
         [Test]
-        public void AssignVariable_WhenAssignVariableToClassInstance_ShouldAssignVariable()
+        public void Assign_WhenAssignVariableToClassInstance_ShouldAssignVariable()
         {
-            Assert.AreEqual("test=newString();", Variable.AssignVariable("test", typeof(String), Argument.Create(new List<IArgument>())).ToString());
+            Assert.AreEqual("test=newString();", Variable.Assign("test", typeof(String), Argument.Create(new List<IArgument>())).ToString());
         }
     }
 }

@@ -1,9 +1,17 @@
 ﻿using System;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+
 
 namespace Testura.Code.Generate
 {
+    public enum PropertyTypes
+    {
+        Get,
+        GetAndSet
+    }
+
     public static class Property
     {
 
@@ -13,18 +21,21 @@ namespace Testura.Code.Generate
         /// <param name="name">Name of property</param>
         /// <param name="type">Type of property</param>
         /// <returns>A property declaration</returns>
-        public static PropertyDeclarationSyntax Create(string name, Type type)
+        public static PropertyDeclarationSyntax Create(string name, Type type, PropertyTypes propertyType)
         {
-            return SyntaxFactory.PropertyDeclaration(SyntaxFactory.ParseTypeName(type.Name), SyntaxFactory.Identifier(name)).
-                AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword)).
-                //Get
-                AddAccessorListAccessors(SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration).
-                    WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)))
-                .
-                //Set
-                AddAccessorListAccessors(SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration).
-                    WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken))
+            var property = PropertyDeclaration(
+                ParseTypeName(type.Name), Identifier(name)).
+                AddModifiers(Token(SyntaxKind.PublicKeyword))
+                .AddAccessorListAccessors(AccessorDeclaration(SyntaxKind.GetAccessorDeclaration).
+                    WithSemicolonToken(Token(SyntaxKind.SemicolonToken)));
+            if (propertyType == PropertyTypes.GetAndSet)
+            {
+               property = property.AddAccessorListAccessors(AccessorDeclaration(SyntaxKind.SetAccessorDeclaration).
+                    WithSemicolonToken(Token(SyntaxKind.SemicolonToken))
                 );
+            }
+
+            return property;
         }
 
         /// <summary>
@@ -35,8 +46,8 @@ namespace Testura.Code.Generate
         /// <returns></returns>
         public static MemberAccessExpressionSyntax GetValue(string variableName, string propertyName)
         {
-            return SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName(variableName),
-                SyntaxFactory.IdentifierName(propertyName));
+            return MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, IdentifierName(variableName),
+                IdentifierName(propertyName));
         }
 
         /// <summary>
@@ -47,15 +58,19 @@ namespace Testura.Code.Generate
         /// <param name="value"></param>
         /// <param name="other"></param>
         /// <returns></returns>
-        public static ExpressionStatementSyntax SetValue(string variableName, string propertyName, object value,
-            ArgumentType other)
+        public static ExpressionStatementSyntax SetValue(string variableName, string propertyName, object value, ArgumentType other)
         {
+            if (other == ArgumentType.String && value is string)
+            {
+                value = $"\"{value}\"";
+            }
+
             return
-                SyntaxFactory.ExpressionStatement(SyntaxFactory.AssignmentExpression(SyntaxKind.SimpleAssignmentExpression,
-                    SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName(variableName),
-                        SyntaxFactory.IdentifierName(propertyName)).WithOperatorToken(SyntaxFactory.Token(
+                ExpressionStatement(AssignmentExpression(SyntaxKind.SimpleAssignmentExpression,
+                    MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, IdentifierName(variableName),
+                        IdentifierName(propertyName)).WithOperatorToken(Token(
                             SyntaxKind.DotToken)),
-                    SyntaxFactory.IdentifierName(
+                    IdentifierName(
                         value.ToString())));
         }
 
@@ -71,11 +86,11 @@ namespace Testura.Code.Generate
         {
             if (castTo != null && castTo != typeof(void))
             {
-                expressionSyntax = SyntaxFactory.CastExpression(SyntaxFactory.IdentifierName(castTo.Name), expressionSyntax);
+                expressionSyntax = CastExpression(IdentifierName(castTo.Name), expressionSyntax);
             }
-            return SyntaxFactory.ExpressionStatement(SyntaxFactory.AssignmentExpression(SyntaxKind.SimpleAssignmentExpression,
-                SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName(variableName),
-                    SyntaxFactory.IdentifierName(propertyName)), expressionSyntax));
+            return ExpressionStatement(AssignmentExpression(SyntaxKind.SimpleAssignmentExpression,
+                MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, IdentifierName(variableName),
+                    IdentifierName(propertyName)), expressionSyntax));
         }
     }
 }
