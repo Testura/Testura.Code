@@ -1,0 +1,23 @@
+﻿using System.Collections.Generic;
+using NUnit.Framework;
+using Testura.Code.Generate;
+using Assert = NUnit.Framework.Assert;
+
+namespace Testura.Code.Tests.Generate
+{
+    [TestFixture]
+    public class FieldTests
+    {
+        [Test]
+        public void Create_WhenCreatingField_ShouldGenerateCorrectCode()
+        {
+            Assert.AreEqual("privateInt32myField;", Field.Create("myField", typeof(int)).ToString());
+        }
+
+        [Test]
+        public void Create_WhenCreatingFieldWithGenericType_ShouldGenerateCorrectCode()
+        {
+            Assert.AreEqual("privateList<Int32>myField;", Field.Create("myField", typeof(List<int>)).ToString());
+        }
+    }
+}

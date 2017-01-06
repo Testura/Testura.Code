@@ -16,7 +16,10 @@ namespace Testura.Code.Generate
         {
             var typeName = type.Name;
             if (type.IsGenericType)
+            {
                 typeName = NameConverters.ConvertGenericTypeName(type);
+            }
+
             return SyntaxFactory.FieldDeclaration(SyntaxFactory.VariableDeclaration(SyntaxFactory.ParseTypeName(typeName),
                 SyntaxFactory.SeparatedList(new[] { SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(name)) }))).
                 AddModifiers(SyntaxFactory.Token(SyntaxKind.PrivateKeyword));

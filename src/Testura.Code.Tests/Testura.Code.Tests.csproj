@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Generate\ConditionalTests.cs" />
+    <Compile Include="Generate\FieldTests.cs" />
     <Compile Include="Generate\PropertyTests.cs" />
     <Compile Include="Generate\VariableTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
