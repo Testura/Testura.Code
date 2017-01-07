@@ -51,13 +51,13 @@ namespace Testura.Code.Tests.Generate
         [Test]
         public void CreateLocal_WhenCreateTypeAndAssignToClassInstance_ShouldAssignToClassInstance()
         {
-            Assert.AreEqual("vartest=newString();", Variable.CreateLocal("test", typeof(String), Argument.Create(new List<IArgument>())).ToString());
+            Assert.AreEqual("vartest=newString();", Variable.CreateLocal("test", typeof(String), Argument.Create()).ToString());
         }
 
         [Test]
         public void Assign_WhenAssignVariableToClassInstance_ShouldAssignVariable()
         {
-            Assert.AreEqual("test=newString();", Variable.Assign("test", typeof(String), Argument.Create(new List<IArgument>())).ToString());
+            Assert.AreEqual("test=newString();", Variable.Assign("test", typeof(String), Argument.Create()).ToString());
         }
     }
 }

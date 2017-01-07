@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Generate\ArgumentsTests.cs" />
     <Compile Include="Generate\ConditionalTests.cs" />
     <Compile Include="Generate\ControlTests.cs" />
     <Compile Include="Generate\FieldTests.cs" />

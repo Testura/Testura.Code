@@ -17,7 +17,7 @@ namespace Testura.Code.Generate
         /// </summary>
         /// <param name="arguments">Arguments</param>
         /// <returns>A argument list syntax</returns>
-        public static ArgumentListSyntax Create(IList<IArgument> arguments)
+        public static ArgumentListSyntax Create(params IArgument[] arguments)
         {
             var convertedArguments = ConvertArgumentsToSyntaxNodesOrTokens(arguments);
             return SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList<ArgumentSyntax>(convertedArguments.ToArray()));
@@ -28,7 +28,7 @@ namespace Testura.Code.Generate
         /// </summary>
         /// <param name="arguments"></param>
         /// <returns></returns>
-        public static List<SyntaxNodeOrToken> ConvertArgumentsToSyntaxNodesOrTokens(IList<IArgument> arguments)
+        public static List<SyntaxNodeOrToken> ConvertArgumentsToSyntaxNodesOrTokens(params IArgument[] arguments)
         {
             if (!arguments.Any())
                 return new List<SyntaxNodeOrToken>();

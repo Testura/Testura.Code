@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Generate.ArgumentTypes;
@@ -64,7 +65,7 @@ namespace Testura.Code.Generate
                  expressionSyntax = InvocationExpression(
                         MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, expressionSyntax,
                             IdentifierName(current.Name))).WithArgumentList(
-                        Argument.Create(arguments));
+                        Argument.Create(arguments.ToArray()));
             }
             return Generate(expressionSyntax, current.Member);
         }

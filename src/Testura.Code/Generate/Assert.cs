@@ -62,33 +62,30 @@ namespace Testura.Code.Generate
         /// <returns></returns>
         public static ExpressionStatementSyntax Contains(IArgument expectedContain, IArgument actual, string message)
         {
-            return Method.Invoke("Assert", "IsTrue", Argument.Create(new List<IArgument>
-            {
-                new InvocationArgument(Method.Invoke(actual.GetArgumentSyntax().ToString(), "Contains", Argument.Create(new List<IArgument> { expectedContain })).AsInvocationStatment()),
+            return Method.Invoke("Assert", "IsTrue", Argument.Create(
+                new InvocationArgument(Method.Invoke(actual.GetArgumentSyntax().ToString(), "Contains", Argument.Create(expectedContain)).AsInvocationStatment()),
                 new ValueArgument(message, ArgumentType.String)
-            })).AsExpressionStatement();
+                )).AsExpressionStatement();
         }
 
         private static ExpressionStatementSyntax Are(AssertType assertType, IArgument expected, IArgument actual, string message)
         {
             return
                 Method.Invoke("Assert", Enum.GetName(typeof(AssertType), assertType),
-                    Argument.Create(new List<IArgument>
-                    {
+                    Argument.Create(
                         expected,
                         actual,
                         new ValueArgument(message, ArgumentType.String)
-                    })).AsExpressionStatement();
+                        )).AsExpressionStatement();
         }
 
         private static ExpressionStatementSyntax Is(bool exected, IArgument actual, string message)
         {
-            return Method.Invoke("Assert", exected ? "IsTrue" : "IsFalse", Argument.Create(new List<IArgument>
-            {
+            return Method.Invoke("Assert", exected ? "IsTrue" : "IsFalse", Argument.Create(
                 new ValueArgument(exected),
                 actual,
                 new ValueArgument(message, ArgumentType.String)
-            })).AsExpressionStatement();
+                )).AsExpressionStatement();
         }
 
 
