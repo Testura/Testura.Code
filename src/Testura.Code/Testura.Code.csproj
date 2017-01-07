@@ -106,6 +106,7 @@
     <Compile Include="Builder\MethodBuilder.cs" />
     <Compile Include="Reference\ConstantReference.cs" />
     <Compile Include="Reference\MemberReference.cs" />
+    <Compile Include="Reference\MethodReference.cs" />
     <Compile Include="Reference\NullReference.cs" />
     <Compile Include="Reference\VariableReference.cs" />
     <Compile Include="Compilation\Compiler.cs" />

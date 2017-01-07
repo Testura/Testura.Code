@@ -22,8 +22,8 @@
 
     public enum MemberReferenceTypes
     {
-        Method,
         Property,
-        Field
+        Field,
+        Method
     }
 }

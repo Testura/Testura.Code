@@ -33,7 +33,7 @@ namespace Testura.Code.Builder.Factory
             }
             if(value is VariableReference)
             {
-                return SyntaxFactory.EqualsValueClause(References.GenerateReferenceChain((VariableReference)value));
+                return SyntaxFactory.EqualsValueClause(References.Create((VariableReference)value));
             }
             throw new NotSupportedException("Not a suppoerted value"); 
         }

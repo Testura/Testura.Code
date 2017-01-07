@@ -1,6 +1,9 @@
-﻿using Microsoft.CodeAnalysis.CSharp;
+﻿using System.Collections.Generic;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Testura.Code.Generate.ArgumentTypes;
 using Testura.Code.Reference;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Generate
 {
@@ -13,13 +16,15 @@ namespace Testura.Code.Generate
         /// </summary>
         /// <param name="reference"></param>
         /// <returns></returns>
-        public static ExpressionSyntax GenerateReferenceChain(VariableReference reference)
+        public static ExpressionSyntax Create(VariableReference reference)
         {
-            var i = SyntaxFactory.IdentifierName(reference.Name);
+            var baseExpression = IdentifierName(reference.Name);
             if (reference.Member == null)
-                return i;
-            var baseExpression = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName(reference.Name), SyntaxFactory.IdentifierName(reference.Member.Name));
-            return Generate(baseExpression, reference.Member.Member);
+            {
+                return baseExpression;
+            }
+
+            return Generate(baseExpression, reference.Member);
         }
 
         /// <summary>
@@ -29,7 +34,7 @@ namespace Testura.Code.Generate
         /// <param name="invocation"></param>
         /// <param name="reference"></param>
         /// <returns></returns>
-        public static ExpressionSyntax GenerateReferenceChain(ExpressionSyntax invocation, MemberReference reference)
+        public static ExpressionSyntax Create(ExpressionSyntax invocation, MemberReference reference)
         {
             return Generate(invocation, reference);
         }
@@ -46,11 +51,20 @@ namespace Testura.Code.Generate
                 return expressionSyntax;
             if (current.ReferenceType == MemberReferenceTypes.Field || current.ReferenceType == MemberReferenceTypes.Property)
             {
-                expressionSyntax = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, expressionSyntax, SyntaxFactory.IdentifierName(current.Name));
+                expressionSyntax = MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, expressionSyntax, IdentifierName(current.Name));
             }
             else if (current.ReferenceType == MemberReferenceTypes.Method)
             {
-                expressionSyntax = SyntaxFactory.InvocationExpression(SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, expressionSyntax, SyntaxFactory.IdentifierName(current.Name)));
+                IList<IArgument> arguments = new List<IArgument>();
+                if (current is MethodReference)
+                {
+                    arguments = ((MethodReference) current).Arguments;
+                }
+
+                 expressionSyntax = InvocationExpression(
+                        MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, expressionSyntax,
+                            IdentifierName(current.Name))).WithArgumentList(
+                        Argument.Create(arguments));
             }
             return Generate(expressionSyntax, current.Member);
         }

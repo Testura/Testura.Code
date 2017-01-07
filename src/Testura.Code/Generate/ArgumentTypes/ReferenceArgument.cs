@@ -15,7 +15,7 @@ namespace Testura.Code.Generate.ArgumentTypes
 
         public ArgumentSyntax GetArgumentSyntax()
         {
-            return SyntaxFactory.Argument(References.GenerateReferenceChain(reference));
+            return SyntaxFactory.Argument(References.Create(reference));
         }
     }
 }

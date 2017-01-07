@@ -38,11 +38,11 @@ namespace Testura.Code.Generate
                    PredefinedType(Token(SyntaxKind.IntKeyword)), SeparatedList(new[]
                    {
                         VariableDeclarator(Identifier(variableName), null,
-                            EqualsValueClause(References.GenerateReferenceChain(start)))
+                            EqualsValueClause(References.Create(start)))
                    })), SeparatedList<ExpressionSyntax>(), BinaryExpression(
                        SyntaxKind.LessThanExpression,
                        IdentifierName(variableName),
-                       References.GenerateReferenceChain(end)),
+                       References.Create(end)),
                SeparatedList<ExpressionSyntax>(new[]
                {PostfixUnaryExpression(SyntaxKind.PostIncrementExpression, IdentifierName(variableName))}), body);
         }
