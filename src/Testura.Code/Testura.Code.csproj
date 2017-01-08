@@ -79,37 +79,32 @@
   <ItemGroup>
     <Compile Include="Builder\ClassBuilder.cs" />
     <Compile Include="Builder\Factory\EqualsValueClauseFactory.cs" />
-    <Compile Include="Generate\Argument.cs" />
-    <Compile Include="Generate\ArgumentTypes\ArrayInitializationArgument.cs" />
-    <Compile Include="Generate\ArgumentTypes\ClassInitialiationArgument.cs" />
-    <Compile Include="Generate\ArgumentTypes\DictionaryInitializationArgument.cs" />
-    <Compile Include="Generate\ArgumentTypes\IArgument.cs" />
-    <Compile Include="Generate\ArgumentTypes\InvocationArgument.cs" />
-    <Compile Include="Generate\ArgumentTypes\ReferenceArgument.cs" />
-    <Compile Include="Generate\ArgumentTypes\TypeOfArgument.cs" />
-    <Compile Include="Generate\ArgumentTypes\ValueArgument.cs" />
-    <Compile Include="Generate\Assert.cs" />
-    <Compile Include="Generate\Attributes.cs" />
-    <Compile Include="Generate\Body.cs" />
-    <Compile Include="Generate\Class.cs" />
-    <Compile Include="Generate\Conditional.cs" />
-    <Compile Include="Generate\Control.cs" />
-    <Compile Include="Generate\Field.cs" />
-    <Compile Include="Generate\Generic.cs" />
-    <Compile Include="Generate\Method.cs" />
-    <Compile Include="Generate\Modifiers.cs" />
-    <Compile Include="Generate\NameConverters.cs" />
-    <Compile Include="Generate\Parameter.cs" />
-    <Compile Include="Generate\Property.cs" />
-    <Compile Include="Generate\References.cs" />
-    <Compile Include="Generate\Return.cs" />
-    <Compile Include="Generate\Variable.cs" />
+    <Compile Include="Helper\Arguments\Argument.cs" />
+    <Compile Include="Helper\Arguments\ArgumentTypes\ArrayInitializationArgument.cs" />
+    <Compile Include="Helper\Arguments\ArgumentTypes\ClassInitialiationArgument.cs" />
+    <Compile Include="Helper\Arguments\ArgumentTypes\DictionaryInitializationArgument.cs" />
+    <Compile Include="Helper\Arguments\ArgumentTypes\IArgument.cs" />
+    <Compile Include="Helper\Arguments\ArgumentTypes\InvocationArgument.cs" />
+    <Compile Include="Helper\Arguments\ArgumentTypes\ReferenceArgument.cs" />
+    <Compile Include="Helper\Arguments\ArgumentTypes\TypeOfArgument.cs" />
+    <Compile Include="Helper\Arguments\ArgumentTypes\ValueArgument.cs" />
+    <Compile Include="Helper\Assert.cs" />
+    <Compile Include="Helper\Attributes.cs" />
+    <Compile Include="Helper\Body.cs" />
+    <Compile Include="Helper\Class.cs" />
+    <Compile Include="Helper\Field.cs" />
+    <Compile Include="Helper\Generic.cs" />
+    <Compile Include="Helper\Modifiers.cs" />
+    <Compile Include="Helper\NameConverters.cs" />
+    <Compile Include="Helper\Parameter.cs" />
+    <Compile Include="Helper\Property.cs" />
+    <Compile Include="Helper\References\Reference.cs" />
     <Compile Include="Builder\MethodBuilder.cs" />
-    <Compile Include="Reference\ConstantReference.cs" />
-    <Compile Include="Reference\MemberReference.cs" />
-    <Compile Include="Reference\MethodReference.cs" />
-    <Compile Include="Reference\NullReference.cs" />
-    <Compile Include="Reference\VariableReference.cs" />
+    <Compile Include="Helper\References\ConstantReference.cs" />
+    <Compile Include="Helper\References\MemberReference.cs" />
+    <Compile Include="Helper\References\MethodReference.cs" />
+    <Compile Include="Helper\References\NullReference.cs" />
+    <Compile Include="Helper\References\VariableReference.cs" />
     <Compile Include="Compilation\Compiler.cs" />
     <Compile Include="Compilation\CompileResult.cs" />
     <Compile Include="Compilation\ICompiler.cs" />
@@ -118,6 +113,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Saver\CodeSaver.cs" />
     <Compile Include="Saver\ICodeSaver.cs" />
+    <Compile Include="Statements\ExpressionStatement.cs" />
+    <Compile Include="Statements\SelectionStatement.cs" />
+    <Compile Include="Statements\IterationStatement.cs" />
+    <Compile Include="Statements\JumpStatement.cs" />
+    <Compile Include="Statements\Statement.cs" />
+    <Compile Include="Statements\DeclerationStatement.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -128,6 +129,9 @@
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\Newtonsoft.Json.dll" />
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Reference\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

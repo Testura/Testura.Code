@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Testura.Code.Generate;
+using Testura.Code.Helper;
 using Assert = NUnit.Framework.Assert;
 
 namespace Testura.Code.Tests.Generate

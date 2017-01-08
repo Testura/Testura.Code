@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.CodeAnalysis;
-using NUnit.Framework.Internal;
-using NUnit.Framework;
-using Testura.Code.Generate;
-using Testura.Code.Generate.ArgumentTypes;
+﻿using NUnit.Framework;
+using Testura.Code.Helper.Arguments;
+using Testura.Code.Helper.Arguments.ArgumentTypes;
 using Assert = NUnit.Framework.Assert;
 
 namespace Testura.Code.Tests.Generate

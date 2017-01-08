@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using NUnit.Framework.Internal;
 using NUnit.Framework;
 using Testura.Code.Builder;
-using Testura.Code.Generate;
-using Testura.Code.Generate.ArgumentTypes;
-using Testura.Code.Reference;
+using Testura.Code.Helper;
+using Testura.Code.Helper.Arguments;
+using Testura.Code.Helper.Arguments.ArgumentTypes;
+using Testura.Code.Helper.References;
+using Testura.Code.Statements;
 
 namespace Testura.Code.Tests.Integration
 {
@@ -26,10 +22,10 @@ namespace Testura.Code.Tests.Integration
                 .WithUsings("System")
                 .WithMethods(new MethodBuilder("Main")
                     .WithParameters(Parameters.Create(new Parameter("args", typeof(string[]))))
-                    .WithModifiers(Code.Generate.Modifiers.Create(Modifiers.Public, Modifiers.Static))
+                    .WithModifiers(Helper.Modifiers.Create(Modifiers.Public, Modifiers.Static))
                     .WithBody(Body.Create(
-                        SyntaxFactory.ExpressionStatement(References.Create(new VariableReference("Console", new MethodReference("WriteLine", new List<IArgument>() { new ValueArgument("Hello world", ArgumentType.String) })))),
-                        Method.Invoke("Console", "ReadLine", Argument.Create()).AsExpressionStatement()
+                        Statement.Expression.Invoke(new VariableReference("Console", new MethodReference("WriteLine", new List<IArgument>() { new ValueArgument("Hello world", ArgumentType.String) }))).AsExpressionStatement(),
+                        Statement.Expression.Invoke("Console", "ReadLine", Argument.Create()).AsExpressionStatement()
                         ))
                     .Build())
                 .Build();

@@ -9,7 +9,7 @@
         Contains
     }
 
-    public enum ConditionalStatement
+    public enum ConditionalStatements
     {
         Equal,
         NotEqual,
