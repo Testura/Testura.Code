@@ -14,20 +14,20 @@ namespace Testura.Code.Generate
         /// </summary>
         /// <param name="statements"></param>
         /// <returns></returns>
-        public static BlockSyntax Create(IEnumerable<StatementSyntax> statements)
+        public static BlockSyntax Create(params StatementSyntax[] statements)
         {
             return SyntaxFactory.Block(SyntaxFactory.List<StatementSyntax>(statements));
         }
 
-        /// <summary>
-        /// Create a method body with a single statement line
-        /// </summary>
-        /// <param name="statement"></param>
-        /// <returns></returns>
-        public static BlockSyntax Create(StatementSyntax statement)
-        {
-            return SyntaxFactory.Block(SyntaxFactory.SingletonList<StatementSyntax>(statement));
-        }
+        ///// <summary>
+        ///// Create a method body with a single statement line
+        ///// </summary>
+        ///// <param name="statement"></param>
+        ///// <returns></returns>
+        //public static BlockSyntax Create(StatementSyntax statement)
+        //{
+        //    return SyntaxFactory.Block(SyntaxFactory.SingletonList<StatementSyntax>(statement));
+        //}
 
     }
 }

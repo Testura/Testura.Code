@@ -16,7 +16,7 @@ namespace Testura.Code.Generate
         /// </summary>
         /// <param name="parameters">A list of parameters</param>
         /// <returns>A parameter list syntax</returns>
-        public static ParameterListSyntax Create(List<Parameter> parameters)
+        public static ParameterListSyntax Create(params Parameter[] parameters)
         {
             var list = new List<SyntaxNodeOrToken>();
             foreach (Parameter parameter in parameters)

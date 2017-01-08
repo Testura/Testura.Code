@@ -50,7 +50,7 @@ namespace Testura.Code.Builder
         /// </summary>
         /// <param name="usings"></param>
         /// <returns></returns>
-        public ClassBuilder WithUsings(IEnumerable<string> usings)
+        public ClassBuilder WithUsings(params string[] usings)
         {
             this.usings = new SyntaxList<UsingDirectiveSyntax>();
             foreach (var @using in usings)
@@ -67,7 +67,7 @@ namespace Testura.Code.Builder
         /// </summary>
         /// <param name="methods"></param>
         /// <returns></returns>
-        public ClassBuilder WithMethods(IList<MethodDeclarationSyntax> methods)
+        public ClassBuilder WithMethods(params MethodDeclarationSyntax[] methods)
         {
             this.methods.Clear();
             this.methods.AddRange(methods);

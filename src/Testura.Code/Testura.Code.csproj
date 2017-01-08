@@ -97,6 +97,7 @@
     <Compile Include="Generate\Field.cs" />
     <Compile Include="Generate\Generic.cs" />
     <Compile Include="Generate\Method.cs" />
+    <Compile Include="Generate\Modifiers.cs" />
     <Compile Include="Generate\NameConverters.cs" />
     <Compile Include="Generate\Parameter.cs" />
     <Compile Include="Generate\Property.cs" />

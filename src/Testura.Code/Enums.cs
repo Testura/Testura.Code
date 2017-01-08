@@ -26,4 +26,13 @@
         Field,
         Method
     }
+
+    public enum Modifiers
+    {
+        Public,
+        Private,
+        Static,
+        Abstract,
+        Virtual
+    }
 }

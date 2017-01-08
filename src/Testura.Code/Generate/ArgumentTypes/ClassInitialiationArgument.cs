@@ -23,7 +23,7 @@ namespace Testura.Code.Generate.ArgumentTypes
         {
             if (genericTypes != null && genericTypes.Any())
             {
-                return SyntaxFactory.Argument(SyntaxFactory.ObjectCreationExpression(Generic.Create(type.Name, genericTypes)).WithArgumentList(Argument.Create(arguments.ToArray())));
+                return SyntaxFactory.Argument(SyntaxFactory.ObjectCreationExpression(Generic.Create(type.Name, genericTypes.ToArray())).WithArgumentList(Argument.Create(arguments.ToArray())));
             }
             return SyntaxFactory.Argument(SyntaxFactory.ObjectCreationExpression(SyntaxFactory.IdentifierName(type.Name)).WithArgumentList(Argument.Create(arguments.ToArray())));
         }

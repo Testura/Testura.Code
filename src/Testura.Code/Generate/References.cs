@@ -37,7 +37,7 @@ namespace Testura.Code.Generate
         /// <returns></returns>
         public static ExpressionSyntax Create(ExpressionSyntax invocation, MemberReference reference)
         {
-            return Generate(invocation, reference);
+           return Generate(invocation, reference);
         }
 
         /// <summary>

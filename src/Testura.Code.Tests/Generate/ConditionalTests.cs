@@ -14,42 +14,42 @@ namespace Testura.Code.Tests.Generate
         public void If_WhenCreatingAnIfWithEqual_ShouldGenerateCorrectIfStatement()
         {
             Assert.AreEqual("if(2==3){}",
-                Conditional.If(new ValueArgument(2), new ValueArgument(3), ConditionalStatement.Equal, Body.Create(new List<StatementSyntax>())).ToString());
+                Conditional.If(new ValueArgument(2), new ValueArgument(3), ConditionalStatement.Equal, Body.Create()).ToString());
         }
 
         [Test]
         public void If_WhenCreatingAnIfWithNotEqual_ShouldGenerateCorrectIfStatement()
         {
             Assert.AreEqual("if(2!=3){}",
-                Conditional.If(new ValueArgument(2), new ValueArgument(3), ConditionalStatement.NotEqual, Body.Create(new List<StatementSyntax>())).ToString());
+                Conditional.If(new ValueArgument(2), new ValueArgument(3), ConditionalStatement.NotEqual, Body.Create()).ToString());
         }
 
         [Test]
         public void If_WhenCreatingAnIfWithGreaterThan_ShouldGenerateCorrectIfStatement()
         {
             Assert.AreEqual("if(2>3){}",
-                Conditional.If(new ValueArgument(2), new ValueArgument(3), ConditionalStatement.GreaterThan, Body.Create(new List<StatementSyntax>())).ToString());
+                Conditional.If(new ValueArgument(2), new ValueArgument(3), ConditionalStatement.GreaterThan, Body.Create()).ToString());
         }
 
         [Test]
         public void If_WhenCreatingAnIfWithGreaterThanOrEqual_ShouldGenerateCorrectIfStatement()
         {
             Assert.AreEqual("if(2>=3){}",
-                Conditional.If(new ValueArgument(2), new ValueArgument(3), ConditionalStatement.GreaterThanOrEqual, Body.Create(new List<StatementSyntax>())).ToString());
+                Conditional.If(new ValueArgument(2), new ValueArgument(3), ConditionalStatement.GreaterThanOrEqual, Body.Create()).ToString());
         }
 
         [Test]
         public void If_WhenCreatingAnIfWithLessThan_ShouldGenerateCorrectIfStatement()
         {
             Assert.AreEqual("if(2<3){}",
-                Conditional.If(new ValueArgument(2), new ValueArgument(3), ConditionalStatement.LessThan, Body.Create(new List<StatementSyntax>())).ToString());
+                Conditional.If(new ValueArgument(2), new ValueArgument(3), ConditionalStatement.LessThan, Body.Create()).ToString());
         }
 
         [Test]
         public void If_WhenCreatingAnIfWithLessThanOrEqual_ShouldGenerateCorrectIfStatement()
         {
             Assert.AreEqual("if(2<=3){}",
-                Conditional.If(new ValueArgument(2), new ValueArgument(3), ConditionalStatement.LessThanOrEqual, Body.Create(new List<StatementSyntax>())).ToString());
+                Conditional.If(new ValueArgument(2), new ValueArgument(3), ConditionalStatement.LessThanOrEqual, Body.Create()).ToString());
         }
     }
 }

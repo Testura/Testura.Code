@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -17,6 +18,7 @@ namespace Testura.Code.Builder
         private ParameterListSyntax parameters;
         private BlockSyntax body;
         private string comment;
+        private SyntaxTokenList modifiers;
 
         public MethodBuilder(string name)
         {
@@ -80,12 +82,22 @@ namespace Testura.Code.Builder
         }
 
         /// <summary>
+        /// Set the method to starts 
+        /// </summary>
+        public MethodBuilder WithModifiers(SyntaxTokenList modifiers)
+        {
+            this.modifiers = modifiers;
+            return this;
+        }
+
+        /// <summary>
         /// Build the final method declaration syntax 
         /// </summary>
         /// <returns></returns>
         public MethodDeclarationSyntax Build()
         {
             var method = BuildMethodBase();
+            method = BuildModifiers(method);
             method = BuildAttributes(method);
             method = BuildXmlComments(method);
             method = BuildParameters(method);
@@ -97,11 +109,27 @@ namespace Testura.Code.Builder
         {
             if (returnType != null)
             {
-                return SyntaxFactory.MethodDeclaration(SyntaxFactory.IdentifierName(returnType.Name), SyntaxFactory.Identifier(name)).WithModifiers(SyntaxFactory.TokenList(SyntaxFactory.Token(SyntaxKind.PublicKeyword)));
+                return SyntaxFactory.MethodDeclaration(SyntaxFactory.IdentifierName(returnType.Name),
+                        SyntaxFactory.Identifier(name));
+            }
+            else
+            {
+                return SyntaxFactory.MethodDeclaration(
+                        SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.VoidKeyword)),
+                        SyntaxFactory.Identifier(name));
+            }
+        }
+
+        private MethodDeclarationSyntax BuildModifiers(MethodDeclarationSyntax method)
+        {
+            if (modifiers != null || !modifiers.Any())
+            {
+                return method;
             }
 
-            return SyntaxFactory.MethodDeclaration(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.VoidKeyword)), SyntaxFactory.Identifier(name)).WithModifiers(SyntaxFactory.TokenList(SyntaxFactory.Token(SyntaxKind.PublicKeyword)));
+            return method.WithModifiers(modifiers);
         }
+
 
         private MethodDeclarationSyntax BuildXmlComments(MethodDeclarationSyntax method)
         {

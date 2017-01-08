@@ -73,6 +73,7 @@
     <Compile Include="Generate\ReferenceTests.cs" />
     <Compile Include="Generate\ReturnTests.cs" />
     <Compile Include="Generate\VariableTests.cs" />
+    <Compile Include="Integration\HelloWorldTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
