@@ -17,10 +17,10 @@ namespace Testura.Code.Generate
         /// </summary>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        public static SyntaxList<AttributeListSyntax> Create(List<Attribute> attributes)
+        public static SyntaxList<AttributeListSyntax> Create(params Attribute[] attributes)
         {
-            var attributesSyntax = new AttributeListSyntax[attributes.Count];
-            for(int n = 0; n < attributes.Count; n++)
+            var attributesSyntax = new AttributeListSyntax[attributes.Length];
+            for(int n = 0; n < attributes.Length; n++)
             {
                 var attribute = attributes[n];
                 var attributeSyntax = SyntaxFactory.Attribute(SyntaxFactory.IdentifierName(attribute.Name));
@@ -69,6 +69,12 @@ namespace Testura.Code.Generate
         /// Gets or sets the argument to the attribute
         /// </summary>
         public List<IArgument> Arguments { get; set; }
+
+        public Attribute(string name)
+        {
+            Name = name;
+            Arguments = new List<IArgument>();
+        }
 
         public Attribute(string name, List<IArgument> arguments)
         {

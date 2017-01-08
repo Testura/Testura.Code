@@ -19,7 +19,7 @@ namespace Testura.Code.Generate
         /// <param name="arguments">Arguments in the method</param>
         /// <param name="genericTypes">Optional list of types if the method is generic</param>
         /// <returns>A statement syntax</returns>
-        public static Invocation Invoke(string variableName, string methodName, ArgumentListSyntax arguments, IList<Type> genericTypes = null)
+        public static Invocation Invoke(string variableName, string methodName, ArgumentListSyntax arguments, params Type[] genericTypes)
         {
             InvocationExpressionSyntax invocationExpressionSyntax;
             if (genericTypes != null && genericTypes.Any())
@@ -50,7 +50,7 @@ namespace Testura.Code.Generate
         /// <param name="arguments">Arguments in the method</param>
         /// <param name="genericTypes">Optional list of types if the method is generic</param>
         /// <returns>A statement syntax</returns>
-        public static Invocation Invoke(Invocation methodInvocation, string methodName, ArgumentListSyntax arguments, IList<Type> genericTypes = null)
+        public static Invocation Invoke(Invocation methodInvocation, string methodName, ArgumentListSyntax arguments, params Type[] genericTypes)
         {
             InvocationExpressionSyntax invocationExpressionSyntax;
             if (genericTypes != null && genericTypes.Any())
@@ -92,6 +92,5 @@ namespace Testura.Code.Generate
         {
             return invocation;
         }
-
     }
 }

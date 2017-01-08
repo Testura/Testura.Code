@@ -15,7 +15,7 @@ namespace Testura.Code.Generate
         /// <param name="name"></param>
         /// <param name="genericTypes"></param>
         /// <returns></returns>
-        public static GenericNameSyntax Create(string name, IList<Type> genericTypes)
+        public static GenericNameSyntax Create(string name, params Type[] genericTypes)
         {
             if (name.Contains("`"))
                 name = name.Split('`').First();
