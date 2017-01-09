@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
-using Testura.Code.Helper;
-using Testura.Code.Helper.Arguments.ArgumentTypes;
+using Testura.Code.Helpers;
+using Testura.Code.Helpers.Arguments.ArgumentTypes;
 using Testura.Code.Statements;
 using Assert = NUnit.Framework.Assert;
 

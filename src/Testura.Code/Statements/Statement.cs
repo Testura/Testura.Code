@@ -4,20 +4,20 @@
     {
         static Statement()
         {
-            Variable = new DeclerationStatement();
-            Return = new JumpStatement();
-            Conditional = new SelectionStatement();
-            Control = new IterationStatement();
+            Decleration = new DeclerationStatement();
+            Jump = new JumpStatement();
+            Selection = new SelectionStatement();
+            Iteratio = new IterationStatement();
             Expression = new ExpressionStatement();
         }
 
-        public static DeclerationStatement Variable { get; private set; }
+        public static DeclerationStatement Decleration { get; private set; }
 
-        public static JumpStatement Return { get; private set; }
+        public static JumpStatement Jump { get; private set; }
 
-        public static SelectionStatement Conditional { get; private set; }
+        public static SelectionStatement Selection { get; private set; }
 
-        public static IterationStatement Control { get; private set; }
+        public static IterationStatement Iteratio { get; private set; }
 
         public static ExpressionStatement Expression { get; private set; }
     }

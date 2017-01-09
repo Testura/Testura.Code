@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Testura.Code.Builder.Factory;
-using Testura.Code.Helper;
-using Testura.Code.Helper.References;
+using Testura.Code.Factories;
+using Testura.Code.Helpers;
+using Testura.Code.Helpers.References;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Statements
@@ -83,7 +83,7 @@ namespace Testura.Code.Statements
         /// <param name="castTo">Cast the expression to this type</param>
         /// <param name="useVarKeyword">If we should create the variable with the var keyword</param>
         /// <returns>The generated local decleration statement</returns>
-        public LocalDeclarationStatementSyntax CreateLocal(string name, Type type, ExpressionSyntax expressionSyntax, Type castTo = null, bool useVarKeyword = true)
+        public LocalDeclarationStatementSyntax DeclareAndAssign(string name, Type type, ExpressionSyntax expressionSyntax, Type castTo = null, bool useVarKeyword = true)
         {
             if (castTo != null && castTo != typeof(void))
             {
@@ -121,6 +121,22 @@ namespace Testura.Code.Statements
         /// <returns>The generated assign decleration syntax</returns>
         public ExpressionStatementSyntax Assign(string name, ExpressionSyntax expressionSyntax, Type castTo = null)
         {
+            return Assign(new VariableReference(name), expressionSyntax, castTo);
+        }
+
+        public ExpressionStatementSyntax Assign(string name, VariableReference reference, Type castTo = null)
+        {
+            return Assign(name, Reference.Create(reference), castTo);
+        }
+
+        public ExpressionStatementSyntax Assign(VariableReference reference, VariableReference assignReference, Type castTo = null)
+        {
+            return Assign(reference, Reference.Create(assignReference), castTo);
+        }
+
+
+        public ExpressionStatementSyntax Assign(VariableReference reference, ExpressionSyntax expressionSyntax, Type castTo = null)
+        {
             if (castTo != null && castTo != typeof(void))
             {
                 expressionSyntax = CastExpression(IdentifierName(castTo.Name), expressionSyntax);
@@ -129,7 +145,7 @@ namespace Testura.Code.Statements
             return
                 ExpressionStatement(
                     AssignmentExpression(SyntaxKind.SimpleAssignmentExpression,
-                    IdentifierName(name),
+                    Reference.Create(reference),
                     expressionSyntax));
         }
     }

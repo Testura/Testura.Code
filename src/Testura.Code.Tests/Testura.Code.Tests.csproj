@@ -65,6 +65,8 @@
   <ItemGroup>
     <Compile Include="Helper\Arguments\ArgumentsTests.cs" />
     <Compile Include="Helper\AttributesTests.cs" />
+    <Compile Include="Integration\ModelClassTests.cs" />
+    <Compile Include="Statements\ExpressionStatementTests.cs" />
     <Compile Include="Statements\SelectionStatementTests.cs" />
     <Compile Include="Statements\IterationStatementTests.cs" />
     <Compile Include="Helper\FieldTests.cs" />

@@ -1,6 +1,6 @@
-﻿using NUnit.Framework;
-using Testura.Code.Helper;
-using Testura.Code.Helper.Arguments;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
+using Testura.Code.Helpers;
 using Assert = NUnit.Framework.Assert;
 
 namespace Testura.Code.Tests.Helper
@@ -11,32 +11,25 @@ namespace Testura.Code.Tests.Helper
         [Test]
         public void Create_WhenCreatingPropertyWithOnlyGet_ShouldHaveNoSet()
         {
-            Assert.AreEqual("publicInt32MyProperty{get;}", Property.Create("MyProperty", typeof(int), PropertyTypes.Get).ToString());   
+            Assert.AreEqual("Int32MyProperty{get;}", Property.Create("MyProperty", typeof(int), PropertyTypes.Get).ToString());   
         }
 
         [Test]
         public void Create_WhenCreatingPropertyWithOnlyGetAndSet_ShouldHaveBothGetAndSet()
         {
-            Assert.AreEqual("publicInt32MyProperty{get;set;}", Property.Create("MyProperty", typeof(int), PropertyTypes.GetAndSet).ToString());
+            Assert.AreEqual("Int32MyProperty{get;set;}", Property.Create("MyProperty", typeof(int), PropertyTypes.GetAndSet).ToString());
         }
 
         [Test]
-        public void SetValue_WhenSettingValue_ShouldAssignValueToProperty()
+        public void Create_WhenCreatingPropertyWithAttribute_ShouldHaveAttribute()
         {
-            Assert.AreEqual("myClass.MyProperty=1;", Property.SetValue("myClass", "MyProperty", 1, ArgumentType.Other).ToString());
+            Assert.AreEqual("[Test]Int32MyProperty{get;set;}", Property.Create("MyProperty", typeof(int), PropertyTypes.GetAndSet, new List<Modifiers>(), new List<Attribute> { new Attribute("Test")}).ToString());
         }
 
         [Test]
-        public void SetValue_WhenSettingValueToAString_ShouldAssignValueToPropertyAndAddQuotes()
+        public void Create_WhenCreatingPropertyWithModifer_ShouldHaveModifier()
         {
-            Assert.AreEqual("myClass.MyProperty=\"test\";", Property.SetValue("myClass", "MyProperty", "test", ArgumentType.String).ToString());
+            Assert.AreEqual("publicstaticInt32MyProperty{get;set;}", Property.Create("MyProperty", typeof(int), PropertyTypes.GetAndSet, new List<Modifiers>() { Modifiers.Public, Modifiers.Static }).ToString());
         }
-
-        [Test]
-        public void GetValue_WhenGettingValueFromProperty_ShouldGetValue()
-        {
-            Assert.AreEqual("myClass.MyProperty", Property.GetValue("myClass", "MyProperty").ToString());
-        }
-
     }
 }

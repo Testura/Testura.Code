@@ -19,14 +19,6 @@
         LessThanOrEqual
     }
 
-
-    public enum MemberReferenceTypes
-    {
-        Property,
-        Field,
-        Method
-    }
-
     public enum Modifiers
     {
         Public,

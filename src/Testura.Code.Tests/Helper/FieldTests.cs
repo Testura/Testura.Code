@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
-using Testura.Code.Helper;
+using Testura.Code.Helpers;
 using Assert = NUnit.Framework.Assert;
 
 namespace Testura.Code.Tests.Helper

@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
-using Testura.Code.Helper.Arguments;
-using Testura.Code.Helper.References;
+using Testura.Code.Helpers.Arguments;
+using Testura.Code.Helpers.References;
 using Testura.Code.Statements;
 using Assert = NUnit.Framework.Assert;
 
@@ -52,7 +52,7 @@ namespace Testura.Code.Tests.Statements
         [Test]
         public void CreateLocal_WhenCreateTypeAndAssignToVariableMember_ShouldAssignToVarible()
         {
-            Assert.AreEqual("vartest=var.member;", statement.DeclareAndAssign("test", typeof(int), new VariableReference("var", new MemberReference("member", MemberReferenceTypes.Field))).ToString());
+            Assert.AreEqual("vartest=var.member;", statement.DeclareAndAssign("test", typeof(int), new VariableReference("var", new MemberReference("member"))).ToString());
         }
 
         [Test]

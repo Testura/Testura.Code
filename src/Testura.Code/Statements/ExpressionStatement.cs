@@ -2,8 +2,8 @@
 using System.Linq;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Testura.Code.Helper;
-using Testura.Code.Helper.References;
+using Testura.Code.Helpers;
+using Testura.Code.Helpers.References;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Statements
@@ -13,7 +13,7 @@ namespace Testura.Code.Statements
         /// <summary>
         /// Create code to invoke a method on class
         /// </summary>
-        /// <param name="variableName">Variable to invoke</param>
+        /// <param name="variableName">Decleration to invoke</param>
         /// <param name="methodName">The method we want to call</param>
         /// <param name="arguments">Arguments in the method</param>
         /// <param name="genericTypes">Optional list of types if the method is generic</param>
@@ -44,7 +44,7 @@ namespace Testura.Code.Statements
         /// <summary>
         /// Create code to invoke a method on class
         /// </summary>
-        /// <param name="methodInvocation">Variable to invoke</param>
+        /// <param name="methodInvocation">Decleration to invoke</param>
         /// <param name="methodName">The method we want to call</param>
         /// <param name="arguments">Arguments in the method</param>
         /// <param name="genericTypes">Optional list of types if the method is generic</param>
@@ -75,7 +75,7 @@ namespace Testura.Code.Statements
         public Invocation Invoke(VariableReference reference)
         {
             VariableReference child = reference.Member;
-            while (child.Member != null)
+            while (child?.Member != null)
             {
                 child = child.Member;
             }

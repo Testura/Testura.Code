@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
-using Testura.Code.Helper;
-using Testura.Code.Helper.References;
+using Testura.Code.Helpers;
+using Testura.Code.Helpers.References;
 using Testura.Code.Statements;
 using Assert = NUnit.Framework.Assert;
 
@@ -28,7 +28,7 @@ namespace Testura.Code.Tests.Statements
         public void For_WhenCreatingForLoopWithVariableReferences_ShouldGenerateCorrectCode()
         {
             Assert.AreEqual("for(inti=0;i<myClass.MyProperty;i++){}",
-                control.For(new ConstantReference(0), new VariableReference("myClass", new MemberReference("MyProperty", MemberReferenceTypes.Property)), "i", Body.Create()).ToString());
+                control.For(new ConstantReference(0), new VariableReference("myClass", new MemberReference("MyProperty")), "i", Body.Create()).ToString());
         }
     }
 }

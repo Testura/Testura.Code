@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
-using Testura.Code.Helper.Arguments;
-using Testura.Code.Helper.Arguments.ArgumentTypes;
-using Testura.Code.Helper.References;
+using Testura.Code.Helpers.Arguments;
+using Testura.Code.Helpers.Arguments.ArgumentTypes;
+using Testura.Code.Helpers.References;
 using Assert = NUnit.Framework.Assert;
-using IArgument = Testura.Code.Helper.Arguments.ArgumentTypes.IArgument;
+using IArgument = Testura.Code.Helpers.Arguments.ArgumentTypes.IArgument;
 
 namespace Testura.Code.Tests.Helper.References
 {
@@ -32,19 +32,19 @@ namespace Testura.Code.Tests.Helper.References
         [Test]
         public void Create_WhenCreatingVariableRefernceWithFieldMember_ShouldGenerateCorrectCode()
         {
-            Assert.AreEqual("myVariable.field", Reference.Create(new VariableReference("myVariable", new MemberReference("field", MemberReferenceTypes.Field))).ToString());
+            Assert.AreEqual("myVariable.field", Reference.Create(new VariableReference("myVariable", new MemberReference("field"))).ToString());
         }
 
         [Test]
         public void Create_WhenCreatingVariableRefernceWithPropertyMember_ShouldGenerateCorrectCode()
         {
-            Assert.AreEqual("myVariable.Property", Reference.Create(new VariableReference("myVariable", new MemberReference("Property", MemberReferenceTypes.Property))).ToString());
+            Assert.AreEqual("myVariable.Property", Reference.Create(new VariableReference("myVariable", new MemberReference("Property"))).ToString());
         }
 
         [Test]
         public void Create_WhenCreatingVariableRefernceWithChainedMembers_ShouldGenerateCorrectCode()
         {
-            Assert.AreEqual("myVariable.MyMethod().MyProperty", Reference.Create(new VariableReference("myVariable", new MemberReference("MyMethod", MemberReferenceTypes.Method, new MemberReference("MyProperty", MemberReferenceTypes.Property)))).ToString());
+            Assert.AreEqual("myVariable.MyMethod().MyProperty", Reference.Create(new VariableReference("myVariable", new MethodReference("MyMethod", new List<IArgument>(), new MemberReference("MyProperty")))).ToString());
         }
     }
 }
