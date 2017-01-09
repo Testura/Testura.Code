@@ -3,7 +3,8 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Factories;
 using Testura.Code.Helpers;
-using Testura.Code.Helpers.References;
+using Testura.Code.Helpers.Common;
+using Testura.Code.Helpers.Common.References;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Statements
@@ -65,7 +66,7 @@ namespace Testura.Code.Statements
         /// <returns>The generated local declaration statement</returns>
         public LocalDeclarationStatementSyntax DeclareAndAssign(string name, Type type, ArgumentListSyntax arguments, bool useVarKeyword = true)
         {
-            var typeName = NameConverters.ConvertGenericTypeName(type);
+            var typeName = Generic.ConvertGenericTypeName(type);
             return LocalDeclarationStatement(VariableDeclaration(IdentifierName(useVarKeyword ? "var" : typeName))
                 .WithVariables(SingletonSeparatedList(VariableDeclarator(Identifier(name))
                     .WithInitializer(
@@ -104,7 +105,7 @@ namespace Testura.Code.Statements
         /// <returns>The generated assign decleration statement</returns>
         public ExpressionStatementSyntax Assign(string name, Type type, ArgumentListSyntax arguments)
         {
-            var typeName = NameConverters.ConvertGenericTypeName(type);
+            var typeName = Generic.ConvertGenericTypeName(type);
             return ExpressionStatement(
                 AssignmentExpression(
                     SyntaxKind.SimpleAssignmentExpression,

@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
-using Testura.Code.Helpers.Arguments;
-using Testura.Code.Helpers.References;
+using Testura.Code.Helpers.Common.Arguments;
+using Testura.Code.Helpers.Common.References;
 using Testura.Code.Statements;
 using Assert = NUnit.Framework.Assert;
 

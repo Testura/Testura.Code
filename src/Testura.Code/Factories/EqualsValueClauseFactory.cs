@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Testura.Code.Helpers.References;
+using Testura.Code.Helpers.Common.References;
 
 namespace Testura.Code.Factories
 {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using Testura.Code.Helpers.Arguments;
-using Testura.Code.Helpers.Arguments.ArgumentTypes;
-using Testura.Code.Helpers.References;
+using Testura.Code.Helpers.Common.Arguments;
+using Testura.Code.Helpers.Common.Arguments.ArgumentTypes;
+using Testura.Code.Helpers.Common.References;
 using Testura.Code.Statements;
 
 namespace Testura.Code.Tests.Statements

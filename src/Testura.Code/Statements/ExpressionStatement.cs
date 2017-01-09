@@ -3,7 +3,9 @@ using System.Linq;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Helpers;
-using Testura.Code.Helpers.References;
+using Testura.Code.Helpers.Common;
+using Testura.Code.Helpers.Common.References;
+using Testura.Code.Models;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Statements
@@ -88,25 +90,4 @@ namespace Testura.Code.Statements
             return new Invocation((InvocationExpressionSyntax)Reference.Create(reference));
         }
     }
-
-    public class Invocation
-    {
-        private readonly InvocationExpressionSyntax invocation;
-
-        public Invocation(InvocationExpressionSyntax invocation)
-        {
-            this.invocation = invocation;
-        }
-
-        public ExpressionStatementSyntax AsExpressionStatement()
-        {
-            return SyntaxFactory.ExpressionStatement(invocation);
-        }
-
-        public InvocationExpressionSyntax AsInvocationStatment()
-        {
-            return invocation;
-        }
-    }
-
 }

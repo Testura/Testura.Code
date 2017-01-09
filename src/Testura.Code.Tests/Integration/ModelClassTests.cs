@@ -9,7 +9,9 @@ using Testura.Code.Statements;
 using NUnit.Framework;
 using Testura.Code.Builders;
 using Testura.Code.Helpers;
-using Testura.Code.Helpers.References;
+using Testura.Code.Helpers.Class;
+using Testura.Code.Helpers.Common;
+using Testura.Code.Helpers.Common.References;
 using Testura.Code.Models;
 
 namespace Testura.Code.Tests.Integration
