@@ -5,10 +5,10 @@ using Testura.Code.Helper.References;
 using Testura.Code.Statements;
 using Assert = NUnit.Framework.Assert;
 
-namespace Testura.Code.Tests.Generate
+namespace Testura.Code.Tests.Statements
 {
     [TestFixture]
-    public class VariableTests
+    public class DeclerationStatementTests
     {
         private DeclerationStatement statement;
 

@@ -63,16 +63,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Generate\ArgumentsTests.cs" />
-    <Compile Include="Generate\AttributesTests.cs" />
-    <Compile Include="Generate\ConditionalTests.cs" />
-    <Compile Include="Generate\ControlTests.cs" />
-    <Compile Include="Generate\FieldTests.cs" />
-    <Compile Include="Generate\GenericTests.cs" />
-    <Compile Include="Generate\PropertyTests.cs" />
-    <Compile Include="Generate\ReferenceTests.cs" />
-    <Compile Include="Generate\ReturnTests.cs" />
-    <Compile Include="Generate\VariableTests.cs" />
+    <Compile Include="Helper\Arguments\ArgumentsTests.cs" />
+    <Compile Include="Helper\AttributesTests.cs" />
+    <Compile Include="Statements\SelectionStatementTests.cs" />
+    <Compile Include="Statements\IterationStatementTests.cs" />
+    <Compile Include="Helper\FieldTests.cs" />
+    <Compile Include="Helper\GenericTests.cs" />
+    <Compile Include="Helper\PropertyTests.cs" />
+    <Compile Include="Helper\References\ReferenceTests.cs" />
+    <Compile Include="Statements\JumpStatementTests.cs" />
+    <Compile Include="Statements\DeclerationStatementTests.cs" />
     <Compile Include="Integration\HelloWorldTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

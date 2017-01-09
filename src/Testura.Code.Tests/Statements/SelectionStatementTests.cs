@@ -4,10 +4,10 @@ using Testura.Code.Helper.Arguments.ArgumentTypes;
 using Testura.Code.Statements;
 using Assert = NUnit.Framework.Assert;
 
-namespace Testura.Code.Tests.Generate
+namespace Testura.Code.Tests.Statements
 {
     [TestFixture]
-    public class ConditionalTests
+    public class SelectionStatementTests
     {
         private SelectionStatement conditional;
 

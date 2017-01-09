@@ -2,7 +2,7 @@
 using Testura.Code.Helper;
 using Assert = NUnit.Framework.Assert;
 
-namespace Testura.Code.Tests.Generate
+namespace Testura.Code.Tests.Helper
 {
     [TestFixture]
     public class GenericTests

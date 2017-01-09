@@ -22,7 +22,7 @@ namespace Testura.Code.Tests.Integration
                 .WithUsings("System")
                 .WithMethods(new MethodBuilder("Main")
                     .WithParameters(Parameters.Create(new Parameter("args", typeof(string[]))))
-                    .WithModifiers(Helper.Modifiers.Create(Modifiers.Public, Modifiers.Static))
+                    .WithModifiers(Testura.Code.Helper.Modifiers.Create(Modifiers.Public, Modifiers.Static))
                     .WithBody(Body.Create(
                         Statement.Expression.Invoke(new VariableReference("Console", new MethodReference("WriteLine", new List<IArgument>() { new ValueArgument("Hello world", ArgumentType.String) }))).AsExpressionStatement(),
                         Statement.Expression.Invoke("Console", "ReadLine", Argument.Create()).AsExpressionStatement()

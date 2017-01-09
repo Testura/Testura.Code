@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.CodeAnalysis.Semantics;
-using NUnit.Framework.Internal;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
 using Testura.Code.Helper.Arguments;
 using Testura.Code.Helper.Arguments.ArgumentTypes;
@@ -12,7 +6,7 @@ using Testura.Code.Helper.References;
 using Assert = NUnit.Framework.Assert;
 using IArgument = Testura.Code.Helper.Arguments.ArgumentTypes.IArgument;
 
-namespace Testura.Code.Tests.Generate
+namespace Testura.Code.Tests.Helper.References
 {
     [TestFixture]
     public class ReferenceTests

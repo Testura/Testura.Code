@@ -1,15 +1,13 @@
-﻿using System.Collections.Generic;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Testura.Code.Helper;
 using Testura.Code.Helper.References;
 using Testura.Code.Statements;
 using Assert = NUnit.Framework.Assert;
 
-namespace Testura.Code.Tests.Generate
+namespace Testura.Code.Tests.Statements
 {
     [TestFixture]
-    public class ControlTests
+    public class IterationStatementTests
     {
         private IterationStatement control;
 

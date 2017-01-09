@@ -3,7 +3,7 @@ using Testura.Code.Helper.Arguments;
 using Testura.Code.Helper.Arguments.ArgumentTypes;
 using Assert = NUnit.Framework.Assert;
 
-namespace Testura.Code.Tests.Generate
+namespace Testura.Code.Tests.Helper.Arguments
 {
     [TestFixture]
     public class ArgumentsTests

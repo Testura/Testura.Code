@@ -2,10 +2,10 @@
 using Testura.Code.Statements;
 using Assert = NUnit.Framework.Assert;
 
-namespace Testura.Code.Tests.Generate
+namespace Testura.Code.Tests.Statements
 {
     [TestFixture]
-    public class ReturnTests
+    public class JumpStatementTests
     {
         private JumpStatement @return;
 
