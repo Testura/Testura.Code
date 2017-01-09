@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper\Class\ClassTests.cs" />
     <Compile Include="Helper\Common\Arguments\ArgumentsTests.cs" />
     <Compile Include="Helper\Common\AttributesTests.cs" />
     <Compile Include="Integration\ModelClassTests.cs" />

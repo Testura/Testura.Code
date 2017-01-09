@@ -28,12 +28,12 @@ namespace Testura.Code.Tests.Integration
                 .WithProperties(Property.Create("Name", typeof(string), PropertyTypes.GetAndSet),
                     Property.Create("Age", typeof(int), PropertyTypes.GetAndSet))
                 .WithConstructor(Class.Constructor("Cat",
-                    Parameters.Create(new Parameter("name", typeof(string)), new Parameter("age", typeof(int))),
-                    Body.Create(
+                Body.Create(
                             Statement.Decleration.Assign("Name", Reference.Create(new VariableReference("name"))),
                             Statement.Decleration.Assign("Age", Reference.Create(new VariableReference("age")))
-                            )
-                        )).Build(); 
+                            ),
+                new List<Parameter> { new Parameter("name", typeof(string)), new Parameter("age", typeof(int)) }))
+                       .Build(); 
             var m = @class.NormalizeWhitespace().ToString();
         }
 

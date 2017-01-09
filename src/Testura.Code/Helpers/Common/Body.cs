@@ -17,16 +17,5 @@ namespace Testura.Code.Helpers.Common
         {
             return SyntaxFactory.Block(SyntaxFactory.List<StatementSyntax>(statements));
         }
-
-        ///// <summary>
-        ///// Create a method body with a single statement line
-        ///// </summary>
-        ///// <param name="statement"></param>
-        ///// <returns></returns>
-        //public static BlockSyntax Create(StatementSyntax statement)
-        //{
-        //    return SyntaxFactory.Block(SyntaxFactory.SingletonList<StatementSyntax>(statement));
-        //}
-
     }
 }

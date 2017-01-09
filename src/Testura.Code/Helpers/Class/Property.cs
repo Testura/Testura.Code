@@ -22,30 +22,12 @@ namespace Testura.Code.Helpers.Class
         /// <param name="name">Name of property</param>
         /// <param name="type">Type of property</param>
         /// <returns>A property declaration</returns>
-        public static PropertyDeclarationSyntax Create(string name, Type type, PropertyTypes propertyType)
-        {
-            return Create(name, type, propertyType, new List<Code.Modifiers>(), new List<Attribute>());
-        }
-
-
-        /// <summary>
-        /// Create a auto property for a class
-        /// </summary>
-        /// <param name="name">Name of property</param>
-        /// <param name="type">Type of property</param>
-        /// <returns>A property declaration</returns>
-        public static PropertyDeclarationSyntax Create(string name, Type type, PropertyTypes propertyType, IList<Code.Modifiers> modifiers)
-        {
-            return Create(name, type, propertyType, modifiers, new List<Attribute>());
-        }
-
-        /// <summary>
-        /// Create a auto property for a class
-        /// </summary>
-        /// <param name="name">Name of property</param>
-        /// <param name="type">Type of property</param>
-        /// <returns>A property declaration</returns>
-        public static PropertyDeclarationSyntax Create(string name, Type type, PropertyTypes propertyType, IList<Code.Modifiers> modifiers, IList<Attribute> attributes)
+        public static PropertyDeclarationSyntax Create(
+            string name,
+            Type type,
+            PropertyTypes propertyType,
+            IList<Code.Modifiers> modifiers = null,
+            IList<Attribute> attributes = null)
         {
             var property = SyntaxFactory.PropertyDeclaration(
                 SyntaxFactory.ParseTypeName(type.Name), SyntaxFactory.Identifier(name))
@@ -58,8 +40,16 @@ namespace Testura.Code.Helpers.Class
                  );
             }
 
-            property = property.WithModifiers(Common.Modifiers.Create(modifiers.ToArray()));
-            property = property.WithAttributeLists(Attributes.Create(attributes.ToArray()));
+            if (modifiers != null)
+            {
+                property = property.WithModifiers(Common.Modifiers.Create(modifiers.ToArray()));
+            }
+
+            if (attributes != null)
+            {
+                property = property.WithAttributeLists(Attributes.Create(attributes.ToArray()));
+            }
+
             return property;
         }
     }

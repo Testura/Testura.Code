@@ -1,5 +1,10 @@
-﻿using Microsoft.CodeAnalysis.CSharp;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Testura.Code.Helpers.Common;
+using Testura.Code.Models;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Helpers.Class
 {
@@ -15,16 +20,31 @@ namespace Testura.Code.Helpers.Class
         /// <param name="parameters">Parameters of the constructor</param>
         /// <param name="body">Body of the constructor</param>
         /// <returns>A constructor decleration</returns>
-        public static ConstructorDeclarationSyntax Constructor(string className, ParameterListSyntax parameters, BlockSyntax body)
+        public static ConstructorDeclarationSyntax Constructor(
+            string className,
+            BlockSyntax body,
+            IList<Parameter> parameters = null,
+            IList<Modifiers> modifiers = null,
+            IList<Attribute> attributes = null)
         {
-            ConstructorDeclarationSyntax c = SyntaxFactory.ConstructorDeclaration(SyntaxFactory.Identifier(className))
-                        .WithModifiers(SyntaxFactory.TokenList(SyntaxFactory.Token(SyntaxKind.PublicKeyword)))
+            var constructor = ConstructorDeclaration(Identifier(className))
                         .WithBody(body);
             if (parameters != null)
             {
-                return c.WithParameterList(parameters);
+                constructor = constructor.WithParameterList(Parameters.Create(parameters.ToArray()));
             }
-            return c;
+
+            if (attributes != null)
+            {
+                constructor = constructor.WithAttributeLists(Attributes.Create(attributes.ToArray()));
+            }
+
+            if (modifiers != null)
+            {
+                constructor = constructor.WithModifiers(Common.Modifiers.Create(modifiers.ToArray()));
+            }
+
+            return constructor;
         }
     }
 }
