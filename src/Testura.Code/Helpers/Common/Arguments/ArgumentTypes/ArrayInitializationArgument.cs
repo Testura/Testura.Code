@@ -24,14 +24,17 @@ namespace Testura.Code.Helpers.Common.Arguments.ArgumentTypes
             if (arguments.Any())
             {
                 m = new SyntaxNodeOrToken[arguments.Count * 2 - 1];
-                for (int n = 0; n < arguments.Count; n += 2)
+                int argumentIndex = 0;
+                for (int n = 0; n < m.Length; n += 2)
                 {
-                    m[n] = arguments[n].GetArgumentSyntax().Expression;
-                    if ((n + 1) < arguments.Count)
+                    m[n] = arguments[argumentIndex].GetArgumentSyntax().Expression;
+                    if ((n + 1) < m.Length)
                         m[n + 1] = SyntaxFactory.Token(SyntaxKind.CommaToken);
+                    argumentIndex++;
                 }
 
             }
+
             return
                 SyntaxFactory.Argument(
                     SyntaxFactory.ArrayCreationExpression(

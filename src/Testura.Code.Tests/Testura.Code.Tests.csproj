@@ -65,6 +65,14 @@
   <ItemGroup>
     <Compile Include="Helper\Class\ClassTests.cs" />
     <Compile Include="Helper\Common\Arguments\ArgumentsTests.cs" />
+    <Compile Include="Helper\Common\Arguments\ArgumentTypes\ArrayInitializeArgumentTests.cs" />
+    <Compile Include="Helper\Common\Arguments\ArgumentTypes\ClassInitializationArgumentTests.cs" />
+    <Compile Include="Helper\Common\Arguments\ArgumentTypes\DictionaryArgumentTests.cs" />
+    <Compile Include="Helper\Common\Arguments\ArgumentTypes\InvocationArgumentTests.cs" />
+    <Compile Include="Helper\Common\Arguments\ArgumentTypes\ReferenceArgumentTests.cs" />
+    <Compile Include="Helper\Common\Arguments\ArgumentTypes\TypeOfArgumentTests.cs" />
+    <Compile Include="Helper\Common\Arguments\ArgumentTypes\ValueArgumentTests.cs" />
+    <Compile Include="Helper\Common\Arguments\ArgumentTypes\VariableArgumentTests.cs" />
     <Compile Include="Helper\Common\AttributesTests.cs" />
     <Compile Include="Integration\ModelClassTests.cs" />
     <Compile Include="Statements\ExpressionStatementTests.cs" />

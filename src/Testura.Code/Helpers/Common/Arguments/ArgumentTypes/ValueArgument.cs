@@ -5,26 +5,37 @@ namespace Testura.Code.Helpers.Common.Arguments.ArgumentTypes
 {
     public class ValueArgument : IArgument
     {
-        public object NameOrvalue { get; set; }
-        public ArgumentType ArgumentType { get; set; }
-
-        public ValueArgument(object nameOrValue, ArgumentType argumentType = ArgumentType.Other)
+        public ValueArgument(object value, ArgumentType argumentType = ArgumentType.Normal)
         {
-            if (argumentType == ArgumentType.String)
-                nameOrValue = $"\"{nameOrValue}\"";
-            if (argumentType == ArgumentType.Path)
-                nameOrValue = $"@\"{nameOrValue}\"";
-            NameOrvalue = nameOrValue;
+            Value = value;
+            if (value is string)
+            {
+                if (argumentType == ArgumentType.Path)
+                {
+                    Value = $"@\"{value}\"";
+                }
+                else
+                {
+                    Value = $"\"{value}\"";
+                }
+
+            }
+
             ArgumentType = argumentType;
         }
 
+        public object Value { get; set; }
+
+        public ArgumentType ArgumentType { get; set; }
+
+
         public ArgumentSyntax GetArgumentSyntax()
         {
-            if (NameOrvalue is bool)
+            if (Value is bool)
             {
-                return SyntaxFactory.Argument(SyntaxFactory.IdentifierName(NameOrvalue.ToString().ToLower()));
+                return SyntaxFactory.Argument(SyntaxFactory.IdentifierName(Value.ToString().ToLower()));
             }
-            return SyntaxFactory.Argument(SyntaxFactory.IdentifierName(NameOrvalue.ToString()));
+            return SyntaxFactory.Argument(SyntaxFactory.IdentifierName(Value.ToString()));
         }
     }
 }

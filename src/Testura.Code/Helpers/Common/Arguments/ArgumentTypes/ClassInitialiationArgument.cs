@@ -19,6 +19,13 @@ namespace Testura.Code.Helpers.Common.Arguments.ArgumentTypes
             this.genericTypes = genericTypes;
         }
 
+        public ClassInitialiationArgument(Type type, IList<Type> genericTypes = null)
+        {
+            this.type = type;
+            this.arguments = new List<IArgument>();
+            this.genericTypes = genericTypes;
+        }
+
         public ArgumentSyntax GetArgumentSyntax()
         {
             if (genericTypes != null && genericTypes.Any())

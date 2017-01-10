@@ -88,6 +88,7 @@
     <Compile Include="Helpers\Common\Arguments\ArgumentTypes\ReferenceArgument.cs" />
     <Compile Include="Helpers\Common\Arguments\ArgumentTypes\TypeOfArgument.cs" />
     <Compile Include="Helpers\Common\Arguments\ArgumentTypes\ValueArgument.cs" />
+    <Compile Include="Helpers\Common\Arguments\ArgumentTypes\VariableArgument.cs" />
     <Compile Include="Helpers\Special\Assert.cs" />
     <Compile Include="Helpers\Common\Attributes.cs" />
     <Compile Include="Helpers\Common\Body.cs" />

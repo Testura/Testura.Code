@@ -43,7 +43,9 @@ namespace Testura.Code.Helpers.Common.Arguments
         }
     }
 
-    public enum ArgumentType { String, Other,
+    public enum ArgumentType
+    {
+        Normal,
         Path
     }
 }

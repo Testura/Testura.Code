@@ -6,16 +6,21 @@ namespace Testura.Code.Helpers.Common.Arguments.ArgumentTypes
 {
     public class TypeOfArgument : IArgument
     {
-        private readonly Type type;
+        private readonly string typeName;
 
         public TypeOfArgument(Type type)
         {
-            this.type = type;
+            typeName = type.Name;
+        }
+
+        public TypeOfArgument(string type)
+        {
+            typeName = type;
         }
 
         public ArgumentSyntax GetArgumentSyntax()
         {
-            return SyntaxFactory.Argument(SyntaxFactory.TypeOfExpression(SyntaxFactory.IdentifierName(type.Name)));
+            return SyntaxFactory.Argument(SyntaxFactory.TypeOfExpression(SyntaxFactory.IdentifierName(typeName)));
         }
     }
 }

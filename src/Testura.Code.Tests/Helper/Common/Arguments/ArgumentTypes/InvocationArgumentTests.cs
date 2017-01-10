@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using NUnit.Framework;
+using Testura.Code.Helpers.Common.Arguments.ArgumentTypes;
+using Testura.Code.Statements;
+
+namespace Testura.Code.Tests.Helper.Common.Arguments.ArgumentTypes
+{
+    [TestFixture]
+    public class InvocationArgumentTests
+    {
+        [Test]
+        public void GetArgumentSyntax_WhenUsingType_ShouldGetCode()
+        {
+            //var argument = new InvocationArgument(Statement.Expression.Invoke(""))
+            //var syntax = argument.GetArgumentSyntax();
+
+            //Assert.IsInstanceOf<ArgumentSyntax>(syntax);
+            //Assert.AreEqual("typeof(int)", syntax.ToString());
+        }
+    }
+}

@@ -4,6 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Helpers.Common.Arguments;
 using Testura.Code.Helpers.Common.Arguments.ArgumentTypes;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Helpers.Common.References
 {
@@ -59,13 +60,13 @@ namespace Testura.Code.Helpers.Common.References
 
                 expressionSyntax = SyntaxFactory.InvocationExpression(
                        SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, expressionSyntax,
-                           SyntaxFactory.IdentifierName(current.Name))).WithArgumentList(
-                       Argument.Create(arguments.ToArray()));
+                           SyntaxFactory.IdentifierName(current.Name))).WithArgumentList(Arguments.Argument.Create(arguments.ToArray()));
             }
             else if (current is MemberReference)
             {
                 expressionSyntax = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, expressionSyntax, SyntaxFactory.IdentifierName(current.Name));
             }
+
             return Generate(expressionSyntax, current.Member);
         }
 

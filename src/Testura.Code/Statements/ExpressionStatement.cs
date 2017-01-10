@@ -2,7 +2,6 @@
 using System.Linq;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Testura.Code.Helpers;
 using Testura.Code.Helpers.Common;
 using Testura.Code.Helpers.Common.References;
 using Testura.Code.Models;

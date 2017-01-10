@@ -65,7 +65,7 @@ namespace Testura.Code.Helpers.Special
         {
             return Statement.Expression.Invoke("Assert", "IsTrue", Argument.Create(
                 new InvocationArgument(Statement.Expression.Invoke(actual.GetArgumentSyntax().ToString(), "Contains", Argument.Create(expectedContain)).AsInvocationStatment()),
-                new ValueArgument(message, ArgumentType.String)
+                new ValueArgument(message)
                 )).AsExpressionStatement();
         }
 
@@ -76,7 +76,7 @@ namespace Testura.Code.Helpers.Special
                     Argument.Create(
                         expected,
                         actual,
-                        new ValueArgument(message, ArgumentType.String)
+                        new ValueArgument(message)
                         )).AsExpressionStatement();
         }
 
@@ -85,7 +85,7 @@ namespace Testura.Code.Helpers.Special
             return Statement.Expression.Invoke("Assert", exected ? "IsTrue" : "IsFalse", Argument.Create(
                 new ValueArgument(exected),
                 actual,
-                new ValueArgument(message, ArgumentType.String)
+                new ValueArgument(message)
                 )).AsExpressionStatement();
         }
 

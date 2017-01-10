@@ -7,6 +7,12 @@ namespace Testura.Code.Helpers.Common.References
     {
         public IList<IArgument> Arguments { get; private set; }
 
+        public MethodReference(string methodName) 
+            : base(methodName)
+        {
+            Arguments = new List<IArgument>();
+        }
+
         public MethodReference(string methodName, IList<IArgument> arguments)
             : base(methodName)
         {
