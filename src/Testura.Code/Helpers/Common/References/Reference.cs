@@ -52,15 +52,22 @@ namespace Testura.Code.Helpers.Common.References
                 return expressionSyntax;
             if (current is MethodReference)
             {
-                IList<IArgument> arguments = new List<IArgument>();
-                if (current is MethodReference)
+                var methodReference = current as MethodReference;
+                if (methodReference.GenericTypes.Any())
                 {
-                    arguments = ((MethodReference)current).Arguments;
+                    expressionSyntax = SyntaxFactory.InvocationExpression(
+                            SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression,
+                                expressionSyntax,
+                                Generic.Create(current.Name, methodReference.GenericTypes.ToArray())))
+                        .WithArgumentList(Arguments.Argument.Create(methodReference.Arguments.ToArray()));
                 }
-
-                expressionSyntax = SyntaxFactory.InvocationExpression(
-                       SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, expressionSyntax,
-                           SyntaxFactory.IdentifierName(current.Name))).WithArgumentList(Arguments.Argument.Create(arguments.ToArray()));
+                else
+                {
+                    expressionSyntax = SyntaxFactory.InvocationExpression(
+                            SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, expressionSyntax,
+                                SyntaxFactory.IdentifierName(current.Name)))
+                        .WithArgumentList(Arguments.Argument.Create(methodReference.Arguments.ToArray()));
+                }
             }
             else if (current is MemberReference)
             {

@@ -42,37 +42,6 @@ namespace Testura.Code.Statements
             return arguments != null ? new Invocation(invocationExpressionSyntax.WithArgumentList(arguments)) : new Invocation(invocationExpressionSyntax);
         }
 
-        /// <summary>
-        /// Create code to invoke a method on class
-        /// </summary>
-        /// <param name="methodInvocation">Decleration to invoke</param>
-        /// <param name="methodName">The method we want to call</param>
-        /// <param name="arguments">Arguments in the method</param>
-        /// <param name="genericTypes">Optional list of types if the method is generic</param>
-        /// <returns>A statement syntax</returns>
-        public Invocation Invoke(Invocation methodInvocation, string methodName, ArgumentListSyntax arguments, params Type[] genericTypes)
-        {
-            InvocationExpressionSyntax invocationExpressionSyntax;
-            if (genericTypes != null && genericTypes.Any())
-            {
-                invocationExpressionSyntax = InvocationExpression(
-                    MemberAccessExpression(
-                            SyntaxKind.SimpleMemberAccessExpression,
-                            methodInvocation.AsInvocationStatment(),
-                            Generic.Create(methodName, genericTypes)));
-            }
-            else
-            {
-                invocationExpressionSyntax = InvocationExpression(
-                    MemberAccessExpression(
-                        SyntaxKind.SimpleMemberAccessExpression,
-                        methodInvocation.AsInvocationStatment(),
-                        IdentifierName(methodName)));
-            }
-
-            return arguments != null ? new Invocation(invocationExpressionSyntax.WithArgumentList(arguments)) : new Invocation(invocationExpressionSyntax);
-        }
-
         public Invocation Invoke(VariableReference reference)
         {
             VariableReference child = reference.Member;

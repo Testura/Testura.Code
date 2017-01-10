@@ -44,7 +44,7 @@ namespace Testura.Code.Tests.Helper.Common.References
         [Test]
         public void Create_WhenCreatingVariableRefernceWithChainedMembers_ShouldGenerateCorrectCode()
         {
-            Assert.AreEqual("myVariable.MyMethod().MyProperty", Reference.Create(new VariableReference("myVariable", new MethodReference("MyMethod", new List<IArgument>(), new MemberReference("MyProperty")))).ToString());
+            Assert.AreEqual("myVariable.MyMethod().MyProperty", Reference.Create(new VariableReference("myVariable", new MethodReference("MyMethod", new MemberReference("MyProperty"), new List<IArgument>()))).ToString());
         }
     }
 }
