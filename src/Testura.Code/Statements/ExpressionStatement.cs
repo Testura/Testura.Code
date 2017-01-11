@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Linq;
-using Microsoft.CodeAnalysis.CSharp;
+using System.Collections.Generic;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Testura.Code.Helpers.Common;
+using Testura.Code.Helpers.Common.Arguments.ArgumentTypes;
 using Testura.Code.Helpers.Common.References;
 using Testura.Code.Models;
-using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Statements
 {
@@ -19,40 +17,31 @@ namespace Testura.Code.Statements
         /// <param name="arguments">Arguments in the method</param>
         /// <param name="genericTypes">Optional list of types if the method is generic</param>
         /// <returns>A statement syntax</returns>
-        public Invocation Invoke(string variableName, string methodName, ArgumentListSyntax arguments, params Type[] genericTypes)
+        public Invocation Invoke(string variableName, string methodName, IList<IArgument> arguments = null, IList<Type> generics = null)
         {
-            InvocationExpressionSyntax invocationExpressionSyntax;
-            if (genericTypes != null && genericTypes.Any())
-            {
-                invocationExpressionSyntax = InvocationExpression(
-                    MemberAccessExpression(
-                        SyntaxKind.SimpleMemberAccessExpression,
-                        IdentifierName(variableName),
-                        Generic.Create(methodName, genericTypes)));
-            }
-            else
-            {
-                invocationExpressionSyntax = InvocationExpression(
-                    MemberAccessExpression(
-                        SyntaxKind.SimpleMemberAccessExpression,
-                        IdentifierName(variableName),
-                        IdentifierName(methodName)));
-            }
+            return Invoke(new VariableReference(variableName, new MethodReference(methodName, arguments, generics)));
+        }
 
-            return arguments != null ? new Invocation(invocationExpressionSyntax.WithArgumentList(arguments)) : new Invocation(invocationExpressionSyntax);
+        public Invocation Invoke(string methodName, IList<IArgument> arguments = null, IList<Type> generics = null)
+        {
+            return Invoke(new MethodReference(methodName, arguments, generics));
         }
 
         public Invocation Invoke(VariableReference reference)
         {
-            VariableReference child = reference.Member;
-            while (child?.Member != null)
+            if (!(reference is MethodReference))
             {
-                child = child.Member;
-            }
+                VariableReference child = reference.Member;
+                while (child?.Member != null)
+                {
+                    child = child.Member;
+                }
 
-            if (!(child is MethodReference))
-            {
-                throw new ArgumentException(nameof(reference), "Must be a method reference");
+                if (!(child is MethodReference))
+                {
+                    throw new ArgumentException(nameof(reference), "Must be a method reference");
+                }
+
             }
 
             return new Invocation((InvocationExpressionSyntax)Reference.Create(reference));

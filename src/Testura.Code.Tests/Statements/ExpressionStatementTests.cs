@@ -23,7 +23,7 @@ namespace Testura.Code.Tests.Statements
         [Test]
         public void Invoke_WhenUsingSimpleNames_ShouldGenerateCorrectCode()
         {
-           var invocation = expressionStatement.Invoke("myClass", "Do", Argument.Create());
+           var invocation = expressionStatement.Invoke("myClass", "Do");
            Assert.IsNotNull(invocation);
             Assert.AreEqual("myClass.Do();", invocation.AsExpressionStatement().ToString());
         }
@@ -31,7 +31,7 @@ namespace Testura.Code.Tests.Statements
         [Test]
         public void Invoke_WhenUsingSimpleNamesWithArguments_ShouldGenerateCorrectCode()
         {
-            var invocation = expressionStatement.Invoke("myClass", "Do", Argument.Create(new ValueArgument(1)));
+            var invocation = expressionStatement.Invoke("myClass", "Do", new List<IArgument> { new ValueArgument(1) });
             Assert.IsNotNull(invocation);
             Assert.AreEqual("myClass.Do(1);", invocation.AsExpressionStatement().ToString());
         }

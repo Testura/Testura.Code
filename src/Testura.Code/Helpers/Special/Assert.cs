@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Helpers.Common.Arguments;
 using Testura.Code.Helpers.Common.Arguments.ArgumentTypes;
@@ -63,30 +64,32 @@ namespace Testura.Code.Helpers.Special
         /// <returns></returns>
         public static ExpressionStatementSyntax Contains(IArgument expectedContain, IArgument actual, string message)
         {
-            return Statement.Expression.Invoke("Assert", "IsTrue", Argument.Create(
-                new InvocationArgument(Statement.Expression.Invoke(actual.GetArgumentSyntax().ToString(), "Contains", Argument.Create(expectedContain)).AsInvocationStatment()),
+            return Statement.Expression.Invoke("Assert", "IsTrue", new List<IArgument>
+            { 
+                new InvocationArgument(Statement.Expression.Invoke(actual.GetArgumentSyntax().ToString(), "Contains", new List<IArgument> { expectedContain }).AsInvocationStatment()),
                 new ValueArgument(message)
-                )).AsExpressionStatement();
+            }).AsExpressionStatement();
         }
 
         private static ExpressionStatementSyntax Are(AssertType assertType, IArgument expected, IArgument actual, string message)
         {
             return
                 Statement.Expression.Invoke("Assert", Enum.GetName(typeof(AssertType), assertType),
-                    Argument.Create(
+                    new List<IArgument> { 
                         expected,
                         actual,
                         new ValueArgument(message)
-                        )).AsExpressionStatement();
+                        }).AsExpressionStatement();
         }
 
         private static ExpressionStatementSyntax Is(bool exected, IArgument actual, string message)
         {
-            return Statement.Expression.Invoke("Assert", exected ? "IsTrue" : "IsFalse", Argument.Create(
+            return Statement.Expression.Invoke("Assert", exected ? "IsTrue" : "IsFalse", new List<IArgument>
+            { 
                 new ValueArgument(exected),
                 actual,
                 new ValueArgument(message)
-                )).AsExpressionStatement();
+            }).AsExpressionStatement();
         }
 
 
