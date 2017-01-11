@@ -23,8 +23,8 @@ namespace Testura.Code.Tests.Integration
             var @class = classBuilder
                 .WithUsings("System")
                 .WithMethods(new MethodBuilder("Main")
-                    .WithParameters(Parameters.Create(new Parameter("args", typeof(string[]))))
-                    .WithModifiers(Helpers.Common.Modifiers.Create(Modifiers.Public, Modifiers.Static))
+                    .WithParameters(new Parameter("args", typeof(string[])))
+                    .WithModifiers(Modifiers.Public, Modifiers.Static)
                     .WithBody(Body.Create(
                         Statement.Expression.Invoke(new VariableReference("Console", new MethodReference("WriteLine", new List<IArgument>() { new ValueArgument("Hello world") }))).AsExpressionStatement(),
                         Statement.Expression.Invoke("Console", "ReadLine").AsExpressionStatement()

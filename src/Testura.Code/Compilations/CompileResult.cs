@@ -9,13 +9,20 @@ namespace Testura.Code.Compilations
     [Serializable]
     public class CompileResult
     {
+        public CompileResult(string pathToDll, bool success, IList<OutputRow> outputRows)
+        {
+            PathToDll = pathToDll;
+            Success = success;
+            OutputRows = outputRows;
+        }
+
         /// <summary>
         /// Gets or sets path to the generated dlls.
         /// </summary>
         public string PathToDll { get; set; }
 
         /// <summary>
-        /// Gets or sets if the test are successful
+        /// Gets or sets a value indicating whether the test are successful
         /// </summary>
         public bool Success { get; set; }
 
@@ -23,14 +30,5 @@ namespace Testura.Code.Compilations
         /// Gets or sets the output rows
         /// </summary>
         public IList<OutputRow> OutputRows { get; set; }
-
-        public CompileResult(string pathToDll, bool success, IList<OutputRow> outputRows)
-        {
-            PathToDll = pathToDll;
-            Success = success;
-            OutputRows = outputRows;
-        } 
-
-       
     }
 }

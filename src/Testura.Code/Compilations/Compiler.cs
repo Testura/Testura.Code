@@ -38,7 +38,7 @@ namespace Testura.Code.Compilations
         /// <returns>The result from the compiler</returns>
         public Task<CompileResult> CompileAsync(string outputPath, string pathToCsFile)
         {
-            return CompileAsync(outputPath, new[] {pathToCsFile}); 
+            return CompileAsync(outputPath, new[] { pathToCsFile });
         }
 
         /// <summary>

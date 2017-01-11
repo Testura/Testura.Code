@@ -4,6 +4,8 @@ using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Testura.Code.Helpers.Common;
+using Attribute = Testura.Code.Models.Attribute;
 
 namespace Testura.Code.Builders
 {
@@ -12,25 +14,25 @@ namespace Testura.Code.Builders
     /// </summary>
     public class ClassBuilder
     {
-        private readonly string name;
-        private readonly NamespaceDeclarationSyntax @namespace;
-        private SyntaxList<UsingDirectiveSyntax> usings;
-        private SyntaxList<AttributeListSyntax> attributes;
-        private readonly List<MethodDeclarationSyntax> methods;
-        private readonly List<Type> inheritance;
-        private readonly List<FieldDeclarationSyntax> fields;
-        private readonly List<PropertyDeclarationSyntax> properties;
-        private ConstructorDeclarationSyntax constructor;
+        private readonly string _name;
+        private readonly string _namespace;
+        private readonly List<string> _usings;
+        private readonly List<Attribute> _attributes;
+        private readonly List<MethodDeclarationSyntax> _methods;
+        private readonly List<Type> _inheritance;
+        private readonly List<FieldDeclarationSyntax> _fields;
+        private readonly List<PropertyDeclarationSyntax> _properties;
+        private ConstructorDeclarationSyntax _constructor;
 
-        public ClassBuilder(string name, string @namespace )
+        public ClassBuilder(string name, string @namespace)
         {
-            this.name = name.Replace(" ", "_");
-            this.@namespace = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.IdentifierName(@namespace));
-            attributes = new SyntaxList<AttributeListSyntax>();
-            methods = new List<MethodDeclarationSyntax>();
-            inheritance = new List<Type>();
-            fields = new List<FieldDeclarationSyntax>();
-            properties = new List<PropertyDeclarationSyntax>();
+            _name = name.Replace(" ", "_");
+            _namespace = @namespace;
+            _attributes = new List<Attribute>();
+            _methods = new List<MethodDeclarationSyntax>();
+            _inheritance = new List<Type>();
+            _fields = new List<FieldDeclarationSyntax>();
+            _properties = new List<PropertyDeclarationSyntax>();
         }
 
         /// <summary>
@@ -38,10 +40,10 @@ namespace Testura.Code.Builders
         /// </summary>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        public ClassBuilder WithAttributes(SyntaxList<AttributeListSyntax> attributes)
+        public ClassBuilder WithAttributes(params Attribute[] attributes)
         {
-            this.attributes = new SyntaxList<AttributeListSyntax>();
-            this.attributes = this.attributes.AddRange(attributes);
+            _attributes.Clear();
+            _attributes.AddRange(attributes);
             return this;
         }
 
@@ -52,14 +54,9 @@ namespace Testura.Code.Builders
         /// <returns></returns>
         public ClassBuilder WithUsings(params string[] usings)
         {
-            this.usings = new SyntaxList<UsingDirectiveSyntax>();
-            foreach (var @using in usings)
-            {
-                if (@using == null)
-                    continue;
-                this.usings = this.usings.Add(SyntaxFactory.UsingDirective(SyntaxFactory.IdentifierName(@using)));
-            }
-            return this; 
+            _usings.Clear();
+            _usings.AddRange(usings);
+            return this;
         }
 
         /// <summary>
@@ -69,8 +66,8 @@ namespace Testura.Code.Builders
         /// <returns></returns>
         public ClassBuilder WithMethods(params MethodDeclarationSyntax[] methods)
         {
-            this.methods.Clear();
-            this.methods.AddRange(methods);
+            _methods.Clear();
+            _methods.AddRange(methods);
             return this; 
         }
 
@@ -81,8 +78,8 @@ namespace Testura.Code.Builders
         /// <returns></returns>
         public ClassBuilder WithFields(IList<FieldDeclarationSyntax> fields)
         {
-            this.fields.Clear();
-            this.fields.AddRange(fields);
+            _fields.Clear();
+            _fields.AddRange(fields);
             return this; 
         }
 
@@ -93,8 +90,8 @@ namespace Testura.Code.Builders
         /// <returns></returns>
         public ClassBuilder WithProperties(params PropertyDeclarationSyntax[] properties)
         {
-            this.properties.Clear();
-            this.properties.AddRange(properties);
+            _properties.Clear();
+            _properties.AddRange(properties);
             return this;
         }
 
@@ -105,7 +102,7 @@ namespace Testura.Code.Builders
         /// <returns></returns>
         public ClassBuilder WithConstructor(ConstructorDeclarationSyntax constructor)
         {
-            this.constructor = constructor;
+            _constructor = constructor;
             return this;
         }
 
@@ -116,8 +113,8 @@ namespace Testura.Code.Builders
         /// <returns></returns>
         public ClassBuilder ThatInheritFrom(IList<Type> types)
         {
-            inheritance.Clear();
-            inheritance.AddRange(inheritance);
+            _inheritance.Clear();
+            _inheritance.AddRange(_inheritance);
             return this;
         }
 
@@ -137,13 +134,22 @@ namespace Testura.Code.Builders
             @class = @class.WithMembers(members);
             var @base = SyntaxFactory.CompilationUnit();
             @base = BuildUsing(@base);
-            @base = @base.AddMembers(@namespace.AddMembers(@class));
+            @base = @base.AddMembers(SyntaxFactory.NamespaceDeclaration(SyntaxFactory.IdentifierName(_namespace)).AddMembers(@class));
             return @base;
         }
 
         private CompilationUnitSyntax BuildUsing(CompilationUnitSyntax @base)
         {
-            foreach (var @using in usings)
+
+            var usingSyntaxes = new SyntaxList<UsingDirectiveSyntax>();
+            foreach (var @using in _usings)
+            {
+                if (@using == null)
+                    continue;
+                usingSyntaxes = usingSyntaxes.Add(SyntaxFactory.UsingDirective(SyntaxFactory.IdentifierName(@using)));
+            }
+
+            foreach (var @using in usingSyntaxes)
             {
                 @base = @base.AddUsings(@using);
             }
@@ -152,46 +158,46 @@ namespace Testura.Code.Builders
 
         private ClassDeclarationSyntax BuildClassBase()
         {
-            if (inheritance.Any())
+            if (_inheritance.Any())
             {
-                var syntaxNodeOrToken = new SyntaxNodeOrToken[inheritance.Count*2-1];
-                for (int n = 0; n < inheritance.Count*2 - 1; n += 2)
+                var syntaxNodeOrToken = new SyntaxNodeOrToken[_inheritance.Count * 2 - 1];
+                for (int n = 0; n < _inheritance.Count * 2 - 1; n += 2)
                 {
                     syntaxNodeOrToken[n] = SyntaxFactory.SimpleBaseType(SyntaxFactory.IdentifierName("MyClass"));
-                    if(n+1 != inheritance.Count - 1)
+                    if(n+1 != _inheritance.Count - 1)
                         syntaxNodeOrToken[n + 1] = SyntaxFactory.Token(SyntaxKind.CommaToken);
                 }
-                return SyntaxFactory.ClassDeclaration(name).WithBaseList(SyntaxFactory.BaseList(SyntaxFactory.SeparatedList<BaseTypeSyntax>(syntaxNodeOrToken))).AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+                return SyntaxFactory.ClassDeclaration(_name).WithBaseList(SyntaxFactory.BaseList(SyntaxFactory.SeparatedList<BaseTypeSyntax>(syntaxNodeOrToken))).AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
 
             }
-            return SyntaxFactory.ClassDeclaration(name).AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+            return SyntaxFactory.ClassDeclaration(_name).AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
         }
 
         private ClassDeclarationSyntax BuildAttributes(ClassDeclarationSyntax @class)
         {
-            return @class.WithAttributeLists(SyntaxFactory.List(attributes));
+            return @class.WithAttributeLists(SyntaxFactory.List(Attributes.Create(_attributes.ToArray())));
         }
 
         private SyntaxList<MemberDeclarationSyntax> BuildFields(SyntaxList<MemberDeclarationSyntax> members)
         {
-            return AddMembers(members, fields);
+            return AddMembers(members, _fields);
         }
 
         private SyntaxList<MemberDeclarationSyntax> BuildProperties(SyntaxList<MemberDeclarationSyntax> members)
         {
-            return AddMembers(members, properties);
+            return AddMembers(members, _properties);
         }
 
         private SyntaxList<MemberDeclarationSyntax> BuildConstructor(SyntaxList<MemberDeclarationSyntax> members)
         {
-            if (constructor == null)
+            if (_constructor == null)
                 return members;
-            return members.AddRange(SyntaxFactory.SingletonList<MemberDeclarationSyntax>(constructor));
+            return members.AddRange(SyntaxFactory.SingletonList<MemberDeclarationSyntax>(_constructor));
         }
 
         private SyntaxList<MemberDeclarationSyntax> BuildMethods(SyntaxList<MemberDeclarationSyntax> members)
         {
-            return AddMembers(members, methods);
+            return AddMembers(members, _methods);
         }
 
         private SyntaxList<MemberDeclarationSyntax> AddMembers(SyntaxList<MemberDeclarationSyntax> members,

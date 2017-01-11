@@ -6,17 +6,17 @@
     public class OutputRow
     {
         /// <summary>
-        /// The severity of the error/warning
+        /// Gets or sets the severity of the error/warning
         /// </summary>
         public string Severity { get; set; }
 
         /// <summary>
-        /// The description of the error/warning
+        /// Gets or sets the description of the error/warning
         /// </summary>
         public string Description { get; set; }
-        
+
         /// <summary>
-        /// Name of the test that gave the warning
+        /// Gets or sets the name of the test that gave the warning
         /// </summary>
         public string ClassName { get; set; }
     }

@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Testura.Code.Helpers.Common;
+using Testura.Code.Models;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+using Attribute = Testura.Code.Models.Attribute;
 
 namespace Testura.Code.Builders
 {
@@ -11,17 +16,20 @@ namespace Testura.Code.Builders
     /// </summary>
     public class MethodBuilder
     {
-        private readonly string name;
-        private Type returnType;
-        private SyntaxList<AttributeListSyntax> attributes;
-        private ParameterListSyntax parameters;
-        private BlockSyntax body;
-        private string comment;
-        private SyntaxTokenList modifiers;
+        private readonly string _name;
+        private readonly List<Attribute> _attributes;
+        private readonly List<Parameter> _parameters;
+        private readonly List<Modifiers> _modifiers;
+        private Type _returnType;
+        private BlockSyntax _body;
+        private string _comment;
 
         public MethodBuilder(string name)
         {
-            this.name = name.Replace(" ", "_");
+            _name = name.Replace(" ", "_");
+            _parameters = new List<Parameter>();
+            _attributes = new List<Attribute>();
+            _modifiers = new List<Modifiers>();
         }
 
         /// <summary>
@@ -29,9 +37,10 @@ namespace Testura.Code.Builders
         /// </summary>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        public MethodBuilder WithParameters(ParameterListSyntax parameters)
+        public MethodBuilder WithParameters(params Parameter[] parameters)
         {
-            this.parameters = parameters;
+            _parameters.Clear();
+            _parameters.AddRange(parameters);
             return this;
         }
 
@@ -42,7 +51,7 @@ namespace Testura.Code.Builders
         /// <returns></returns>
         public MethodBuilder WithReturnType(Type type)
         {
-            returnType = type;
+            _returnType = type;
             return this;
         }
 
@@ -51,10 +60,10 @@ namespace Testura.Code.Builders
         /// </summary>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        public MethodBuilder WithAttributes(SyntaxList<AttributeListSyntax> attributes)
+        public MethodBuilder WithAttributes(params Attribute[] attributes)
         {
-            this.attributes = new SyntaxList<AttributeListSyntax>();
-            this.attributes = this.attributes.AddRange(attributes);
+            _attributes.Clear();
+            _attributes.AddRange(attributes);
             return this;
         }
 
@@ -65,7 +74,7 @@ namespace Testura.Code.Builders
         /// <returns></returns>
         public MethodBuilder WithBody(BlockSyntax body)
         {
-            this.body = body;
+            _body = body;
             return this;
         }
 
@@ -76,16 +85,17 @@ namespace Testura.Code.Builders
         /// <returns></returns>
         public MethodBuilder WithXmlComments(string comment)
         {
-            this.comment = comment;
+            _comment = comment;
             return this;
         }
 
         /// <summary>
         /// Set the method to starts 
         /// </summary>
-        public MethodBuilder WithModifiers(SyntaxTokenList modifiers)
+        public MethodBuilder WithModifiers(params Modifiers[] modifiers)
         {
-            this.modifiers = modifiers;
+            _modifiers.Clear();
+            _modifiers.AddRange(modifiers);
             return this;
         }
 
@@ -106,72 +116,72 @@ namespace Testura.Code.Builders
 
         private MethodDeclarationSyntax BuildMethodBase()
         {
-            if (returnType != null)
+            if (_returnType != null)
             {
-                return SyntaxFactory.MethodDeclaration(SyntaxFactory.IdentifierName(returnType.Name),
-                        SyntaxFactory.Identifier(name));
+                return MethodDeclaration(IdentifierName(_returnType.Name),
+                        Identifier(_name));
             }
             else
             {
-                return SyntaxFactory.MethodDeclaration(
-                        SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.VoidKeyword)),
-                        SyntaxFactory.Identifier(name));
+                return MethodDeclaration(
+                        PredefinedType(Token(SyntaxKind.VoidKeyword)),
+                        Identifier(_name));
             }
         }
 
         private MethodDeclarationSyntax BuildModifiers(MethodDeclarationSyntax method)
         {
-            if (modifiers != null || !modifiers.Any())
+            if (_modifiers != null || !_modifiers.Any())
             {
                 return method;
             }
 
-            return method.WithModifiers(modifiers);
+            return method.WithModifiers(Helpers.Common.Modifiers.Create(_modifiers.ToArray()));
         }
-
 
         private MethodDeclarationSyntax BuildXmlComments(MethodDeclarationSyntax method)
         {
-            if (string.IsNullOrEmpty(comment))
+            if (string.IsNullOrEmpty(_comment))
                 return method;
             var summary = new List<SyntaxToken>();
-            summary.Add(SyntaxFactory.XmlTextNewLine(SyntaxFactory.TriviaList(), "\n", "\n", SyntaxFactory.TriviaList()));
-            var commentLines = comment.Split(new[] { "\n" }, StringSplitOptions.None);
+            summary.Add(XmlTextNewLine(TriviaList(), "\n", "\n", TriviaList()));
+            var commentLines = _comment.Split(new[] { "\n" }, StringSplitOptions.None);
             for (int n = 0; n < commentLines.Length; n++)
             {
                 var fixedCommentLine = $" {commentLines[n]}";
                 if (n != commentLines.Length - 1)
                     fixedCommentLine += "\n";
-                summary.Add(SyntaxFactory.XmlTextLiteral(SyntaxFactory.TriviaList(SyntaxFactory.DocumentationCommentExterior("///")), fixedCommentLine, fixedCommentLine, SyntaxFactory.TriviaList()));
+                summary.Add(XmlTextLiteral(TriviaList(DocumentationCommentExterior("///")), fixedCommentLine, fixedCommentLine, TriviaList()));
             }
-            summary.Add(SyntaxFactory.XmlTextNewLine(SyntaxFactory.TriviaList(), "\n", "\n", SyntaxFactory.TriviaList()));
-            summary.Add(SyntaxFactory.XmlTextLiteral(SyntaxFactory.TriviaList(SyntaxFactory.DocumentationCommentExterior("///")), " ", " ", SyntaxFactory.TriviaList()));
-            var trivia = SyntaxFactory.Trivia(
-                SyntaxFactory.DocumentationCommentTrivia(
-                    SyntaxKind.SingleLineDocumentationCommentTrivia, 
-                    SyntaxFactory.List<XmlNodeSyntax>(new XmlNodeSyntax[]
+
+            summary.Add(XmlTextNewLine(TriviaList(), "\n", "\n", TriviaList()));
+            summary.Add(XmlTextLiteral(TriviaList(DocumentationCommentExterior("///")), " ", " ", TriviaList()));
+            var trivia = Trivia(
+                DocumentationCommentTrivia(
+                    SyntaxKind.SingleLineDocumentationCommentTrivia,
+                    List<XmlNodeSyntax>(new XmlNodeSyntax[]
                     {
-                            SyntaxFactory.XmlText().WithTextTokens(SyntaxFactory.TokenList(SyntaxFactory.XmlTextLiteral(SyntaxFactory.TriviaList(SyntaxFactory.DocumentationCommentExterior("///")), " ", " ", SyntaxFactory.TriviaList()))),
-                            SyntaxFactory.XmlElement(SyntaxFactory.XmlElementStartTag(SyntaxFactory.XmlName(SyntaxFactory.Identifier("summary"))), SyntaxFactory.XmlElementEndTag(SyntaxFactory.XmlName(SyntaxFactory.Identifier("summary"))))
-                                .WithContent(SyntaxFactory.SingletonList<XmlNodeSyntax>(SyntaxFactory.XmlText().WithTextTokens(SyntaxFactory.TokenList(summary)))),
-                            SyntaxFactory.XmlText().WithTextTokens(SyntaxFactory.TokenList(SyntaxFactory.XmlTextNewLine(SyntaxFactory.TriviaList(), "\n", "\n", SyntaxFactory.TriviaList())))
+                            XmlText().WithTextTokens(TokenList(XmlTextLiteral(TriviaList(DocumentationCommentExterior("///")), " ", " ", TriviaList()))),
+                            XmlElement(XmlElementStartTag(XmlName(Identifier("summary"))), XmlElementEndTag(XmlName(Identifier("summary"))))
+                                .WithContent(SingletonList<XmlNodeSyntax>(XmlText().WithTextTokens(TokenList(summary)))),
+                            XmlText().WithTextTokens(TokenList(XmlTextNewLine(TriviaList(), "\n", "\n", TriviaList())))
                     })));
             return method.WithLeadingTrivia(trivia);
         }
 
         private MethodDeclarationSyntax BuildAttributes(MethodDeclarationSyntax method)
         {
-            return !attributes.Any() ? method : method.WithAttributeLists(SyntaxFactory.List(attributes));
+            return !_attributes.Any() ? method : method.WithAttributeLists(List(Attributes.Create(_attributes.ToArray())));
         }
 
         private MethodDeclarationSyntax BuildParameters(MethodDeclarationSyntax method)
         {
-            return parameters == null ? method : method.WithParameterList(parameters);
+            return _parameters == null ? method : method.WithParameterList(Parameters.Create(_parameters.ToArray()));
         }
 
         private MethodDeclarationSyntax BuildBody(MethodDeclarationSyntax method)
         {
-            return body == null ? method : method.WithBody(body);
+            return _body == null ? method : method.WithBody(_body);
         }
     }
 }
