@@ -8,31 +8,32 @@ namespace Testura.Code.Helpers.Common.Arguments.ArgumentTypes
 {
     public class ClassInitialiationArgument : IArgument
     {
-        private readonly Type type;
-        private readonly List<IArgument> arguments;
-        private readonly IList<Type> genericTypes;
+        private readonly Type _type;
+        private readonly IList<IArgument> _arguments;
+        private readonly IList<Type> _genericTypes;
 
-        public ClassInitialiationArgument(Type type, List<IArgument> arguments, IList<Type> genericTypes = null)
+        public ClassInitialiationArgument(Type type, IEnumerable<IArgument> arguments, IEnumerable<Type> genericTypes = null)
         {
-            this.type = type;
-            this.arguments = arguments;
-            this.genericTypes = genericTypes;
+            _type = type;
+            _arguments = new List<IArgument>(arguments);
+            _genericTypes = new List<Type>(genericTypes);
         }
 
-        public ClassInitialiationArgument(Type type, IList<Type> genericTypes = null)
+        public ClassInitialiationArgument(Type type, IEnumerable<Type> genericTypes = null)
         {
-            this.type = type;
-            this.arguments = new List<IArgument>();
-            this.genericTypes = genericTypes;
+            _type = type;
+            _arguments = new List<IArgument>();
+            _genericTypes = new List<Type>(genericTypes);
         }
 
         public ArgumentSyntax GetArgumentSyntax()
         {
-            if (genericTypes != null && genericTypes.Any())
+            if (_genericTypes != null && _genericTypes.Any())
             {
-                return SyntaxFactory.Argument(SyntaxFactory.ObjectCreationExpression(Generic.Create(type.Name, genericTypes.ToArray())).WithArgumentList(Argument.Create(arguments.ToArray())));
+                return SyntaxFactory.Argument(SyntaxFactory.ObjectCreationExpression(Generic.Create(_type.Name, _genericTypes.ToArray())).WithArgumentList(Argument.Create(_arguments.ToArray())));
             }
-            return SyntaxFactory.Argument(SyntaxFactory.ObjectCreationExpression(SyntaxFactory.IdentifierName(type.Name)).WithArgumentList(Argument.Create(arguments.ToArray())));
+
+            return SyntaxFactory.Argument(SyntaxFactory.ObjectCreationExpression(SyntaxFactory.IdentifierName(_type.Name)).WithArgumentList(Argument.Create(_arguments.ToArray())));
         }
     }
 }

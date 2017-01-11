@@ -17,12 +17,12 @@ namespace Testura.Code.Statements
         /// <param name="arguments">Arguments in the method</param>
         /// <param name="genericTypes">Optional list of types if the method is generic</param>
         /// <returns>A statement syntax</returns>
-        public Invocation Invoke(string variableName, string methodName, IList<IArgument> arguments = null, IList<Type> generics = null)
+        public Invocation Invoke(string variableName, string methodName, IEnumerable<IArgument> arguments = null, IEnumerable<Type> generics = null)
         {
             return Invoke(new VariableReference(variableName, new MethodReference(methodName, arguments, generics)));
         }
 
-        public Invocation Invoke(string methodName, IList<IArgument> arguments = null, IList<Type> generics = null)
+        public Invocation Invoke(string methodName, IEnumerable<IArgument> arguments = null, IEnumerable<Type> generics = null)
         {
             return Invoke(new MethodReference(methodName, arguments, generics));
         }

@@ -8,17 +8,17 @@ namespace Testura.Code.Helpers.Common.Arguments.ArgumentTypes
 {
     public class DictionaryInitializationArgument<T, T2> : IArgument
     {
-        private readonly Dictionary<T, IArgument> dictionary;
+        private readonly Dictionary<T, IArgument> _dictionary;
 
-        public DictionaryInitializationArgument(Dictionary<T, IArgument> dictionary)
+        public DictionaryInitializationArgument(IDictionary<T, IArgument> dictionary)
         {
-            this.dictionary = dictionary;
+            _dictionary = new Dictionary<T, IArgument>(dictionary);
         }
 
         public ArgumentSyntax GetArgumentSyntax()
         {
             var syntaxNodeOrTokens = new List<SyntaxNodeOrToken>();
-            foreach (var dictionaryValue in dictionary)
+            foreach (var dictionaryValue in _dictionary)
             {
                 syntaxNodeOrTokens.Add(SyntaxFactory.AssignmentExpression(SyntaxKind.SimpleAssignmentExpression,
                     SyntaxFactory.ImplicitElementAccess()

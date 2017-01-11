@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Helpers.Common;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
@@ -19,7 +18,7 @@ namespace Testura.Code.Helpers.Class
         public static FieldDeclarationSyntax Create(
             string name,
             Type type,
-            IList<Modifiers> modifiers = null)
+            IEnumerable<Modifiers> modifiers = null)
         {
             var typeName = type.Name;
             if (type.IsGenericType)

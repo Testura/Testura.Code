@@ -23,9 +23,9 @@ namespace Testura.Code.Helpers.Class
         public static ConstructorDeclarationSyntax Constructor(
             string className,
             BlockSyntax body,
-            IList<Parameter> parameters = null,
-            IList<Modifiers> modifiers = null,
-            IList<Attribute> attributes = null)
+            IEnumerable<Parameter> parameters = null,
+            IEnumerable<Modifiers> modifiers = null,
+            IEnumerable<Attribute> attributes = null)
         {
             var constructor = ConstructorDeclaration(Identifier(className))
                         .WithBody(body);

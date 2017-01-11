@@ -16,7 +16,7 @@ namespace Testura.Code.Helpers.Common
         /// <param name="name"></param>
         /// <param name="genericTypes"></param>
         /// <returns></returns>
-        public static GenericNameSyntax Create(string name, params Type[] genericTypes)
+        public static GenericNameSyntax Create(string name, IEnumerable<Type> genericTypes)
         {
             if (name.Contains("`"))
                 name = name.Split('`').First();
@@ -26,7 +26,7 @@ namespace Testura.Code.Helpers.Common
                         SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList<TypeSyntax>(GetGenericTypes(genericTypes))));
         }
 
-        private static SyntaxNodeOrToken[] GetGenericTypes(IList<Type> genericTypes)
+        private static SyntaxNodeOrToken[] GetGenericTypes(IEnumerable<Type> genericTypes)
         {
             var list = new List<SyntaxNodeOrToken>();
             foreach (var genericType in genericTypes)

@@ -6,21 +6,21 @@ namespace Testura.Code.Models
 {
     public class Invocation
     {
-        private readonly InvocationExpressionSyntax invocation;
+        private readonly InvocationExpressionSyntax _invocation;
 
         public Invocation(InvocationExpressionSyntax invocation)
         {
-            this.invocation = invocation;
+            _invocation = invocation;
         }
 
         public ExpressionStatementSyntax AsExpressionStatement()
         {
-            return ExpressionStatement(invocation);
+            return ExpressionStatement(_invocation);
         }
 
         public InvocationExpressionSyntax AsInvocationStatment()
         {
-            return invocation;
+            return _invocation;
         }
     }
 }

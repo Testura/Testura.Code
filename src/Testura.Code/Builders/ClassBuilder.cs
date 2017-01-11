@@ -76,7 +76,7 @@ namespace Testura.Code.Builders
         /// </summary>
         /// <param name="fields"></param>
         /// <returns></returns>
-        public ClassBuilder WithFields(IList<FieldDeclarationSyntax> fields)
+        public ClassBuilder WithFields(IEnumerable<FieldDeclarationSyntax> fields)
         {
             _fields.Clear();
             _fields.AddRange(fields);
@@ -111,7 +111,7 @@ namespace Testura.Code.Builders
         /// </summary>
         /// <param name="types"></param>
         /// <returns></returns>
-        public ClassBuilder ThatInheritFrom(IList<Type> types)
+        public ClassBuilder ThatInheritFrom(IEnumerable<Type> types)
         {
             _inheritance.Clear();
             _inheritance.AddRange(_inheritance);

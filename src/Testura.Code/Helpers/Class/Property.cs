@@ -26,8 +26,8 @@ namespace Testura.Code.Helpers.Class
             string name,
             Type type,
             PropertyTypes propertyType,
-            IList<Code.Modifiers> modifiers = null,
-            IList<Attribute> attributes = null)
+            IEnumerable<Modifiers> modifiers = null,
+            IEnumerable<Attribute> attributes = null)
         {
             var property = SyntaxFactory.PropertyDeclaration(
                 SyntaxFactory.ParseTypeName(type.Name), SyntaxFactory.Identifier(name))

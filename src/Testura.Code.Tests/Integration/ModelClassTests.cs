@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.CodeAnalysis;
-using NUnit.Framework.Internal;
 using Testura.Code.Statements;
 using NUnit.Framework;
 using Testura.Code.Builders;
-using Testura.Code.Helpers;
 using Testura.Code.Helpers.Class;
 using Testura.Code.Helpers.Common;
 using Testura.Code.Helpers.Common.References;
@@ -45,7 +39,7 @@ namespace Testura.Code.Tests.Integration
                 .WithUsings("System")
                 .WithMethods(
                     new MethodBuilder("Meow")
-                        .WithParameters(Parameters.Create(new Parameter("cat", "Cat")))
+                        .WithParameters(new Parameter("cat", "Cat"))
                         .WithBody(Body.Create(
                                 Statement.Decleration.DeclareAndAssign("meow", typeof(string), new VariableReference("cat", new MemberReference("MyProperty")))
                             ))

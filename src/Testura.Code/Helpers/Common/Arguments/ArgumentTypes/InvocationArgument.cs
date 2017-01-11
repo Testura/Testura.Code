@@ -6,22 +6,22 @@ namespace Testura.Code.Helpers.Common.Arguments.ArgumentTypes
 {
     public class InvocationArgument : IArgument
     {
-        private readonly ExpressionSyntax invocation;
-        private readonly Type castTo;
+        private readonly ExpressionSyntax _invocation;
+        private readonly Type _castTo;
 
         public InvocationArgument(ExpressionSyntax invocation, Type castTo = null)
         {
-            this.invocation = invocation;
-            this.castTo = castTo ?? typeof(void);
+            _invocation = invocation;
+            _castTo = castTo ?? typeof(void);
         }
 
         public ArgumentSyntax GetArgumentSyntax()
         {
-            if (castTo != typeof(void))
+            if (_castTo != typeof(void))
             {
-                return SyntaxFactory.Argument(SyntaxFactory.CastExpression(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.BoolKeyword)), invocation));
+                return SyntaxFactory.Argument(SyntaxFactory.CastExpression(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.BoolKeyword)), _invocation));
             }
-            return SyntaxFactory.Argument(invocation);
+            return SyntaxFactory.Argument(_invocation);
         }
     }
 }

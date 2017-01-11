@@ -6,16 +6,16 @@ namespace Testura.Code.Helpers.Common.Arguments.ArgumentTypes
 {
     public class ReferenceArgument : IArgument
     {
-        private readonly VariableReference reference;
+        private readonly VariableReference _reference;
 
         public ReferenceArgument(VariableReference reference)
         {
-            this.reference = reference;
+            _reference = reference;
         }
 
         public ArgumentSyntax GetArgumentSyntax()
         {
-            return SyntaxFactory.Argument(Reference.Create(reference));
+            return SyntaxFactory.Argument(Reference.Create(_reference));
         }
     }
 }

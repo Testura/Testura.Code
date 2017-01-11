@@ -12,7 +12,7 @@ namespace Testura.Code.Compilations
     {
         private const string RuntimePath = @"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.1\{0}.dll";
 
-        private readonly IEnumerable<string> defaultNamespaces = new[]
+        private readonly IEnumerable<string> _defaultNamespaces = new[]
         {
                 "System",
                 "System.IO",
@@ -23,11 +23,11 @@ namespace Testura.Code.Compilations
                 "System.Collections.Generic"
         };
 
-        private readonly string[] referencedAssemblies;
+        private readonly string[] _referencedAssemblies;
 
         public Compiler(string[] referencedAssemblies)
         {
-            this.referencedAssemblies = referencedAssemblies;
+            _referencedAssemblies = referencedAssemblies;
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Testura.Code.Compilations
                 var defaultCompilationOptions = new CSharpCompilationOptions(
                     OutputKind.DynamicallyLinkedLibrary).WithOverflowChecks(true)
                     .WithOptimizationLevel(OptimizationLevel.Release)
-                    .WithUsings(defaultNamespaces);
+                    .WithUsings(_defaultNamespaces);
                 var compilation
                     = CSharpCompilation.Create(Path.GetFileName(outputPath), parsedSyntaxTrees,
                         ConvertReferenceToMetaDataReferfence(), defaultCompilationOptions);
@@ -72,7 +72,7 @@ namespace Testura.Code.Compilations
             });
         }
 
-        private IList<OutputRow> ConvertDiagnosticsToOutputRows(IList<Diagnostic> diagnostics)
+        private IList<OutputRow> ConvertDiagnosticsToOutputRows(IEnumerable<Diagnostic> diagnostics)
         {
             var outputRows = new List<OutputRow>();
             foreach (var diagnostic in diagnostics)
@@ -91,7 +91,7 @@ namespace Testura.Code.Compilations
         private IEnumerable<MetadataReference> ConvertReferenceToMetaDataReferfence()
         {
             List<MetadataReference> metaData = new List<MetadataReference>();
-            foreach (var reference in referencedAssemblies)
+            foreach (var reference in _referencedAssemblies)
             {
                 metaData.Add(MetadataReference.CreateFromFile(reference));
             }

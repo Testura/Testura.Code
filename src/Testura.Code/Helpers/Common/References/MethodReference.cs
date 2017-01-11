@@ -7,27 +7,26 @@ namespace Testura.Code.Helpers.Common.References
     public class MethodReference : MemberReference
     {
         public IList<IArgument> Arguments { get; private set; }
+
         public IList<Type> GenericTypes { get; private set; }
 
         public MethodReference(
             string methodName,
-            IList<IArgument> arguments = null,
-            IList<Type> genericTypes = null)
-            : base(methodName)
+            IEnumerable<IArgument> arguments = null,
+            IEnumerable<Type> genericTypes = null)
+            : this(methodName, null, arguments, genericTypes)
         {
-            Arguments = arguments ?? new List<IArgument>();
-            GenericTypes = genericTypes ?? new List<Type>();
         }
 
         public MethodReference(
             string methodName,
             MemberReference member,
-            IList<IArgument> arguments = null,
-            IList<Type> genericTypes = null)
+            IEnumerable<IArgument> arguments = null,
+            IEnumerable<Type> genericTypes = null)
             : base(methodName, member)
         {
-            Arguments = arguments ?? new List<IArgument>();
-            GenericTypes = genericTypes ?? new List<Type>();
+            Arguments = arguments == null ? new List<IArgument>() : new List<IArgument>(arguments);
+            GenericTypes = genericTypes == null ? new List<Type>() : new List<Type>(genericTypes);
         }
     }
 }

@@ -14,6 +14,17 @@
     /// </summary>
     public class VariableReference
     {
+        public VariableReference(string variableName)
+        {
+            Name = variableName;
+        }
+
+        public VariableReference(string variableName, MemberReference member)
+            : this(variableName)
+        {
+            Member = member;
+        }
+
         /// <summary>
         /// Gets or sets the name of the refence
         /// </summary>
@@ -24,18 +35,8 @@
         /// </summary>
         public MemberReference Member { get; set; }
 
-        public VariableReference(string variableName)
-        {
-            Name = variableName;
-        }
-
-        public VariableReference(string variableName, MemberReference member) : this(variableName)
-        {
-            Member = member;
-        }
-
         public override string ToString()
-        {           
+        {
             if(Member != null)
             {
                 return $"{Name}.{Member}";
