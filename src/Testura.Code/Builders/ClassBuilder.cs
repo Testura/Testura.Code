@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Testura.Code.Helpers.Common;
+using Testura.Code.Generators.Common;
 using Attribute = Testura.Code.Models.Attribute;
 
 namespace Testura.Code.Builders
@@ -175,7 +175,7 @@ namespace Testura.Code.Builders
 
         private ClassDeclarationSyntax BuildAttributes(ClassDeclarationSyntax @class)
         {
-            return @class.WithAttributeLists(SyntaxFactory.List(Attributes.Create(_attributes.ToArray())));
+            return @class.WithAttributeLists(SyntaxFactory.List(AttributeGenerator.Create(_attributes.ToArray())));
         }
 
         private SyntaxList<MemberDeclarationSyntax> BuildFields(SyntaxList<MemberDeclarationSyntax> members)

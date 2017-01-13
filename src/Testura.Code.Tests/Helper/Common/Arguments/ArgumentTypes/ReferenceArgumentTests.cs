@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using NUnit.Framework.Internal;
 using NUnit.Framework;
-using Testura.Code.Helpers.Common.Arguments.ArgumentTypes;
-using Testura.Code.Helpers.Common.References;
+using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
+using Testura.Code.Models.References;
 
 namespace Testura.Code.Tests.Helper.Common.Arguments.ArgumentTypes
 {

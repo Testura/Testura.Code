@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Testura.Code.Helpers.Common.Arguments.ArgumentTypes;
-using Testura.Code.Helpers.Common.References;
+using Testura.Code.Generators.Common;
+using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
 using Testura.Code.Models;
+using Testura.Code.Models.References;
 
 namespace Testura.Code.Statements
 {
@@ -44,7 +45,7 @@ namespace Testura.Code.Statements
 
             }
 
-            return new Invocation((InvocationExpressionSyntax)Reference.Create(reference));
+            return new Invocation((InvocationExpressionSyntax)ReferenceGenerator.Create(reference));
         }
     }
 }

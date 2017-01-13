@@ -27,4 +27,11 @@
         Abstract,
         Virtual
     }
+
+    public enum PropertyTypes
+    {
+        Get,
+        GetAndSet
+    }
+
 }

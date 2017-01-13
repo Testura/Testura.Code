@@ -3,12 +3,10 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using NUnit.Framework;
 using Testura.Code.Builders;
-using Testura.Code.Helpers;
-using Testura.Code.Helpers.Common;
-using Testura.Code.Helpers.Common.Arguments;
-using Testura.Code.Helpers.Common.Arguments.ArgumentTypes;
-using Testura.Code.Helpers.Common.References;
+using Testura.Code.Generators.Common;
+using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
 using Testura.Code.Models;
+using Testura.Code.Models.References;
 using Testura.Code.Statements;
 
 namespace Testura.Code.Tests.Integration
@@ -25,7 +23,7 @@ namespace Testura.Code.Tests.Integration
                 .WithMethods(new MethodBuilder("Main")
                     .WithParameters(new Parameter("args", typeof(string[])))
                     .WithModifiers(Modifiers.Public, Modifiers.Static)
-                    .WithBody(Body.Create(
+                    .WithBody(BodyGenerator.Create(
                         Statement.Expression.Invoke(new VariableReference("Console", new MethodReference("WriteLine", new List<IArgument>() { new ValueArgument("Hello world") }))).AsExpressionStatement(),
                         Statement.Expression.Invoke("Console", "ReadLine").AsExpressionStatement()
                         ))

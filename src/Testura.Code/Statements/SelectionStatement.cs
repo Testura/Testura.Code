@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Testura.Code.Helpers.Common.Arguments.ArgumentTypes;
+using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Statements

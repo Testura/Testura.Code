@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
-using Testura.Code.Helpers.Common.Arguments;
-using Testura.Code.Helpers.Common.References;
+using Testura.Code.Generators.Common;
+using Testura.Code.Models.References;
 using Testura.Code.Statements;
 using Assert = NUnit.Framework.Assert;
 
@@ -58,13 +58,13 @@ namespace Testura.Code.Tests.Statements
         [Test]
         public void CreateLocal_WhenCreateTypeAndAssignToClassInstance_ShouldAssignToClassInstance()
         {
-            Assert.AreEqual("vartest=newString();", statement.DeclareAndAssign("test", typeof(String), Argument.Create()).ToString());
+            Assert.AreEqual("vartest=newString();", statement.DeclareAndAssign("test", typeof(String), ArgumentGenerator.Create()).ToString());
         }
 
         [Test]
         public void Assign_WhenAssignVariableToClassInstance_ShouldAssignVariable()
         {
-            Assert.AreEqual("test=newString();", statement.Assign("test", typeof(String), Argument.Create()).ToString());
+            Assert.AreEqual("test=newString();", statement.Assign("test", typeof(String), ArgumentGenerator.Create()).ToString());
         }
     }
 }

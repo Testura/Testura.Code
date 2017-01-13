@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Testura.Code.Helpers.Common;
+using Testura.Code.Generators.Common;
 using Testura.Code.Models;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using Attribute = Testura.Code.Models.Attribute;
@@ -136,7 +136,7 @@ namespace Testura.Code.Builders
                 return method;
             }
 
-            return method.WithModifiers(Helpers.Common.Modifiers.Create(_modifiers.ToArray()));
+            return method.WithModifiers(ModifierGenerator.Create(_modifiers.ToArray()));
         }
 
         private MethodDeclarationSyntax BuildXmlComments(MethodDeclarationSyntax method)
@@ -171,7 +171,7 @@ namespace Testura.Code.Builders
 
         private MethodDeclarationSyntax BuildAttributes(MethodDeclarationSyntax method)
         {
-            return !_attributes.Any() ? method : method.WithAttributeLists(List(Attributes.Create(_attributes.ToArray())));
+            return !_attributes.Any() ? method : method.WithAttributeLists(List(AttributeGenerator.Create(_attributes.ToArray())));
         }
 
         private MethodDeclarationSyntax BuildParameters(MethodDeclarationSyntax method)

@@ -1,7 +1,8 @@
 ﻿using System;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Testura.Code.Helpers.Common.References;
+using Testura.Code.Generators.Common;
+using Testura.Code.Models.References;
 
 namespace Testura.Code.Factories
 {
@@ -32,7 +33,7 @@ namespace Testura.Code.Factories
             }
             if(value is VariableReference)
             {
-                return SyntaxFactory.EqualsValueClause(Reference.Create((VariableReference)value));
+                return SyntaxFactory.EqualsValueClause(ReferenceGenerator.Create((VariableReference)value));
             }
             throw new NotSupportedException("Not a suppoerted value"); 
         }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Testura.Code.Helpers.Common.References;
+using Testura.Code.Generators.Common;
+using Testura.Code.Models.References;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Statements
@@ -35,11 +36,11 @@ namespace Testura.Code.Statements
                     PredefinedType(Token(SyntaxKind.IntKeyword)), SeparatedList(new[]
                     {
                         VariableDeclarator(Identifier(variableName), null,
-                            EqualsValueClause(Reference.Create(start)))
+                            EqualsValueClause(ReferenceGenerator.Create(start)))
                     })), SeparatedList<ExpressionSyntax>(), BinaryExpression(
                         SyntaxKind.LessThanExpression,
                         IdentifierName(variableName),
-                        Reference.Create(end)),
+                        ReferenceGenerator.Create(end)),
                 SeparatedList<ExpressionSyntax>(new[]
                 {PostfixUnaryExpression(SyntaxKind.PostIncrementExpression, IdentifierName(variableName))}), body);
         }

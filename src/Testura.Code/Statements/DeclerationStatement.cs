@@ -2,9 +2,8 @@
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Factories;
-using Testura.Code.Helpers;
-using Testura.Code.Helpers.Common;
-using Testura.Code.Helpers.Common.References;
+using Testura.Code.Generators.Common;
+using Testura.Code.Models.References;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Statements
@@ -66,7 +65,7 @@ namespace Testura.Code.Statements
         /// <returns>The generated local declaration statement</returns>
         public LocalDeclarationStatementSyntax DeclareAndAssign(string name, Type type, ArgumentListSyntax arguments, bool useVarKeyword = true)
         {
-            var typeName = Generic.ConvertGenericTypeName(type);
+            var typeName = GenericGenerator.ConvertGenericTypeName(type);
             return LocalDeclarationStatement(VariableDeclaration(IdentifierName(useVarKeyword ? "var" : typeName))
                 .WithVariables(SingletonSeparatedList(VariableDeclarator(Identifier(name))
                     .WithInitializer(
@@ -105,7 +104,7 @@ namespace Testura.Code.Statements
         /// <returns>The generated assign decleration statement</returns>
         public ExpressionStatementSyntax Assign(string name, Type type, ArgumentListSyntax arguments)
         {
-            var typeName = Generic.ConvertGenericTypeName(type);
+            var typeName = GenericGenerator.ConvertGenericTypeName(type);
             return ExpressionStatement(
                 AssignmentExpression(
                     SyntaxKind.SimpleAssignmentExpression,
@@ -127,12 +126,12 @@ namespace Testura.Code.Statements
 
         public ExpressionStatementSyntax Assign(string name, VariableReference reference, Type castTo = null)
         {
-            return Assign(name, Reference.Create(reference), castTo);
+            return Assign(name, ReferenceGenerator.Create(reference), castTo);
         }
 
         public ExpressionStatementSyntax Assign(VariableReference reference, VariableReference assignReference, Type castTo = null)
         {
-            return Assign(reference, Reference.Create(assignReference), castTo);
+            return Assign(reference, ReferenceGenerator.Create(assignReference), castTo);
         }
 
 
@@ -146,7 +145,7 @@ namespace Testura.Code.Statements
             return
                 ExpressionStatement(
                     AssignmentExpression(SyntaxKind.SimpleAssignmentExpression,
-                    Reference.Create(reference),
+                    ReferenceGenerator.Create(reference),
                     expressionSyntax));
         }
     }
