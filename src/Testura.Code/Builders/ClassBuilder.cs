@@ -4,7 +4,9 @@ using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Testura.Code.Generators.Class;
 using Testura.Code.Generators.Common;
+using Testura.Code.Models;
 using Attribute = Testura.Code.Models.Attribute;
 
 namespace Testura.Code.Builders
@@ -17,22 +19,23 @@ namespace Testura.Code.Builders
         private readonly string _name;
         private readonly string _namespace;
         private readonly List<string> _usings;
-        private readonly List<Attribute> _attributes;
         private readonly List<MethodDeclarationSyntax> _methods;
         private readonly List<Type> _inheritance;
         private readonly List<FieldDeclarationSyntax> _fields;
         private readonly List<PropertyDeclarationSyntax> _properties;
         private ConstructorDeclarationSyntax _constructor;
 
+        private SyntaxList<AttributeListSyntax> _attributes;
+
         public ClassBuilder(string name, string @namespace)
         {
             _name = name.Replace(" ", "_");
             _namespace = @namespace;
-            _attributes = new List<Attribute>();
             _methods = new List<MethodDeclarationSyntax>();
             _inheritance = new List<Type>();
             _fields = new List<FieldDeclarationSyntax>();
             _properties = new List<PropertyDeclarationSyntax>();
+            _usings = new List<string>();
         }
 
         /// <summary>
@@ -42,8 +45,18 @@ namespace Testura.Code.Builders
         /// <returns></returns>
         public ClassBuilder WithAttributes(params Attribute[] attributes)
         {
-            _attributes.Clear();
-            _attributes.AddRange(attributes);
+            _attributes = AttributeGenerator.Create(attributes);
+            return this;
+        }
+
+        /// <summary>
+        /// Set attributes for class
+        /// </summary>
+        /// <param name="attributes"></param>
+        /// <returns></returns>
+        public ClassBuilder WithAttributes(SyntaxList<AttributeListSyntax> attributes)
+        {
+            _attributes = attributes;
             return this;
         }
 
@@ -76,11 +89,42 @@ namespace Testura.Code.Builders
         /// </summary>
         /// <param name="fields"></param>
         /// <returns></returns>
-        public ClassBuilder WithFields(IEnumerable<FieldDeclarationSyntax> fields)
+        public ClassBuilder WithFields(params Field[] fields)
+        {
+            _fields.Clear();
+            foreach (var field in fields)
+            {
+                _fields.Add(FieldGenerator.Create(field));
+            }
+
+            return this;
+        }
+
+        /// <summary>
+        /// Set fields for class
+        /// </summary>
+        /// <param name="fields"></param>
+        /// <returns></returns>
+        public ClassBuilder WithFields(params FieldDeclarationSyntax[] fields)
         {
             _fields.Clear();
             _fields.AddRange(fields);
             return this; 
+        }
+
+        /// <summary>
+        /// Set properties for class
+        /// </summary>
+        /// <param name="properties"></param>
+        /// <returns></returns>
+        public ClassBuilder WithProperties(params Property[] properties)
+        {
+            _properties.Clear();
+            foreach (var property in properties)
+            {
+                _properties.Add(PropertyGenerator.Create(property));
+            };
+            return this;
         }
 
         /// <summary>
@@ -175,7 +219,7 @@ namespace Testura.Code.Builders
 
         private ClassDeclarationSyntax BuildAttributes(ClassDeclarationSyntax @class)
         {
-            return @class.WithAttributeLists(SyntaxFactory.List(AttributeGenerator.Create(_attributes.ToArray())));
+            return @class.WithAttributeLists(_attributes);
         }
 
         private SyntaxList<MemberDeclarationSyntax> BuildFields(SyntaxList<MemberDeclarationSyntax> members)

@@ -17,7 +17,7 @@ namespace Testura.Code.Generators.Class
         public static PropertyDeclarationSyntax Create(Property property)
         {
             var propertyDecleration = SyntaxFactory.PropertyDeclaration(
-                SyntaxFactory.ParseTypeName(property.Type.Name), SyntaxFactory.Identifier(property.Name))
+                TypeGenerator.Create(property.Type), SyntaxFactory.Identifier(property.Name))
                 .AddAccessorListAccessors(SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration).
                     WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
             if (property.PropertyType == PropertyTypes.GetAndSet)

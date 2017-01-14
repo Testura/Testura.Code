@@ -1,5 +1,7 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 using Testura.Code.Generators.Common;
+using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
 using Testura.Code.Models;
 using Assert = NUnit.Framework.Assert;
 
@@ -17,7 +19,7 @@ namespace Testura.Code.Tests.Helper.Common
         [Test]
         public void Create_WhenCreatingWithSingleAttrbute_ShoulGenerateCorrectCode()
         {
-            Assert.AreEqual("[Test]", AttributeGenerator.Create(new Attribute("Test")).ToString());
+            Assert.AreEqual("[Test]", AttributeGenerator.Create(new Attribute("Test", new List<IArgument>())).ToString());
         }
 
         [Test]

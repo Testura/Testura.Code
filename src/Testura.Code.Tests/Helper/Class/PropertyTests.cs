@@ -12,25 +12,25 @@ namespace Testura.Code.Tests.Helper.Class
         [Test]
         public void Create_WhenCreatingPropertyWithOnlyGet_ShouldHaveNoSet()
         {
-            Assert.AreEqual("Int32MyProperty{get;}", PropertyGenerator.Create(new Property("MyProperty", typeof(int), PropertyTypes.Get)).ToString());   
+            Assert.AreEqual("intMyProperty{get;}", PropertyGenerator.Create(new Property("MyProperty", typeof(int), PropertyTypes.Get)).ToString());   
         }
 
         [Test]
         public void Create_WhenCreatingPropertyWithOnlyGetAndSet_ShouldHaveBothGetAndSet()
         {
-            Assert.AreEqual("Int32MyProperty{get;set;}", PropertyGenerator.Create(new Property("MyProperty", typeof(int), PropertyTypes.GetAndSet)).ToString());
+            Assert.AreEqual("intMyProperty{get;set;}", PropertyGenerator.Create(new Property("MyProperty", typeof(int), PropertyTypes.GetAndSet)).ToString());
         }
 
         [Test]
         public void Create_WhenCreatingPropertyWithAttribute_ShouldHaveAttribute()
         {
-            Assert.AreEqual("[Test]Int32MyProperty{get;set;}", PropertyGenerator.Create(new Property("MyProperty", typeof(int), PropertyTypes.GetAndSet, new List<Modifiers>(), new List<Attribute> { new Attribute("Test")})).ToString());
+            Assert.AreEqual("[Test]intMyProperty{get;set;}", PropertyGenerator.Create(new Property("MyProperty", typeof(int), PropertyTypes.GetAndSet, new List<Modifiers>(), new List<Attribute> { new Attribute("Test")})).ToString());
         }
 
         [Test]
         public void Create_WhenCreatingPropertyWithModifer_ShouldHaveModifier()
         {
-            Assert.AreEqual("publicstaticInt32MyProperty{get;set;}", PropertyGenerator.Create(new Property("MyProperty", typeof(int), PropertyTypes.GetAndSet, new List<Modifiers>() { Modifiers.Public, Modifiers.Static })).ToString());
+            Assert.AreEqual("publicstaticintMyProperty{get;set;}", PropertyGenerator.Create(new Property("MyProperty", typeof(int), PropertyTypes.GetAndSet, new List<Modifiers>() { Modifiers.Public, Modifiers.Static })).ToString());
         }
     }
 }

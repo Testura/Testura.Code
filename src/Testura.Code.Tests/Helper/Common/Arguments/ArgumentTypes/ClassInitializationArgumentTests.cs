@@ -20,7 +20,7 @@ namespace Testura.Code.Tests.Helper.Common.Arguments.ArgumentTypes
             var syntax = argument.GetArgumentSyntax();
 
             Assert.IsInstanceOf<ArgumentSyntax>(syntax);
-            Assert.AreEqual("newString()", syntax.ToString());
+            Assert.AreEqual("newstring()", syntax.ToString());
         }
 
         [Test]
@@ -30,17 +30,37 @@ namespace Testura.Code.Tests.Helper.Common.Arguments.ArgumentTypes
             var syntax = argument.GetArgumentSyntax();
 
             Assert.IsInstanceOf<ArgumentSyntax>(syntax);
-            Assert.AreEqual("newString(0)", syntax.ToString());
+            Assert.AreEqual("newstring(0)", syntax.ToString());
         }
 
         [Test]
         public void GetArgumentSyntax_WhenInitializeClassWithGeneric_ShouldGetCorrectCode()
         {
-            var argument = new ClassInitialiationArgument(typeof(List), new List<Type> { typeof(string)});
+            var argument = new ClassInitialiationArgument(typeof(List<string>));
             var syntax = argument.GetArgumentSyntax();
 
             Assert.IsInstanceOf<ArgumentSyntax>(syntax);
-            Assert.AreEqual("newList<System.String>()", syntax.ToString());
+            Assert.AreEqual("newList<string>()", syntax.ToString());
+        }
+
+        [Test]
+        public void GetArgumentSyntax_WhenInitializeClassWithMultipleGeneric_ShouldGetCorrectCode()
+        {
+            var argument = new ClassInitialiationArgument(typeof(List<List<List<int>>>));
+            var syntax = argument.GetArgumentSyntax();
+
+            Assert.IsInstanceOf<ArgumentSyntax>(syntax);
+            Assert.AreEqual("newList<List<List<int>>>()", syntax.ToString());
+        }
+
+        [Test]
+        public void GetArgumentSyntax_WhenInitializeClassWithMultipleGenericAsArgument_ShouldGetCorrectCode()
+        {
+            var argument = new ClassInitialiationArgument(typeof(List), genericTypes: new[] { typeof(List<List<int>>) });
+            var syntax = argument.GetArgumentSyntax();
+
+            Assert.IsInstanceOf<ArgumentSyntax>(syntax);
+            Assert.AreEqual("newList<List<List<int>>>()", syntax.ToString());
         }
     }
 }

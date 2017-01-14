@@ -17,18 +17,18 @@ namespace Testura.Code.Builders
     public class MethodBuilder
     {
         private readonly string _name;
-        private readonly List<Attribute> _attributes;
-        private readonly List<Parameter> _parameters;
+        private readonly List<ParameterSyntax> _parameters;
         private readonly List<Modifiers> _modifiers;
         private Type _returnType;
         private BlockSyntax _body;
         private string _comment;
 
+        private SyntaxList<AttributeListSyntax> _attributes;
+
         public MethodBuilder(string name)
         {
             _name = name.Replace(" ", "_");
-            _parameters = new List<Parameter>();
-            _attributes = new List<Attribute>();
+            _parameters = new List<ParameterSyntax>();
             _modifiers = new List<Modifiers>();
         }
 
@@ -38,6 +38,22 @@ namespace Testura.Code.Builders
         /// <param name="parameters"></param>
         /// <returns></returns>
         public MethodBuilder WithParameters(params Parameter[] parameters)
+        {
+            _parameters.Clear();
+            foreach (var parameter in parameters)
+            {
+                _parameters.Add(ParameterGenerator.Create(parameter));
+            }
+
+            return this;
+        }
+
+        /// <summary>
+        /// Set parameters for method
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public MethodBuilder WithParameters(params ParameterSyntax[] parameters)
         {
             _parameters.Clear();
             _parameters.AddRange(parameters);
@@ -56,14 +72,24 @@ namespace Testura.Code.Builders
         }
 
         /// <summary>
-        /// Set attributes of method
+        /// Set attributes for method
         /// </summary>
         /// <param name="attributes"></param>
         /// <returns></returns>
         public MethodBuilder WithAttributes(params Attribute[] attributes)
         {
-            _attributes.Clear();
-            _attributes.AddRange(attributes);
+            _attributes = AttributeGenerator.Create(attributes);
+            return this;
+        }
+
+        /// <summary>
+        /// Set attributes for class
+        /// </summary>
+        /// <param name="attributes"></param>
+        /// <returns></returns>
+        public MethodBuilder WithAttributes(SyntaxList<AttributeListSyntax> attributes)
+        {
+            _attributes = attributes;
             return this;
         }
 
@@ -171,12 +197,12 @@ namespace Testura.Code.Builders
 
         private MethodDeclarationSyntax BuildAttributes(MethodDeclarationSyntax method)
         {
-            return !_attributes.Any() ? method : method.WithAttributeLists(List(AttributeGenerator.Create(_attributes.ToArray())));
+            return !_attributes.Any() ? method : method.WithAttributeLists(_attributes);
         }
 
         private MethodDeclarationSyntax BuildParameters(MethodDeclarationSyntax method)
         {
-            return _parameters == null ? method : method.WithParameterList(Parameters.Create(_parameters.ToArray()));
+            return _parameters == null ? method : method.WithParameterList(ParameterGenerator.ConvertParameterSyntaxToList(_parameters.ToArray()));
         }
 
         private MethodDeclarationSyntax BuildBody(MethodDeclarationSyntax method)

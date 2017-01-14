@@ -30,7 +30,7 @@ namespace Testura.Code.Generators.Class
                         .WithBody(body);
             if (parameters != null)
             {
-                constructor = constructor.WithParameterList(Parameters.Create(parameters.ToArray()));
+                constructor = constructor.WithParameterList(ParameterGenerator.Create(parameters.ToArray()));
             }
 
             if (attributes != null)

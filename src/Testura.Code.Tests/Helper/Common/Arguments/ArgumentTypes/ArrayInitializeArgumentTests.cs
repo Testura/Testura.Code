@@ -15,7 +15,7 @@ namespace Testura.Code.Tests.Helper.Common.Arguments.ArgumentTypes
             var syntax = argument.GetArgumentSyntax();
 
             Assert.IsInstanceOf<ArgumentSyntax>(syntax);
-            Assert.AreEqual("newInt32[]{1,2}", syntax.ToString());
+            Assert.AreEqual("newint[]{1,2}", syntax.ToString());
         }
     }
 }

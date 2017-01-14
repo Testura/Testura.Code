@@ -31,7 +31,7 @@ namespace Testura.Code.Generators.Common
             var list = new List<SyntaxNodeOrToken>();
             foreach (var genericType in genericTypes)
             {
-                list.Add(SyntaxFactory.IdentifierName(genericType.ToString()));
+                list.Add(TypeGenerator.Create(genericType));
                 list.Add(SyntaxFactory.Token(SyntaxKind.CommaToken));
             }
             list.RemoveAt(list.Count - 1);

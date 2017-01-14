@@ -89,6 +89,8 @@
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\TypeOfArgument.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\ValueArgument.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\VariableArgument.cs" />
+    <Compile Include="Generators\Common\ParameterGenerator.cs" />
+    <Compile Include="Generators\Common\TypeGenerator.cs" />
     <Compile Include="Generators\Special\Assert.cs" />
     <Compile Include="Generators\Common\AttributeGenerator.cs" />
     <Compile Include="Generators\Common\BodyGenerator.cs" />

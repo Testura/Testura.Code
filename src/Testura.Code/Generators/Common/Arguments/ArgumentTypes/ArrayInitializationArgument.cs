@@ -38,7 +38,7 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
             return
                 SyntaxFactory.Argument(
                     SyntaxFactory.ArrayCreationExpression(
-                            SyntaxFactory.ArrayType(SyntaxFactory.IdentifierName(_type.Name))
+                            SyntaxFactory.ArrayType(TypeGenerator.Create(_type))
                                 .WithRankSpecifiers(
                                     SyntaxFactory.SingletonList<ArrayRankSpecifierSyntax>(
                                         SyntaxFactory.ArrayRankSpecifier(

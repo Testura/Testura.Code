@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -23,17 +24,34 @@ namespace Testura.Code.Generators.Common
             var attributesSyntax = new AttributeListSyntax[attributes.Length];
             for(int n = 0; n < attributes.Length; n++)
             {
-                var attribute = attributes[n];
-                var attributeSyntax = SyntaxFactory.Attribute(SyntaxFactory.IdentifierName(attribute.Name));
-                if (attribute.Arguments.Any())
-                {
-                    attributeSyntax = attributeSyntax.WithArgumentList(GetArguments(attribute.Arguments));
-                }
+                var attributeSyntax = Create(attributes[n]);
                 attributesSyntax[n] =
                     SyntaxFactory.AttributeList(SyntaxFactory.SingletonSeparatedList(attributeSyntax));
             } 
             return
                 SyntaxFactory.List<AttributeListSyntax>(attributesSyntax);
+        }
+
+        private static AttributeSyntax Create(Attribute attribute)
+        {
+            var attributeSyntax = SyntaxFactory.Attribute(SyntaxFactory.IdentifierName(attribute.Name));
+            if (attribute.Arguments.Any())
+            {
+                attributeSyntax = attributeSyntax.WithArgumentList(GetArguments(attribute.Arguments));
+            }
+
+            return attributeSyntax;
+        }
+
+        private static SyntaxList<AttributeListSyntax> ConvertArgumentSyntaxToList(params AttributeSyntax[] attributes)
+        {
+            var attributeSyntax = new AttributeListSyntax[attributes.Length];
+            for (int i = 0; i < attributes.Length; i++)
+            {
+                attributeSyntax[i] = SyntaxFactory.AttributeList(SyntaxFactory.SingletonSeparatedList(attributes[i]));
+            }
+            return
+                SyntaxFactory.List<AttributeListSyntax>(attributeSyntax);
         }
 
         private static AttributeArgumentListSyntax GetArguments(List<IArgument> arguments)
