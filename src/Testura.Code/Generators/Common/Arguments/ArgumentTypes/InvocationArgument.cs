@@ -19,8 +19,9 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
         {
             if (_castTo != typeof(void))
             {
-                return SyntaxFactory.Argument(SyntaxFactory.CastExpression(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.BoolKeyword)), _invocation));
+                return SyntaxFactory.Argument(SyntaxFactory.CastExpression(TypeGenerator.Create(_castTo), _invocation));
             }
+
             return SyntaxFactory.Argument(_invocation);
         }
     }

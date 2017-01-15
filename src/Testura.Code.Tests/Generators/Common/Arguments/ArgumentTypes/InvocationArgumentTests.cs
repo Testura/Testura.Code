@@ -19,5 +19,16 @@ namespace Testura.Code.Tests.Generators.Common.Arguments.ArgumentTypes
             Assert.IsInstanceOf<ArgumentSyntax>(syntax);
             Assert.AreEqual("Do()", syntax.ToString());
         }
+
+        [Test]
+        public void GetArgumentSyntax_WhenUsingMethodAndCasting_ShouldGetCode()
+        {
+            var argument =
+                new InvocationArgument(Statement.Expression.Invoke(new MethodReference("Do")).AsInvocationStatment(), typeof(int));
+            var syntax = argument.GetArgumentSyntax();
+
+            Assert.IsInstanceOf<ArgumentSyntax>(syntax);
+            Assert.AreEqual("(int)Do()", syntax.ToString());
+        }
     }
 }
