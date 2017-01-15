@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework.Internal;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
 using Testura.Code.Generators.Class;
 using Testura.Code.Generators.Common;
 using Testura.Code.Models;
 using Attribute = Testura.Code.Models.Attribute;
 
-namespace Testura.Code.Tests.Helper.Class
+namespace Testura.Code.Tests.Generators.Class
 {
     [TestFixture]
     public class ClassTests

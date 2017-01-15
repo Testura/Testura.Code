@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using NUnit.Framework;
 using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
 using Testura.Code.Models.References;
 using Testura.Code.Statements;
 
-namespace Testura.Code.Tests.Helper.Common.Arguments.ArgumentTypes
+namespace Testura.Code.Tests.Generators.Common.Arguments.ArgumentTypes
 {
     [TestFixture]
     public class InvocationArgumentTests

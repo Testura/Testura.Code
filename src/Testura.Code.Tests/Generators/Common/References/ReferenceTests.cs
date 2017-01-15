@@ -6,7 +6,7 @@ using Testura.Code.Models.References;
 using Assert = NUnit.Framework.Assert;
 using IArgument = Testura.Code.Generators.Common.Arguments.ArgumentTypes.IArgument;
 
-namespace Testura.Code.Tests.Helper.Common.References
+namespace Testura.Code.Tests.Generators.Common.References
 {
     [TestFixture]
     public class ReferenceTests

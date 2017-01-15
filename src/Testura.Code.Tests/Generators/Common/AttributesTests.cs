@@ -5,7 +5,7 @@ using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
 using Testura.Code.Models;
 using Assert = NUnit.Framework.Assert;
 
-namespace Testura.Code.Tests.Helper.Common
+namespace Testura.Code.Tests.Generators.Common
 {
     [TestFixture]
     public class AttributesTests

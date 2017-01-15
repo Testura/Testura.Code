@@ -4,7 +4,7 @@ using Testura.Code.Generators.Class;
 using Testura.Code.Models;
 using Assert = NUnit.Framework.Assert;
 
-namespace Testura.Code.Tests.Helper.Class
+namespace Testura.Code.Tests.Generators.Class
 {
     [TestFixture]
     public class FieldTests
