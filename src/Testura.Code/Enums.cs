@@ -6,7 +6,9 @@
         AreNotEqual,
         IsTrue,
         IsFalse,
-        Contains
+        Contains,
+        AreSame,
+        AreNotSame
     }
 
     public enum ConditionalStatements

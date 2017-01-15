@@ -32,17 +32,11 @@ namespace Testura.Code.Statements
         {
             if (!(reference is MethodReference))
             {
-                VariableReference child = reference.Member;
-                while (child?.Member != null)
+                var member = reference.GetLastMember();
+                if (!(member is MethodReference))
                 {
-                    child = child.Member;
+                    throw new ArgumentException($"{nameof(reference)} or last member in chain must be a method reference");
                 }
-
-                if (!(child is MethodReference))
-                {
-                    throw new ArgumentException(nameof(reference), "Must be a method reference");
-                }
-
             }
 
             return new Invocation((InvocationExpressionSyntax)ReferenceGenerator.Create(reference));

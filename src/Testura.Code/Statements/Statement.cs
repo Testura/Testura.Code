@@ -7,7 +7,7 @@
             Decleration = new DeclerationStatement();
             Jump = new JumpStatement();
             Selection = new SelectionStatement();
-            Iteratio = new IterationStatement();
+            Iteration = new IterationStatement();
             Expression = new ExpressionStatement();
         }
 
@@ -17,7 +17,7 @@
 
         public static SelectionStatement Selection { get; private set; }
 
-        public static IterationStatement Iteratio { get; private set; }
+        public static IterationStatement Iteration { get; private set; }
 
         public static ExpressionStatement Expression { get; private set; }
     }

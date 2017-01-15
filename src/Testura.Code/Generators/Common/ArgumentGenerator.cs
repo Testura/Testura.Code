@@ -43,7 +43,7 @@ namespace Testura.Code.Generators.Common
         }
     }
 
-    public enum ArgumentType
+    public enum StringType
     {
         Normal,
         Path

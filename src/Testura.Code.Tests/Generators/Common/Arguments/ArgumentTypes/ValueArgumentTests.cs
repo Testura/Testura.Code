@@ -42,7 +42,7 @@ namespace Testura.Code.Tests.Generators.Common.Arguments.ArgumentTypes
         [Test]
         public void GetArgumentSyntax_WhenUsingStringValueAndArgumentTypePath_ShouldGetCodeThatContainsQuotesAndAtSign()
         {
-            var argument = new ValueArgument("test", ArgumentType.Path);
+            var argument = new ValueArgument("test", StringType.Path);
             var syntax = argument.GetArgumentSyntax();
 
             Assert.IsInstanceOf<ArgumentSyntax>(syntax);

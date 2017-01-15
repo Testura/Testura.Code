@@ -35,13 +35,19 @@
         /// </summary>
         public MemberReference Member { get; set; }
 
-        public override string ToString()
+        /// <summary>
+        /// Go through the chain of members and return last.
+        /// </summary>
+        /// <returns>Returns last member in the reference chain</returns>
+        public VariableReference GetLastMember()
         {
-            if(Member != null)
+            var child = Member;
+            while (child?.Member != null)
             {
-                return $"{Name}.{Member}";
+                child = child.Member;
             }
-            return Name;
+
+            return child;
         }
     }
 }

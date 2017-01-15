@@ -2,11 +2,13 @@
 {
     public class NullReference : VariableReference
     {
-        public NullReference() : base("null")
+        public NullReference()
+            : base("null")
         {
         }
 
-        protected NullReference(MemberReference member) : base("null", member)
+        protected NullReference(MemberReference member)
+            : base("null", member)
         {
         }
     }

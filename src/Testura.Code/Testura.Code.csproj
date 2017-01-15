@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builders\ClassBuilder.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Factories\EqualsValueClauseFactory.cs" />
     <Compile Include="Generators\Common\ArgumentGenerator.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\ArrayInitializationArgument.cs" />
@@ -85,13 +86,14 @@
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\DictionaryInitializationArgument.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\IArgument.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\InvocationArgument.cs" />
+    <Compile Include="Generators\Common\Arguments\ArgumentTypes\ParenthesizedLambdaArgument.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\ReferenceArgument.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\TypeOfArgument.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\ValueArgument.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\VariableArgument.cs" />
     <Compile Include="Generators\Common\ParameterGenerator.cs" />
     <Compile Include="Generators\Common\TypeGenerator.cs" />
-    <Compile Include="Generators\Special\Assert.cs" />
+    <Compile Include="Generators\Special\AssertGenerator.cs" />
     <Compile Include="Generators\Common\AttributeGenerator.cs" />
     <Compile Include="Generators\Common\BodyGenerator.cs" />
     <Compile Include="Generators\Class\ClassGenerator.cs" />

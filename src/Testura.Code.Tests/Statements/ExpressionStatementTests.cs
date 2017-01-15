@@ -56,5 +56,15 @@ namespace Testura.Code.Tests.Statements
             Assert.IsNotNull(invocation);
             Assert.AreEqual("myClass.Do<int>();", invocation.AsExpressionStatement().ToString());
         }
+
+        [Test]
+        public void Invoke_WhenInvokeWithMethodNameAndArguments_ShouldGenerateCorrectCode()
+        {
+            var invocation = expressionStatement.Invoke("MyMethod", new List<IArgument> { new ValueArgument(1)});
+            Assert.IsNotNull(invocation);
+            Assert.AreEqual("MyMethod(1);", invocation.AsExpressionStatement().ToString());
+        }
+
+
     }
 }

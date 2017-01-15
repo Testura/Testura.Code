@@ -87,10 +87,10 @@ namespace Testura.Code.Statements
         {
             if (castTo != null && castTo != typeof(void))
             {
-                expressionSyntax = CastExpression(IdentifierName(castTo.FullName), expressionSyntax);
+                expressionSyntax = CastExpression(TypeGenerator.Create(castTo), expressionSyntax);
             }
 
-            return LocalDeclarationStatement(VariableDeclaration(IdentifierName(useVarKeyword ? "var" : type.Name))
+            return LocalDeclarationStatement(VariableDeclaration(useVarKeyword ? IdentifierName("var") : TypeGenerator.Create(type))
                 .WithVariables(SingletonSeparatedList(VariableDeclarator(Identifier(name))
                     .WithInitializer(EqualsValueClause(expressionSyntax)))));
         }
@@ -131,6 +131,11 @@ namespace Testura.Code.Statements
 
         public ExpressionStatementSyntax Assign(VariableReference reference, VariableReference assignReference, Type castTo = null)
         {
+            if (reference is MethodReference || reference.GetLastMember() is MethodReference)
+            {
+                throw new ArgumentException($"{nameof(reference)} to assign can't be a method");
+            }
+
             return Assign(reference, ReferenceGenerator.Create(assignReference), castTo);
         }
 
@@ -139,7 +144,7 @@ namespace Testura.Code.Statements
         {
             if (castTo != null && castTo != typeof(void))
             {
-                expressionSyntax = CastExpression(IdentifierName(castTo.Name), expressionSyntax);
+                expressionSyntax = CastExpression(TypeGenerator.Create(castTo), expressionSyntax);
             }
 
             return

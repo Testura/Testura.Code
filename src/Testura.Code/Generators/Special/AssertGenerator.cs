@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
+using Testura.Code.Models.References;
 using Testura.Code.Statements;
 
 namespace Testura.Code.Generators.Special
 {
-    public static class Assert
+    public static class AssertGenerator
     {
         /// <summary>
         /// Create an AreEqual assert
@@ -30,6 +31,30 @@ namespace Testura.Code.Generators.Special
         public static ExpressionStatementSyntax AreNotEqual(IArgument expected, IArgument actual, string message)
         {
             return Are(AssertType.AreNotEqual, expected, actual, message);
+        }
+
+        /// <summary>
+        /// Create an AreEqual assert
+        /// </summary>
+        /// <param name="expected"></param>
+        /// <param name="actual"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public static ExpressionStatementSyntax AreSame(IArgument expected, IArgument actual, string message)
+        {
+            return Are(AssertType.AreSame, expected, actual, message);
+        }
+
+        /// <summary>
+        /// Create an AreNotEqual assert
+        /// </summary>
+        /// <param name="expected"></param>
+        /// <param name="actual"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public static ExpressionStatementSyntax AreNotSame(IArgument expected, IArgument actual, string message)
+        {
+            return Are(AssertType.AreNotSame, expected, actual, message);
         }
 
         /// <summary>
@@ -70,6 +95,25 @@ namespace Testura.Code.Generators.Special
             }).AsExpressionStatement();
         }
 
+        public static ExpressionStatementSyntax Throws(VariableReference variableReference, Type exception, string message)
+        {
+            if (!(variableReference is MethodReference))
+            {
+                var member = variableReference.GetLastMember();
+                if (!(member is MethodReference))
+                {
+                    throw new ArgumentException($"{variableReference} or last member in chain must be a method");
+                }
+            }
+
+            return Statement.Expression.Invoke("Assert", "Throws", new List<IArgument>
+            {
+                new ParenthesizedLambdaArgument(Statement.Expression.Invoke(variableReference).AsInvocationStatment()),
+                new ValueArgument(message)
+            }, new List<Type>() { exception }).AsExpressionStatement();
+
+        }
+
         private static ExpressionStatementSyntax Are(AssertType assertType, IArgument expected, IArgument actual, string message)
         {
             return
@@ -83,14 +127,12 @@ namespace Testura.Code.Generators.Special
 
         private static ExpressionStatementSyntax Is(bool exected, IArgument actual, string message)
         {
+ 
             return Statement.Expression.Invoke("Assert", exected ? "IsTrue" : "IsFalse", new List<IArgument>
             { 
-                new ValueArgument(exected),
                 actual,
                 new ValueArgument(message)
             }).AsExpressionStatement();
         }
-
-
     }
 }
