@@ -74,6 +74,7 @@
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\ValueArgumentTests.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\VariableArgumentTests.cs" />
     <Compile Include="Generators\Common\AttributesTests.cs" />
+    <Compile Include="Generators\Common\TypeGeneratorTests.cs" />
     <Compile Include="Generators\Special\AssertGeneratorTests.cs" />
     <Compile Include="Integration\ModelClassTests.cs" />
     <Compile Include="Models\References\ConstantReferenceTests.cs" />

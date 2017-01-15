@@ -32,6 +32,16 @@ namespace Testura.Code.Generators.Common
                 return PredefinedType(Token(SyntaxKind.DoubleKeyword));
             }
 
+            if (type == typeof(long))
+            {
+                return PredefinedType(Token(SyntaxKind.LongKeyword));
+            }
+
+            if (type == typeof(ulong))
+            {
+                return PredefinedType(Token(SyntaxKind.ULongKeyword));
+            }
+
             if (type == typeof(float))
             {
                 return PredefinedType(Token(SyntaxKind.FloatKeyword));
