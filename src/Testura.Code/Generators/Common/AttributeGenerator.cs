@@ -43,17 +43,6 @@ namespace Testura.Code.Generators.Common
             return attributeSyntax;
         }
 
-        private static SyntaxList<AttributeListSyntax> ConvertArgumentSyntaxToList(params AttributeSyntax[] attributes)
-        {
-            var attributeSyntax = new AttributeListSyntax[attributes.Length];
-            for (int i = 0; i < attributes.Length; i++)
-            {
-                attributeSyntax[i] = SyntaxFactory.AttributeList(SyntaxFactory.SingletonSeparatedList(attributes[i]));
-            }
-            return
-                SyntaxFactory.List<AttributeListSyntax>(attributeSyntax);
-        }
-
         private static AttributeArgumentListSyntax GetArguments(List<IArgument> arguments)
         {
             var list = ConvertArgumentsToSyntaxNodesOrTokens(arguments);
