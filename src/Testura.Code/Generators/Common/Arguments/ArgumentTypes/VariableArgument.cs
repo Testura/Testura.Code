@@ -12,7 +12,6 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 
         public string Name { get; set; }
 
-
         public ArgumentSyntax GetArgumentSyntax()
         {
             return SyntaxFactory.Argument(SyntaxFactory.IdentifierName(Name));

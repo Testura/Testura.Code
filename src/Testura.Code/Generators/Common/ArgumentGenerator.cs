@@ -31,13 +31,17 @@ namespace Testura.Code.Generators.Common
         public static List<SyntaxNodeOrToken> ConvertArgumentsToSyntaxNodesOrTokens(params IArgument[] arguments)
         {
             if (!arguments.Any())
+            {
                 return new List<SyntaxNodeOrToken>();
+            }
+
             var list = new List<SyntaxNodeOrToken>();
             foreach (var argument in arguments)
             {
                 list.Add(argument != null ? argument.GetArgumentSyntax() : new ValueArgument("null").GetArgumentSyntax());
                 list.Add(SyntaxFactory.Token(SyntaxKind.CommaToken));
             }
+
             list.RemoveAt(list.Count - 1);
             return list;
         }

@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using Testura.Code.Builders;
-using Testura.Code.Generators.Common;
 using Testura.Code.Models;
 
 namespace Testura.Code.Tests.Builders

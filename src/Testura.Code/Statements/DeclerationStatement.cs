@@ -39,7 +39,6 @@ namespace Testura.Code.Statements
                     .WithInitializer(EqualsValueClauseFactory.GetEqualsValueClause($@"""{value}""").WithEqualsToken(Token(SyntaxKind.EqualsToken))))));
         }
 
-
         /// <summary>
         /// Declare and assign a local variable
         /// </summary>
@@ -138,7 +137,6 @@ namespace Testura.Code.Statements
 
             return Assign(reference, ReferenceGenerator.Create(assignReference), castTo);
         }
-
 
         public ExpressionStatementSyntax Assign(VariableReference reference, ExpressionSyntax expressionSyntax, Type castTo = null)
         {

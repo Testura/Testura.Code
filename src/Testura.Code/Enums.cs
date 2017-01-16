@@ -35,5 +35,4 @@
         Get,
         GetAndSet
     }
-
 }

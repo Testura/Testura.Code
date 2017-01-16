@@ -34,7 +34,7 @@ namespace Testura.Code.Builders
             _namespace = @namespace;
             _methods = new List<MethodDeclarationSyntax>();
             _inheritance = new List<Type>();
-            _modifiers = new List<Modifiers> {Modifiers.Public};
+            _modifiers = new List<Modifiers> { Modifiers.Public };
             _fields = new List<FieldDeclarationSyntax>();
             _properties = new List<PropertyDeclarationSyntax>();
             _usings = new List<string>();
@@ -83,7 +83,7 @@ namespace Testura.Code.Builders
         {
             _methods.Clear();
             _methods.AddRange(methods);
-            return this; 
+            return this;
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace Testura.Code.Builders
         {
             _fields.Clear();
             _fields.AddRange(fields);
-            return this; 
+            return this;
         }
 
         /// <summary>
@@ -125,7 +125,8 @@ namespace Testura.Code.Builders
             foreach (var property in properties)
             {
                 _properties.Add(PropertyGenerator.Create(property));
-            };
+            }
+
             return this;
         }
 
@@ -193,12 +194,14 @@ namespace Testura.Code.Builders
 
         private CompilationUnitSyntax BuildUsing(CompilationUnitSyntax @base)
         {
-
             var usingSyntaxes = new SyntaxList<UsingDirectiveSyntax>();
             foreach (var @using in _usings)
             {
                 if (@using == null)
+                {
                     continue;
+                }
+
                 usingSyntaxes = usingSyntaxes.Add(SyntaxFactory.UsingDirective(SyntaxFactory.IdentifierName(@using)));
             }
 
@@ -206,6 +209,7 @@ namespace Testura.Code.Builders
             {
                 @base = @base.AddUsings(@using);
             }
+
             return @base;
         }
 
@@ -213,12 +217,14 @@ namespace Testura.Code.Builders
         {
             if (_inheritance.Any())
             {
-                var syntaxNodeOrToken = new SyntaxNodeOrToken[_inheritance.Count * 2 - 1];
-                for (int n = 0; n < _inheritance.Count * 2 - 1; n += 2)
+                var syntaxNodeOrToken = new SyntaxNodeOrToken[(_inheritance.Count * 2) - 1];
+                for (int n = 0; n < (_inheritance.Count * 2) - 1; n += 2)
                 {
                     syntaxNodeOrToken[n] = SyntaxFactory.SimpleBaseType(TypeGenerator.Create(_inheritance[n]));
-                    if(n+1 < _inheritance.Count - 1)
+                    if (n + 1 < _inheritance.Count - 1)
+                    {
                         syntaxNodeOrToken[n + 1] = SyntaxFactory.Token(SyntaxKind.CommaToken);
+                    }
                 }
 
                 return SyntaxFactory.ClassDeclaration(_name).WithBaseList(SyntaxFactory.BaseList(SyntaxFactory.SeparatedList<BaseTypeSyntax>(syntaxNodeOrToken))).WithModifiers(ModifierGenerator.Create(_modifiers.ToArray()));
@@ -245,7 +251,10 @@ namespace Testura.Code.Builders
         private SyntaxList<MemberDeclarationSyntax> BuildConstructor(SyntaxList<MemberDeclarationSyntax> members)
         {
             if (_constructor == null)
+            {
                 return members;
+            }
+
             return members.AddRange(SyntaxFactory.SingletonList<MemberDeclarationSyntax>(_constructor));
         }
 
@@ -254,15 +263,18 @@ namespace Testura.Code.Builders
             return AddMembers(members, _methods);
         }
 
-        private SyntaxList<MemberDeclarationSyntax> AddMembers(SyntaxList<MemberDeclarationSyntax> members,
-            IEnumerable<MemberDeclarationSyntax> memberDeclarationSyntaxs)
+        private SyntaxList<MemberDeclarationSyntax> AddMembers(SyntaxList<MemberDeclarationSyntax> members, IEnumerable<MemberDeclarationSyntax> memberDeclarationSyntaxs)
         {
             if (!memberDeclarationSyntaxs.Any())
+            {
                 return members;
+            }
+
             foreach (var memberDeclarationSyntax in memberDeclarationSyntaxs)
             {
                 members = members.Add(memberDeclarationSyntax);
             }
+
             return members;
         }
     }

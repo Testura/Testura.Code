@@ -42,7 +42,7 @@ namespace Testura.Code.Statements
                         IdentifierName(variableName),
                         ReferenceGenerator.Create(end)),
                 SeparatedList<ExpressionSyntax>(new[]
-                {PostfixUnaryExpression(SyntaxKind.PostIncrementExpression, IdentifierName(variableName))}), body);
+                { PostfixUnaryExpression(SyntaxKind.PostIncrementExpression, IdentifierName(variableName)) }), body);
         }
     }
 }

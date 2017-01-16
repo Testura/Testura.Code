@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -22,12 +21,13 @@ namespace Testura.Code.Generators.Common
         public static SyntaxList<AttributeListSyntax> Create(params Attribute[] attributes)
         {
             var attributesSyntax = new AttributeListSyntax[attributes.Length];
-            for(int n = 0; n < attributes.Length; n++)
+            for (int n = 0; n < attributes.Length; n++)
             {
                 var attributeSyntax = Create(attributes[n]);
                 attributesSyntax[n] =
                     SyntaxFactory.AttributeList(SyntaxFactory.SingletonSeparatedList(attributeSyntax));
-            } 
+            }
+
             return
                 SyntaxFactory.List<AttributeListSyntax>(attributesSyntax);
         }

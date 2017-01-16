@@ -23,7 +23,6 @@ namespace Testura.Code.Statements
                     leftArgument.GetArgumentSyntax().Expression, rightArgument.GetArgumentSyntax().Expression), block);
         }
 
-
         private SyntaxKind ConditionalToSyntaxKind(ConditionalStatements conditional)
         {
             switch (conditional)

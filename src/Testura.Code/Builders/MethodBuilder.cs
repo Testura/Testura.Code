@@ -61,7 +61,7 @@ namespace Testura.Code.Builders
         }
 
         /// <summary>
-        /// Set return type of method 
+        /// Set return type of method
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
@@ -116,7 +116,7 @@ namespace Testura.Code.Builders
         }
 
         /// <summary>
-        /// Set the method to starts 
+        /// Set the method to starts
         /// </summary>
         public MethodBuilder WithModifiers(params Modifiers[] modifiers)
         {
@@ -126,7 +126,7 @@ namespace Testura.Code.Builders
         }
 
         /// <summary>
-        /// Build the final method declaration syntax 
+        /// Build the final method declaration syntax
         /// </summary>
         /// <returns></returns>
         public MethodDeclarationSyntax Build()
@@ -167,7 +167,10 @@ namespace Testura.Code.Builders
         private MethodDeclarationSyntax BuildXmlComments(MethodDeclarationSyntax method)
         {
             if (string.IsNullOrEmpty(_comment))
+            {
                 return method;
+            }
+
             var summary = new List<SyntaxToken>();
             summary.Add(XmlTextNewLine(TriviaList(), "\n", "\n", TriviaList()));
             var commentLines = _comment.Split(new[] { "\n" }, StringSplitOptions.None);
@@ -175,7 +178,10 @@ namespace Testura.Code.Builders
             {
                 var fixedCommentLine = $" {commentLines[n]}";
                 if (n != commentLines.Length - 1)
+                {
                     fixedCommentLine += "\n";
+                }
+
                 summary.Add(XmlTextLiteral(TriviaList(DocumentationCommentExterior("///")), fixedCommentLine, fixedCommentLine, TriviaList()));
             }
 

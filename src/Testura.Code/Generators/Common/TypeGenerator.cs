@@ -105,6 +105,7 @@ namespace Testura.Code.Generators.Common
                 list.Add(Create(genericType));
                 list.Add(Token(SyntaxKind.CommaToken));
             }
+
             list.RemoveAt(list.Count - 1);
             return list.ToArray();
         }

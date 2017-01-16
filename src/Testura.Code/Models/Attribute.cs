@@ -5,16 +5,6 @@ namespace Testura.Code.Models
 {
     public class Attribute
     {
-        /// <summary>
-        /// Gets or sets the name of the attribute
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the argument to the attribute
-        /// </summary>
-        public List<IArgument> Arguments { get; set; }
-
         public Attribute(string name)
         {
             Name = name;
@@ -26,5 +16,15 @@ namespace Testura.Code.Models
             Name = name;
             Arguments = arguments;
         }
+
+        /// <summary>
+        /// Gets or sets the name of the attribute
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the argument to the attribute
+        /// </summary>
+        public List<IArgument> Arguments { get; set; }
     }
 }

@@ -32,8 +32,12 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
                     dictionaryValue.Value.GetArgumentSyntax().Expression));
                 syntaxNodeOrTokens.Add(SyntaxFactory.Token(SyntaxKind.CommaToken));
             }
+
             if (syntaxNodeOrTokens.Any())
+            {
                 syntaxNodeOrTokens.RemoveAt(syntaxNodeOrTokens.Count - 1);
+            }
+
             return SyntaxFactory.Argument(SyntaxFactory.ObjectCreationExpression(SyntaxFactory.GenericName(
                     SyntaxFactory.Identifier("Dictionary"))
                 .WithTypeArgumentList(

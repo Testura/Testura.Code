@@ -89,7 +89,7 @@ namespace Testura.Code.Generators.Special
         public static ExpressionStatementSyntax Contains(IArgument expectedContain, IArgument actual, string message = null)
         {
             return Statement.Expression.Invoke("Assert", "IsTrue", new List<IArgument>
-            { 
+            {
                 new InvocationArgument(Statement.Expression.Invoke(actual.GetArgumentSyntax().ToString(), "Contains", new List<IArgument> { expectedContain }).AsExpression()),
                 new ValueArgument(message)
             }).AsStatement();
@@ -111,14 +111,13 @@ namespace Testura.Code.Generators.Special
                 new ParenthesizedLambdaArgument(Statement.Expression.Invoke(variableReference).AsExpression()),
                 new ValueArgument(message)
             }, new List<Type>() { exception }).AsStatement();
-
         }
 
         private static ExpressionStatementSyntax Are(AssertType assertType, IArgument expected, IArgument actual, string message)
         {
             return
                 Statement.Expression.Invoke("Assert", Enum.GetName(typeof(AssertType), assertType),
-                    new List<IArgument> { 
+                    new List<IArgument> {
                         expected,
                         actual,
                         new ValueArgument(message)
@@ -127,9 +126,8 @@ namespace Testura.Code.Generators.Special
 
         private static ExpressionStatementSyntax Is(bool exected, IArgument actual, string message)
         {
- 
             return Statement.Expression.Invoke("Assert", exected ? "IsTrue" : "IsFalse", new List<IArgument>
-            { 
+            {
                 actual,
                 new ValueArgument(message)
             }).AsStatement();

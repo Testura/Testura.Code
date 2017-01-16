@@ -8,8 +8,8 @@ namespace Testura.Code.Generators.Common
     public class ReferenceGenerator
     {
         /// <summary>
-        /// Generate the code for a variable reference chain, for example: 
-        /// 
+        /// Generate the code for a variable reference chain, for example:
+        ///
         /// myVariable.SomeMethod().MyProperty
         /// </summary>
         /// <param name="reference"></param>
@@ -45,8 +45,8 @@ namespace Testura.Code.Generators.Common
         }
 
         /// <summary>
-        /// Generate the code for a member chain. This method is used if you already have a variable, member or method invocation and want to 
-        /// extend it with more references calls. 
+        /// Generate the code for a member chain. This method is used if you already have a variable, member or method invocation and want to
+        /// extend it with more references calls.
         /// </summary>
         /// <param name="invocation"></param>
         /// <param name="reference"></param>
@@ -65,7 +65,10 @@ namespace Testura.Code.Generators.Common
         private static ExpressionSyntax Generate(ExpressionSyntax expressionSyntax, MemberReference current)
         {
             if (current == null)
+            {
                 return expressionSyntax;
+            }
+
             if (current is MethodReference)
             {
                 var methodReference = current as MethodReference;
@@ -92,6 +95,5 @@ namespace Testura.Code.Generators.Common
 
             return Generate(expressionSyntax, current.Member);
         }
-
     }
 }

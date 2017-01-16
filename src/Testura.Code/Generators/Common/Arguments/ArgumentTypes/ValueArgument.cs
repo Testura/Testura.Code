@@ -27,7 +27,6 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 
         public StringType StringType { get; }
 
-
         public ArgumentSyntax GetArgumentSyntax()
         {
             if (Value is bool)

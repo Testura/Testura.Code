@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
@@ -86,7 +84,10 @@ namespace Testura.Code.Compilations
             foreach (var diagnostic in diagnostics)
             {
                 if (diagnostic.Severity < DiagnosticSeverity.Error)
+                {
                     continue;
+                }
+
                 outputRows.Add(new OutputRow { Description = diagnostic.GetMessage(), Severity = diagnostic.Severity.ToString(), ClassName = diagnostic.Id });
             }
 
@@ -105,7 +106,7 @@ namespace Testura.Code.Compilations
                 metaData.Add(MetadataReference.CreateFromFile(reference));
             }
 
-            // Add default references 
+            // Add default references
             metaData.Add(MetadataReference.CreateFromFile(Path.Combine(_runtimeDirectory, "mscorlib.dll")));
             metaData.Add(MetadataReference.CreateFromFile(Path.Combine(_runtimeDirectory, "System.dll")));
             metaData.Add(MetadataReference.CreateFromFile(Path.Combine(_runtimeDirectory, "System.Core.dll")));

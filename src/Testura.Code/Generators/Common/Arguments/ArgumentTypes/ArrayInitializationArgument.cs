@@ -23,16 +23,18 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
             SyntaxNodeOrToken[] m = new SyntaxNodeOrToken[0];
             if (_arguments.Any())
             {
-                m = new SyntaxNodeOrToken[_arguments.Count * 2 - 1];
+                m = new SyntaxNodeOrToken[(_arguments.Count * 2) - 1];
                 int argumentIndex = 0;
                 for (int n = 0; n < m.Length; n += 2)
                 {
                     m[n] = _arguments[argumentIndex].GetArgumentSyntax().Expression;
                     if ((n + 1) < m.Length)
+                    {
                         m[n + 1] = SyntaxFactory.Token(SyntaxKind.CommaToken);
+                    }
+
                     argumentIndex++;
                 }
-
             }
 
             return

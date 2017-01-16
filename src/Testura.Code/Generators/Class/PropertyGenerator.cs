@@ -23,8 +23,7 @@ namespace Testura.Code.Generators.Class
             if (property.PropertyType == PropertyTypes.GetAndSet)
             {
                 propertyDecleration = propertyDecleration.AddAccessorListAccessors(SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration).
-                     WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken))
-                 );
+                     WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
             }
 
             if (property.Modifiers != null)

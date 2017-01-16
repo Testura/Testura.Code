@@ -22,21 +22,22 @@ namespace Testura.Code.Factories
             {
                 return
                     SyntaxFactory.EqualsValueClause(SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression,
-                        SyntaxFactory.Literal(SyntaxFactory.TriviaList(), value.ToString(), (int) value, SyntaxFactory.TriviaList())));
+                        SyntaxFactory.Literal(SyntaxFactory.TriviaList(), value.ToString(), (int)value, SyntaxFactory.TriviaList())));
             }
+
             if (value is string)
             {
                 return
                     SyntaxFactory.EqualsValueClause(SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression,
-                        SyntaxFactory.Literal(SyntaxFactory.TriviaList(), value.ToString(), (string) value, SyntaxFactory.TriviaList())));
-
+                        SyntaxFactory.Literal(SyntaxFactory.TriviaList(), value.ToString(), (string)value, SyntaxFactory.TriviaList())));
             }
-            if(value is VariableReference)
+
+            if (value is VariableReference)
             {
                 return SyntaxFactory.EqualsValueClause(ReferenceGenerator.Create((VariableReference)value));
             }
-            throw new NotSupportedException("Not a suppoerted value"); 
-        }
 
+            throw new NotSupportedException("Not a suppoerted value");
+        }
     }
 }
