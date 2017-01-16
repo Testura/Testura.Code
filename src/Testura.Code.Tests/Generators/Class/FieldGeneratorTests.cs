@@ -7,7 +7,7 @@ using Assert = NUnit.Framework.Assert;
 namespace Testura.Code.Tests.Generators.Class
 {
     [TestFixture]
-    public class FieldTests
+    public class FieldGeneratorTests
     {
         [Test]
         public void Create_WhenCreatingField_ShouldGenerateCorrectCode()

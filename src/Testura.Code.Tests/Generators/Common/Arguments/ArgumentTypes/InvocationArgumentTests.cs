@@ -13,7 +13,7 @@ namespace Testura.Code.Tests.Generators.Common.Arguments.ArgumentTypes
         public void GetArgumentSyntax_WhenUsingMethod_ShouldGetCode()
         {
             var argument =
-                new InvocationArgument(Statement.Expression.Invoke(new MethodReference("Do")).AsInvocationStatment());
+                new InvocationArgument(Statement.Expression.Invoke(new MethodReference("Do")).AsExpression());
             var syntax = argument.GetArgumentSyntax();
 
             Assert.IsInstanceOf<ArgumentSyntax>(syntax);
@@ -24,7 +24,7 @@ namespace Testura.Code.Tests.Generators.Common.Arguments.ArgumentTypes
         public void GetArgumentSyntax_WhenUsingMethodAndCasting_ShouldGetCode()
         {
             var argument =
-                new InvocationArgument(Statement.Expression.Invoke(new MethodReference("Do")).AsInvocationStatment(), typeof(int));
+                new InvocationArgument(Statement.Expression.Invoke(new MethodReference("Do")).AsExpression(), typeof(int));
             var syntax = argument.GetArgumentSyntax();
 
             Assert.IsInstanceOf<ArgumentSyntax>(syntax);

@@ -10,7 +10,7 @@ namespace Testura.Code.Generators.Class
     /// <summary>
     /// Generate code for a class
     /// </summary>
-    public static class ClassGenerator
+    public static class ConstructorGenerator
     {
         /// <summary>
         /// Create the constructor for a class
@@ -19,7 +19,7 @@ namespace Testura.Code.Generators.Class
         /// <param name="parameters">Parameters of the constructor</param>
         /// <param name="body">Body of the constructor</param>
         /// <returns>A constructor decleration</returns>
-        public static ConstructorDeclarationSyntax Constructor(
+        public static ConstructorDeclarationSyntax Create(
             string className,
             BlockSyntax body,
             IEnumerable<Parameter> parameters = null,

@@ -7,7 +7,7 @@ using Assert = NUnit.Framework.Assert;
 namespace Testura.Code.Tests.Generators.Class
 {
     [TestFixture]
-    class PropertyTests
+    class PropertyGeneratorTests
     {
         [Test]
         public void Create_WhenCreatingPropertyWithOnlyGet_ShouldHaveNoSet()

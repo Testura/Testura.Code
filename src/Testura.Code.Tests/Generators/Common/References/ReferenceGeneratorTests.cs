@@ -9,7 +9,7 @@ using IArgument = Testura.Code.Generators.Common.Arguments.ArgumentTypes.IArgume
 namespace Testura.Code.Tests.Generators.Common.References
 {
     [TestFixture]
-    public class ReferenceTests
+    public class ReferenceGeneratorTests
     {
         [Test]
         public void Create_WhenCreatingVariableRefernce_ShouldGenerateCorrectCode()

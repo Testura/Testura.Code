@@ -21,7 +21,7 @@ namespace Testura.Code.Tests.Integration
                 .WithUsings("System")
                 .WithProperties(PropertyGenerator.Create(new Property("Name", typeof(string), PropertyTypes.GetAndSet)),
                     PropertyGenerator.Create(new Property("Age", typeof(int), PropertyTypes.GetAndSet)))
-                .WithConstructor(ClassGenerator.Constructor("Cat",
+                .WithConstructor(ConstructorGenerator.Create("Cat",
                 BodyGenerator.Create(
                             Statement.Decleration.Assign("Name", ReferenceGenerator.Create(new VariableReference("name"))),
                             Statement.Decleration.Assign("Age", ReferenceGenerator.Create(new VariableReference("age")))
@@ -39,7 +39,7 @@ namespace Testura.Code.Tests.Integration
                 .WithUsings("System")
                 .WithMethods(
                     new MethodBuilder("Meow")
-                        .WithParameters(new Parameter("cat", "Cat"))
+                        .WithParameters(new Parameter("cat", typeof(int)))
                         .WithBody(BodyGenerator.Create(
                                 Statement.Decleration.DeclareAndAssign("meow", typeof(string), new VariableReference("cat", new MemberReference("MyProperty")))
                             ))

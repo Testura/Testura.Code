@@ -13,12 +13,12 @@ namespace Testura.Code.Models
             _invocation = invocation;
         }
 
-        public ExpressionStatementSyntax AsExpressionStatement()
+        public ExpressionStatementSyntax AsStatement()
         {
             return ExpressionStatement(_invocation);
         }
 
-        public InvocationExpressionSyntax AsInvocationStatment()
+        public InvocationExpressionSyntax AsExpression()
         {
             return _invocation;
         }

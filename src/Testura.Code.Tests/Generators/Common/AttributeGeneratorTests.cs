@@ -8,7 +8,7 @@ using Assert = NUnit.Framework.Assert;
 namespace Testura.Code.Tests.Generators.Common
 {
     [TestFixture]
-    public class AttributesTests
+    public class AttributeGeneratorTests
     {
         [Test]
         public void Create_WhenNotProvidingAnyAttributes_ShouldGetEmptyString()
@@ -27,6 +27,13 @@ namespace Testura.Code.Tests.Generators.Common
         {
             Assert.AreEqual("[Test][TestCase]", AttributeGenerator.Create(new Attribute("Test"), new Attribute("TestCase")).ToString());
         }
+
+        [Test]
+        public void Create_WhenCreatingAttributeWithParameters_ShoulGenerateCorrectCode()
+        {
+            Assert.AreEqual("[Test(1,2)]", AttributeGenerator.Create(new Attribute("Test", new List<IArgument>() { new ValueArgument(1), new ValueArgument(2)})).ToString());
+        }
+
 
     }
 }

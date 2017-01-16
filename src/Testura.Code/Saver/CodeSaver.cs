@@ -1,9 +1,7 @@
 ﻿using System.IO;
-using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Formatting;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.Formatting;
 using Formatter = Microsoft.CodeAnalysis.Formatting.Formatter;
 
 namespace Testura.Code.Saver

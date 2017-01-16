@@ -19,6 +19,7 @@ namespace Testura.Code.Builders
         private readonly string _name;
         private readonly string _namespace;
         private readonly List<string> _usings;
+        private readonly List<Modifiers> _modifiers;
         private readonly List<MethodDeclarationSyntax> _methods;
         private readonly List<Type> _inheritance;
         private readonly List<FieldDeclarationSyntax> _fields;
@@ -33,6 +34,7 @@ namespace Testura.Code.Builders
             _namespace = @namespace;
             _methods = new List<MethodDeclarationSyntax>();
             _inheritance = new List<Type>();
+            _modifiers = new List<Modifiers> {Modifiers.Public};
             _fields = new List<FieldDeclarationSyntax>();
             _properties = new List<PropertyDeclarationSyntax>();
             _usings = new List<string>();
@@ -139,6 +141,13 @@ namespace Testura.Code.Builders
             return this;
         }
 
+        public ClassBuilder WithModifiers(params Modifiers[] modifier)
+        {
+            _modifiers.Clear();
+            _modifiers.AddRange(modifier);
+            return this;
+        }
+
         /// <summary>
         /// Set constructor for class
         /// </summary>
@@ -155,10 +164,10 @@ namespace Testura.Code.Builders
         /// </summary>
         /// <param name="types"></param>
         /// <returns></returns>
-        public ClassBuilder ThatInheritFrom(IEnumerable<Type> types)
+        public ClassBuilder ThatInheritFrom(params Type[] types)
         {
             _inheritance.Clear();
-            _inheritance.AddRange(_inheritance);
+            _inheritance.AddRange(types);
             return this;
         }
 
@@ -207,14 +216,15 @@ namespace Testura.Code.Builders
                 var syntaxNodeOrToken = new SyntaxNodeOrToken[_inheritance.Count * 2 - 1];
                 for (int n = 0; n < _inheritance.Count * 2 - 1; n += 2)
                 {
-                    syntaxNodeOrToken[n] = SyntaxFactory.SimpleBaseType(SyntaxFactory.IdentifierName("MyClass"));
-                    if(n+1 != _inheritance.Count - 1)
+                    syntaxNodeOrToken[n] = SyntaxFactory.SimpleBaseType(TypeGenerator.Create(_inheritance[n]));
+                    if(n+1 < _inheritance.Count - 1)
                         syntaxNodeOrToken[n + 1] = SyntaxFactory.Token(SyntaxKind.CommaToken);
                 }
-                return SyntaxFactory.ClassDeclaration(_name).WithBaseList(SyntaxFactory.BaseList(SyntaxFactory.SeparatedList<BaseTypeSyntax>(syntaxNodeOrToken))).AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
 
+                return SyntaxFactory.ClassDeclaration(_name).WithBaseList(SyntaxFactory.BaseList(SyntaxFactory.SeparatedList<BaseTypeSyntax>(syntaxNodeOrToken))).WithModifiers(ModifierGenerator.Create(_modifiers.ToArray()));
             }
-            return SyntaxFactory.ClassDeclaration(_name).AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+
+            return SyntaxFactory.ClassDeclaration(_name).WithModifiers(ModifierGenerator.Create(_modifiers.ToArray()));
         }
 
         private ClassDeclarationSyntax BuildAttributes(ClassDeclarationSyntax @class)

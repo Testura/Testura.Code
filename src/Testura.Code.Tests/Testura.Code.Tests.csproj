@@ -63,7 +63,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Generators\Class\ClassTests.cs" />
+    <Compile Include="Builders\ClassBuilderTests.cs" />
+    <Compile Include="Builders\MethodBuildersTest.cs" />
+    <Compile Include="Compilation\CompilerTests.cs" />
+    <Compile Include="Generators\Class\ConstructorGeneratorTests.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentsTests.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\ArrayInitializeArgumentTests.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\ClassInitializationArgumentTests.cs" />
@@ -73,19 +76,21 @@
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\TypeOfArgumentTests.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\ValueArgumentTests.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\VariableArgumentTests.cs" />
-    <Compile Include="Generators\Common\AttributesTests.cs" />
+    <Compile Include="Generators\Common\AttributeGeneratorTests.cs" />
+    <Compile Include="Generators\Common\ModifierGeneratorTests.cs" />
     <Compile Include="Generators\Common\TypeGeneratorTests.cs" />
-    <Compile Include="Generators\Special\AssertGeneratorTests.cs" />
+    <Compile Include="Generators\Special\NunitAssertGeneratorTests.cs" />
     <Compile Include="Integration\ModelClassTests.cs" />
     <Compile Include="Models\References\ConstantReferenceTests.cs" />
     <Compile Include="Models\References\VariableReferenceTests.cs" />
+    <Compile Include="Saver\CodeSaverTests.cs" />
     <Compile Include="Statements\ExpressionStatementTests.cs" />
     <Compile Include="Statements\SelectionStatementTests.cs" />
     <Compile Include="Statements\IterationStatementTests.cs" />
-    <Compile Include="Generators\Class\FieldTests.cs" />
-    <Compile Include="Generators\Common\GenericTests.cs" />
-    <Compile Include="Generators\Class\PropertyTests.cs" />
-    <Compile Include="Generators\Common\References\ReferenceTests.cs" />
+    <Compile Include="Generators\Class\FieldGeneratorTests.cs" />
+    <Compile Include="Generators\Common\GenericGeneratorTests.cs" />
+    <Compile Include="Generators\Class\PropertyGeneratorTests.cs" />
+    <Compile Include="Generators\Common\References\ReferenceGeneratorTests.cs" />
     <Compile Include="Statements\JumpStatementTests.cs" />
     <Compile Include="Statements\DeclerationStatementTests.cs" />
     <Compile Include="Integration\HelloWorldTest.cs" />

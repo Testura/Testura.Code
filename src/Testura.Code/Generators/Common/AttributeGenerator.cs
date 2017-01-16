@@ -52,7 +52,10 @@ namespace Testura.Code.Generators.Common
         private static List<SyntaxNodeOrToken> ConvertArgumentsToSyntaxNodesOrTokens(List<IArgument> arguments)
         {
             if (!arguments.Any())
+            {
                 return new List<SyntaxNodeOrToken>();
+            }
+
             var list = new List<SyntaxNodeOrToken>();
 
             foreach (var argument in arguments)
@@ -60,9 +63,9 @@ namespace Testura.Code.Generators.Common
                 list.Add(SyntaxFactory.AttributeArgument(argument.GetArgumentSyntax().Expression));
                 list.Add(SyntaxFactory.Token(SyntaxKind.CommaToken));
             }
+
             list.RemoveAt(list.Count - 1);
             return list;
         }
-
     }
 }

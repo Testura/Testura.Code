@@ -76,18 +76,18 @@ namespace Testura.Code.Tests.Statements
         [Test]
         public void DeclareAndAssign_WhenCreateTypeAndAssignToExpression_ShouldAssignToExpression()
         {
-            Assert.AreEqual("vartest=MyMethod();", statement.DeclareAndAssign("test", typeof(int), new ExpressionStatement().Invoke("MyMethod").AsInvocationStatment()).ToString());
+            Assert.AreEqual("vartest=MyMethod();", statement.DeclareAndAssign("test", typeof(int), new ExpressionStatement().Invoke("MyMethod").AsExpression()).ToString());
         }
         [Test]
         public void DeclareAndAssign_WhenCreateTypeAndAssignToExpressionAndNotUsingVarKeyword_ShouldAssignToExpressionWithoutVarKeyword()
         {
-            Assert.AreEqual("inttest=MyMethod();", statement.DeclareAndAssign("test", typeof(int), new ExpressionStatement().Invoke("MyMethod").AsInvocationStatment(), useVarKeyword:false).ToString());
+            Assert.AreEqual("inttest=MyMethod();", statement.DeclareAndAssign("test", typeof(int), new ExpressionStatement().Invoke("MyMethod").AsExpression(), useVarKeyword:false).ToString());
         }
 
         [Test]
         public void DeclareAndAssign_WhenCreateTypeAndAssignToExpressionAndCast_ShouldAssignToExpressionAndCast()
         {
-            Assert.AreEqual("vartest=(int)MyMethod();", statement.DeclareAndAssign("test", typeof(int), new ExpressionStatement().Invoke("MyMethod").AsInvocationStatment(), typeof(int)).ToString());
+            Assert.AreEqual("vartest=(int)MyMethod();", statement.DeclareAndAssign("test", typeof(int), new ExpressionStatement().Invoke("MyMethod").AsExpression(), typeof(int)).ToString());
         }
 
         [Test]
@@ -105,13 +105,13 @@ namespace Testura.Code.Tests.Statements
         [Test]
         public void Assign_WhenAssignVariableToExpression_ShouldAssignVariable()
         {
-            Assert.AreEqual("test=MyMethod();", statement.Assign("test", new ExpressionStatement().Invoke("MyMethod").AsInvocationStatment()).ToString());
+            Assert.AreEqual("test=MyMethod();", statement.Assign("test", new ExpressionStatement().Invoke("MyMethod").AsExpression()).ToString());
         }
 
         [Test]
         public void Assign_WhenAssignVariableToExpressionAndCast_ShouldAssignVariable()
         {
-            Assert.AreEqual("test=(int)MyMethod();", statement.Assign("test", new ExpressionStatement().Invoke("MyMethod").AsInvocationStatment(), typeof(int)).ToString());
+            Assert.AreEqual("test=(int)MyMethod();", statement.Assign("test", new ExpressionStatement().Invoke("MyMethod").AsExpression(), typeof(int)).ToString());
         }
 
         [Test]

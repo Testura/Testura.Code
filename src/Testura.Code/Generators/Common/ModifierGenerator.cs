@@ -7,7 +7,7 @@ namespace Testura.Code.Generators.Common
 {
     public static class ModifierGenerator
     {
-        public static SyntaxTokenList Create(params Code.Modifiers[] modifierses)
+        public static SyntaxTokenList Create(params Modifiers[] modifierses)
         {
             if (modifierses.Length == 0)
             {
@@ -19,19 +19,19 @@ namespace Testura.Code.Generators.Common
             {
                 switch (modifierse)
                 {
-                    case Code.Modifiers.Public:
+                    case Modifiers.Public:
                         tokens.Add(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
                         break;
-                    case Code.Modifiers.Private:
+                    case Modifiers.Private:
                         tokens.Add(SyntaxFactory.Token(SyntaxKind.PrivateKeyword));
                         break;
-                    case Code.Modifiers.Static:
+                    case Modifiers.Static:
                         tokens.Add(SyntaxFactory.Token(SyntaxKind.StaticKeyword));
                         break;
-                    case Code.Modifiers.Abstract:
+                    case Modifiers.Abstract:
                         tokens.Add(SyntaxFactory.Token(SyntaxKind.AbstractKeyword));
                         break;
-                    case Code.Modifiers.Virtual:
+                    case Modifiers.Virtual:
                         tokens.Add(SyntaxFactory.Token(SyntaxKind.VirtualKeyword));
                         break;
                     default:

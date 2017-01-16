@@ -3,7 +3,7 @@
 namespace Testura.Code.Tests.Generators.Common
 {
     [TestFixture]
-    public class GenericTests
+    public class GenericGeneratorTests
     {
         //[Test]
         //public void gfdg()

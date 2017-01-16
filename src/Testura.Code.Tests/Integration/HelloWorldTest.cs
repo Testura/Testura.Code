@@ -24,8 +24,8 @@ namespace Testura.Code.Tests.Integration
                     .WithParameters(new Parameter("args", typeof(string[])))
                     .WithModifiers(Modifiers.Public, Modifiers.Static)
                     .WithBody(BodyGenerator.Create(
-                        Statement.Expression.Invoke(new VariableReference("Console", new MethodReference("WriteLine", new List<IArgument>() { new ValueArgument("Hello world") }))).AsExpressionStatement(),
-                        Statement.Expression.Invoke("Console", "ReadLine").AsExpressionStatement()
+                        Statement.Expression.Invoke(new VariableReference("Console", new MethodReference("WriteLine", new List<IArgument>() { new ValueArgument("Hello world") }))).AsStatement(),
+                        Statement.Expression.Invoke("Console", "ReadLine").AsStatement()
                         ))
                     .Build())
                 .Build();

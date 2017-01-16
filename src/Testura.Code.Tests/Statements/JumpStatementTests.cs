@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Testura.Code.Models.References;
 using Testura.Code.Statements;
 using Assert = NUnit.Framework.Assert;
 
@@ -16,15 +17,27 @@ namespace Testura.Code.Tests.Statements
         }
 
         [Test]
-        public void True_WhenReturnTrue_ShouldGenerateCorrectCode()
+        public void ReturnTrue_WhenReturnTrue_ShouldGenerateCorrectCode()
         {
-            Assert.AreEqual("returntrue;", @return.True().ToString());
+            Assert.AreEqual("returntrue;", @return.ReturnTrue().ToString());
         }
 
         [Test]
-        public void True_WhenReturnFalse_ShouldGenerateCorrectCode()
+        public void ReturnFalse_WhenReturnFalse_ShouldGenerateCorrectCode()
         {
-            Assert.AreEqual("returnfalse;", @return.False().ToString());
+            Assert.AreEqual("returnfalse;", @return.ReturnFalse().ToString());
+        }
+
+        [Test]
+        public void Return_WhenReturnReference_ShouldGenerateCorrectCode()
+        {
+            Assert.AreEqual("returni;", @return.Return(new VariableReference("i")).ToString());
+        }
+
+        [Test]
+        public void Return_WhenReturnExpression_ShouldGenerateCorrectCode()
+        {
+            Assert.AreEqual("returntest();", @return.Return(Statement.Expression.Invoke("test").AsExpression()).ToString());
         }
     }
 }

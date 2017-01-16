@@ -24,7 +24,7 @@ namespace Testura.Code.Tests.Statements
         {
            var invocation = expressionStatement.Invoke("myClass", "Do");
            Assert.IsNotNull(invocation);
-            Assert.AreEqual("myClass.Do();", invocation.AsExpressionStatement().ToString());
+            Assert.AreEqual("myClass.Do();", invocation.AsStatement().ToString());
         }
 
         [Test]
@@ -32,7 +32,7 @@ namespace Testura.Code.Tests.Statements
         {
             var invocation = expressionStatement.Invoke("myClass", "Do", new List<IArgument> { new ValueArgument(1) });
             Assert.IsNotNull(invocation);
-            Assert.AreEqual("myClass.Do(1);", invocation.AsExpressionStatement().ToString());
+            Assert.AreEqual("myClass.Do(1);", invocation.AsStatement().ToString());
         }
 
         [Test]
@@ -46,7 +46,7 @@ namespace Testura.Code.Tests.Statements
         {
             var invocation = expressionStatement.Invoke(new VariableReference("myClass", new MethodReference("Do", new List<IArgument>())));
             Assert.IsNotNull(invocation);
-            Assert.AreEqual("myClass.Do();", invocation.AsExpressionStatement().ToString());
+            Assert.AreEqual("myClass.Do();", invocation.AsStatement().ToString());
         }
 
         [Test]
@@ -54,7 +54,7 @@ namespace Testura.Code.Tests.Statements
         {
             var invocation = expressionStatement.Invoke(new VariableReference("myClass", new MethodReference("Do", new List<IArgument>(), new List<Type>() { typeof(int)})));
             Assert.IsNotNull(invocation);
-            Assert.AreEqual("myClass.Do<int>();", invocation.AsExpressionStatement().ToString());
+            Assert.AreEqual("myClass.Do<int>();", invocation.AsStatement().ToString());
         }
 
         [Test]
@@ -62,7 +62,7 @@ namespace Testura.Code.Tests.Statements
         {
             var invocation = expressionStatement.Invoke("MyMethod", new List<IArgument> { new ValueArgument(1)});
             Assert.IsNotNull(invocation);
-            Assert.AreEqual("MyMethod(1);", invocation.AsExpressionStatement().ToString());
+            Assert.AreEqual("MyMethod(1);", invocation.AsStatement().ToString());
         }
 
 

@@ -1,5 +1,7 @@
 ﻿using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Testura.Code.Generators.Common;
+using Testura.Code.Models.References;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Statements
@@ -10,7 +12,7 @@ namespace Testura.Code.Statements
         /// Create a true return statement
         /// </summary>
         /// <returns></returns>
-        public ReturnStatementSyntax True()
+        public ReturnStatementSyntax ReturnTrue()
         {
             return ReturnStatement(
                 LiteralExpression(SyntaxKind.TrueLiteralExpression).WithToken(Token(SyntaxKind.TrueKeyword)));
@@ -20,10 +22,28 @@ namespace Testura.Code.Statements
         /// Create a false return statement
         /// </summary>
         /// <returns></returns>
-        public ReturnStatementSyntax False()
+        public ReturnStatementSyntax ReturnFalse()
         {
             return ReturnStatement(
                 LiteralExpression(SyntaxKind.TrueLiteralExpression).WithToken(Token(SyntaxKind.FalseKeyword)));
+        }
+
+        /// <summary>
+        /// Create a false return statement
+        /// </summary>
+        /// <returns></returns>
+        public ReturnStatementSyntax Return(VariableReference variableReference)
+        {
+            return ReturnStatement(ReferenceGenerator.Create(variableReference));
+        }
+
+        /// <summary>
+        /// Create a false return statement
+        /// </summary>
+        /// <returns></returns>
+        public ReturnStatementSyntax Return(ExpressionSyntax expression)
+        {
+            return ReturnStatement(expression);
         }
     }
 }

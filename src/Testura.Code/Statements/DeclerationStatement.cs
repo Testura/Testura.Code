@@ -15,7 +15,7 @@ namespace Testura.Code.Statements
         /// </summary>
         /// <param name="name">Name of variable</param>
         /// <param name="value">Value to assign variable</param>
-        /// <param name="useVarKeyword">True if we should use var keyword, otherwise we use type name</param>
+        /// <param name="useVarKeyword">ReturnTrue if we should use var keyword, otherwise we use type name</param>
         /// <returns>The generated local declaration statement</returns>
         public LocalDeclarationStatementSyntax DeclareAndAssign<T>(string name, T value, bool useVarKeyword = true)
             where T : struct

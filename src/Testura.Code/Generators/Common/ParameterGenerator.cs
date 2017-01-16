@@ -36,7 +36,7 @@ namespace Testura.Code.Generators.Common
         {
             return
                 SyntaxFactory.Parameter(SyntaxFactory.Identifier(parameter.Name))
-                    .WithType(SyntaxFactory.IdentifierName(parameter.Type));
+                    .WithType(TypeGenerator.Create(parameter.Type));
         }
 
         public static ParameterListSyntax ConvertParameterSyntaxToList(params ParameterSyntax[] parameters)

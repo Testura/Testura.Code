@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
@@ -10,10 +12,16 @@ namespace Testura.Code.Compilations
 {
     public class Compiler : ICompiler
     {
-        private const string RuntimePath = @"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.1\{0}.dll";
+        private readonly string _runtimeDirectory;
+        private readonly string[] _referencedAssemblies;
+        private readonly IEnumerable<string> _defaultNamespaces;
 
-        private readonly IEnumerable<string> _defaultNamespaces = new[]
+        public Compiler(string[] referencedAssemblies, string runtimeDirectory = null)
         {
+            _referencedAssemblies = referencedAssemblies ?? new string[0];
+            _runtimeDirectory = runtimeDirectory ?? @"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.1\";
+            _defaultNamespaces = new[]
+            {
                 "System",
                 "System.IO",
                 "System.Net",
@@ -21,24 +29,7 @@ namespace Testura.Code.Compilations
                 "System.Text",
                 "System.Text.RegularExpressions",
                 "System.Collections.Generic"
-        };
-
-        private readonly string[] _referencedAssemblies;
-
-        public Compiler(string[] referencedAssemblies)
-        {
-            _referencedAssemblies = referencedAssemblies;
-        }
-
-        /// <summary>
-        /// Compile code to a dll
-        /// </summary>
-        /// <param name="outputPath">Path where the dll file should be created</param>
-        /// <param name="pathToCsFile">Path to the .cs file</param>
-        /// <returns>The result from the compiler</returns>
-        public Task<CompileResult> CompileAsync(string outputPath, string pathToCsFile)
-        {
-            return CompileAsync(outputPath, new[] { pathToCsFile });
+            };
         }
 
         /// <summary>
@@ -47,25 +38,42 @@ namespace Testura.Code.Compilations
         /// <param name="outputPath">Path where the dll file should be created</param>
         /// <param name="pathsToCsFiles">An array with paths to the .cs files</param>
         /// <returns>Results from the compiler</returns>
-        public Task<CompileResult> CompileAsync(string outputPath, string[] pathsToCsFiles)
+        public async Task<CompileResult> CompileFilesAsync(string outputPath, params string[] pathsToCsFiles)
         {
-            return Task.Run(() =>
+            var source = new string[pathsToCsFiles.Length];
+            for (int n = 0; n < pathsToCsFiles.Length; n++)
             {
-                var parsedSyntaxTrees = new SyntaxTree[pathsToCsFiles.Length];
-                for (int n = 0; n < pathsToCsFiles.Length; n++)
+                source[n] = File.ReadAllText(pathsToCsFiles[n]);
+            }
+
+            return await CompileSourceAsync(outputPath, source);
+        }
+
+        /// <summary>
+        /// Compile code to a dll
+        /// </summary>
+        /// <param name="outputPath">Path where the dll file should be created</param>
+        /// <param name="pathsToCsFiles">An array with paths to the .cs files</param>
+        /// <returns>Results from the compiler</returns>
+        public async Task<CompileResult> CompileSourceAsync(string outputPath, params string[] source)
+        {
+            return await Task.Run(() =>
+            {
+                var parsedSyntaxTrees = new SyntaxTree[source.Length];
+                for (int n = 0; n < source.Length; n++)
                 {
-                    var pathToCsFile = pathsToCsFiles[n];
-                    var source = File.ReadAllText(pathToCsFile);
-                    parsedSyntaxTrees[n] = Parse(source,
+                    parsedSyntaxTrees[n] = Parse(source[n],
                         CSharpParseOptions.Default.WithLanguageVersion(LanguageVersion.CSharp6));
                 }
-                var defaultCompilationOptions = new CSharpCompilationOptions(
-                    OutputKind.DynamicallyLinkedLibrary).WithOverflowChecks(true)
+                var defaultCompilationOptions = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary)
+                    .WithOverflowChecks(true)
                     .WithOptimizationLevel(OptimizationLevel.Release)
                     .WithUsings(_defaultNamespaces);
-                var compilation
-                    = CSharpCompilation.Create(Path.GetFileName(outputPath), parsedSyntaxTrees,
-                        ConvertReferenceToMetaDataReferfence(), defaultCompilationOptions);
+                var compilation = CSharpCompilation.Create(
+                    Path.GetFileName(outputPath),
+                    parsedSyntaxTrees,
+                    ConvertReferenceToMetaDataReferfence(),
+                    defaultCompilationOptions);
                 var result = compilation.Emit(outputPath);
                 var outputRows = ConvertDiagnosticsToOutputRows(result.Diagnostics);
                 return new CompileResult(outputPath, result.Success, outputRows);
@@ -81,6 +89,7 @@ namespace Testura.Code.Compilations
                     continue;
                 outputRows.Add(new OutputRow { Description = diagnostic.GetMessage(), Severity = diagnostic.Severity.ToString(), ClassName = diagnostic.Id });
             }
+
             return outputRows;
         }
 
@@ -96,10 +105,10 @@ namespace Testura.Code.Compilations
                 metaData.Add(MetadataReference.CreateFromFile(reference));
             }
 
-            //Add default references 
-            metaData.Add(MetadataReference.CreateFromFile(string.Format(RuntimePath, "mscorlib")));
-            metaData.Add(MetadataReference.CreateFromFile(string.Format(RuntimePath, "System")));
-            metaData.Add(MetadataReference.CreateFromFile(string.Format(RuntimePath, "System.Core")));
+            // Add default references 
+            metaData.Add(MetadataReference.CreateFromFile(Path.Combine(_runtimeDirectory, "mscorlib.dll")));
+            metaData.Add(MetadataReference.CreateFromFile(Path.Combine(_runtimeDirectory, "System.dll")));
+            metaData.Add(MetadataReference.CreateFromFile(Path.Combine(_runtimeDirectory, "System.Core.dll")));
             return metaData;
         }
 

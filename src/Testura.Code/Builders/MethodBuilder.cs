@@ -144,8 +144,7 @@ namespace Testura.Code.Builders
         {
             if (_returnType != null)
             {
-                return MethodDeclaration(IdentifierName(_returnType.Name),
-                        Identifier(_name));
+                return MethodDeclaration(TypeGenerator.Create(_returnType), Identifier(_name));
             }
             else
             {
@@ -157,7 +156,7 @@ namespace Testura.Code.Builders
 
         private MethodDeclarationSyntax BuildModifiers(MethodDeclarationSyntax method)
         {
-            if (_modifiers != null || !_modifiers.Any())
+            if (_modifiers == null || !_modifiers.Any())
             {
                 return method;
             }
@@ -202,7 +201,7 @@ namespace Testura.Code.Builders
 
         private MethodDeclarationSyntax BuildParameters(MethodDeclarationSyntax method)
         {
-            return _parameters == null ? method : method.WithParameterList(ParameterGenerator.ConvertParameterSyntaxToList(_parameters.ToArray()));
+            return !_parameters.Any() ? method : method.WithParameterList(ParameterGenerator.ConvertParameterSyntaxToList(_parameters.ToArray()));
         }
 
         private MethodDeclarationSyntax BuildBody(MethodDeclarationSyntax method)

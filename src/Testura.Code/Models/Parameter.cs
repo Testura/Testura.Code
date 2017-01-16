@@ -8,17 +8,14 @@ namespace Testura.Code.Models
 {
     public class Parameter
     {
-        public string Name { get; set; }
-        public string Type { get; set; }
-
-        public Parameter(string name, string type)
+        public Parameter(string name, Type type)
         {
             Name = name;
             Type = type;
         }
 
-        public Parameter(string name, Type type) : this(name, type.Name)
-        {
-        }
+        public string Name { get; set; }
+        public Type Type { get; set; }
+
     }
 }
