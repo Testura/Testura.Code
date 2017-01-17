@@ -7,18 +7,18 @@ using Testura.Code.Models;
 
 namespace Testura.Code.Generators.Class
 {
-    /// <summary>
-    /// Generate code for a class
-    /// </summary>
     public static class ConstructorGenerator
     {
+
         /// <summary>
-        /// Create the constructor for a class
+        /// Create the syntax for a class constructor
         /// </summary>
         /// <param name="className">Name of the class</param>
-        /// <param name="parameters">Parameters of the constructor</param>
-        /// <param name="body">Body of the constructor</param>
-        /// <returns>A constructor decleration</returns>
+        /// <param name="body">The generated body of the constructor</param>
+        /// <param name="parameters">A list with parameters</param>
+        /// <param name="modifiers">A list with modifiers</param>
+        /// <param name="attributes">A list with attributes</param>
+        /// <returns>The decleration syntax for a constructor</returns>
         public static ConstructorDeclarationSyntax Create(
             string className,
             BlockSyntax body,

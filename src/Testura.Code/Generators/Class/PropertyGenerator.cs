@@ -9,11 +9,10 @@ namespace Testura.Code.Generators.Class
     public static class PropertyGenerator
     {
         /// <summary>
-        /// Create a auto property for a class
+        /// Create the syntax for a property of a class
         /// </summary>
-        /// <param name="name">Name of property</param>
-        /// <param name="type">Type of property</param>
-        /// <returns>A property declaration</returns>
+        /// <param name="property">The property to create</param>
+        /// <returns>The decleration syntax for a property</returns>
         public static PropertyDeclarationSyntax Create(Property property)
         {
             var propertyDecleration = SyntaxFactory.PropertyDeclaration(

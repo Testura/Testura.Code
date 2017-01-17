@@ -16,7 +16,7 @@
         public string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the test that gave the warning
+        /// Gets or sets the name of the class that gave the warning
         /// </summary>
         public string ClassName { get; set; }
     }

@@ -2,6 +2,11 @@
 {
     public static class ObjectExtensions
     {
+        /// <summary>
+        /// Check if the object is a numeric type.
+        /// </summary>
+        /// <param name="obj">Object to check</param>
+        /// <returns>True if the object is numeric, otherwise false.</returns>
         public static bool IsNumeric(this object obj)
         {
             return obj is sbyte

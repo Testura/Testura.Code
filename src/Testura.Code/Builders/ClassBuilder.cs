@@ -11,9 +11,6 @@ using Attribute = Testura.Code.Models.Attribute;
 
 namespace Testura.Code.Builders
 {
-    /// <summary>
-    /// Help class to build a class
-    /// </summary>
     public class ClassBuilder
     {
         private readonly string _name;
@@ -40,33 +37,6 @@ namespace Testura.Code.Builders
             _usings = new List<string>();
         }
 
-        /// <summary>
-        /// Set attributes for class
-        /// </summary>
-        /// <param name="attributes"></param>
-        /// <returns></returns>
-        public ClassBuilder WithAttributes(params Attribute[] attributes)
-        {
-            _attributes = AttributeGenerator.Create(attributes);
-            return this;
-        }
-
-        /// <summary>
-        /// Set attributes for class
-        /// </summary>
-        /// <param name="attributes"></param>
-        /// <returns></returns>
-        public ClassBuilder WithAttributes(SyntaxList<AttributeListSyntax> attributes)
-        {
-            _attributes = attributes;
-            return this;
-        }
-
-        /// <summary>
-        /// Set using statements for class
-        /// </summary>
-        /// <param name="usings"></param>
-        /// <returns></returns>
         public ClassBuilder WithUsings(params string[] usings)
         {
             _usings.Clear();
@@ -74,23 +44,33 @@ namespace Testura.Code.Builders
             return this;
         }
 
-        /// <summary>
-        /// Set methods for class
-        /// </summary>
-        /// <param name="methods"></param>
-        /// <returns></returns>
-        public ClassBuilder WithMethods(params MethodDeclarationSyntax[] methods)
+        public ClassBuilder WithModifiers(params Modifiers[] modifier)
         {
-            _methods.Clear();
-            _methods.AddRange(methods);
+            _modifiers.Clear();
+            _modifiers.AddRange(modifier);
             return this;
         }
 
-        /// <summary>
-        /// Set fields for class
-        /// </summary>
-        /// <param name="fields"></param>
-        /// <returns></returns>
+        public ClassBuilder ThatInheritFrom(params Type[] types)
+        {
+            _inheritance.Clear();
+            _inheritance.AddRange(types);
+            return this;
+        }
+
+        public ClassBuilder WithAttributes(params Attribute[] attributes)
+        {
+            _attributes = AttributeGenerator.Create(attributes);
+            return this;
+        }
+
+
+        public ClassBuilder WithAttributes(SyntaxList<AttributeListSyntax> attributes)
+        {
+            _attributes = attributes;
+            return this;
+        }
+
         public ClassBuilder WithFields(params Field[] fields)
         {
             _fields.Clear();
@@ -102,11 +82,6 @@ namespace Testura.Code.Builders
             return this;
         }
 
-        /// <summary>
-        /// Set fields for class
-        /// </summary>
-        /// <param name="fields"></param>
-        /// <returns></returns>
         public ClassBuilder WithFields(params FieldDeclarationSyntax[] fields)
         {
             _fields.Clear();
@@ -114,11 +89,19 @@ namespace Testura.Code.Builders
             return this;
         }
 
-        /// <summary>
-        /// Set properties for class
-        /// </summary>
-        /// <param name="properties"></param>
-        /// <returns></returns>
+        public ClassBuilder WithConstructor(ConstructorDeclarationSyntax constructor)
+        {
+            _constructor = constructor;
+            return this;
+        }
+
+        public ClassBuilder WithMethods(params MethodDeclarationSyntax[] methods)
+        {
+            _methods.Clear();
+            _methods.AddRange(methods);
+            return this;
+        }
+
         public ClassBuilder WithProperties(params Property[] properties)
         {
             _properties.Clear();
@@ -130,11 +113,6 @@ namespace Testura.Code.Builders
             return this;
         }
 
-        /// <summary>
-        /// Set properties for class
-        /// </summary>
-        /// <param name="properties"></param>
-        /// <returns></returns>
         public ClassBuilder WithProperties(params PropertyDeclarationSyntax[] properties)
         {
             _properties.Clear();
@@ -142,46 +120,12 @@ namespace Testura.Code.Builders
             return this;
         }
 
-        public ClassBuilder WithModifiers(params Modifiers[] modifier)
-        {
-            _modifiers.Clear();
-            _modifiers.AddRange(modifier);
-            return this;
-        }
-
-        /// <summary>
-        /// Set constructor for class
-        /// </summary>
-        /// <param name="constructor"></param>
-        /// <returns></returns>
-        public ClassBuilder WithConstructor(ConstructorDeclarationSyntax constructor)
-        {
-            _constructor = constructor;
-            return this;
-        }
-
-        /// <summary>
-        /// Set types that class should inherit from
-        /// </summary>
-        /// <param name="types"></param>
-        /// <returns></returns>
-        public ClassBuilder ThatInheritFrom(params Type[] types)
-        {
-            _inheritance.Clear();
-            _inheritance.AddRange(types);
-            return this;
-        }
-
-        /// <summary>
-        /// Build the final compilation syntax for a class
-        /// </summary>
-        /// <returns></returns>
         public CompilationUnitSyntax Build()
         {
             var members = new SyntaxList<MemberDeclarationSyntax>();
             members = BuildFields(members);
-            members = BuildProperties(members);
             members = BuildConstructor(members);
+            members = BuildProperties(members);
             members = BuildMethods(members);
             var @class = BuildClassBase();
             @class = BuildAttributes(@class);

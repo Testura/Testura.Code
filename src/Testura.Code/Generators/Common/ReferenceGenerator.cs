@@ -8,12 +8,10 @@ namespace Testura.Code.Generators.Common
     public class ReferenceGenerator
     {
         /// <summary>
-        /// Generate the code for a variable reference chain, for example:
-        ///
-        /// myVariable.SomeMethod().MyProperty
+        /// Create the expression syntax for a variable, nethod or a chain of member/method(s).
         /// </summary>
-        /// <param name="reference"></param>
-        /// <returns></returns>
+        /// <param name="reference">The start reference</param>
+        /// <returns>The declared expression syntax</returns>
         public static ExpressionSyntax Create(VariableReference reference)
         {
             ExpressionSyntax baseExpression;
@@ -45,55 +43,48 @@ namespace Testura.Code.Generators.Common
         }
 
         /// <summary>
-        /// Generate the code for a member chain. This method is used if you already have a variable, member or method invocation and want to
-        /// extend it with more references calls.
+        /// Create the expression syntax for a chain of member/method(s).
         /// </summary>
-        /// <param name="invocation"></param>
-        /// <param name="reference"></param>
-        /// <returns></returns>
-        public static ExpressionSyntax Create(ExpressionSyntax invocation, MemberReference reference)
+        /// <param name="expressionSyntax">The expression to build upon</param>
+        /// <param name="reference">Next member reference in chain</param>
+        /// <returns>The declared expression syntax</returns>
+        public static ExpressionSyntax Create(ExpressionSyntax expression, MemberReference reference)
         {
-           return Generate(invocation, reference);
+           return Generate(expression, reference);
         }
 
-        /// <summary>
-        /// Generate the code for a member reference
-        /// </summary>
-        /// <param name="expressionSyntax"></param>
-        /// <param name="current"></param>
-        /// <returns></returns>
-        private static ExpressionSyntax Generate(ExpressionSyntax expressionSyntax, MemberReference current)
+        private static ExpressionSyntax Generate(ExpressionSyntax expressionSyntax, MemberReference reference)
         {
-            if (current == null)
+            if (reference == null)
             {
                 return expressionSyntax;
             }
 
-            if (current is MethodReference)
+            if (reference is MethodReference)
             {
-                var methodReference = current as MethodReference;
+                var methodReference = reference as MethodReference;
                 if (methodReference.GenericTypes.Any())
                 {
                     expressionSyntax = SyntaxFactory.InvocationExpression(
                             expression: SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression,
                                 expressionSyntax,
-                                GenericGenerator.Create(current.Name, methodReference.GenericTypes.ToArray())))
+                                GenericGenerator.Create(reference.Name, methodReference.GenericTypes.ToArray())))
                         .WithArgumentList(ArgumentGenerator.Create(methodReference.Arguments.ToArray()));
                 }
                 else
                 {
                     expressionSyntax = SyntaxFactory.InvocationExpression(
                             SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, expressionSyntax,
-                                SyntaxFactory.IdentifierName(current.Name)))
+                                SyntaxFactory.IdentifierName(reference.Name)))
                         .WithArgumentList(ArgumentGenerator.Create(methodReference.Arguments.ToArray()));
                 }
             }
-            else if (current is MemberReference)
+            else if (reference is MemberReference)
             {
-                expressionSyntax = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, expressionSyntax, SyntaxFactory.IdentifierName(current.Name));
+                expressionSyntax = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, expressionSyntax, SyntaxFactory.IdentifierName(reference.Name));
             }
 
-            return Generate(expressionSyntax, current.Member);
+            return Generate(expressionSyntax, reference.Member);
         }
     }
 }

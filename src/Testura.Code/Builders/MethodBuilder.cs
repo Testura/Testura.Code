@@ -11,9 +11,6 @@ using Attribute = Testura.Code.Models.Attribute;
 
 namespace Testura.Code.Builders
 {
-    /// <summary>
-    /// Help class to build a method
-    /// </summary>
     public class MethodBuilder
     {
         private readonly string _name;
@@ -21,7 +18,7 @@ namespace Testura.Code.Builders
         private readonly List<Modifiers> _modifiers;
         private Type _returnType;
         private BlockSyntax _body;
-        private string _comment;
+        private string _summary;
 
         private SyntaxList<AttributeListSyntax> _attributes;
 
@@ -32,11 +29,6 @@ namespace Testura.Code.Builders
             _modifiers = new List<Modifiers>();
         }
 
-        /// <summary>
-        /// Set parameters for method
-        /// </summary>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
         public MethodBuilder WithParameters(params Parameter[] parameters)
         {
             _parameters.Clear();
@@ -48,11 +40,6 @@ namespace Testura.Code.Builders
             return this;
         }
 
-        /// <summary>
-        /// Set parameters for method
-        /// </summary>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
         public MethodBuilder WithParameters(params ParameterSyntax[] parameters)
         {
             _parameters.Clear();
@@ -60,64 +47,36 @@ namespace Testura.Code.Builders
             return this;
         }
 
-        /// <summary>
-        /// Set return type of method
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
         public MethodBuilder WithReturnType(Type type)
         {
             _returnType = type;
             return this;
         }
 
-        /// <summary>
-        /// Set attributes for method
-        /// </summary>
-        /// <param name="attributes"></param>
-        /// <returns></returns>
         public MethodBuilder WithAttributes(params Attribute[] attributes)
         {
             _attributes = AttributeGenerator.Create(attributes);
             return this;
         }
 
-        /// <summary>
-        /// Set attributes for class
-        /// </summary>
-        /// <param name="attributes"></param>
-        /// <returns></returns>
         public MethodBuilder WithAttributes(SyntaxList<AttributeListSyntax> attributes)
         {
             _attributes = attributes;
             return this;
         }
 
-        /// <summary>
-        /// Set body of the method
-        /// </summary>
-        /// <param name="body"></param>
-        /// <returns></returns>
         public MethodBuilder WithBody(BlockSyntax body)
         {
             _body = body;
             return this;
         }
 
-        /// <summary>
-        /// Set xml comments of method
-        /// </summary>
-        /// <param name="comment"></param>
-        /// <returns></returns>
-        public MethodBuilder WithXmlComments(string comment)
+        public MethodBuilder WithSummary(string summary)
         {
-            _comment = comment;
+            _summary = summary;
             return this;
         }
 
-        /// <summary>
-        /// Set the method to starts
-        /// </summary>
         public MethodBuilder WithModifiers(params Modifiers[] modifiers)
         {
             _modifiers.Clear();
@@ -125,10 +84,6 @@ namespace Testura.Code.Builders
             return this;
         }
 
-        /// <summary>
-        /// Build the final method declaration syntax
-        /// </summary>
-        /// <returns></returns>
         public MethodDeclarationSyntax Build()
         {
             var method = BuildMethodBase();
@@ -166,14 +121,14 @@ namespace Testura.Code.Builders
 
         private MethodDeclarationSyntax BuildXmlComments(MethodDeclarationSyntax method)
         {
-            if (string.IsNullOrEmpty(_comment))
+            if (string.IsNullOrEmpty(_summary))
             {
                 return method;
             }
 
             var summary = new List<SyntaxToken>();
             summary.Add(XmlTextNewLine(TriviaList(), "\n", "\n", TriviaList()));
-            var commentLines = _comment.Split(new[] { "\n" }, StringSplitOptions.None);
+            var commentLines = _summary.Split(new[] { "\n" }, StringSplitOptions.None);
             for (int n = 0; n < commentLines.Length; n++)
             {
                 var fixedCommentLine = $" {commentLines[n]}";

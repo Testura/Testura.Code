@@ -35,4 +35,10 @@
         Get,
         GetAndSet
     }
+
+    public enum StringType
+    {
+        Normal,
+        Path
+    }
 }

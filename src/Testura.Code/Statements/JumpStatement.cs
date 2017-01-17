@@ -9,9 +9,9 @@ namespace Testura.Code.Statements
     public class JumpStatement
     {
         /// <summary>
-        /// Create a true return statement
+        /// Create the return statement syntax to return true
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The declaed return statement syntax</returns>
         public ReturnStatementSyntax ReturnTrue()
         {
             return ReturnStatement(
@@ -19,9 +19,9 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create a false return statement
+        /// Create the return statement syntax to return false
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The declared return statement syntax</returns>
         public ReturnStatementSyntax ReturnFalse()
         {
             return ReturnStatement(
@@ -29,18 +29,20 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create a false return statement
+        /// Create the return statement syntax to return of a reference
         /// </summary>
-        /// <returns></returns>
+        /// <param name="variableReference">Reference that we should return</param>
+        /// <returns>The declared return statement syntax</returns>
         public ReturnStatementSyntax Return(VariableReference variableReference)
         {
             return ReturnStatement(ReferenceGenerator.Create(variableReference));
         }
 
         /// <summary>
-        /// Create a false return statement
+        /// Create the return statement syntax to return another expression
         /// </summary>
-        /// <returns></returns>
+        /// <param name="expression">The expresion syntax to return</param>
+        /// <returns>The declared return statement syntax</returns>
         public ReturnStatementSyntax Return(ExpressionSyntax expression)
         {
             return ReturnStatement(expression);

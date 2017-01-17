@@ -12,11 +12,19 @@ namespace Testura.Code.Models
             _invocation = invocation;
         }
 
+        /// <summary>
+        /// Conbert the invocation expression to a statement
+        /// </summary>
+        /// <returns>A statement</returns>
         public ExpressionStatementSyntax AsStatement()
         {
             return ExpressionStatement(_invocation);
         }
 
+        /// <summary>
+        /// Convert the invocation expression to an expression
+        /// </summary>
+        /// <returns>An expression</returns>
         public InvocationExpressionSyntax AsExpression()
         {
             return _invocation;

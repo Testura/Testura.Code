@@ -47,7 +47,7 @@ namespace Testura.Code.Tests.Builders
         public void Build_WhenGivingXmlComment_CodeShouldContainComment()
         {
             var builder = new MethodBuilder("MyMethod");
-            Assert.IsTrue(builder.WithXmlComments("Test comment").Build().ToString().Contains("///Testcomment"));
+            Assert.IsTrue(builder.WithSummary("Test comment").Build().ToString().Contains("///Testcomment"));
         }
     }
 }

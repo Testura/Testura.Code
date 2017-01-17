@@ -9,13 +9,13 @@ namespace Testura.Code.Statements
     public class SelectionStatement
     {
         /// <summary>
-        /// Create a new if-conditional
+        /// Create the statement syntax for a if-conditional
         /// </summary>
-        /// <param name="leftArgument"></param>
-        /// <param name="rightArgument"></param>
-        /// <param name="conditional"></param>
-        /// <param name="block"></param>
-        /// <returns></returns>
+        /// <param name="leftArgument">The left argument of the if-statement</param>
+        /// <param name="rightArgument">The right argument of the if-statement</param>
+        /// <param name="conditional">The conditional</param>
+        /// <param name="block">The if block</param>
+        /// <returns>The declared statement syntax</returns>
         public StatementSyntax If(IArgument leftArgument, IArgument rightArgument, ConditionalStatements conditional, BlockSyntax block)
         {
             return

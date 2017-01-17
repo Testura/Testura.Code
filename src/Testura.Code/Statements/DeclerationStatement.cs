@@ -11,11 +11,11 @@ namespace Testura.Code.Statements
     public class DeclerationStatement
     {
         /// <summary>
-        /// Declare and assign a local variable
+        /// Create the local decleration statement syntax to declare a variable and assign it a value
         /// </summary>
         /// <param name="name">Name of variable</param>
         /// <param name="value">Value to assign variable</param>
-        /// <param name="useVarKeyword">ReturnTrue if we should use var keyword, otherwise we use type name</param>
+        /// <param name="useVarKeyword">Will use "var" keyword if true, otherwise the type</param>
         /// <returns>The generated local declaration statement</returns>
         public LocalDeclarationStatementSyntax DeclareAndAssign<T>(string name, T value, bool useVarKeyword = true)
             where T : struct
@@ -26,11 +26,11 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Declare and a assign a local variable
+        /// Create the local decleration statement syntax to declare a local variable and assign it a string value
         /// </summary>
         /// <param name="name">Name of variable</param>
         /// <param name="value">Value to assign variable</param>
-        /// <param name="useVarKeyword">If we should created the variable with the var keyword</param>
+        /// <param name="useVarKeyword">Will use "var" keyword if true, otherwise the type</param>
         /// <returns>The generated local declaration statement</returns>
         public LocalDeclarationStatementSyntax DeclareAndAssign(string name, string value, bool useVarKeyword = true)
         {
@@ -40,12 +40,12 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Declare and assign a local variable
+        /// Create a local decleration statement which declare a local variable and assign it a complex reference
         /// </summary>
         /// <param name="name">Name of variable</param>
         /// <param name="type">Type of the variable</param>
         /// <param name="reference">Value of the variable</param>
-        /// <param name="useVarKeyword">If we should created the variable with the var keyword</param>
+        /// <param name="useVarKeyword">Will use "var" keyword if true, otherwise the type</param>
         /// <returns>The generated local declaration statement</returns>
         public LocalDeclarationStatementSyntax DeclareAndAssign(string name, Type type, VariableReference reference, bool useVarKeyword = true)
         {
@@ -55,32 +55,31 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Declare and assign a local variable
+        /// Create the local decleration statement syntax to declare a local variable and assign it a new class instance
         /// </summary>
         /// <param name="name">Name of variable</param>
         /// <param name="type">Type of the variable</param>
         /// <param name="arguments">Arguments to use when creating the variable</param>
-        /// <param name="useVarKeyword">If we should created the variable with the var keyword</param>
+        /// <param name="useVarKeyword">Will use "var" keyword if true, otherwise the type</param>
         /// <returns>The generated local declaration statement</returns>
         public LocalDeclarationStatementSyntax DeclareAndAssign(string name, Type type, ArgumentListSyntax arguments, bool useVarKeyword = true)
         {
-            var typeName = GenericGenerator.ConvertGenericTypeName(type);
-            return LocalDeclarationStatement(VariableDeclaration(IdentifierName(useVarKeyword ? "var" : typeName))
+            return LocalDeclarationStatement(VariableDeclaration(useVarKeyword ? IdentifierName("var") : TypeGenerator.Create(type))
                 .WithVariables(SingletonSeparatedList(VariableDeclarator(Identifier(name))
                     .WithInitializer(
                         EqualsValueClause(
-                            ObjectCreationExpression(IdentifierName(typeName)).WithArgumentList(arguments)
+                            ObjectCreationExpression(TypeGenerator.Create(type)).WithArgumentList(arguments)
                                 .WithNewKeyword(Token(SyntaxKind.NewKeyword)))))));
         }
 
         /// <summary>
-        /// Declare and assign a local variable
+        /// Create the local decleration statement syntax to declare a local variable and assign it an already created expression
         /// </summary>
         /// <param name="name">Name of the variable</param>
         /// <param name="type">Type of the variable </param>
         /// <param name="expressionSyntax">An already created expression to assign to the variable</param>
         /// <param name="castTo">Cast the expression to this type</param>
-        /// <param name="useVarKeyword">If we should create the variable with the var keyword</param>
+        /// <param name="useVarKeyword">Will use "var" keyword if true, otherwise the type</param>
         /// <returns>The generated local decleration statement</returns>
         public LocalDeclarationStatementSyntax DeclareAndAssign(string name, Type type, ExpressionSyntax expressionSyntax, Type castTo = null, bool useVarKeyword = true)
         {
@@ -95,7 +94,7 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Assign a variable
+        /// Create the expression statement syntax to assign a variable a new instance with the "new" keyword
         /// </summary>
         /// <param name="name">Name of the variable</param>
         /// <param name="type">Type of the variable</param>
@@ -103,16 +102,15 @@ namespace Testura.Code.Statements
         /// <returns>The generated assign decleration statement</returns>
         public ExpressionStatementSyntax Assign(string name, Type type, ArgumentListSyntax arguments)
         {
-            var typeName = GenericGenerator.ConvertGenericTypeName(type);
             return ExpressionStatement(
                 AssignmentExpression(
                     SyntaxKind.SimpleAssignmentExpression,
                     IdentifierName(name),
-                    ObjectCreationExpression(IdentifierName(typeName)).WithArgumentList(arguments).WithNewKeyword(Token(SyntaxKind.NewKeyword))));
+                    ObjectCreationExpression(TypeGenerator.Create(type)).WithArgumentList(arguments).WithNewKeyword(Token(SyntaxKind.NewKeyword))));
         }
 
         /// <summary>
-        /// Assign a variable
+        /// Create the expression statement syntax to assign a variable another expression
         /// </summary>
         /// <param name="name">Name of variable</param>
         /// <param name="expressionSyntax">The expression syntax </param>
@@ -123,21 +121,42 @@ namespace Testura.Code.Statements
             return Assign(new VariableReference(name), expressionSyntax, castTo);
         }
 
+        /// <summary>
+        /// Create the expression statement syntax to assign a variable another reference
+        /// </summary>
+        /// <param name="name">Name of variable</param>
+        /// <param name="reference">Reference value to assign to the variable</param>
+        /// <param name="castTo">If we should do a cast while assign the variable</param>
+        /// <returns>The generated assign decleration syntax</returns>
         public ExpressionStatementSyntax Assign(string name, VariableReference reference, Type castTo = null)
         {
             return Assign(name, ReferenceGenerator.Create(reference), castTo);
         }
 
-        public ExpressionStatementSyntax Assign(VariableReference reference, VariableReference assignReference, Type castTo = null)
+        /// <summary>
+        /// Create the expression statement syntax to assign a reference another reference. For example a property to a property
+        /// </summary>
+        /// <param name="reference">Reference that should be assigned</param>
+        /// <param name="valueReference">Reference that we should assign to another reference/param>
+        /// <param name="castTo">If we should do a cast while assign the variable</param>
+        /// <returns>The generated assign decleration syntax</returns>
+        public ExpressionStatementSyntax Assign(VariableReference reference, VariableReference valueReference, Type castTo = null)
         {
             if (reference is MethodReference || reference.GetLastMember() is MethodReference)
             {
                 throw new ArgumentException($"{nameof(reference)} to assign can't be a method");
             }
 
-            return Assign(reference, ReferenceGenerator.Create(assignReference), castTo);
+            return Assign(reference, ReferenceGenerator.Create(valueReference), castTo);
         }
 
+        /// <summary>
+        /// Create the expression statement syntax to assign a reference another expression
+        /// </summary>
+        /// <param name="reference">Reference that should be assigned</param>
+        /// <param name="expressionSyntax">Expression that we should assign to reference</param>
+        /// <param name="castTo">If we should do a cast while assign the variable</param>
+        /// <returns>The generated assign decleration syntax<</returns>
         public ExpressionStatementSyntax Assign(VariableReference reference, ExpressionSyntax expressionSyntax, Type castTo = null)
         {
             if (castTo != null && castTo != typeof(void))

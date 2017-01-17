@@ -8,15 +8,15 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Testura.Code.Generators.Common
 {
-    public static class GenericGenerator
+    internal static class GenericGenerator
     {
         /// <summary>
-        /// Create a new generic type for a method or class
+        /// Create the syntax for a generic type
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="genericTypes"></param>
-        /// <returns></returns>
-        public static GenericNameSyntax Create(string name, IEnumerable<Type> genericTypes)
+        /// <param name="name">Name the base (for example List)</param>
+        /// <param name="genericTypes">The generic types</param>
+        /// <returns>The declared generic name syntax</returns>
+        internal static GenericNameSyntax Create(string name, IEnumerable<Type> genericTypes)
         {
             if (name.Contains("`"))
             {
@@ -29,12 +29,6 @@ namespace Testura.Code.Generators.Common
                         SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList<TypeSyntax>(GetGenericTypes(genericTypes))));
         }
 
-        /// <summary>
-        /// This method is used to convert generic type names (for example list&lt;string&gt; would normally give list`1String) to
-        /// a more readable name.
-        /// </summary>
-        /// <param name="type">The type we want to convert name from</param>
-        /// <returns>Converted name</returns>
         internal static string ConvertGenericTypeName(Type type)
         {
             if (!type.IsGenericType)

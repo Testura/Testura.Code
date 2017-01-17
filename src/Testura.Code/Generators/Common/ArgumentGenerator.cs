@@ -7,16 +7,13 @@ using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
 
 namespace Testura.Code.Generators.Common
 {
-    /// <summary>
-    /// Generate code for arguments
-    /// </summary>
     public static class ArgumentGenerator
     {
         /// <summary>
-        /// Create arguments for a instance call
+        /// Create the syntax for a list of arguments to a method/constructor.
         /// </summary>
-        /// <param name="arguments">Arguments</param>
-        /// <returns>A argument list syntax</returns>
+        /// <param name="arguments">Arguments to create</param>
+        /// <returns>The argument list syntax for arguments</returns>
         public static ArgumentListSyntax Create(params IArgument[] arguments)
         {
             var convertedArguments = ConvertArgumentsToSyntaxNodesOrTokens(arguments);
@@ -24,11 +21,11 @@ namespace Testura.Code.Generators.Common
         }
 
         /// <summary>
-        /// Convert argument to syntax nodes or tokens. It used for special case when Create do too much
+        /// Convert arguments to syntax nodes or tokens.
         /// </summary>
-        /// <param name="arguments"></param>
-        /// <returns></returns>
-        public static List<SyntaxNodeOrToken> ConvertArgumentsToSyntaxNodesOrTokens(params IArgument[] arguments)
+        /// <param name="arguments">Arguments to conebrt</param>
+        /// <returns>A list with SyntaxNodeOrToken</returns>
+        internal static List<SyntaxNodeOrToken> ConvertArgumentsToSyntaxNodesOrTokens(params IArgument[] arguments)
         {
             if (!arguments.Any())
             {
@@ -45,11 +42,5 @@ namespace Testura.Code.Generators.Common
             list.RemoveAt(list.Count - 1);
             return list;
         }
-    }
-
-    public enum StringType
-    {
-        Normal,
-        Path
     }
 }

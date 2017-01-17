@@ -10,70 +10,70 @@ namespace Testura.Code.Generators.Special
     public static class NunitAssertGenerator
     {
         /// <summary>
-        /// Create an AreEqual assert
+        /// Create a NUnit AreEqual assert
         /// </summary>
-        /// <param name="expected"></param>
-        /// <param name="actual"></param>
-        /// <param name="message"></param>
-        /// <returns></returns>
+        /// <param name="expected">The expected argument</param>
+        /// <param name="actual">The actual argument</param>
+        /// <param name="message">Message if test fails</param>
+        /// <returns>The declared expression statement syntax for Assert.AreEqual</returns>
         public static ExpressionStatementSyntax AreEqual(IArgument expected, IArgument actual, string message = null)
         {
             return Are(AssertType.AreEqual, expected, actual, message);
         }
 
         /// <summary>
-        /// Create an AreNotEqual assert
+        /// Create a NUnit AreNotEqual assert
         /// </summary>
-        /// <param name="expected"></param>
-        /// <param name="actual"></param>
-        /// <param name="message"></param>
-        /// <returns></returns>
+        /// <param name="expected">The expected argument</param>
+        /// <param name="actual">The actual argument</param>
+        /// <param name="message">Message if test fails</param>
+        /// <returns>The declared expression statement syntax for Assert.AreNotEqual</returns>
         public static ExpressionStatementSyntax AreNotEqual(IArgument expected, IArgument actual, string message = null)
         {
             return Are(AssertType.AreNotEqual, expected, actual, message);
         }
 
         /// <summary>
-        /// Create an AreEqual assert
+        /// Create a NUnit AreSame assert
         /// </summary>
-        /// <param name="expected"></param>
-        /// <param name="actual"></param>
-        /// <param name="message"></param>
-        /// <returns></returns>
+        /// <param name="expected">The expected argument</param>
+        /// <param name="actual">The actual argument</param>
+        /// <param name="message">Message if test fails</param>
+        /// <returns>The declared expression statement syntax for Assert.AreSame</returns>
         public static ExpressionStatementSyntax AreSame(IArgument expected, IArgument actual, string message)
         {
             return Are(AssertType.AreSame, expected, actual, message);
         }
 
         /// <summary>
-        /// Create an AreNotEqual assert
+        /// Create a NUnit AreNotSame assert
         /// </summary>
-        /// <param name="expected"></param>
-        /// <param name="actual"></param>
-        /// <param name="message"></param>
-        /// <returns></returns>
+        /// <param name="expected">The expected argument</param>
+        /// <param name="actual">The actual argument</param>
+        /// <param name="message">Message if test fails</param>
+        /// <returns>The declared expression statement syntax for Assert.AreNotSame</returns>
         public static ExpressionStatementSyntax AreNotSame(IArgument expected, IArgument actual, string message = null)
         {
             return Are(AssertType.AreNotSame, expected, actual, message);
         }
 
         /// <summary>
-        /// Create an IsTrue assert
+        /// Create a NUnit IsTrue assert
         /// </summary>
-        /// <param name="actual"></param>
-        /// <param name="message"></param>
-        /// <returns></returns>
+        /// <param name="actual">The actual argument</param>
+        /// <param name="message">Message if test fails</param>
+        /// <returns>The declared expression statement syntax for Assert.IsTrue</returns>
         public static ExpressionStatementSyntax IsTrue(IArgument actual, string message = null)
         {
             return Is(true, actual, message);
         }
 
         /// <summary>
-        /// Create an IsFalse assert
+        /// Create a NUnit IsTrue assert
         /// </summary>
-        /// <param name="actual"></param>
-        /// <param name="message"></param>
-        /// <returns></returns>
+        /// <param name="actual">The actual argument</param>
+        /// <param name="message">Message if test fails</param>
+        /// <returns>The declared expression statement syntax for Assert.IsFalse</returns>
         public static ExpressionStatementSyntax IsFalse(IArgument actual, string message = null)
         {
             return Is(false, actual, message);
@@ -82,10 +82,10 @@ namespace Testura.Code.Generators.Special
         /// <summary>
         /// Create an IsTrue assert that check if a string contains contains some content
         /// </summary>
-        /// <param name="expectedContain"></param>
-        /// <param name="actual"></param>
-        /// <param name="message"></param>
-        /// <returns></returns>
+        /// <param name="expectedContain">Text that the string should contain</param>
+        /// <param name="actual">The actual argument</param>
+        /// <param name="message">Message if test fails</param>
+        /// <returns>The declared expression statement syntax</returns>
         public static ExpressionStatementSyntax Contains(IArgument expectedContain, IArgument actual, string message = null)
         {
             return Statement.Expression.Invoke("Assert", "IsTrue", new List<IArgument>
@@ -95,6 +95,13 @@ namespace Testura.Code.Generators.Special
             }).AsStatement();
         }
 
+        /// <summary>
+        /// Create a Assert.Throws assert to check if a method throws and exception
+        /// </summary>
+        /// <param name="variableReference">The reference chain to check for exception</param>
+        /// <param name="exception">The expected exception type</param>
+        /// <param name="message">Message if test fails</param>
+        /// <returns>The declared expression statement syntax</returns>
         public static ExpressionStatementSyntax Throws(VariableReference variableReference, Type exception, string message = null)
         {
             if (!(variableReference is MethodReference))

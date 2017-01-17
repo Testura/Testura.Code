@@ -7,6 +7,11 @@ namespace Testura.Code.Generators.Common
 {
     public static class ModifierGenerator
     {
+        /// <summary>
+        /// Create the syntax for modifier(s) to class, method, fields or properties.
+        /// </summary>
+        /// <param name="modifierses">Modifiers to create</param>
+        /// <returns>The declared syntax list</returns>
         public static SyntaxTokenList Create(params Modifiers[] modifierses)
         {
             if (modifierses.Length == 0)

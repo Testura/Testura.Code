@@ -9,11 +9,10 @@ namespace Testura.Code.Generators.Class
     public static class FieldGenerator
     {
         /// <summary>
-        /// Create a new field for a class
+        /// Create the syntax for a field of a class
         /// </summary>
-        /// <param name="name">Name of field</param>
-        /// <param name="type">Type of field</param>
-        /// <returns></returns>
+        /// <param name="field">Field to create</param>
+        /// <returns>The decleration syntax for a field</returns>
         public static FieldDeclarationSyntax Create(Field field)
         {
             var fieldDecleration = FieldDeclaration(VariableDeclaration(TypeGenerator.Create(field.Type), SeparatedList(new[] { VariableDeclarator(Identifier(field.Name)) })));

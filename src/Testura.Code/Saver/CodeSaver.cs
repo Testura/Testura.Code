@@ -6,16 +6,13 @@ using Formatter = Microsoft.CodeAnalysis.Formatting.Formatter;
 
 namespace Testura.Code.Saver
 {
-    /// <summary>
-    /// This class contains help functions to generate code
-    /// </summary>
     public class CodeSaver : ICodeSaver
     {
         /// <summary>
-        /// Save the code
+        /// Save generated code to a file
         /// </summary>
-        /// <param name="cu">The complete code</param>
-        /// <param name="path">Path to save too</param>
+        /// <param name="cu">Generated code</param>
+        /// <param name="path">Full output path</param>
         public void SaveCodeToFile(CompilationUnitSyntax cu, string path)
         {
             var cw = new AdhocWorkspace();
@@ -28,9 +25,10 @@ namespace Testura.Code.Saver
         }
 
         /// <summary>
-        /// Save the code
+        /// Save generated code as a string
         /// </summary>
-        /// <param name="cu">The complete code</param>
+        /// <param name="cu">Generated code</param>
+        /// <returns>Generated code as a string</returns>
         public string SaveCodeAsString(CompilationUnitSyntax cu)
         {
             var cw = new AdhocWorkspace();

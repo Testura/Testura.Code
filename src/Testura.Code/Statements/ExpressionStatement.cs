@@ -11,23 +11,35 @@ namespace Testura.Code.Statements
     public class ExpressionStatement
     {
         /// <summary>
-        /// Create code to invoke a method on class
+        /// Create the expression statement syntax to invoke a method on variable
         /// </summary>
-        /// <param name="variableName">Decleration to invoke</param>
+        /// <param name="variableName">The variable name</param>
         /// <param name="methodName">The method we want to call</param>
-        /// <param name="arguments">Arguments in the method</param>
-        /// <param name="genericTypes">Optional list of types if the method is generic</param>
-        /// <returns>A statement syntax</returns>
+        /// <param name="arguments">Arguments that we end to the method</param>
+        /// <param name="generics">Optional list of types if the method is generic</param>
+        /// <returns>A invocation object with both statement and expression</returns>
         public Invocation Invoke(string variableName, string methodName, IEnumerable<IArgument> arguments = null, IEnumerable<Type> generics = null)
         {
             return Invoke(new VariableReference(variableName, new MethodReference(methodName, arguments, generics)));
         }
 
+        /// <summary>
+        /// Create the expression statement syntax to invoke a method
+        /// </summary>
+        /// <param name="methodName">The method we want to call</param>
+        /// <param name="arguments">Arguments that we end to the method</param>
+        /// <param name="generics">Optional list of types if the method is generic</param>
+        /// <returns>A invocation object with both statement and expression</returns>
         public Invocation Invoke(string methodName, IEnumerable<IArgument> arguments = null, IEnumerable<Type> generics = null)
         {
             return Invoke(new MethodReference(methodName, arguments, generics));
         }
 
+        /// <summary>
+        /// Create the expression statement syntax to invoke a method in a chain (for exemple myVariable.myProperty.MyMethod())
+        /// </summary>
+        /// <param name="reference">The reference chain</param>
+        /// <returns>A invocation object with both statement and expression</returns>
         public Invocation Invoke(VariableReference reference)
         {
             if (!(reference is MethodReference))

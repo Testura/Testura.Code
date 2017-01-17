@@ -30,12 +30,6 @@ namespace Testura.Code.Compilations
             };
         }
 
-        /// <summary>
-        /// Compile code to a dll
-        /// </summary>
-        /// <param name="outputPath">Path where the dll file should be created</param>
-        /// <param name="pathsToCsFiles">An array with paths to the .cs files</param>
-        /// <returns>Results from the compiler</returns>
         public async Task<CompileResult> CompileFilesAsync(string outputPath, params string[] pathsToCsFiles)
         {
             var source = new string[pathsToCsFiles.Length];
@@ -47,12 +41,6 @@ namespace Testura.Code.Compilations
             return await CompileSourceAsync(outputPath, source);
         }
 
-        /// <summary>
-        /// Compile code to a dll
-        /// </summary>
-        /// <param name="outputPath">Path where the dll file should be created</param>
-        /// <param name="pathsToCsFiles">An array with paths to the .cs files</param>
-        /// <returns>Results from the compiler</returns>
         public async Task<CompileResult> CompileSourceAsync(string outputPath, params string[] source)
         {
             return await Task.Run(() =>
@@ -94,10 +82,6 @@ namespace Testura.Code.Compilations
             return outputRows;
         }
 
-        /// <summary>
-        /// Convert all our string references to correct meta data references
-        /// </summary>
-        /// <returns>Created list of meta data references</returns>
         private IEnumerable<MetadataReference> ConvertReferenceToMetaDataReferfence()
         {
             List<MetadataReference> metaData = new List<MetadataReference>();
@@ -113,12 +97,6 @@ namespace Testura.Code.Compilations
             return metaData;
         }
 
-        /// <summary>
-        /// Parse the code from a string and produce a syntax tree.
-        /// </summary>
-        /// <param name="text">The text code</param>
-        /// <param name="options">The parse options</param>
-        /// <returns>The parsed syntax tree</returns>
         private SyntaxTree Parse(string text, CSharpParseOptions options = null)
         {
             var stringText = SourceText.From(text, Encoding.UTF8);
