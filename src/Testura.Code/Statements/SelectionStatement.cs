@@ -29,8 +29,12 @@ namespace Testura.Code.Statements
             }
 
             return
-                IfStatement(BinaryExpression(ConditionalToSyntaxKind(conditional),
-                    leftArgument.GetArgumentSyntax().Expression, rightArgument.GetArgumentSyntax().Expression), block);
+                IfStatement(
+                    BinaryExpression(
+                        ConditionalToSyntaxKind(conditional),
+                        leftArgument.GetArgumentSyntax().Expression,
+                        rightArgument.GetArgumentSyntax().Expression),
+                    block);
         }
 
         private SyntaxKind ConditionalToSyntaxKind(ConditionalStatements conditional)

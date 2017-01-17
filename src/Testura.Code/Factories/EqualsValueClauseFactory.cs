@@ -3,12 +3,10 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Generators.Common;
 using Testura.Code.Models.References;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Factories
 {
-    /// <summary>
-    /// This class help us to get EqualsValueClauses for when we assign local variables
-    /// </summary>
     public static class EqualsValueClauseFactory
     {
         /// <summary>
@@ -20,21 +18,23 @@ namespace Testura.Code.Factories
         {
             if (value is int)
             {
-                return
-                    SyntaxFactory.EqualsValueClause(SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression,
-                        SyntaxFactory.Literal(SyntaxFactory.TriviaList(), value.ToString(), (int)value, SyntaxFactory.TriviaList())));
+                return EqualsValueClause(
+                        LiteralExpression(
+                                SyntaxKind.NumericLiteralExpression,
+                                Literal(TriviaList(), value.ToString(), (int)value, TriviaList())));
             }
 
             if (value is string)
             {
-                return
-                    SyntaxFactory.EqualsValueClause(SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression,
-                        SyntaxFactory.Literal(SyntaxFactory.TriviaList(), value.ToString(), (string)value, SyntaxFactory.TriviaList())));
+                return EqualsValueClause(
+                        LiteralExpression(
+                            SyntaxKind.StringLiteralExpression,
+                            Literal(TriviaList(), value.ToString(), (string)value, TriviaList())));
             }
 
             if (value is VariableReference)
             {
-                return SyntaxFactory.EqualsValueClause(ReferenceGenerator.Create((VariableReference)value));
+                return EqualsValueClause(ReferenceGenerator.Create((VariableReference)value));
             }
 
             throw new NotSupportedException("Not a suppoerted value");

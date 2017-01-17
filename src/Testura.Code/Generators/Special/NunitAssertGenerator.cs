@@ -98,11 +98,12 @@ namespace Testura.Code.Generators.Special
                 throw new ArgumentNullException(nameof(actual));
             }
 
-            return Statement.Expression.Invoke("Assert", "IsTrue", new List<IArgument>
+            var arguments = new List<IArgument>
             {
                 new InvocationArgument(Statement.Expression.Invoke(actual.GetArgumentSyntax().ToString(), "Contains", new List<IArgument> { expectedContain }).AsExpression()),
                 new ValueArgument(message)
-            }).AsStatement();
+            };
+            return Statement.Expression.Invoke("Assert", "IsTrue", arguments).AsStatement();
         }
 
         /// <summary>
@@ -133,11 +134,12 @@ namespace Testura.Code.Generators.Special
                 }
             }
 
-            return Statement.Expression.Invoke("Assert", "Throws", new List<IArgument>
+            var arguments = new List<IArgument>
             {
                 new ParenthesizedLambdaArgument(Statement.Expression.Invoke(variableReference).AsExpression()),
                 new ValueArgument(message)
-            }, new List<Type>() { exception }).AsStatement();
+            };
+            return Statement.Expression.Invoke("Assert", "Throws", arguments, new List<Type>() { exception }).AsStatement();
         }
 
         private static ExpressionStatementSyntax Are(AssertType assertType, IArgument expected, IArgument actual, string message)
@@ -152,13 +154,13 @@ namespace Testura.Code.Generators.Special
                 throw new ArgumentNullException(nameof(actual));
             }
 
-            return
-                Statement.Expression.Invoke("Assert", Enum.GetName(typeof(AssertType), assertType),
-                    new List<IArgument> {
-                        expected,
-                        actual,
-                        new ValueArgument(message)
-                        }).AsStatement();
+            var arguments = new List<IArgument>
+            {
+                expected,
+                actual,
+                new ValueArgument(message)
+            };
+            return Statement.Expression.Invoke("Assert", Enum.GetName(typeof(AssertType), assertType), arguments).AsStatement();
         }
 
         private static ExpressionStatementSyntax Is(bool exected, IArgument actual, string message)
@@ -168,11 +170,12 @@ namespace Testura.Code.Generators.Special
                 throw new ArgumentNullException(nameof(actual));
             }
 
-            return Statement.Expression.Invoke("Assert", exected ? "IsTrue" : "IsFalse", new List<IArgument>
+            var argument = new List<IArgument>
             {
                 actual,
                 new ValueArgument(message)
-            }).AsStatement();
+            };
+            return Statement.Expression.Invoke("Assert", exected ? "IsTrue" : "IsFalse", argument).AsStatement();
         }
     }
 }

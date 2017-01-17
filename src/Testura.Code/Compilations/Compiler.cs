@@ -67,20 +67,24 @@ namespace Testura.Code.Compilations
             return await Task.Run(() =>
             {
                 var parsedSyntaxTrees = new SyntaxTree[source.Length];
-                for (int n = 0; n < source.Length; n++)
+                for (int i = 0; i < source.Length; i++)
                 {
-                    parsedSyntaxTrees[n] = Parse(source[n],
+                    parsedSyntaxTrees[i] = Parse(
+                        source[i],
                         CSharpParseOptions.Default.WithLanguageVersion(LanguageVersion.CSharp6));
                 }
+
                 var defaultCompilationOptions = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary)
                     .WithOverflowChecks(true)
                     .WithOptimizationLevel(OptimizationLevel.Release)
                     .WithUsings(_defaultNamespaces);
+
                 var compilation = CSharpCompilation.Create(
                     Path.GetFileName(outputPath),
                     parsedSyntaxTrees,
                     ConvertReferenceToMetaDataReferfence(),
                     defaultCompilationOptions);
+
                 var result = compilation.Emit(outputPath);
                 var outputRows = ConvertDiagnosticsToOutputRows(result.Diagnostics);
                 return new CompileResult(outputPath, result.Success, outputRows);

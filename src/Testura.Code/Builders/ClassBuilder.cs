@@ -74,7 +74,6 @@ namespace Testura.Code.Builders
             return this;
         }
 
-
         public ClassBuilder WithAttributes(SyntaxList<AttributeListSyntax> attributes)
         {
             _attributes = attributes;
@@ -132,7 +131,7 @@ namespace Testura.Code.Builders
 
         public CompilationUnitSyntax Build()
         {
-            var members = new SyntaxList<MemberDeclarationSyntax>();
+            var members = default(SyntaxList<MemberDeclarationSyntax>);
             members = BuildFields(members);
             members = BuildConstructor(members);
             members = BuildProperties(members);
@@ -148,7 +147,7 @@ namespace Testura.Code.Builders
 
         private CompilationUnitSyntax BuildUsing(CompilationUnitSyntax @base)
         {
-            var usingSyntaxes = new SyntaxList<UsingDirectiveSyntax>();
+            var usingSyntaxes = default(SyntaxList<UsingDirectiveSyntax>);
             foreach (var @using in _usings)
             {
                 if (@using == null)

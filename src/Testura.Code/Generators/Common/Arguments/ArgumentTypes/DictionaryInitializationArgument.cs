@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
@@ -20,17 +21,18 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
             var syntaxNodeOrTokens = new List<SyntaxNodeOrToken>();
             foreach (var dictionaryValue in _dictionary)
             {
-                syntaxNodeOrTokens.Add(SyntaxFactory.AssignmentExpression(SyntaxKind.SimpleAssignmentExpression,
-                    SyntaxFactory.ImplicitElementAccess()
-                        .WithArgumentList(
-                            SyntaxFactory.BracketedArgumentList(
-                                SyntaxFactory.SingletonSeparatedList<ArgumentSyntax>(
-                                    SyntaxFactory.Argument(
-                                        SyntaxFactory.IdentifierName(typeof(T) == typeof(string)
-                                            ? $"\"{dictionaryValue.Key}\""
-                                            : dictionaryValue.Key.ToString()))))),
-                    dictionaryValue.Value.GetArgumentSyntax().Expression));
-                syntaxNodeOrTokens.Add(SyntaxFactory.Token(SyntaxKind.CommaToken));
+                syntaxNodeOrTokens.Add(
+                    AssignmentExpression(
+                        SyntaxKind.SimpleAssignmentExpression,
+                        ImplicitElementAccess()
+                            .WithArgumentList(
+                                BracketedArgumentList(
+                                    SingletonSeparatedList<ArgumentSyntax>(
+                                        Argument(
+                                            IdentifierName(
+                                                typeof(T) == typeof(string) ? $"\"{dictionaryValue.Key}\"" : dictionaryValue.Key.ToString()))))),
+                        dictionaryValue.Value.GetArgumentSyntax().Expression));
+                syntaxNodeOrTokens.Add(Token(SyntaxKind.CommaToken));
             }
 
             if (syntaxNodeOrTokens.Any())
@@ -38,18 +40,16 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
                 syntaxNodeOrTokens.RemoveAt(syntaxNodeOrTokens.Count - 1);
             }
 
-            return SyntaxFactory.Argument(SyntaxFactory.ObjectCreationExpression(SyntaxFactory.GenericName(
-                    SyntaxFactory.Identifier("Dictionary"))
-                .WithTypeArgumentList(
-                    SyntaxFactory.TypeArgumentList(
-                        SyntaxFactory.SeparatedList<TypeSyntax>(
+            return Argument(ObjectCreationExpression(GenericName(Identifier("Dictionary"))
+                    .WithTypeArgumentList(TypeArgumentList(
+                        SeparatedList<TypeSyntax>(
                             new SyntaxNodeOrToken[]
                             {
-                                SyntaxFactory.IdentifierName(typeof(T).ToString()),
-                                SyntaxFactory.Token(SyntaxKind.CommaToken),
-                                SyntaxFactory.IdentifierName(typeof(T2).ToString())
-                            })))).WithInitializer(SyntaxFactory.InitializerExpression(
-                SyntaxKind.ObjectInitializerExpression, SyntaxFactory.SeparatedList<ExpressionSyntax>(syntaxNodeOrTokens.ToArray()))));
+                                IdentifierName(typeof(T).ToString()),
+                                Token(SyntaxKind.CommaToken),
+                                IdentifierName(typeof(T2).ToString())
+                            })))).WithInitializer(InitializerExpression(
+                SyntaxKind.ObjectInitializerExpression, SeparatedList<ExpressionSyntax>(syntaxNodeOrTokens.ToArray()))));
         }
     }
 }

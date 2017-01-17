@@ -56,14 +56,20 @@ namespace Testura.Code.Statements
                 VariableDeclaration(
                     PredefinedType(Token(SyntaxKind.IntKeyword)), SeparatedList(new[]
                     {
-                        VariableDeclarator(Identifier(variableName), null,
+                        VariableDeclarator(
+                            Identifier(variableName),
+                            null,
                             EqualsValueClause(ReferenceGenerator.Create(start)))
-                    })), SeparatedList<ExpressionSyntax>(), BinaryExpression(
+                    })),
+                SeparatedList<ExpressionSyntax>(),
+                BinaryExpression(
                         SyntaxKind.LessThanExpression,
                         IdentifierName(variableName),
                         ReferenceGenerator.Create(end)),
                 SeparatedList<ExpressionSyntax>(new[]
-                { PostfixUnaryExpression(SyntaxKind.PostIncrementExpression, IdentifierName(variableName)) }), body);
+                {
+                    PostfixUnaryExpression(SyntaxKind.PostIncrementExpression, IdentifierName(variableName))
+                }), body);
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Testura.Code.Statements
         /// <summary>
         /// Create the local decleration statement syntax to declare a variable and assign it a value
         /// </summary>
+        /// <typeparam name="T">The type of the variable</typeparam>
         /// <param name="name">Name of variable</param>
         /// <param name="value">Value to assign variable</param>
         /// <param name="useVarKeyword">Will use "var" keyword if true, otherwise the type</param>
@@ -222,7 +223,7 @@ namespace Testura.Code.Statements
         /// Create the expression statement syntax to assign a reference another reference. For example a property to a property
         /// </summary>
         /// <param name="reference">Reference that should be assigned</param>
-        /// <param name="valueReference">Reference that we should assign to another reference/param>
+        /// <param name="valueReference">Reference that we should assign to another reference</param>
         /// <param name="castTo">If we should do a cast while assign the variable</param>
         /// <returns>The generated assign decleration syntax</returns>
         public ExpressionStatementSyntax Assign(VariableReference reference, VariableReference valueReference, Type castTo = null)
@@ -271,7 +272,8 @@ namespace Testura.Code.Statements
 
             return
                 ExpressionStatement(
-                    AssignmentExpression(SyntaxKind.SimpleAssignmentExpression,
+                    AssignmentExpression(
+                        SyntaxKind.SimpleAssignmentExpression,
                     ReferenceGenerator.Create(reference),
                     expressionSyntax));
         }

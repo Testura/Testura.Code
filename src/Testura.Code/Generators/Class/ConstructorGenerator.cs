@@ -11,7 +11,6 @@ namespace Testura.Code.Generators.Class
 {
     public static class ConstructorGenerator
     {
-
         /// <summary>
         /// Create the syntax for a class constructor
         /// </summary>
@@ -47,7 +46,7 @@ namespace Testura.Code.Generators.Class
 
             if (modifiers != null)
             {
-                constructor = constructor.WithModifiers(Common.ModifierGenerator.Create(modifiers.ToArray()));
+                constructor = constructor.WithModifiers(ModifierGenerator.Create(modifiers.ToArray()));
             }
 
             return constructor;

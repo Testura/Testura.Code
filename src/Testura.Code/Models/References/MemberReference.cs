@@ -7,7 +7,7 @@
         {
         }
 
-        public MemberReference(string name, MemberReference memberReference) 
+        public MemberReference(string name, MemberReference memberReference)
             : this(name)
         {
             Member = memberReference;

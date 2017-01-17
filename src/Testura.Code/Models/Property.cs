@@ -45,7 +45,7 @@ namespace Testura.Code.Models
         public PropertyTypes PropertyType { get; set; }
 
         /// <summary>
-        /// Gets or set the modifiers of the property
+        /// Gets or sets the modifiers of the property
         /// </summary>
         public IEnumerable<Modifiers> Modifiers { get; set; }
 

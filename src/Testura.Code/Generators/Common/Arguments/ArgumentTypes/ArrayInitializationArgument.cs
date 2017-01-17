@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
@@ -25,33 +26,26 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 
         public ArgumentSyntax GetArgumentSyntax()
         {
-            SyntaxNodeOrToken[] m = new SyntaxNodeOrToken[0];
+            SyntaxNodeOrToken[] syntaxNodeOrTokens = new SyntaxNodeOrToken[0];
             if (_arguments.Any())
             {
-                m = new SyntaxNodeOrToken[(_arguments.Count * 2) - 1];
-                int argumentIndex = 0;
-                for (int n = 0; n < m.Length; n += 2)
+                syntaxNodeOrTokens = new SyntaxNodeOrToken[(_arguments.Count * 2) - 1];
+                var argumentIndex = 0;
+                for (int i = 0; i < syntaxNodeOrTokens.Length; i += 2)
                 {
-                    m[n] = _arguments[argumentIndex].GetArgumentSyntax().Expression;
-                    if ((n + 1) < m.Length)
+                    syntaxNodeOrTokens[i] = _arguments[argumentIndex].GetArgumentSyntax().Expression;
+                    if ((i + 1) < syntaxNodeOrTokens.Length)
                     {
-                        m[n + 1] = SyntaxFactory.Token(SyntaxKind.CommaToken);
+                        syntaxNodeOrTokens[i + 1] = Token(SyntaxKind.CommaToken);
                     }
 
                     argumentIndex++;
                 }
             }
 
-            return
-                SyntaxFactory.Argument(
-                    SyntaxFactory.ArrayCreationExpression(
-                            SyntaxFactory.ArrayType(TypeGenerator.Create(_type))
-                                .WithRankSpecifiers(
-                                    SyntaxFactory.SingletonList<ArrayRankSpecifierSyntax>(
-                                        SyntaxFactory.ArrayRankSpecifier(
-                                            SyntaxFactory.SingletonSeparatedList<ExpressionSyntax>(SyntaxFactory.OmittedArraySizeExpression())))))
-                        .WithInitializer(SyntaxFactory.InitializerExpression(SyntaxKind.ArrayInitializerExpression,
-                            SyntaxFactory.SeparatedList<ExpressionSyntax>(m))));
+            return Argument(ArrayCreationExpression(ArrayType(TypeGenerator.Create(_type))
+                                .WithRankSpecifiers(SingletonList<ArrayRankSpecifierSyntax>(ArrayRankSpecifier(SingletonSeparatedList<ExpressionSyntax>(OmittedArraySizeExpression())))))
+                                .WithInitializer(InitializerExpression(SyntaxKind.ArrayInitializerExpression, SeparatedList<ExpressionSyntax>(syntaxNodeOrTokens))));
         }
     }
 }

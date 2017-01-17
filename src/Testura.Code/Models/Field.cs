@@ -36,7 +36,7 @@ namespace Testura.Code.Models
         public Type Type { get; set; }
 
         /// <summary>
-        /// Gets or set the modifier(s) of the field
+        /// Gets or sets the modifier(s) of the field
         /// </summary>
         public IEnumerable<Modifiers> Modifiers { get; set; }
     }
