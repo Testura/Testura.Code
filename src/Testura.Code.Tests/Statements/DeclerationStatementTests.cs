@@ -70,7 +70,7 @@ namespace Testura.Code.Tests.Statements
         [Test]
         public void DeclareAndAssign_WhenCreateTypeAndAssignToClassInstance_ShouldAssignToClassInstance()
         {
-            Assert.AreEqual("vartest=newString();", statement.DeclareAndAssign("test", typeof(String), ArgumentGenerator.Create()).ToString());
+            Assert.AreEqual("vartest=newList();", statement.DeclareAndAssign("test", typeof(List), ArgumentGenerator.Create()).ToString());
         }
 
         [Test]
@@ -93,7 +93,7 @@ namespace Testura.Code.Tests.Statements
         [Test]
         public void Assign_WhenAssignVariableToClassInstance_ShouldAssignVariable()
         {
-            Assert.AreEqual("test=newString();", statement.Assign("test", typeof(String), ArgumentGenerator.Create()).ToString());
+            Assert.AreEqual("test=newList();", statement.Assign("test", typeof(List), ArgumentGenerator.Create()).ToString());
         }
 
         [Test]
