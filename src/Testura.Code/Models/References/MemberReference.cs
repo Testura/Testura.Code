@@ -7,8 +7,10 @@
         {
         }
 
-        public MemberReference(string name, MemberReference memberReference) : this(name)
+        public MemberReference(string name, MemberReference memberReference) 
+            : this(name)
         {
+            Member = memberReference;
         }
     }
 }
