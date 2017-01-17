@@ -18,17 +18,21 @@ namespace Testura.Code.Tests.Integration
         {
             var classBuilder = new ClassBuilder("Program", "HelloWorld");
             var @class = classBuilder
-                .WithUsings("System")
-                .WithMethods(new MethodBuilder("Main")
+                .WithUsings("System") 
+                .WithModifiers(Modifiers.Public, Modifiers.Static)
+                .WithMethods(
+                    new MethodBuilder("Main")
                     .WithParameters(new Parameter("args", typeof(string[])))
-                    .WithModifiers(Modifiers.Public, Modifiers.Static)
-                    .WithBody(BodyGenerator.Create(
-                        Statement.Expression.Invoke(new VariableReference("Console", new MethodReference("WriteLine", new List<IArgument>() { new ValueArgument("Hello world") }))).AsStatement(),
-                        Statement.Expression.Invoke("Console", "ReadLine").AsStatement()
-                        ))
-                    .Build())
+                    .WithBody(
+                        BodyGenerator.Create(
+                            Statement.Expression.Invoke(new VariableReference("Console", new MethodReference("WriteLine", new List<IArgument>() { new ValueArgument("Hello world") }))).AsStatement(),
+                            Statement.Expression.Invoke("Console", "ReadLine").AsStatement()
+                            ))
+                        .Build())
                 .Build();
-            var m = @class.NormalizeWhitespace().ToString();
+            Assert.AreEqual(
+                @"usingSystem;namespaceHelloWorld{publicclassProgram{publicstaticvoidMain(String[]args){Console.WriteLine(""Hello world"");Console.ReadLine();}}}",
+                @class.ToString());
         }
     }
 }

@@ -41,13 +41,5 @@ namespace Testura.Code.Tests.Builders
             var builder = new MethodBuilder("MyMethod");
             Assert.IsTrue(builder.WithReturnType(typeof(int)).Build().ToString().Contains("intMyMethod()"));
         }
-
-        [Test]
-        [Ignore("hmm")]
-        public void Build_WhenGivingXmlComment_CodeShouldContainComment()
-        {
-            var builder = new MethodBuilder("MyMethod");
-            Assert.IsTrue(builder.WithSummary("Test comment").Build().ToString().Contains("///Testcomment"));
-        }
     }
 }

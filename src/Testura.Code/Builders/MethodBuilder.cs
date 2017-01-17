@@ -32,6 +32,7 @@ namespace Testura.Code.Builders
             _name = name.Replace(" ", "_");
             _parameters = new List<ParameterSyntax>();
             _modifiers = new List<Modifiers>();
+            _body = BodyGenerator.Create();
         }
 
         public MethodBuilder WithParameters(params Parameter[] parameters)

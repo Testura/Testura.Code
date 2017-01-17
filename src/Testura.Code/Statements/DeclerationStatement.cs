@@ -277,5 +277,29 @@ namespace Testura.Code.Statements
                     ReferenceGenerator.Create(reference),
                     expressionSyntax));
         }
+
+        /// <summary>
+        /// Create the expression statement syntax to declare a local variable 
+        /// </summary>
+        /// <param name="variableName">Name of the variable</param>
+        /// <param name="type">Type of the variable</param>
+        /// <returns>The declared expression statement syntax</returns>
+        public LocalDeclarationStatementSyntax Declare(string variableName, Type type)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            if (string.IsNullOrEmpty(variableName))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(variableName));
+            }
+
+            return LocalDeclarationStatement(
+                VariableDeclaration(TypeGenerator.Create(type))
+                    .WithVariables(SingletonSeparatedList<VariableDeclaratorSyntax>(
+                        VariableDeclarator(Identifier(variableName)))));
+        }
     }
 }

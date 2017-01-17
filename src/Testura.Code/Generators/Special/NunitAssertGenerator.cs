@@ -137,7 +137,7 @@ namespace Testura.Code.Generators.Special
             var arguments = new List<IArgument>
             {
                 new ParenthesizedLambdaArgument(Statement.Expression.Invoke(variableReference).AsExpression()),
-                new ValueArgument(message)
+                new ValueArgument(message ?? string.Empty)
             };
             return Statement.Expression.Invoke("Assert", "Throws", arguments, new List<Type>() { exception }).AsStatement();
         }
@@ -158,7 +158,7 @@ namespace Testura.Code.Generators.Special
             {
                 expected,
                 actual,
-                new ValueArgument(message)
+                new ValueArgument(message ?? string.Empty)
             };
             return Statement.Expression.Invoke("Assert", Enum.GetName(typeof(AssertType), assertType), arguments).AsStatement();
         }
@@ -173,7 +173,7 @@ namespace Testura.Code.Generators.Special
             var argument = new List<IArgument>
             {
                 actual,
-                new ValueArgument(message)
+                new ValueArgument(message ?? string.Empty)
             };
             return Statement.Expression.Invoke("Assert", exected ? "IsTrue" : "IsFalse", argument).AsStatement();
         }

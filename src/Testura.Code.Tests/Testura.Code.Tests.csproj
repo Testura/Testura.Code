@@ -81,6 +81,7 @@
     <Compile Include="Generators\Common\TypeGeneratorTests.cs" />
     <Compile Include="Generators\Special\NunitAssertGeneratorTests.cs" />
     <Compile Include="Integration\ModelClassTests.cs" />
+    <Compile Include="Integration\NunitTest.cs" />
     <Compile Include="Models\References\ConstantReferenceTests.cs" />
     <Compile Include="Models\References\VariableReferenceTests.cs" />
     <Compile Include="Saver\CodeSaverTests.cs" />
