@@ -1,21 +1,27 @@
-﻿namespace Testura.Code.Models.References
+﻿using System;
+
+namespace Testura.Code.Models.References
 {
     /// <summary>
-    /// The reference classes are used to simpify call to methods, properties etc.
+    /// The reference classes are used to simpify call to methods, fields, properties etc.
     ///
     /// An example of this could be this:
     ///
     /// myVariable.MyMethod().AProperty;
     ///
     /// This could be represented like this:
-    /// new VariableReference("myVariable", typeof(MyClass), new MemberReference("MyMethod", typeof(MyOtherClass), typeof(MyClass),
-    ///                            MemberReferenceTypes.Method, new MemberReference("AProperty", typeof(string), typeof(MyOtherClass), MemberReferenceTypes.Property);
+    /// new VariableReference("myVariable", new MethodReference("MyMethod",new MemberReference("AProperty");
     ///
     /// </summary>
     public class VariableReference
     {
         public VariableReference(string variableName)
         {
+            if (variableName == null)
+            {
+                throw new ArgumentNullException(nameof(variableName));
+            }
+
             Name = variableName;
         }
 

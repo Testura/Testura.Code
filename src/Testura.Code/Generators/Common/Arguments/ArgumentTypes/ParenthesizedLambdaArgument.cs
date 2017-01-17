@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Models;
@@ -13,6 +14,11 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 
         public ParenthesizedLambdaArgument(ExpressionSyntax expressionSyntax, IEnumerable<Parameter> parameters = null)
         {
+            if (expressionSyntax == null)
+            {
+                throw new ArgumentNullException(nameof(expressionSyntax));
+            }
+
             _parameters = parameters ?? new List<Parameter>();
             _expressionSyntax = expressionSyntax;
         }

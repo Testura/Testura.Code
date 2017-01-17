@@ -20,6 +20,16 @@ namespace Testura.Code.Statements
         /// <returns>A invocation object with both statement and expression</returns>
         public Invocation Invoke(string variableName, string methodName, IEnumerable<IArgument> arguments = null, IEnumerable<Type> generics = null)
         {
+            if (string.IsNullOrEmpty(variableName))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(variableName));
+            }
+
+            if (string.IsNullOrEmpty(methodName))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(methodName));
+            }
+
             return Invoke(new VariableReference(variableName, new MethodReference(methodName, arguments, generics)));
         }
 
@@ -32,6 +42,11 @@ namespace Testura.Code.Statements
         /// <returns>A invocation object with both statement and expression</returns>
         public Invocation Invoke(string methodName, IEnumerable<IArgument> arguments = null, IEnumerable<Type> generics = null)
         {
+            if (string.IsNullOrEmpty(methodName))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(methodName));
+            }
+
             return Invoke(new MethodReference(methodName, arguments, generics));
         }
 
@@ -42,6 +57,11 @@ namespace Testura.Code.Statements
         /// <returns>A invocation object with both statement and expression</returns>
         public Invocation Invoke(VariableReference reference)
         {
+            if (reference == null)
+            {
+                throw new ArgumentNullException(nameof(reference));
+            }
+
             if (!(reference is MethodReference))
             {
                 var member = reference.GetLastMember();

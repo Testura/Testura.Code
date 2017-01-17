@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Formatting;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -15,6 +16,16 @@ namespace Testura.Code.Saver
         /// <param name="path">Full output path</param>
         public void SaveCodeToFile(CompilationUnitSyntax cu, string path)
         {
+            if (cu == null)
+            {
+                throw new ArgumentNullException(nameof(cu));
+            }
+
+            if (string.IsNullOrEmpty(path))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(path));
+            }
+
             var cw = new AdhocWorkspace();
             cw.Options.WithChangedOption(CSharpFormattingOptions.IndentBraces, true);
             var formattedCode = Formatter.Format(cu, cw);
@@ -31,6 +42,11 @@ namespace Testura.Code.Saver
         /// <returns>Generated code as a string</returns>
         public string SaveCodeAsString(CompilationUnitSyntax cu)
         {
+            if (cu == null)
+            {
+                throw new ArgumentNullException(nameof(cu));
+            }
+
             var cw = new AdhocWorkspace();
             cw.Options.WithChangedOption(CSharpFormattingOptions.IndentBraces, true);
             var formattedCode = Formatter.Format(cu, cw);

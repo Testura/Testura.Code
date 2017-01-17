@@ -11,6 +11,11 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 
         public InvocationArgument(ExpressionSyntax invocation, Type castTo = null)
         {
+            if (invocation == null)
+            {
+                throw new ArgumentNullException(nameof(invocation));
+            }
+
             _invocation = invocation;
             _castTo = castTo ?? typeof(void);
         }

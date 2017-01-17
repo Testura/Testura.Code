@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Generators.Common;
 using Testura.Code.Models;
+using Attribute = Testura.Code.Models.Attribute;
 
 namespace Testura.Code.Generators.Class
 {
@@ -26,6 +28,11 @@ namespace Testura.Code.Generators.Class
             IEnumerable<Modifiers> modifiers = null,
             IEnumerable<Attribute> attributes = null)
         {
+            if (className == null)
+            {
+                throw new ArgumentNullException(nameof(className));
+            }
+
             var constructor = SyntaxFactory.ConstructorDeclaration(SyntaxFactory.Identifier(className))
                         .WithBody(body);
             if (parameters != null)

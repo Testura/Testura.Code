@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Models.References;
@@ -14,6 +15,11 @@ namespace Testura.Code.Generators.Common
         /// <returns>The declared expression syntax</returns>
         public static ExpressionSyntax Create(VariableReference reference)
         {
+            if (reference == null)
+            {
+                throw new ArgumentNullException(nameof(reference));
+            }
+
             ExpressionSyntax baseExpression;
 
             if (reference is MethodReference)
@@ -45,12 +51,22 @@ namespace Testura.Code.Generators.Common
         /// <summary>
         /// Create the expression syntax for a chain of member/method(s).
         /// </summary>
-        /// <param name="expressionSyntax">The expression to build upon</param>
+        /// <param name="expression">The expression to build upon</param>
         /// <param name="reference">Next member reference in chain</param>
         /// <returns>The declared expression syntax</returns>
         public static ExpressionSyntax Create(ExpressionSyntax expression, MemberReference reference)
         {
-           return Generate(expression, reference);
+            if (expression == null)
+            {
+                throw new ArgumentNullException(nameof(expression));
+            }
+
+            if (reference == null)
+            {
+                throw new ArgumentNullException(nameof(reference));
+            }
+
+            return Generate(expression, reference);
         }
 
         private static ExpressionSyntax Generate(ExpressionSyntax expressionSyntax, MemberReference reference)

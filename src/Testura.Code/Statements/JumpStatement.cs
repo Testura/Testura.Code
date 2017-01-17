@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis.CSharp;
+﻿using System;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Generators.Common;
 using Testura.Code.Models.References;
@@ -35,6 +36,11 @@ namespace Testura.Code.Statements
         /// <returns>The declared return statement syntax</returns>
         public ReturnStatementSyntax Return(VariableReference variableReference)
         {
+            if (variableReference == null)
+            {
+                throw new ArgumentNullException(nameof(variableReference));
+            }
+
             return ReturnStatement(ReferenceGenerator.Create(variableReference));
         }
 
@@ -45,6 +51,11 @@ namespace Testura.Code.Statements
         /// <returns>The declared return statement syntax</returns>
         public ReturnStatementSyntax Return(ExpressionSyntax expression)
         {
+            if (expression == null)
+            {
+                throw new ArgumentNullException(nameof(expression));
+            }
+
             return ReturnStatement(expression);
         }
     }

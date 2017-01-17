@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Generators.Common;
@@ -15,6 +16,11 @@ namespace Testura.Code.Generators.Class
         /// <returns>The decleration syntax for a property</returns>
         public static PropertyDeclarationSyntax Create(Property property)
         {
+            if (property == null)
+            {
+                throw new ArgumentNullException(nameof(property));
+            }
+
             var propertyDecleration = SyntaxFactory.PropertyDeclaration(
                 TypeGenerator.Create(property.Type), SyntaxFactory.Identifier(property.Name))
                 .AddAccessorListAccessors(SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration).

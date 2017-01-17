@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,16 @@ namespace Testura.Code.Compilations
 
         public async Task<CompileResult> CompileFilesAsync(string outputPath, params string[] pathsToCsFiles)
         {
+            if (outputPath == null)
+            {
+                throw new ArgumentNullException(nameof(outputPath));
+            }
+
+            if (pathsToCsFiles.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty collection.", nameof(pathsToCsFiles));
+            }
+
             var source = new string[pathsToCsFiles.Length];
             for (int n = 0; n < pathsToCsFiles.Length; n++)
             {
@@ -43,6 +54,16 @@ namespace Testura.Code.Compilations
 
         public async Task<CompileResult> CompileSourceAsync(string outputPath, params string[] source)
         {
+            if (outputPath == null)
+            {
+                throw new ArgumentNullException(nameof(outputPath));
+            }
+
+            if (source.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty collection.", nameof(source));
+            }
+
             return await Task.Run(() =>
             {
                 var parsedSyntaxTrees = new SyntaxTree[source.Length];

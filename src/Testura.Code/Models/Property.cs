@@ -12,6 +12,16 @@ namespace Testura.Code.Models
             IEnumerable<Code.Modifiers> modifiers = null,
             IEnumerable<Attribute> attributes = null)
         {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             Name = name;
             Type = type;
             PropertyType = propertyType;

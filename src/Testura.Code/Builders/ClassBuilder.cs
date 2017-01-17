@@ -27,6 +27,16 @@ namespace Testura.Code.Builders
 
         public ClassBuilder(string name, string @namespace)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(name));
+            }
+
+            if (string.IsNullOrEmpty(@namespace))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(@namespace));
+            }
+
             _name = name.Replace(" ", "_");
             _namespace = @namespace;
             _methods = new List<MethodDeclarationSyntax>();

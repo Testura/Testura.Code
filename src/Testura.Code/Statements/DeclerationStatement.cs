@@ -20,6 +20,11 @@ namespace Testura.Code.Statements
         public LocalDeclarationStatementSyntax DeclareAndAssign<T>(string name, T value, bool useVarKeyword = true)
             where T : struct
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(name));
+            }
+
             return LocalDeclarationStatement(VariableDeclaration(IdentifierName(useVarKeyword ? "var" : typeof(T).Name))
                 .WithVariables(SingletonSeparatedList(VariableDeclarator(Identifier(name))
                     .WithInitializer(EqualsValueClauseFactory.GetEqualsValueClause(value).WithEqualsToken(Token(SyntaxKind.EqualsToken))))));
@@ -34,6 +39,16 @@ namespace Testura.Code.Statements
         /// <returns>The generated local declaration statement</returns>
         public LocalDeclarationStatementSyntax DeclareAndAssign(string name, string value, bool useVarKeyword = true)
         {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
             return LocalDeclarationStatement(VariableDeclaration(IdentifierName(useVarKeyword ? "var" : typeof(string).Name))
                 .WithVariables(SingletonSeparatedList(VariableDeclarator(Identifier(name))
                     .WithInitializer(EqualsValueClauseFactory.GetEqualsValueClause($@"""{value}""").WithEqualsToken(Token(SyntaxKind.EqualsToken))))));
@@ -49,6 +64,21 @@ namespace Testura.Code.Statements
         /// <returns>The generated local declaration statement</returns>
         public LocalDeclarationStatementSyntax DeclareAndAssign(string name, Type type, VariableReference reference, bool useVarKeyword = true)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(name));
+            }
+
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            if (reference == null)
+            {
+                throw new ArgumentNullException(nameof(reference));
+            }
+
             return LocalDeclarationStatement(VariableDeclaration(IdentifierName(useVarKeyword ? "var" : type.Name))
                 .WithVariables(SingletonSeparatedList(VariableDeclarator(Identifier(name))
                     .WithInitializer(EqualsValueClauseFactory.GetEqualsValueClause(reference).WithEqualsToken(Token(SyntaxKind.EqualsToken))))));
@@ -64,6 +94,16 @@ namespace Testura.Code.Statements
         /// <returns>The generated local declaration statement</returns>
         public LocalDeclarationStatementSyntax DeclareAndAssign(string name, Type type, ArgumentListSyntax arguments, bool useVarKeyword = true)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(name));
+            }
+
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             return LocalDeclarationStatement(VariableDeclaration(useVarKeyword ? IdentifierName("var") : TypeGenerator.Create(type))
                 .WithVariables(SingletonSeparatedList(VariableDeclarator(Identifier(name))
                     .WithInitializer(
@@ -83,6 +123,21 @@ namespace Testura.Code.Statements
         /// <returns>The generated local decleration statement</returns>
         public LocalDeclarationStatementSyntax DeclareAndAssign(string name, Type type, ExpressionSyntax expressionSyntax, Type castTo = null, bool useVarKeyword = true)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(name));
+            }
+
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            if (expressionSyntax == null)
+            {
+                throw new ArgumentNullException(nameof(expressionSyntax));
+            }
+
             if (castTo != null && castTo != typeof(void))
             {
                 expressionSyntax = CastExpression(TypeGenerator.Create(castTo), expressionSyntax);
@@ -102,6 +157,16 @@ namespace Testura.Code.Statements
         /// <returns>The generated assign decleration statement</returns>
         public ExpressionStatementSyntax Assign(string name, Type type, ArgumentListSyntax arguments)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(name));
+            }
+
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             return ExpressionStatement(
                 AssignmentExpression(
                     SyntaxKind.SimpleAssignmentExpression,
@@ -118,6 +183,16 @@ namespace Testura.Code.Statements
         /// <returns>The generated assign decleration syntax</returns>
         public ExpressionStatementSyntax Assign(string name, ExpressionSyntax expressionSyntax, Type castTo = null)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(name));
+            }
+
+            if (expressionSyntax == null)
+            {
+                throw new ArgumentNullException(nameof(expressionSyntax));
+            }
+
             return Assign(new VariableReference(name), expressionSyntax, castTo);
         }
 
@@ -130,6 +205,16 @@ namespace Testura.Code.Statements
         /// <returns>The generated assign decleration syntax</returns>
         public ExpressionStatementSyntax Assign(string name, VariableReference reference, Type castTo = null)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(name));
+            }
+
+            if (reference == null)
+            {
+                throw new ArgumentNullException(nameof(reference));
+            }
+
             return Assign(name, ReferenceGenerator.Create(reference), castTo);
         }
 
@@ -142,6 +227,16 @@ namespace Testura.Code.Statements
         /// <returns>The generated assign decleration syntax</returns>
         public ExpressionStatementSyntax Assign(VariableReference reference, VariableReference valueReference, Type castTo = null)
         {
+            if (reference == null)
+            {
+                throw new ArgumentNullException(nameof(reference));
+            }
+
+            if (valueReference == null)
+            {
+                throw new ArgumentNullException(nameof(valueReference));
+            }
+
             if (reference is MethodReference || reference.GetLastMember() is MethodReference)
             {
                 throw new ArgumentException($"{nameof(reference)} to assign can't be a method");
@@ -159,6 +254,16 @@ namespace Testura.Code.Statements
         /// <returns>The generated assign decleration syntax<</returns>
         public ExpressionStatementSyntax Assign(VariableReference reference, ExpressionSyntax expressionSyntax, Type castTo = null)
         {
+            if (reference == null)
+            {
+                throw new ArgumentNullException(nameof(reference));
+            }
+
+            if (expressionSyntax == null)
+            {
+                throw new ArgumentNullException(nameof(expressionSyntax));
+            }
+
             if (castTo != null && castTo != typeof(void))
             {
                 expressionSyntax = CastExpression(TypeGenerator.Create(castTo), expressionSyntax);

@@ -17,6 +17,11 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
             IEnumerable<IArgument> arguments = null,
             IEnumerable<Type> genericTypes = null)
         {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             _type = type;
             _arguments = arguments == null ? new List<IArgument>() : new List<IArgument>(arguments);
             _genericTypes = genericTypes == null ? new List<Type>() : new List<Type>(genericTypes);

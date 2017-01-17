@@ -14,8 +14,13 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 
         public ArrayInitializationArgument(Type type, IEnumerable<IArgument> arguments)
         {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             _type = type;
-            _arguments = new List<IArgument>(arguments);
+            _arguments = arguments == null ? new List<IArgument>() : new List<IArgument>(arguments);
         }
 
         public ArgumentSyntax GetArgumentSyntax()

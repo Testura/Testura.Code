@@ -16,6 +16,11 @@ namespace Testura.Code.Generators.Common
         /// <returns>The declared type syntax</returns>
         public static TypeSyntax Create(Type type)
         {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             if (type.IsGenericType)
             {
                 return CreateGenericType(type);

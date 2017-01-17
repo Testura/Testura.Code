@@ -1,13 +1,12 @@
 ﻿using System;
 using Testura.Code.Extensions;
-using Testura.Code.Generators.Common;
 
 namespace Testura.Code.Models.References
 {
     public class ConstantReference : VariableReference
     {
         public ConstantReference(object value)
-            : base(value.ToString())
+            : base(value?.ToString())
         {
             if (!(value.IsNumeric() || value is bool))
             {

@@ -88,6 +88,16 @@ namespace Testura.Code.Generators.Special
         /// <returns>The declared expression statement syntax</returns>
         public static ExpressionStatementSyntax Contains(IArgument expectedContain, IArgument actual, string message = null)
         {
+            if (expectedContain == null)
+            {
+                throw new ArgumentNullException(nameof(expectedContain));
+            }
+
+            if (actual == null)
+            {
+                throw new ArgumentNullException(nameof(actual));
+            }
+
             return Statement.Expression.Invoke("Assert", "IsTrue", new List<IArgument>
             {
                 new InvocationArgument(Statement.Expression.Invoke(actual.GetArgumentSyntax().ToString(), "Contains", new List<IArgument> { expectedContain }).AsExpression()),
@@ -104,6 +114,16 @@ namespace Testura.Code.Generators.Special
         /// <returns>The declared expression statement syntax</returns>
         public static ExpressionStatementSyntax Throws(VariableReference variableReference, Type exception, string message = null)
         {
+            if (variableReference == null)
+            {
+                throw new ArgumentNullException(nameof(variableReference));
+            }
+
+            if (exception == null)
+            {
+                throw new ArgumentNullException(nameof(exception));
+            }
+
             if (!(variableReference is MethodReference))
             {
                 var member = variableReference.GetLastMember();
@@ -122,6 +142,16 @@ namespace Testura.Code.Generators.Special
 
         private static ExpressionStatementSyntax Are(AssertType assertType, IArgument expected, IArgument actual, string message)
         {
+            if (expected == null)
+            {
+                throw new ArgumentNullException(nameof(expected));
+            }
+
+            if (actual == null)
+            {
+                throw new ArgumentNullException(nameof(actual));
+            }
+
             return
                 Statement.Expression.Invoke("Assert", Enum.GetName(typeof(AssertType), assertType),
                     new List<IArgument> {
@@ -133,6 +163,11 @@ namespace Testura.Code.Generators.Special
 
         private static ExpressionStatementSyntax Is(bool exected, IArgument actual, string message)
         {
+            if (actual == null)
+            {
+                throw new ArgumentNullException(nameof(actual));
+            }
+
             return Statement.Expression.Invoke("Assert", exected ? "IsTrue" : "IsFalse", new List<IArgument>
             {
                 actual,

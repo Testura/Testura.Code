@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Generators.Common;
 using Testura.Code.Models;
@@ -15,6 +16,11 @@ namespace Testura.Code.Generators.Class
         /// <returns>The decleration syntax for a field</returns>
         public static FieldDeclarationSyntax Create(Field field)
         {
+            if (field == null)
+            {
+                throw new ArgumentNullException(nameof(field));
+            }
+
             var fieldDecleration = FieldDeclaration(VariableDeclaration(TypeGenerator.Create(field.Type), SeparatedList(new[] { VariableDeclarator(Identifier(field.Name)) })));
             if (field.Modifiers != null)
             {

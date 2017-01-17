@@ -9,6 +9,11 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
     {
         public ValueArgument(object value)
         {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
             if (!(value.IsNumeric() || value is bool))
             {
                 throw new ArgumentException($"{nameof(value)} must be a number, boolean or string.");
@@ -20,6 +25,11 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 
         public ValueArgument(string value, StringType stringType = StringType.Normal)
         {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
             Value = stringType == StringType.Path ? $"@\"{value}\"" : $"\"{value}\"";
         }
 

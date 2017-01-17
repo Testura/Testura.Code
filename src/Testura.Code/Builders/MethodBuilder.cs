@@ -24,6 +24,11 @@ namespace Testura.Code.Builders
 
         public MethodBuilder(string name)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(name));
+            }
+
             _name = name.Replace(" ", "_");
             _parameters = new List<ParameterSyntax>();
             _modifiers = new List<Modifiers>();

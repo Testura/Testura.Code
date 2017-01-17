@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis.CSharp;
+﻿using System;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Generators.Common;
 using Testura.Code.Models.References;
@@ -18,6 +19,11 @@ namespace Testura.Code.Statements
         /// <returns>The declared for statement syntax</returns>
         public ForStatementSyntax For(int start, int end, string variableName, BlockSyntax body)
         {
+            if (string.IsNullOrEmpty(variableName))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(variableName));
+            }
+
             return For(new ConstantReference(start), new ConstantReference(end), variableName, body);
         }
 
@@ -31,6 +37,21 @@ namespace Testura.Code.Statements
         /// <returns>The declared for statement syntax</returns>
         public ForStatementSyntax For(VariableReference start, VariableReference end, string variableName, BlockSyntax body)
         {
+            if (start == null)
+            {
+                throw new ArgumentNullException(nameof(start));
+            }
+
+            if (end == null)
+            {
+                throw new ArgumentNullException(nameof(end));
+            }
+
+            if (string.IsNullOrEmpty(variableName))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(variableName));
+            }
+
             return ForStatement(
                 VariableDeclaration(
                     PredefinedType(Token(SyntaxKind.IntKeyword)), SeparatedList(new[]

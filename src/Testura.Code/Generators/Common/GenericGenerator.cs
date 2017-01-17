@@ -18,6 +18,11 @@ namespace Testura.Code.Generators.Common
         /// <returns>The declared generic name syntax</returns>
         internal static GenericNameSyntax Create(string name, IEnumerable<Type> genericTypes)
         {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
             if (name.Contains("`"))
             {
                 name = name.Split('`').First();

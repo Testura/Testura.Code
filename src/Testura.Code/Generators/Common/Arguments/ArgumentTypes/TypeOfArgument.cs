@@ -6,21 +6,21 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
     public class TypeOfArgument : IArgument
     {
-        private readonly string _typeName;
+        private readonly Type _type;
 
         public TypeOfArgument(Type type)
         {
-            _typeName = type.Name;
-        }
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
 
-        public TypeOfArgument(string type)
-        {
-            _typeName = type;
+            _type = type;
         }
 
         public ArgumentSyntax GetArgumentSyntax()
         {
-            return SyntaxFactory.Argument(SyntaxFactory.TypeOfExpression(SyntaxFactory.IdentifierName(_typeName)));
+            return SyntaxFactory.Argument(SyntaxFactory.TypeOfExpression(TypeGenerator.Create(_type)));
         }
     }
 }

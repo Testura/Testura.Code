@@ -18,6 +18,16 @@ namespace Testura.Code.Statements
         /// <returns>The declared statement syntax</returns>
         public StatementSyntax If(IArgument leftArgument, IArgument rightArgument, ConditionalStatements conditional, BlockSyntax block)
         {
+            if (leftArgument == null)
+            {
+                throw new ArgumentNullException(nameof(leftArgument));
+            }
+
+            if (rightArgument == null)
+            {
+                throw new ArgumentNullException(nameof(rightArgument));
+            }
+
             return
                 IfStatement(BinaryExpression(ConditionalToSyntaxKind(conditional),
                     leftArgument.GetArgumentSyntax().Expression, rightArgument.GetArgumentSyntax().Expression), block);

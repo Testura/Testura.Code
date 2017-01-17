@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
 
 namespace Testura.Code.Models
@@ -7,12 +8,27 @@ namespace Testura.Code.Models
     {
         public Attribute(string name)
         {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
             Name = name;
             Arguments = new List<IArgument>();
         }
 
         public Attribute(string name, List<IArgument> arguments)
         {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            if (arguments == null)
+            {
+                throw new ArgumentNullException(nameof(arguments));
+            }
+
             Name = name;
             Arguments = arguments;
         }
