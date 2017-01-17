@@ -19,7 +19,7 @@ namespace Testura.Code.Tests.Integration
             var classBuilder = new ClassBuilder("Program", "HelloWorld");
             var @class = classBuilder
                 .WithUsings("System") 
-                .WithModifiers(Modifiers.Public, Modifiers.Static)
+                .WithModifiers(Modifiers.Public)
                 .WithMethods(
                     new MethodBuilder("Main")
                     .WithParameters(new Parameter("args", typeof(string[])))
@@ -28,7 +28,8 @@ namespace Testura.Code.Tests.Integration
                             Statement.Expression.Invoke(new VariableReference("Console", new MethodReference("WriteLine", new List<IArgument>() { new ValueArgument("Hello world") }))).AsStatement(),
                             Statement.Expression.Invoke("Console", "ReadLine").AsStatement()
                             ))
-                        .Build())
+                    .WithModifiers(Modifiers.Public, Modifiers.Static)
+                    .Build())
                 .Build();
             Assert.AreEqual(
                 @"usingSystem;namespaceHelloWorld{publicclassProgram{publicstaticvoidMain(String[]args){Console.WriteLine(""Hello world"");Console.ReadLine();}}}",
