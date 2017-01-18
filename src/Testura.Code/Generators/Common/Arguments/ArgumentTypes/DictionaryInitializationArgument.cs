@@ -45,9 +45,9 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
                         SeparatedList<TypeSyntax>(
                             new SyntaxNodeOrToken[]
                             {
-                                IdentifierName(typeof(T).ToString()),
+                                TypeGenerator.Create(typeof(T)),
                                 Token(SyntaxKind.CommaToken),
-                                IdentifierName(typeof(T2).ToString())
+                                TypeGenerator.Create(typeof(T2))
                             })))).WithInitializer(InitializerExpression(
                 SyntaxKind.ObjectInitializerExpression, SeparatedList<ExpressionSyntax>(syntaxNodeOrTokens.ToArray()))));
         }
