@@ -22,7 +22,12 @@ But also simple statements like:
 
 
 # Install
-   
+
+## NuGet [![NuGet Status](https://img.shields.io/nuget/v/Testura.Code.svg?style=flat)](https://www.nuget.org/packages/Testura.Code)
+
+[https://www.nuget.org/packages/Testura.Code](https://www.nuget.org/packages/Testura.Code)
+    
+    PM> Install-Package Testura.Code
 
 ## Usage
 
