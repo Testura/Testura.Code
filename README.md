@@ -22,17 +22,9 @@ But also simple statements like:
 
 
 # Install
-
-## NuGet [![NuGet Status](https://img.shields.io/nuget/v/Testura.Android.svg?style=flat)](https://www.nuget.org/packages/Testura.Android)
-
-[https://www.nuget.org/packages/Testura.Android](https://www.nuget.org/packages/Testura.Android)
-    
-    PM> Install-Package Testura.Android
    
 
 ## Usage
-
-[Introduction video here](https://www.youtube.com/watch?v=x-U2F6mzcyc)
 
 Testura.Code have three different types of helpers: 
 
@@ -51,7 +43,7 @@ Here is an example on how to generate, save and compile a simple hello world.
 #### Generate
 
 ```c#
-var @class = classBuilder
+var @class = new ClassBuilder("System", "HelloWorld")
 	.WithUsings("System") 
 	.WithModifiers(Modifiers.Public)
 	.WithMethods(
