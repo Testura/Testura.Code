@@ -37,7 +37,7 @@ Testura.Code have three different types of helpers:
 - `Statement` - Helpers for regular statements and expressions, for example declare and assign a variable or invoke a method. 
 - `Builders` - Currently we have two builder - One class builder and one method builder. These have the highest  abstraction and are easy to use. 
 
-For more details, check out the wiki. 
+For more details, check out the wiki: [https://github.com/Testura/Testura.Code/wiki](https://github.com/Testura/Testura.Code/wiki)
 
 ## Examples 
 
