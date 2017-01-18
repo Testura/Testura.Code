@@ -1,6 +1,8 @@
 ![Testura Logo](http://testura.net/Content/Images/logo.png)
 
-Testura.Code is a wrapper around the Roslyn API for code generation and compiling. It provides methods and helpers to generate: 
+Testura.Code is a wrapper around the Roslyn API and used for generation, saving and and compiling C# code. It provides methods and helpers to generate classes, methods, statements and expressions.
+
+It provide helpers to generate:
 
 - Classes 
 - Methods 
