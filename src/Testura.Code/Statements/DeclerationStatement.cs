@@ -279,7 +279,7 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create the expression statement syntax to declare a local variable 
+        /// Create the expression statement syntax to declare a local variable
         /// </summary>
         /// <param name="variableName">Name of the variable</param>
         /// <param name="type">Type of the variable</param>

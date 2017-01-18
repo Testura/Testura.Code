@@ -21,6 +21,17 @@ namespace Testura.Code.Tests.Generators.Common.Arguments.ArgumentTypes
         }
 
         [Test]
+        public void GetArgumentSyntax_WhenUsingReference_ShouldGetCode()
+        {
+            var argument =
+                new InvocationArgument(new MethodReference("Do"));
+            var syntax = argument.GetArgumentSyntax();
+
+            Assert.IsInstanceOf<ArgumentSyntax>(syntax);
+            Assert.AreEqual("Do()", syntax.ToString());
+        }
+
+        [Test]
         public void GetArgumentSyntax_WhenUsingMethodAndCasting_ShouldGetCode()
         {
             var argument =

@@ -6,13 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
-    public class ClassInitialiationArgument : IArgument
+    public class ClassInitializationArgument : IArgument
     {
         private readonly Type _type;
         private readonly IList<IArgument> _arguments;
         private readonly IList<Type> _genericTypes;
 
-        public ClassInitialiationArgument(
+        public ClassInitializationArgument(
             Type type,
             IEnumerable<IArgument> arguments = null,
             IEnumerable<Type> genericTypes = null)

@@ -15,7 +15,7 @@ namespace Testura.Code.Compilations
         private readonly string[] _referencedAssemblies;
         private readonly IEnumerable<string> _defaultNamespaces;
 
-        public Compiler(string[] referencedAssemblies, string runtimeDirectory = null)
+        public Compiler(string[] referencedAssemblies = null, string runtimeDirectory = null)
         {
             _referencedAssemblies = referencedAssemblies ?? new string[0];
             _runtimeDirectory = runtimeDirectory ?? @"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.1\";

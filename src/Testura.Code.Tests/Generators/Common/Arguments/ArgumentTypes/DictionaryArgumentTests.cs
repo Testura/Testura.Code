@@ -15,7 +15,7 @@ namespace Testura.Code.Tests.Generators.Common.Arguments.ArgumentTypes
             var syntax = argument.GetArgumentSyntax();
 
             Assert.IsInstanceOf<ArgumentSyntax>(syntax);
-            Assert.AreEqual("newDictionary<System.Int32,System.Int32>{[1]=2}", syntax.ToString());
+            Assert.AreEqual("newDictionary<int,int>{[1]=2}", syntax.ToString());
         }
     }
 }

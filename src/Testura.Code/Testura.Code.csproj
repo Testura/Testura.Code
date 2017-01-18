@@ -82,7 +82,7 @@
     <Compile Include="Factories\EqualsValueClauseFactory.cs" />
     <Compile Include="Generators\Common\ArgumentGenerator.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\ArrayInitializationArgument.cs" />
-    <Compile Include="Generators\Common\Arguments\ArgumentTypes\ClassInitialiationArgument.cs" />
+    <Compile Include="Generators\Common\Arguments\ArgumentTypes\ClassInitializationArgument.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\DictionaryInitializationArgument.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\IArgument.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\InvocationArgument.cs" />
