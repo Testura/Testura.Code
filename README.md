@@ -118,4 +118,4 @@ This project is licensed under the MIT License. See the [LICENSE.md](LICENSE.md)
 
 ## Contact
 
-Visit <a href="http://www.testura.net">www.testura.net</a>
+Visit <a href="http://www.testura.net">www.testura.net</a>, twitter at @testuranet or email at mille.bostrom@testura.net
