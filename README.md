@@ -48,7 +48,7 @@ Here is an example on how to generate, save and compile a simple hello world.
 #### Generate
 
 ```c#
-var @class = new ClassBuilder("System", "HelloWorld")
+var @class = new ClassBuilder("Program", "HelloWorld")
 	.WithUsings("System") 
 	.WithModifiers(Modifiers.Public)
 	.WithMethods(
