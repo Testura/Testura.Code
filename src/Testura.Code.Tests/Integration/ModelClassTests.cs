@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Microsoft.CodeAnalysis;
 using Testura.Code.Statements;
 using NUnit.Framework;
 using Testura.Code.Builders;
@@ -32,6 +31,7 @@ namespace Testura.Code.Tests.Integration
                         new List<Modifiers> { Modifiers.Public }))
 
                        .Build();
+
             Assert.AreEqual(
                 "usingSystem;namespaceModels{publicclassCat{publicCat(stringname,intage){Name=name;Age=age;}publicstringName{get;set;}publicintAge{get;set;}}}",
                 @class.ToString());

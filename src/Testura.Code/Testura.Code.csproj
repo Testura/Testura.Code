@@ -103,6 +103,7 @@
     <Compile Include="Models\Attribute.cs" />
     <Compile Include="Models\Field.cs" />
     <Compile Include="Models\Invocation.cs" />
+    <Compile Include="Models\Options\OptionKeyValue.cs" />
     <Compile Include="Models\Parameter.cs" />
     <Compile Include="Generators\Class\PropertyGenerator.cs" />
     <Compile Include="Generators\Common\ReferenceGenerator.cs" />

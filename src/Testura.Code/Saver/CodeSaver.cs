@@ -1,14 +1,29 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Formatting;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Testura.Code.Models.Options;
 using Formatter = Microsoft.CodeAnalysis.Formatting.Formatter;
 
 namespace Testura.Code.Saver
 {
     public class CodeSaver : ICodeSaver
     {
+        private IList<OptionKeyValue> _options;
+
+        public CodeSaver()
+        {
+            _options = new List<OptionKeyValue>();
+        }
+
+        public CodeSaver(IEnumerable<OptionKeyValue> options)
+        {
+            _options = new List<OptionKeyValue>(options);
+        }
+
         /// <summary>
         /// Save generated code to a file
         /// </summary>
@@ -26,9 +41,8 @@ namespace Testura.Code.Saver
                 throw new ArgumentException("Value cannot be null or empty.", nameof(path));
             }
 
-            var cw = new AdhocWorkspace();
-            cw.Options.WithChangedOption(CSharpFormattingOptions.IndentBraces, true);
-            var formattedCode = Formatter.Format(cu, cw);
+            var workspace = CreateWorkspace();
+            var formattedCode = Formatter.Format(cu, workspace);
             using (var sourceWriter = new StreamWriter(path))
             {
                 formattedCode.WriteTo(sourceWriter);
@@ -47,10 +61,21 @@ namespace Testura.Code.Saver
                 throw new ArgumentNullException(nameof(cu));
             }
 
+            var workspace = CreateWorkspace();
+            var formattedCode = Formatter.Format(cu, workspace);
+            return formattedCode.ToFullString();
+        }
+
+        private AdhocWorkspace CreateWorkspace()
+        {
             var cw = new AdhocWorkspace();
             cw.Options.WithChangedOption(CSharpFormattingOptions.IndentBraces, true);
-            var formattedCode = Formatter.Format(cu, cw);
-            return formattedCode.ToFullString();
+            foreach (var optionKeyValue in _options)
+            {
+                cw.Options = cw.Options.WithChangedOption(optionKeyValue.FormattingOption, optionKeyValue.Value);
+            }
+
+            return cw;
         }
     }
 }
