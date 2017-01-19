@@ -72,6 +72,7 @@
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\ClassInitializationArgumentTests.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\DictionaryArgumentTests.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\InvocationArgumentTests.cs" />
+    <Compile Include="Generators\Common\Arguments\ArgumentTypes\ParenthesizedLambdaArgumentTests.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\ReferenceArgumentTests.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\TypeOfArgumentTests.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\ValueArgumentTests.cs" />
