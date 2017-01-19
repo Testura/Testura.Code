@@ -106,6 +106,12 @@ var result = await compiler.CompileSourceAsync(@"/path/HelloWorld.dll", code);
 var result = await compiler.CompileSourceAsync(@"/path/HelloWorld.dll",  @"/path/HelloWorld.cs");
 ```
 
+## Missing anything? 
+
+If we miss a feature, syntax or statements - just create an issue or contact us and I'm sure we can add it.
+
+It is also possible for you to contribute with your own feature. Simply add a pull request and we will look at it. 
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE.md](LICENSE.md) file for details.
