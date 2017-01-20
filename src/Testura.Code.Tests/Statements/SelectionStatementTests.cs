@@ -27,7 +27,7 @@ namespace Testura.Code.Tests.Statements
         [Test]
         public void If_WhenCreatingAnIfWithEqualAndExpressionStatement_ShouldGenerateCorrectIfStatementWithoutBraces()
         {
-            Assert.AreEqual("if(2==3)MyMethod()",
+            Assert.AreEqual("if(2==3)MyMethod();",
                 conditional.If(new ValueArgument(2), new ValueArgument(3), ConditionalStatements.Equal, Statement.Expression.Invoke("MyMethod").AsStatement()).ToString());
         }
 

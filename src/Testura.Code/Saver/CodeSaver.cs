@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.CodeAnalysis;
@@ -12,7 +11,7 @@ namespace Testura.Code.Saver
 {
     public class CodeSaver : ICodeSaver
     {
-        private IList<OptionKeyValue> _options;
+        private readonly IList<OptionKeyValue> _options;
 
         public CodeSaver()
         {
