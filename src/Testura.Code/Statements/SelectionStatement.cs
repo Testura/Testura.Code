@@ -37,6 +37,35 @@ namespace Testura.Code.Statements
                     block);
         }
 
+        /// <summary>
+        /// Create the statement syntax for a if-conditional with braces 
+        /// </summary>
+        /// <param name="leftArgument">The left argument of the if-statement</param>
+        /// <param name="rightArgument">The right argument of the if-statement</param>
+        /// <param name="conditional">The conditional</param>
+        /// <param name="expressionStatement">Statement in the if</param>
+        /// <returns>The declared statement syntax</returns>
+        public StatementSyntax If(IArgument leftArgument, IArgument rightArgument, ConditionalStatements conditional, ExpressionStatementSyntax expressionStatement)
+        {
+            if (leftArgument == null)
+            {
+                throw new ArgumentNullException(nameof(leftArgument));
+            }
+
+            if (rightArgument == null)
+            {
+                throw new ArgumentNullException(nameof(rightArgument));
+            }
+
+            return
+                IfStatement(
+                    BinaryExpression(
+                        ConditionalToSyntaxKind(conditional),
+                        leftArgument.GetArgumentSyntax().Expression,
+                        rightArgument.GetArgumentSyntax().Expression),
+                    expressionStatement);
+        }
+
         private SyntaxKind ConditionalToSyntaxKind(ConditionalStatements conditional)
         {
             switch (conditional)
