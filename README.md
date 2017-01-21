@@ -103,10 +103,10 @@ saver.SaveCodeToFile(@class, @"/path/HelloWorld.cs");
 var compiler = new Compiler();
 
 // From string
-var result = await compiler.CompileSourceAsync(@"/path/HelloWorld.dll", code);
+var result = await compiler.CompileSourceAsync(@"/path/HelloWorld.dll", code).Result;
 
 // From file
-var result = await compiler.CompileSourceAsync(@"/path/HelloWorld.dll",  @"/path/HelloWorld.cs");
+var result = await compiler.CompileSourceAsync(@"/path/HelloWorld.dll",  @"/path/HelloWorld.cs").Result;
 ```
 
 ## Missing anything? 
