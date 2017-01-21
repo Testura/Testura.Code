@@ -108,11 +108,14 @@
     <Compile Include="Generators\Class\PropertyGenerator.cs" />
     <Compile Include="Generators\Common\ReferenceGenerator.cs" />
     <Compile Include="Builders\MethodBuilder.cs" />
-    <Compile Include="Models\Property.cs" />
+    <Compile Include="Models\Properties\AutoProperty.cs" />
+    <Compile Include="Models\Properties\BodyProperty.cs" />
+    <Compile Include="Models\Properties\Property.cs" />
     <Compile Include="Models\References\ConstantReference.cs" />
     <Compile Include="Models\References\MemberReference.cs" />
     <Compile Include="Models\References\MethodReference.cs" />
     <Compile Include="Models\References\NullReference.cs" />
+    <Compile Include="Models\References\ValueKeywordReference.cs" />
     <Compile Include="Models\References\VariableReference.cs" />
     <Compile Include="Compilations\Compiler.cs" />
     <Compile Include="Compilations\CompileResult.cs" />
@@ -141,5 +144,6 @@
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

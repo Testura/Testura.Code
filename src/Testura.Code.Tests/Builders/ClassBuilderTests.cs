@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using Testura.Code.Builders;
 using Testura.Code.Models;
+using Testura.Code.Models.Properties;
 
 namespace Testura.Code.Tests.Builders
 {
@@ -44,7 +45,7 @@ namespace Testura.Code.Tests.Builders
         [Test]
         public void Build_WhenGivenProperty_CodeShouldContainProperty()
         {
-            Assert.IsTrue(_classBuilder.WithProperties(new Property("MyProperty", typeof(int), PropertyTypes.GetAndSet)).Build().ToString().Contains("intMyProperty{get;set;}"));
+            Assert.IsTrue(_classBuilder.WithProperties(new AutoProperty("MyProperty", typeof(int), PropertyTypes.GetAndSet)).Build().ToString().Contains("intMyProperty{get;set;}"));
         }
 
         [Test]

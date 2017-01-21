@@ -38,7 +38,7 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create the statement syntax for a if-conditional with braces 
+        /// Create the statement syntax for a if-conditional with braces
         /// </summary>
         /// <param name="leftArgument">The left argument of the if-statement</param>
         /// <param name="rightArgument">The right argument of the if-statement</param>
