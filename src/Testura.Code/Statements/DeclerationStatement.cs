@@ -26,7 +26,7 @@ namespace Testura.Code.Statements
                 throw new ArgumentException("Value cannot be null or empty.", nameof(name));
             }
 
-            return LocalDeclarationStatement(VariableDeclaration(IdentifierName(useVarKeyword ? "var" : typeof(T).Name))
+            return LocalDeclarationStatement(VariableDeclaration(useVarKeyword ? IdentifierName("var") : TypeGenerator.Create(typeof(T)))
                 .WithVariables(SingletonSeparatedList(VariableDeclarator(Identifier(name))
                     .WithInitializer(EqualsValueClauseFactory.GetEqualsValueClause(value).WithEqualsToken(Token(SyntaxKind.EqualsToken))))));
         }
@@ -50,7 +50,7 @@ namespace Testura.Code.Statements
                 throw new ArgumentNullException(nameof(value));
             }
 
-            return LocalDeclarationStatement(VariableDeclaration(IdentifierName(useVarKeyword ? "var" : typeof(string).Name))
+            return LocalDeclarationStatement(VariableDeclaration(useVarKeyword ? IdentifierName("var") : TypeGenerator.Create(typeof(string)))
                 .WithVariables(SingletonSeparatedList(VariableDeclarator(Identifier(name))
                     .WithInitializer(EqualsValueClauseFactory.GetEqualsValueClause($@"""{value}""").WithEqualsToken(Token(SyntaxKind.EqualsToken))))));
         }
@@ -80,7 +80,7 @@ namespace Testura.Code.Statements
                 throw new ArgumentNullException(nameof(reference));
             }
 
-            return LocalDeclarationStatement(VariableDeclaration(IdentifierName(useVarKeyword ? "var" : type.Name))
+            return LocalDeclarationStatement(VariableDeclaration(useVarKeyword ? IdentifierName("var") : TypeGenerator.Create(type))
                 .WithVariables(SingletonSeparatedList(VariableDeclarator(Identifier(name))
                     .WithInitializer(EqualsValueClauseFactory.GetEqualsValueClause(reference).WithEqualsToken(Token(SyntaxKind.EqualsToken))))));
         }

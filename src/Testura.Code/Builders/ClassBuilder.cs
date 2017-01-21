@@ -7,6 +7,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Generators.Class;
 using Testura.Code.Generators.Common;
 using Testura.Code.Models;
+using Testura.Code.Models.Properties;
 using Attribute = Testura.Code.Models.Attribute;
 
 namespace Testura.Code.Builders

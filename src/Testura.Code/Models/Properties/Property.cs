@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Testura.Code.Models
+namespace Testura.Code.Models.Properties
 {
-    public class Property
+    public abstract class Property
     {
-        public Property(
+        protected Property(
             string name,
             Type type,
-            PropertyTypes propertyType,
             IEnumerable<Code.Modifiers> modifiers = null,
             IEnumerable<Attribute> attributes = null)
         {
@@ -24,7 +23,6 @@ namespace Testura.Code.Models
 
             Name = name;
             Type = type;
-            PropertyType = propertyType;
             Modifiers = modifiers;
             Attributes = attributes;
         }
@@ -38,11 +36,6 @@ namespace Testura.Code.Models
         /// Gets or sets the type of the property
         /// </summary>
         public Type Type { get; set; }
-
-        /// <summary>
-        /// Gets or sets if the property is a get or set.
-        /// </summary>
-        public PropertyTypes PropertyType { get; set; }
 
         /// <summary>
         /// Gets or sets the modifiers of the property

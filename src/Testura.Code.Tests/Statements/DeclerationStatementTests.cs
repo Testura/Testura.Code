@@ -28,7 +28,7 @@ namespace Testura.Code.Tests.Statements
         [Test]
         public void DeclareAndAssign_WhenCreatingVariableWithoutVar_ShouldUseType()
         {
-            Assert.AreEqual("vartestVariable=1;", statement.DeclareAndAssign("testVariable", 1).ToString());
+            Assert.AreEqual("inttestVariable=1;", statement.DeclareAndAssign("testVariable", 1, false).ToString());
         }
 
         [Test]
