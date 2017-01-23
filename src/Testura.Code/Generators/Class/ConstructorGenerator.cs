@@ -19,7 +19,7 @@ namespace Testura.Code.Generators.Class
         /// <param name="parameters">A list with parameters</param>
         /// <param name="modifiers">A list with modifiers</param>
         /// <param name="attributes">A list with attributes</param>
-        /// <returns>The decleration syntax for a constructor</returns>
+        /// <returns>The declaration syntax for a constructor</returns>
         public static ConstructorDeclarationSyntax Create(
             string className,
             BlockSyntax body,

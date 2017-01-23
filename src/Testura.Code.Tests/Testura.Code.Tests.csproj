@@ -118,7 +118,7 @@
     <Compile Include="Generators\Class\PropertyGeneratorTests.cs" />
     <Compile Include="Generators\Common\References\ReferenceGeneratorTests.cs" />
     <Compile Include="Statements\JumpStatementTests.cs" />
-    <Compile Include="Statements\DeclerationStatementTests.cs" />
+    <Compile Include="Statements\DeclarationStatementTests.cs" />
     <Compile Include="Integration\HelloWorldTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Statements\StatementTests.cs" />

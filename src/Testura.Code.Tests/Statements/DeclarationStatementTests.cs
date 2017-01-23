@@ -8,14 +8,14 @@ using Assert = NUnit.Framework.Assert;
 namespace Testura.Code.Tests.Statements
 {
     [TestFixture]
-    public class DeclerationStatementTests
+    public class DeclarationStatementTests
     {
-        private DeclerationStatement statement;
+        private DeclarationStatement statement;
 
         [OneTimeSetUp]
         public void SetUp()
         {
-            statement = new DeclerationStatement();
+            statement = new DeclarationStatement();
         }
 
 

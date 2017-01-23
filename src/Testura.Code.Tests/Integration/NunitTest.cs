@@ -36,7 +36,7 @@ namespace Testura.Code.Tests.Integration
                         .WithModifiers(Modifiers.Public)
                         .WithBody(
                             BodyGenerator.Create(
-                                Statement.Decleration.Declare("myList", typeof(List<int>)),
+                                Statement.Declaration.Declare("myList", typeof(List<int>)),
                                 NunitAssertGenerator.Throws(new VariableReference("myList", new MethodReference("First")), typeof(ArgumentNullException))))
                                 .Build())
                 .Build();

@@ -8,10 +8,10 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Statements
 {
-    public class DeclerationStatement
+    public class DeclarationStatement
     {
         /// <summary>
-        /// Create the local decleration statement syntax to declare a variable and assign it a value
+        /// Create the local declaration statement syntax to declare a variable and assign it a value
         /// </summary>
         /// <typeparam name="T">The type of the variable</typeparam>
         /// <param name="name">Name of variable</param>
@@ -32,7 +32,7 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create the local decleration statement syntax to declare a local variable and assign it a string value
+        /// Create the local declaration statement syntax to declare a local variable and assign it a string value
         /// </summary>
         /// <param name="name">Name of variable</param>
         /// <param name="value">Value to assign variable</param>
@@ -56,7 +56,7 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create a local decleration statement which declare a local variable and assign it a complex reference
+        /// Create a local declaration statement which declare a local variable and assign it a complex reference
         /// </summary>
         /// <param name="name">Name of variable</param>
         /// <param name="type">Type of the variable</param>
@@ -86,7 +86,7 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create the local decleration statement syntax to declare a local variable and assign it a new class instance
+        /// Create the local declaration statement syntax to declare a local variable and assign it a new class instance
         /// </summary>
         /// <param name="name">Name of variable</param>
         /// <param name="type">Type of the variable</param>
@@ -114,14 +114,14 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create the local decleration statement syntax to declare a local variable and assign it an already created expression
+        /// Create the local declaration statement syntax to declare a local variable and assign it an already created expression
         /// </summary>
         /// <param name="name">Name of the variable</param>
         /// <param name="type">Type of the variable </param>
         /// <param name="expressionSyntax">An already created expression to assign to the variable</param>
         /// <param name="castTo">Cast the expression to this type</param>
         /// <param name="useVarKeyword">Will use "var" keyword if true, otherwise the type</param>
-        /// <returns>The generated local decleration statement</returns>
+        /// <returns>The generated local declaration statement</returns>
         public LocalDeclarationStatementSyntax DeclareAndAssign(string name, Type type, ExpressionSyntax expressionSyntax, Type castTo = null, bool useVarKeyword = true)
         {
             if (string.IsNullOrEmpty(name))
@@ -155,7 +155,7 @@ namespace Testura.Code.Statements
         /// <param name="name">Name of the variable</param>
         /// <param name="type">Type of the variable</param>
         /// <param name="arguments">Árguments in the class constructor</param>
-        /// <returns>The generated assign decleration statement</returns>
+        /// <returns>The generated assign declaration statement</returns>
         public ExpressionStatementSyntax Assign(string name, Type type, ArgumentListSyntax arguments)
         {
             if (string.IsNullOrEmpty(name))
@@ -181,7 +181,7 @@ namespace Testura.Code.Statements
         /// <param name="name">Name of variable</param>
         /// <param name="expressionSyntax">The expression syntax </param>
         /// <param name="castTo">If we should do a cast while assign the variable</param>
-        /// <returns>The generated assign decleration syntax</returns>
+        /// <returns>The generated assign declaration syntax</returns>
         public ExpressionStatementSyntax Assign(string name, ExpressionSyntax expressionSyntax, Type castTo = null)
         {
             if (string.IsNullOrEmpty(name))
@@ -203,7 +203,7 @@ namespace Testura.Code.Statements
         /// <param name="name">Name of variable</param>
         /// <param name="reference">Reference value to assign to the variable</param>
         /// <param name="castTo">If we should do a cast while assign the variable</param>
-        /// <returns>The generated assign decleration syntax</returns>
+        /// <returns>The generated assign declaration syntax</returns>
         public ExpressionStatementSyntax Assign(string name, VariableReference reference, Type castTo = null)
         {
             if (string.IsNullOrEmpty(name))
@@ -225,7 +225,7 @@ namespace Testura.Code.Statements
         /// <param name="reference">Reference that should be assigned</param>
         /// <param name="valueReference">Reference that we should assign to another reference</param>
         /// <param name="castTo">If we should do a cast while assign the variable</param>
-        /// <returns>The generated assign decleration syntax</returns>
+        /// <returns>The generated assign declaration syntax</returns>
         public ExpressionStatementSyntax Assign(VariableReference reference, VariableReference valueReference, Type castTo = null)
         {
             if (reference == null)
@@ -252,7 +252,7 @@ namespace Testura.Code.Statements
         /// <param name="reference">Reference that should be assigned</param>
         /// <param name="expressionSyntax">Expression that we should assign to reference</param>
         /// <param name="castTo">If we should do a cast while assign the variable</param>
-        /// <returns>The generated assign decleration syntax<</returns>
+        /// <returns>The generated assign declaration syntax<</returns>
         public ExpressionStatementSyntax Assign(VariableReference reference, ExpressionSyntax expressionSyntax, Type castTo = null)
         {
             if (reference == null)

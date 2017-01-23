@@ -4,14 +4,14 @@
     {
         static Statement()
         {
-            Decleration = new DeclerationStatement();
+            Declaration = new DeclarationStatement();
             Jump = new JumpStatement();
             Selection = new SelectionStatement();
             Iteration = new IterationStatement();
             Expression = new ExpressionStatement();
         }
 
-        public static DeclerationStatement Decleration { get; private set; }
+        public static DeclarationStatement Declaration { get; private set; }
 
         public static JumpStatement Jump { get; private set; }
 
