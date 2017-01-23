@@ -13,7 +13,7 @@ namespace Testura.Code.Generators.Class
         /// Create the syntax for a field of a class
         /// </summary>
         /// <param name="field">Field to create</param>
-        /// <returns>The decleration syntax for a field</returns>
+        /// <returns>The declaration syntax for a field</returns>
         public static FieldDeclarationSyntax Create(Field field)
         {
             if (field == null)
@@ -21,13 +21,13 @@ namespace Testura.Code.Generators.Class
                 throw new ArgumentNullException(nameof(field));
             }
 
-            var fieldDecleration = FieldDeclaration(VariableDeclaration(TypeGenerator.Create(field.Type), SeparatedList(new[] { VariableDeclarator(Identifier(field.Name)) })));
+            var fieldDeclaration = FieldDeclaration(VariableDeclaration(TypeGenerator.Create(field.Type), SeparatedList(new[] { VariableDeclarator(Identifier(field.Name)) })));
             if (field.Modifiers != null)
             {
-                fieldDecleration = fieldDecleration.WithModifiers(ModifierGenerator.Create(field.Modifiers.ToArray()));
+                fieldDeclaration = fieldDeclaration.WithModifiers(ModifierGenerator.Create(field.Modifiers.ToArray()));
             }
 
-            return fieldDecleration;
+            return fieldDeclaration;
         }
     }
 }

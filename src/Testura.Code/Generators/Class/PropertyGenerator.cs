@@ -14,7 +14,7 @@ namespace Testura.Code.Generators.Class
         /// Create the syntax for a property of a class
         /// </summary>
         /// <param name="property">The property to create</param>
-        /// <returns>The decleration syntax for a property</returns>
+        /// <returns>The declaration syntax for a property</returns>
         public static PropertyDeclarationSyntax Create(Property property)
         {
             if (property == null)
@@ -22,14 +22,14 @@ namespace Testura.Code.Generators.Class
                 throw new ArgumentNullException(nameof(property));
             }
 
-            PropertyDeclarationSyntax propertyDecleration;
+            PropertyDeclarationSyntax propertyDeclaration;
             if (property is AutoProperty)
             {
-                propertyDecleration = CreateAutoProperty((AutoProperty)property);
+                propertyDeclaration = CreateAutoProperty((AutoProperty)property);
             }
             else if (property is BodyProperty)
             {
-                propertyDecleration = CreateBodyProperty((BodyProperty)property);
+                propertyDeclaration = CreateBodyProperty((BodyProperty)property);
             }
             else
             {
@@ -38,46 +38,46 @@ namespace Testura.Code.Generators.Class
 
             if (property.Modifiers != null)
             {
-                propertyDecleration = propertyDecleration.WithModifiers(ModifierGenerator.Create(property.Modifiers.ToArray()));
+                propertyDeclaration = propertyDeclaration.WithModifiers(ModifierGenerator.Create(property.Modifiers.ToArray()));
             }
 
             if (property.Attributes != null)
             {
-                propertyDecleration = propertyDecleration.WithAttributeLists(AttributeGenerator.Create(property.Attributes.ToArray()));
+                propertyDeclaration = propertyDeclaration.WithAttributeLists(AttributeGenerator.Create(property.Attributes.ToArray()));
             }
 
-            return propertyDecleration;
+            return propertyDeclaration;
         }
 
         private static PropertyDeclarationSyntax CreateAutoProperty(AutoProperty property)
         {
-            var propertyDecleration = PropertyDeclaration(
+            var propertyDeclaration = PropertyDeclaration(
                 TypeGenerator.Create(property.Type), Identifier(property.Name))
                 .AddAccessorListAccessors(AccessorDeclaration(SyntaxKind.GetAccessorDeclaration).
                     WithSemicolonToken(Token(SyntaxKind.SemicolonToken)));
             if (property.PropertyType == PropertyTypes.GetAndSet)
             {
-                propertyDecleration = propertyDecleration.AddAccessorListAccessors(AccessorDeclaration(SyntaxKind.SetAccessorDeclaration).
+                propertyDeclaration = propertyDeclaration.AddAccessorListAccessors(AccessorDeclaration(SyntaxKind.SetAccessorDeclaration).
                      WithSemicolonToken(Token(SyntaxKind.SemicolonToken)));
             }
 
-            return propertyDecleration;
+            return propertyDeclaration;
         }
 
         private static PropertyDeclarationSyntax CreateBodyProperty(BodyProperty property)
         {
-            var propertyDecleration = PropertyDeclaration(
+            var propertyDeclaration = PropertyDeclaration(
                     TypeGenerator.Create(property.Type), Identifier(property.Name))
                 .AddAccessorListAccessors(
                     AccessorDeclaration(SyntaxKind.GetAccessorDeclaration).WithBody(property.GetBody));
             if (property.SetBody != null)
             {
-                propertyDecleration =
-                    propertyDecleration.AddAccessorListAccessors(
+                propertyDeclaration =
+                    propertyDeclaration.AddAccessorListAccessors(
                         AccessorDeclaration(SyntaxKind.SetAccessorDeclaration).WithBody(property.SetBody));
             }
 
-            return propertyDecleration;
+            return propertyDeclaration;
         }
     }
 }

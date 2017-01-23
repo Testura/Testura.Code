@@ -130,7 +130,7 @@
     <Compile Include="Statements\IterationStatement.cs" />
     <Compile Include="Statements\JumpStatement.cs" />
     <Compile Include="Statements\Statement.cs" />
-    <Compile Include="Statements\DeclerationStatement.cs" />
+    <Compile Include="Statements\DeclarationStatement.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

@@ -31,8 +31,8 @@ namespace Testura.Code.Tests.Integration
                     ConstructorGenerator.Create(
                         "Cat",
                         BodyGenerator.Create(
-                            Statement.Decleration.Assign("Name", ReferenceGenerator.Create(new VariableReference("name"))),
-                            Statement.Decleration.Assign("Age", ReferenceGenerator.Create(new VariableReference("age")))),
+                            Statement.Declaration.Assign("Name", ReferenceGenerator.Create(new VariableReference("name"))),
+                            Statement.Declaration.Assign("Age", ReferenceGenerator.Create(new VariableReference("age")))),
                         new List<Parameter> { new Parameter("name", typeof(string)), new Parameter("age", typeof(int)) },
                         new List<Modifiers> { Modifiers.Public }))
 
@@ -57,20 +57,20 @@ namespace Testura.Code.Tests.Integration
                         new BodyProperty(
                             "Name", 
                             typeof(string), 
-                            BodyGenerator.Create(Statement.Jump.Return(new VariableReference("_name"))), BodyGenerator.Create(Statement.Decleration.Assign("_name", new ValueKeywordReference())),
+                            BodyGenerator.Create(Statement.Jump.Return(new VariableReference("_name"))), BodyGenerator.Create(Statement.Declaration.Assign("_name", new ValueKeywordReference())),
                             new List<Modifiers> { Modifiers.Public })),
                     PropertyGenerator.Create(
                         new BodyProperty(
                             "Age",
                             typeof(int),
-                            BodyGenerator.Create(Statement.Jump.Return(new VariableReference("_age"))), BodyGenerator.Create(Statement.Decleration.Assign("_age", new ValueKeywordReference())),
+                            BodyGenerator.Create(Statement.Jump.Return(new VariableReference("_age"))), BodyGenerator.Create(Statement.Declaration.Assign("_age", new ValueKeywordReference())),
                             new List<Modifiers> { Modifiers.Public })))
                 .WithConstructor(
                     ConstructorGenerator.Create(
                         "Cat",
                         BodyGenerator.Create(
-                            Statement.Decleration.Assign("Name", ReferenceGenerator.Create(new VariableReference("name"))),
-                            Statement.Decleration.Assign("Age", ReferenceGenerator.Create(new VariableReference("age")))),
+                            Statement.Declaration.Assign("Name", ReferenceGenerator.Create(new VariableReference("name"))),
+                            Statement.Declaration.Assign("Age", ReferenceGenerator.Create(new VariableReference("age")))),
                         new List<Parameter> { new Parameter("name", typeof(string)), new Parameter("age", typeof(int)) },
                         new List<Modifiers> { Modifiers.Public }))
 

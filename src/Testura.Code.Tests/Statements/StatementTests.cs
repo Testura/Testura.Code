@@ -7,9 +7,9 @@ namespace Testura.Code.Tests.Statements
     public class StatementTests
     {
         [Test]
-        public void Decleration_WhenGettingDecleration_ShouldNotBeNull()
+        public void Declaration_WhenGettingDeclaration_ShouldNotBeNull()
         {
-            Assert.IsNotNull(Statement.Decleration);
+            Assert.IsNotNull(Statement.Declaration);
         }
 
         [Test]
