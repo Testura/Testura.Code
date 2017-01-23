@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using NUnit.Framework;
 using Testura.Code.Generators.Class;
 using Testura.Code.Generators.Common;

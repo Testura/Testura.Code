@@ -1,14 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.CodeAnalysis;
 using NUnit.Framework;
 using Testura.Code.Builders;
-using Testura.Code.Compilations;
 using Testura.Code.Generators.Common;
 using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
 using Testura.Code.Models;
-using Testura.Code.Models.References;
-using Testura.Code.Saver;
 using Testura.Code.Statements;
 
 namespace Testura.Code.Tests.Integration
