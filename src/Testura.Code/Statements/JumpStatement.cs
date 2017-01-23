@@ -12,7 +12,7 @@ namespace Testura.Code.Statements
         /// <summary>
         /// Create the return statement syntax to return true
         /// </summary>
-        /// <returns>The declaed return statement syntax</returns>
+        /// <returns>The declared return statement syntax</returns>
         public ReturnStatementSyntax ReturnTrue()
         {
             return ReturnStatement(
@@ -47,7 +47,7 @@ namespace Testura.Code.Statements
         /// <summary>
         /// Create the return statement syntax to return another expression
         /// </summary>
-        /// <param name="expression">The expresion syntax to return</param>
+        /// <param name="expression">The expression syntax to return</param>
         /// <returns>The declared return statement syntax</returns>
         public ReturnStatementSyntax Return(ExpressionSyntax expression)
         {

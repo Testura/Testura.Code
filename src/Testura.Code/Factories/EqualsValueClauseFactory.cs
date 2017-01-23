@@ -10,7 +10,7 @@ namespace Testura.Code.Factories
     public static class EqualsValueClauseFactory
     {
         /// <summary>
-        /// Get the correct equals value clase for a specific type
+        /// Get the correct equals value clause for a specific type
         /// </summary>
         /// <param name="value">Value we want to put the variable equal as</param>
         /// <returns>The correct equals value clause</returns>
@@ -37,7 +37,7 @@ namespace Testura.Code.Factories
                 return EqualsValueClause(ReferenceGenerator.Create((VariableReference)value));
             }
 
-            throw new NotSupportedException("Not a suppoerted value");
+            throw new NotSupportedException("Not a supported value");
         }
     }
 }

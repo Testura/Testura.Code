@@ -1,17 +1,12 @@
 ﻿using System.Collections.Generic;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Formatting;
 using Testura.Code.Statements;
 using NUnit.Framework;
 using Testura.Code.Builders;
-using Testura.Code.Compilations;
 using Testura.Code.Generators.Class;
 using Testura.Code.Generators.Common;
 using Testura.Code.Models;
-using Testura.Code.Models.Options;
 using Testura.Code.Models.Properties;
 using Testura.Code.Models.References;
-using Testura.Code.Saver;
 
 namespace Testura.Code.Tests.Integration
 {

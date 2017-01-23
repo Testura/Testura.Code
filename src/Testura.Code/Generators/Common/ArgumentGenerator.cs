@@ -23,7 +23,7 @@ namespace Testura.Code.Generators.Common
         /// <summary>
         /// Convert arguments to syntax nodes or tokens.
         /// </summary>
-        /// <param name="arguments">Arguments to conebrt</param>
+        /// <param name="arguments">Arguments to convert</param>
         /// <returns>A list with SyntaxNodeOrToken</returns>
         internal static List<SyntaxNodeOrToken> ConvertArgumentsToSyntaxNodesOrTokens(params IArgument[] arguments)
         {

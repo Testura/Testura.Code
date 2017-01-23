@@ -14,7 +14,7 @@ It provide helpers to generate:
 
 But also simple statements like: 
 
-- Decleration statements (for example declare and assign variables)
+- Declaration statements (for example declare and assign variables)
 - Iterations statements (for example for-loop)
 - Jump statements (for example return)
 - Selection statement (for example if-statements)

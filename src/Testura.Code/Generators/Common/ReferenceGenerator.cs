@@ -10,7 +10,7 @@ namespace Testura.Code.Generators.Common
     public class ReferenceGenerator
     {
         /// <summary>
-        /// Create the expression syntax for a variable, nethod or a chain of member/method(s).
+        /// Create the expression syntax for a variable, method or a chain of member/method(s).
         /// </summary>
         /// <param name="reference">The start reference</param>
         /// <returns>The declared expression syntax</returns>

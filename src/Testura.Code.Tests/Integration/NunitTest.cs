@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.CodeAnalysis;
 using NUnit.Framework;
 using Testura.Code.Builders;
 using Testura.Code.Generators.Common;
-using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
 using Testura.Code.Generators.Special;
-using Testura.Code.Models;
 using Testura.Code.Models.References;
 using Testura.Code.Statements;
 using Attribute = Testura.Code.Models.Attribute;
