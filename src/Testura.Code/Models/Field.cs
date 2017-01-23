@@ -26,7 +26,7 @@ namespace Testura.Code.Models
         }
 
         /// <summary>
-        /// Gets or sets the name of the fileds
+        /// Gets or sets the name of the field
         /// </summary>
         public string Name { get; set; }
 

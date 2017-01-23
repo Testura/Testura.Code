@@ -51,7 +51,7 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create the expression statement syntax to invoke a method in a chain (for exemple myVariable.myProperty.MyMethod())
+        /// Create the expression statement syntax to invoke a method in a chain (for example myVariable.myProperty.MyMethod())
         /// </summary>
         /// <param name="reference">The reference chain</param>
         /// <returns>A invocation object with both statement and expression</returns>

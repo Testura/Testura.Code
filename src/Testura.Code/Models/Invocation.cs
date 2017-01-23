@@ -13,7 +13,7 @@ namespace Testura.Code.Models
         }
 
         /// <summary>
-        /// Conbert the invocation expression to a statement
+        /// Convert the invocation expression to a statement
         /// </summary>
         /// <returns>A statement</returns>
         public ExpressionStatementSyntax AsStatement()

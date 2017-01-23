@@ -3,7 +3,7 @@
 namespace Testura.Code.Models.References
 {
     /// <summary>
-    /// The reference classes are used to simpify call to methods, fields, properties etc.
+    /// The reference classes are used to simplify call to methods, fields, properties etc.
     ///
     /// An example of this could be this:
     ///
@@ -32,12 +32,12 @@ namespace Testura.Code.Models.References
         }
 
         /// <summary>
-        /// Gets or sets the name of the refence
+        /// Gets or sets the name of the reference
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the memeber references
+        /// Gets or sets the member references
         /// </summary>
         public MemberReference Member { get; set; }
 

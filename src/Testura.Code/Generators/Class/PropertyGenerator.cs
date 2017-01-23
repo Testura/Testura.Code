@@ -33,7 +33,7 @@ namespace Testura.Code.Generators.Class
             }
             else
             {
-                throw new ArgumentException($"Unkown property type: {property.Type}, could not generate code.");
+                throw new ArgumentException($"Unknown property type: {property.Type}, could not generate code.");
             }
 
             if (property.Modifiers != null)

@@ -80,7 +80,7 @@ namespace Testura.Code.Generators.Special
         }
 
         /// <summary>
-        /// Create an IsTrue assert that check if a string contains contains some content
+        /// Create an IsTrue assert that check if a string contains some content
         /// </summary>
         /// <param name="expectedContain">Text that the string should contain</param>
         /// <param name="actual">The actual argument</param>

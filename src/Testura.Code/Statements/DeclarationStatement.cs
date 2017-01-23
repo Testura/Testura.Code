@@ -154,7 +154,7 @@ namespace Testura.Code.Statements
         /// </summary>
         /// <param name="name">Name of the variable</param>
         /// <param name="type">Type of the variable</param>
-        /// <param name="arguments">Árguments in the class constructor</param>
+        /// <param name="arguments">Arguments in the class constructor</param>
         /// <returns>The generated assign declaration statement</returns>
         public ExpressionStatementSyntax Assign(string name, Type type, ArgumentListSyntax arguments)
         {
