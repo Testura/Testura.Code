@@ -71,5 +71,34 @@ namespace Testura.Code.Statements
                     PostfixUnaryExpression(SyntaxKind.PostIncrementExpression, IdentifierName(variableName))
                 }), body);
         }
+
+        public ForEachStatementSyntax ForEach(string variableName, Type varialeType, string enumerableName, BlockSyntax body, bool useVar = true)
+        {
+            return ForEach(variableName, varialeType, new VariableReference(enumerableName), body, useVar);
+        }
+
+        public ForEachStatementSyntax ForEach(string variableName, Type varialeType, VariableReference enumerableReference, BlockSyntax body, bool useVar = true)
+        {
+            if (string.IsNullOrEmpty(variableName))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(variableName));
+            }
+
+            if (varialeType == null)
+            {
+                throw new ArgumentNullException(nameof(varialeType));
+            }
+
+            if (enumerableReference == null)
+            {
+                throw new ArgumentNullException(nameof(enumerableReference));
+            }
+
+            return ForEachStatement(
+                useVar ? IdentifierName("var") : TypeGenerator.Create(varialeType),
+                Identifier(variableName),
+                ReferenceGenerator.Create(enumerableReference),
+                body);
+        }
     }
 }
