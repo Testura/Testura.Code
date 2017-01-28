@@ -2,7 +2,6 @@
 using System.Linq.Expressions;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Testura.Code.Generators.Common.Binaries;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Generators.Common.BinaryExpressions

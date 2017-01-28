@@ -1,10 +1,10 @@
 ﻿using System;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Factories;
 using Testura.Code.Models.References;
-using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
-namespace Testura.Code.Generators.Common.Binaries
+namespace Testura.Code.Generators.Common.BinaryExpressions
 {
     public class ConditionalBinaryExpression : IBinaryExpression
     {
@@ -54,7 +54,7 @@ namespace Testura.Code.Generators.Common.Binaries
 
         public ExpressionSyntax GetBinaryExpression()
         {
-            return BinaryExpression(ConditionalFactory.GetSyntaxKind(_conditional), _leftExpression, _rightExpression);
+            return SyntaxFactory.BinaryExpression(ConditionalFactory.GetSyntaxKind(_conditional), _leftExpression, _rightExpression);
         }
     }
 }

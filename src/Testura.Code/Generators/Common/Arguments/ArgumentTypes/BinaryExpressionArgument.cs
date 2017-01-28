@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Testura.Code.Generators.Common.Binaries;
+using Testura.Code.Generators.Common.BinaryExpressions;
 
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
