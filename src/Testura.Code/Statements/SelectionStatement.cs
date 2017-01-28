@@ -2,7 +2,7 @@
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Factories;
 using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
-using Testura.Code.Generators.Common.Binaries;
+using Testura.Code.Generators.Common.BinaryExpressions;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Statements

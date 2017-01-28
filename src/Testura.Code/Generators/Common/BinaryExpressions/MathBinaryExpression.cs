@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Factories;
-using Testura.Code.Generators.Common.Binaries;
 using Testura.Code.Models.References;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 

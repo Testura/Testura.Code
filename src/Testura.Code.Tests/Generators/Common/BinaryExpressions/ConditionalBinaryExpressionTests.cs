@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Testura.Code.Generators.Common.Binaries;
+using Testura.Code.Generators.Common.BinaryExpressions;
 using Testura.Code.Models.References;
 
 namespace Testura.Code.Tests.Generators.Common.BinaryExpressions

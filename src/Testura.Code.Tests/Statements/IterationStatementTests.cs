@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using Testura.Code.Generators.Common;
-using Testura.Code.Generators.Common.Binaries;
+using Testura.Code.Generators.Common.BinaryExpressions;
 using Testura.Code.Models.References;
 using Testura.Code.Statements;
 using Assert = NUnit.Framework.Assert;
