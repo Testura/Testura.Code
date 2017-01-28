@@ -79,9 +79,12 @@
   <ItemGroup>
     <Compile Include="Builders\ClassBuilder.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Factories\ConditionalFactory.cs" />
     <Compile Include="Factories\EqualsValueClauseFactory.cs" />
+    <Compile Include="Factories\MathOperatorFactory.cs" />
     <Compile Include="Generators\Common\ArgumentGenerator.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\ArrayInitializationArgument.cs" />
+    <Compile Include="Generators\Common\Arguments\ArgumentTypes\BinaryExpressionArgument.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\ClassInitializationArgument.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\DictionaryInitializationArgument.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\IArgument.cs" />
@@ -91,6 +94,11 @@
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\TypeOfArgument.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\ValueArgument.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\VariableArgument.cs" />
+    <Compile Include="Generators\Common\BinaryExpressions\AndBinaryExpression.cs" />
+    <Compile Include="Generators\Common\BinaryExpressions\ConditionalBinaryExpression.cs" />
+    <Compile Include="Generators\Common\BinaryExpressions\IBinaryExpression.cs" />
+    <Compile Include="Generators\Common\BinaryExpressions\MathBinaryExpression.cs" />
+    <Compile Include="Generators\Common\BinaryExpressions\OrBinaryExpression.cs" />
     <Compile Include="Generators\Common\ParameterGenerator.cs" />
     <Compile Include="Generators\Common\TypeGenerator.cs" />
     <Compile Include="Generators\Special\NunitAssertGenerator.cs" />

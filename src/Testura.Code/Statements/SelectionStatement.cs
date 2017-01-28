@@ -1,7 +1,8 @@
 ﻿using System;
-using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Testura.Code.Factories;
 using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
+using Testura.Code.Generators.Common.Binaries;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Statements
@@ -14,7 +15,7 @@ namespace Testura.Code.Statements
         /// <param name="leftArgument">The left argument of the if-statement</param>
         /// <param name="rightArgument">The right argument of the if-statement</param>
         /// <param name="conditional">The conditional</param>
-        /// <param name="block">The if block</param>
+        /// <param name="block">The block containing all statements</param>
         /// <returns>The declared statement syntax</returns>
         public StatementSyntax If(IArgument leftArgument, IArgument rightArgument, ConditionalStatements conditional, BlockSyntax block)
         {
@@ -31,19 +32,19 @@ namespace Testura.Code.Statements
             return
                 IfStatement(
                     BinaryExpression(
-                        ConditionalToSyntaxKind(conditional),
+                        ConditionalFactory.GetSyntaxKind(conditional),
                         leftArgument.GetArgumentSyntax().Expression,
                         rightArgument.GetArgumentSyntax().Expression),
                     block);
         }
 
         /// <summary>
-        /// Create the statement syntax for a if-conditional with braces
+        /// Create the statement syntax for a if-conditional with a single statement
         /// </summary>
         /// <param name="leftArgument">The left argument of the if-statement</param>
         /// <param name="rightArgument">The right argument of the if-statement</param>
         /// <param name="conditional">The conditional</param>
-        /// <param name="expressionStatement">Statement in the if</param>
+        /// <param name="expressionStatement">Statement inside the if</param>
         /// <returns>The declared statement syntax</returns>
         public StatementSyntax If(IArgument leftArgument, IArgument rightArgument, ConditionalStatements conditional, ExpressionStatementSyntax expressionStatement)
         {
@@ -60,31 +61,43 @@ namespace Testura.Code.Statements
             return
                 IfStatement(
                     BinaryExpression(
-                        ConditionalToSyntaxKind(conditional),
+                        ConditionalFactory.GetSyntaxKind(conditional),
                         leftArgument.GetArgumentSyntax().Expression,
                         rightArgument.GetArgumentSyntax().Expression),
                     expressionStatement);
         }
 
-        private SyntaxKind ConditionalToSyntaxKind(ConditionalStatements conditional)
+        /// <summary>
+        /// Create the statement syntax for a if-conditional
+        /// </summary>
+        /// <param name="binaryExpression">The binary expression to generate</param>
+        /// <param name="block">The block containing all statements</param>
+        /// <returns>The declared statement syntax</returns>
+        public StatementSyntax If(IBinaryExpression binaryExpression, BlockSyntax block)
         {
-            switch (conditional)
+            if (binaryExpression == null)
             {
-                case ConditionalStatements.Equal:
-                    return SyntaxKind.EqualsExpression;
-                case ConditionalStatements.NotEqual:
-                    return SyntaxKind.NotEqualsExpression;
-                case ConditionalStatements.GreaterThan:
-                    return SyntaxKind.GreaterThanExpression;
-                case ConditionalStatements.GreaterThanOrEqual:
-                    return SyntaxKind.GreaterThanOrEqualExpression;
-                case ConditionalStatements.LessThan:
-                    return SyntaxKind.LessThanExpression;
-                case ConditionalStatements.LessThanOrEqual:
-                    return SyntaxKind.LessThanOrEqualExpression;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(conditional), conditional, null);
+                throw new ArgumentNullException(nameof(binaryExpression));
             }
+
+            return IfStatement(binaryExpression.GetBinaryExpression(),  block);
+        }
+
+
+        /// <summary>
+        /// Create the statement syntax for a if-conditional with a single statement
+        /// </summary>
+        /// <param name="binaryExpression">The binary expression to generate</param>
+        /// <param name="expressionStatement">Statement inside the if</param>
+        /// <returns>The declared statement syntax</returns>
+        public StatementSyntax If(IBinaryExpression binaryExpression, ExpressionStatementSyntax expressionStatement)
+        {
+            if (binaryExpression == null)
+            {
+                throw new ArgumentNullException(nameof(binaryExpression));
+            }
+
+            return IfStatement(binaryExpression.GetBinaryExpression(), expressionStatement);
         }
     }
 }

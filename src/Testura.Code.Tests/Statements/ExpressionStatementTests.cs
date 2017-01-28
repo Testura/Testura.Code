@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
+using Testura.Code.Generators.Common.BinaryExpressions;
 using Testura.Code.Models.References;
 using Testura.Code.Statements;
 
@@ -63,6 +64,14 @@ namespace Testura.Code.Tests.Statements
             var invocation = expressionStatement.Invoke("MyMethod", new List<IArgument> { new ValueArgument(1)});
             Assert.IsNotNull(invocation);
             Assert.AreEqual("MyMethod(1);", invocation.AsStatement().ToString());
+        }
+
+        [Test]
+        public void Invoke_WhenInvokeWithMethodNameAndBinaryExpressionArgument_ShouldGenerateCorrectCode()
+        {
+            var invocation = expressionStatement.Invoke("MyMethod", new List<IArgument> { new BinaryExpressionArgument(new MathBinaryExpression(new ConstantReference(1), new ConstantReference(2), MathOperators.Add ))});
+            Assert.IsNotNull(invocation);
+            Assert.AreEqual("MyMethod(1+2);", invocation.AsStatement().ToString());
         }
 
 

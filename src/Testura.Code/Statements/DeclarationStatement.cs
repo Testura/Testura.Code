@@ -3,6 +3,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Factories;
 using Testura.Code.Generators.Common;
+using Testura.Code.Generators.Common.Binaries;
 using Testura.Code.Models.References;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
@@ -150,6 +151,36 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
+        /// Create the local declaration statement syntax to declare a local variable and assign it to a binary expression
+        /// </summary>
+        /// <param name="name">Name of the variable</param>
+        /// <param name="type">Type of the variable </param>
+        /// <param name="binaryExpression">The binary expression</param>
+        /// <param name="useVarKeyword">Will use "var" keyword if true, otherwise the type</param>
+        /// <returns>The generated local declaration statement</returns>
+        public LocalDeclarationStatementSyntax DeclareAndAssign(string name, Type type, IBinaryExpression binaryExpression, bool useVarKeyword = true)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(name));
+            }
+
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            if (binaryExpression == null)
+            {
+                throw new ArgumentNullException(nameof(binaryExpression));
+            }
+
+            return LocalDeclarationStatement(VariableDeclaration(useVarKeyword ? IdentifierName("var") : TypeGenerator.Create(type))
+                .WithVariables(SingletonSeparatedList(VariableDeclarator(Identifier(name))
+                    .WithInitializer(EqualsValueClause(binaryExpression.GetBinaryExpression())))));
+        }
+
+        /// <summary>
         /// Create the expression statement syntax to assign a variable a new instance with the "new" keyword
         /// </summary>
         /// <param name="name">Name of the variable</param>
@@ -176,7 +207,7 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create the expression statement syntax to assign a variable another expression
+        /// Create the expression statement syntax to assign a variable to another expression
         /// </summary>
         /// <param name="name">Name of variable</param>
         /// <param name="expressionSyntax">The expression syntax </param>
@@ -198,7 +229,7 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create the expression statement syntax to assign a variable another reference
+        /// Create the expression statement syntax to assign a variable to another reference
         /// </summary>
         /// <param name="name">Name of variable</param>
         /// <param name="reference">Reference value to assign to the variable</param>
@@ -220,7 +251,7 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create the expression statement syntax to assign a reference another reference. For example a property to a property
+        /// Create the expression statement syntax to assign a reference to another reference. For example a property to a property
         /// </summary>
         /// <param name="reference">Reference that should be assigned</param>
         /// <param name="valueReference">Reference that we should assign to another reference</param>
@@ -247,7 +278,7 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create the expression statement syntax to assign a reference another expression
+        /// Create the expression statement syntax to assign a reference to another expression
         /// </summary>
         /// <param name="reference">Reference that should be assigned</param>
         /// <param name="expressionSyntax">Expression that we should assign to reference</param>
@@ -276,6 +307,32 @@ namespace Testura.Code.Statements
                         SyntaxKind.SimpleAssignmentExpression,
                     ReferenceGenerator.Create(reference),
                     expressionSyntax));
+        }
+
+        /// <summary>
+        /// Create the expression statement syntax to assign a reference to a binary expression
+        /// </summary>
+        /// <param name="reference">Reference that should be assigned</param>
+        /// <param name="binaryExpression">The binary expression</param>
+        /// <returns>The generated assign declaration syntax<</returns>
+        public ExpressionStatementSyntax Assign(VariableReference reference, IBinaryExpression binaryExpression)
+        {
+            if (reference == null)
+            {
+                throw new ArgumentNullException(nameof(reference));
+            }
+
+            if (binaryExpression == null)
+            {
+                throw new ArgumentNullException(nameof(binaryExpression));
+            }
+
+            return
+                ExpressionStatement(
+                    AssignmentExpression(
+                        SyntaxKind.SimpleAssignmentExpression,
+                    ReferenceGenerator.Create(reference),
+                    binaryExpression.GetBinaryExpression()));
         }
 
         /// <summary>
