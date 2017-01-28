@@ -102,6 +102,10 @@
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\ValueArgumentTests.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\VariableArgumentTests.cs" />
     <Compile Include="Generators\Common\AttributeGeneratorTests.cs" />
+    <Compile Include="Generators\Common\BinaryExpressions\ConditionalBinaryExpressionTests.cs" />
+    <Compile Include="Generators\Common\BinaryExpressions\AndBinaryExpressionTest.cs" />
+    <Compile Include="Generators\Common\BinaryExpressions\MathBinaryExpressionTests.cs" />
+    <Compile Include="Generators\Common\BinaryExpressions\OrBinaryExpressionTest.cs" />
     <Compile Include="Generators\Common\ModifierGeneratorTests.cs" />
     <Compile Include="Generators\Common\TypeGeneratorTests.cs" />
     <Compile Include="Generators\Special\NunitAssertGeneratorTests.cs" />

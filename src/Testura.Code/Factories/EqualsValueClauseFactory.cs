@@ -7,14 +7,14 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Factories
 {
-    public static class EqualsValueClauseFactory
+    internal static class EqualsValueClauseFactory
     {
         /// <summary>
         /// Get the correct equals value clause for a specific type
         /// </summary>
         /// <param name="value">Value we want to put the variable equal as</param>
         /// <returns>The correct equals value clause</returns>
-        public static EqualsValueClauseSyntax GetEqualsValueClause(object value)
+        internal static EqualsValueClauseSyntax GetEqualsValueClause(object value)
         {
             if (value is int)
             {

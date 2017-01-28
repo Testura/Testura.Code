@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Testura.Code.Generators.Common;
+using Testura.Code.Generators.Common.Binaries;
 using Testura.Code.Models.References;
 using Testura.Code.Statements;
 using Assert = NUnit.Framework.Assert;
@@ -50,6 +51,21 @@ namespace Testura.Code.Tests.Statements
         {
             Assert.AreEqual("foreach(intiina.MyMethod()){}",
                 _control.ForEach("i", typeof(int), new VariableReference("a", new MethodReference("MyMethod")), BodyGenerator.Create(), false).ToString());
+        }
+
+        [Test]
+        public void While_WhenCreatingWhileLoopWithTrue_ShouldGenerateCode()
+        {
+            Assert.AreEqual("while(true){}", _control.WhileTrue(BodyGenerator.Create()).ToString());
+        }
+
+        [Test]
+        public void While_WhenCreatingWhileLoopWithBinaryExpression_ShouldGenerateCode()
+        {
+            var binaryExpression = new ConditionalBinaryExpression(new ConstantReference(1), new ConstantReference(2),
+                ConditionalStatements.LessThan);
+
+            Assert.AreEqual("while(1<2){}", _control.While(binaryExpression, BodyGenerator.Create()).ToString());
         }
     }
 }

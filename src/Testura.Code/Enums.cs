@@ -41,4 +41,12 @@
         Normal,
         Path
     }
+
+    public enum MathOperators
+    {
+        Add,
+        Subtract,
+        Divide,
+        Multiply
+    }
 }
