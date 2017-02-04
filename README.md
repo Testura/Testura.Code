@@ -102,11 +102,21 @@ saver.SaveCodeToFile(@class, @"/path/HelloWorld.cs");
 ```c#
 var compiler = new Compiler();
 
+//To a dll
+
 // From string
 var result = await compiler.CompileSourceAsync(@"/path/HelloWorld.dll", generatedCode);
 
 // From file
 var result = await compiler.CompileFilesAsync(@"/path/HelloWorld.dll",  @"/path/HelloWorld.cs");
+
+//In memory (without creating a dll)
+
+// From string
+var result = await compiler.CompileSourceInMemoryAsync(@"/path/HelloWorld.dll", generatedCode);
+
+// From file
+var result = await compiler.CompileFilesInMemoryAsync(@"/path/HelloWorld.dll",  @"/path/HelloWorld.cs");
 ```
 
 ## Missing anything? 
