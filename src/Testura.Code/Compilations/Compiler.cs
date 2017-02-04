@@ -60,11 +60,6 @@ namespace Testura.Code.Compilations
         /// <returns>The result from the compilation</returns>
         public async Task<CompileResult> CompileFilesAsync(string outputPath, params string[] pathsToCsFiles)
         {
-            if (outputPath == null)
-            {
-                throw new ArgumentNullException(nameof(outputPath));
-            }
-
             if (pathsToCsFiles.Length == 0)
             {
                 throw new ArgumentException("Value cannot be an empty collection.", nameof(pathsToCsFiles));
