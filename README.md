@@ -113,10 +113,10 @@ var result = await compiler.CompileFilesAsync(@"/path/HelloWorld.dll",  @"/path/
 //In memory (without creating a dll)
 
 // From string
-var result = await compiler.CompileSourceInMemoryAsync(@"/path/HelloWorld.dll", generatedCode);
+var result = await compiler.CompileSourceInMemoryAsync(generatedCode);
 
 // From file
-var result = await compiler.CompileFilesInMemoryAsync(@"/path/HelloWorld.dll",  @"/path/HelloWorld.cs");
+var result = await compiler.CompileFilesInMemoryAsync(@"/path/HelloWorld.cs");
 ```
 
 ## Missing anything? 
