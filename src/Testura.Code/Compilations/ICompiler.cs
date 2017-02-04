@@ -9,7 +9,7 @@ namespace Testura.Code.Compilations
         /// </summary>
         /// <param name="pathsToCsFiles">Paths to cs files</param>
         /// <returns>The result from the compilation</returns>
-        Task<CompileResult> CompileFileInMemoryAsync(params string[] pathsToCsFiles);
+        Task<CompileResult> CompileFilesInMemoryAsync(params string[] pathsToCsFiles);
 
         /// <summary>
         /// Compile code from a string source without creating a dll

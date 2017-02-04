@@ -37,7 +37,7 @@ namespace Testura.Code.Compilations
         /// </summary>
         /// <param name="pathsToCsFiles">Paths to cs files</param>
         /// <returns>The result from the compilation</returns>
-        public async Task<CompileResult> CompileFileInMemoryAsync(params string[] pathsToCsFiles)
+        public async Task<CompileResult> CompileFilesInMemoryAsync(params string[] pathsToCsFiles)
         {
             return await CompileFilesAsync(null, pathsToCsFiles);
         }
