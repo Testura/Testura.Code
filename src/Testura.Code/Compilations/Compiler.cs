@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.Emit;
 using Microsoft.CodeAnalysis.Text;
 
 namespace Testura.Code.Compilations
@@ -31,6 +32,16 @@ namespace Testura.Code.Compilations
             };
         }
 
+        public async Task<CompileResult> CompileFileInMemoryAsync(params string[] pathsToCsFiles)
+        {
+            return await CompileFilesAsync(null, pathsToCsFiles);
+        }
+
+        public async Task<CompileResult> CompileSourceInMemoryAsync(params string[] source)
+        {
+            return await CompileSourceAsync(null, source);
+        }
+
         public async Task<CompileResult> CompileFilesAsync(string outputPath, params string[] pathsToCsFiles)
         {
             if (outputPath == null)
@@ -54,11 +65,6 @@ namespace Testura.Code.Compilations
 
         public async Task<CompileResult> CompileSourceAsync(string outputPath, params string[] source)
         {
-            if (outputPath == null)
-            {
-                throw new ArgumentNullException(nameof(outputPath));
-            }
-
             if (source.Length == 0)
             {
                 throw new ArgumentException("Value cannot be an empty collection.", nameof(source));
@@ -80,12 +86,24 @@ namespace Testura.Code.Compilations
                     .WithUsings(_defaultNamespaces);
 
                 var compilation = CSharpCompilation.Create(
-                    Path.GetFileName(outputPath),
+                    string.IsNullOrEmpty(outputPath) ? "temporary" : Path.GetFileName(outputPath),
                     parsedSyntaxTrees,
                     ConvertReferenceToMetaDataReferfence(),
                     defaultCompilationOptions);
 
-                var result = compilation.Emit(outputPath);
+                EmitResult result;
+
+                if (string.IsNullOrEmpty(outputPath))
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        result = compilation.Emit(memoryStream);
+                    }
+                }
+                else
+                {
+                    result = compilation.Emit(outputPath);
+                }
                 var outputRows = ConvertDiagnosticsToOutputRows(result.Diagnostics);
                 return new CompileResult(outputPath, result.Success, outputRows);
             });
