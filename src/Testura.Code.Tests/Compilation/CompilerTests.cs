@@ -34,5 +34,21 @@ namespace Testura.Code.Tests.Compilation
             Assert.AreEqual(1, result.OutputRows.Count);
             Assert.IsFalse(result.Success);
         }
+
+        [Test]
+        public async Task CompileSourceInMemoryAsync_WhenCompilingSource_ShouldGetEmptyResultList()
+        {
+            var result = await _compiler.CompileSourceInMemoryAsync(new ClassBuilder("TestClass", "Test").Build().NormalizeWhitespace().ToString());
+            Assert.AreEqual(0, result.OutputRows.Count);
+            Assert.IsTrue(result.Success);
+        }
+
+        [Test]
+        public async Task CompileSourceInMemoryAsync_WhenCompilingSourceWithError_ShouldGetListContainingErrors()
+        {
+            var result = await _compiler.CompileSourceInMemoryAsync("gfdgdfgfdg");
+            Assert.AreEqual(1, result.OutputRows.Count);
+            Assert.IsFalse(result.Success);
+        }
     }
 }
