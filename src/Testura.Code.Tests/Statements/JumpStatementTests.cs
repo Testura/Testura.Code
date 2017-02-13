@@ -39,5 +39,11 @@ namespace Testura.Code.Tests.Statements
         {
             Assert.AreEqual("returntest();", @return.Return(Statement.Expression.Invoke("test").AsExpression()).ToString());
         }
+
+        [Test]
+        public void Return_WhenReturnThis_ShouldGenerateCorrectCode()
+        {
+            Assert.AreEqual("returnthis;", @return.ReturnThis().ToString());
+        }
     }
 }

@@ -58,5 +58,14 @@ namespace Testura.Code.Statements
 
             return ReturnStatement(expression);
         }
+
+        /// <summary>
+        /// Create the return statement syntax to return this
+        /// </summary>
+        /// <returns>The declared return statement syntax</returns>
+        public ReturnStatementSyntax ReturnThis()
+        {
+            return ReturnStatement(ThisExpression());
+        }
     }
 }
