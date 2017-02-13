@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Testura.Code.Models.Types;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Generators.Common
@@ -19,6 +20,11 @@ namespace Testura.Code.Generators.Common
             if (type == null)
             {
                 throw new ArgumentNullException(nameof(type));
+            }
+
+            if (type is CustomType)
+            {
+                return ParseTypeName(((CustomType) type).TypeName);
             }
 
             if (type.IsGenericType)

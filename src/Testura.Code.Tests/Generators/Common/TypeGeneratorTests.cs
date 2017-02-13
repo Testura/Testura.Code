@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using Testura.Code.Generators.Common;
+using Testura.Code.Models.Types;
 
 namespace Testura.Code.Tests.Generators.Common
 {
@@ -36,6 +37,12 @@ namespace Testura.Code.Tests.Generators.Common
         public void Create_WhenCreatingWithNoPredfinedGenericType_ShouldGenerateCode()
         {
             Assert.AreEqual("List<string>", TypeGenerator.Create(typeof(List<string>)).ToString());
+        }
+
+        [Test]
+        public void Create_WhenCreatingCustomTypee_ShouldGenerateCode()
+        {
+            Assert.AreEqual("MyNewClass", TypeGenerator.Create(CustomType.Create("MyNewClass")).ToString());
         }
     }
 }
