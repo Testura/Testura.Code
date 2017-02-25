@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Testura.Code.AppDomains.Proxies
+namespace Testura.Code.Util.AppDomains.Proxies
 {
     public class ActionCodeGeneratorProxy : MarshalByRefObject
     {

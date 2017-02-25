@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Reflection;
-using Testura.Code.AppDomains.Proxies;
+using Testura.Code.Util.AppDomains.Proxies;
 
-namespace Testura.Code.AppDomains
+namespace Testura.Code.Util.AppDomains
 {
     public class AppDomainCodeGenerator
     {

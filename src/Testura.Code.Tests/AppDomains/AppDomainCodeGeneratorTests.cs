@@ -7,10 +7,10 @@ using System.Security.Policy;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using NUnit.Framework;
-using Testura.Code.AppDomains;
 using Testura.Code.Builders;
 using Testura.Code.Compilations;
 using Testura.Code.Saver;
+using Testura.Code.Util.AppDomains;
 
 namespace Testura.Code.Tests.AppDomains
 {
