@@ -9,7 +9,7 @@ using System.Reflection;
 
 namespace Testura.Code.Models.Types
 {
-    public class CustomTypeProxy : Type
+    internal class CustomTypeProxy : Type
     {
         internal CustomTypeProxy(string typeName)
         {
