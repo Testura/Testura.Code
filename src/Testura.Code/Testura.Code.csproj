@@ -134,6 +134,7 @@
     <Compile Include="Compilations\OutputRow.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Models\Types\CustomType.cs" />
+    <Compile Include="Models\Types\CustomTypeProxy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Saver\CodeSaver.cs" />
     <Compile Include="Saver\ICodeSaver.cs" />

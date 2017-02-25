@@ -22,9 +22,9 @@ namespace Testura.Code.Generators.Common
                 throw new ArgumentNullException(nameof(type));
             }
 
-            if (type is CustomType)
+            if (type is CustomTypeProxy)
             {
-                return ParseTypeName(((CustomType) type).TypeName);
+                return ParseTypeName(((CustomTypeProxy)type).TypeName);
             }
 
             if (type.IsGenericType)

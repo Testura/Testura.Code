@@ -83,7 +83,6 @@ namespace Testura.Code.Statements
             return IfStatement(binaryExpression.GetBinaryExpression(),  block);
         }
 
-
         /// <summary>
         /// Create the statement syntax for a if-conditional with a single statement
         /// </summary>
