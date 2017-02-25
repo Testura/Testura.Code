@@ -87,6 +87,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppDomains\AppDomainCodeGeneratorTests.cs" />
     <Compile Include="Builders\ClassBuilderTests.cs" />
     <Compile Include="Builders\MethodBuildersTest.cs" />
     <Compile Include="Compilation\CompilerTests.cs" />
