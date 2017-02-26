@@ -27,23 +27,19 @@ namespace Testura.Code.Generators.Common
                 return ParseTypeName(((CustomTypeProxy)type).TypeName);
             }
 
+            if (type.IsArray)
+            {
+                return
+                    ArrayType(Create(type.GetElementType()))
+                        .WithRankSpecifiers(
+                            SingletonList(
+                                ArrayRankSpecifier(
+                                    SingletonSeparatedList<ExpressionSyntax>(OmittedArraySizeExpression()))));
+            }
+
             if (type.IsGenericType)
             {
                 return CreateGenericType(type);
-            }
-
-            if (type.IsArray)
-            {
-                var predefinedType = CheckPredefinedTypes(type.GetElementType());
-                if (predefinedType != null)
-                {
-                    return
-                        ArrayType(predefinedType)
-                            .WithRankSpecifiers(
-                                SingletonList(
-                                    ArrayRankSpecifier(
-                                        SingletonSeparatedList<ExpressionSyntax>(OmittedArraySizeExpression()))));
-                }
             }
 
             var typeSyntax = CheckPredefinedTypes(type);
