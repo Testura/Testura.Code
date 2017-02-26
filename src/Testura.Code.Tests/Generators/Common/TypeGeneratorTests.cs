@@ -40,9 +40,27 @@ namespace Testura.Code.Tests.Generators.Common
         }
 
         [Test]
-        public void Create_WhenCreatingCustomTypee_ShouldGenerateCode()
+        public void Create_WhenCreatingCustomType_ShouldGenerateCode()
         {
             Assert.AreEqual("MyNewClass", TypeGenerator.Create(CustomType.Create("MyNewClass")).ToString());
+        }
+
+        [Test]
+        public void Create_WhenCreatingArrayWithPredefinedType_ShouldGenerateCode()
+        {
+            Assert.AreEqual("int[]", TypeGenerator.Create(typeof(int[])).ToString());
+        }
+
+        [Test]
+        public void Create_WhenCreatingArrayWithClassType_ShouldGenerateCode()
+        {
+            Assert.AreEqual("TypeGeneratorTests[]", TypeGenerator.Create(typeof(TypeGeneratorTests[])).ToString());
+        }
+
+        [Test]
+        public void Create_WhenCreatingArrayWithGenericClassType_ShouldGenerateCode()
+        {
+            Assert.AreEqual("List<string>[]", TypeGenerator.Create(typeof(List<string>[])).ToString());
         }
     }
 }

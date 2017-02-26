@@ -31,7 +31,7 @@ namespace Testura.Code.Tests.Integration
                 .Build();
 
             Assert.AreEqual(
-                @"usingSystem;namespaceHelloWorld{publicclassProgram{publicstaticvoidMain(String[]args){Console.WriteLine(""Hello world"");Console.ReadLine();}}}",
+                @"usingSystem;namespaceHelloWorld{publicclassProgram{publicstaticvoidMain(string[]args){Console.WriteLine(""Hello world"");Console.ReadLine();}}}",
                 @class.ToString());
         }
     }

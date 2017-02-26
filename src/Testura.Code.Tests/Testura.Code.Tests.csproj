@@ -87,9 +87,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppDomains\AppDomainCodeGeneratorTests.cs" />
     <Compile Include="Builders\ClassBuilderTests.cs" />
     <Compile Include="Builders\MethodBuildersTest.cs" />
     <Compile Include="Compilation\CompilerTests.cs" />
+    <Compile Include="Extensions\Naming\StringNamingExtensionsTests.cs" />
+    <Compile Include="Extensions\Naming\TypeNamingExtensionsTests.cs" />
+    <Compile Include="Extensions\ObjectExtensionsTests.cs" />
+    <Compile Include="Extensions\Reflection\ParameterInfoExtensionsTests.cs" />
+    <Compile Include="Extensions\TypeExtensionsTests.cs" />
     <Compile Include="Generators\Class\ConstructorGeneratorTests.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentsTests.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\ArrayInitializeArgumentTests.cs" />

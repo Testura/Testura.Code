@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Testura.Code.Extensions.Naming;
 
 namespace Testura.Code.Generators.Common
 {
@@ -38,7 +39,7 @@ namespace Testura.Code.Generators.Common
         {
             if (!type.IsGenericType)
             {
-                return type.Name;
+                return type.FormattedTypeName();
             }
 
             StringBuilder sb = new StringBuilder();

@@ -77,8 +77,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\Naming\StringNamingExtensions.cs" />
+    <Compile Include="Extensions\Naming\TypeNamingExtensions.cs" />
+    <Compile Include="Util\AppDomains\AppDomainCodeGenerator.cs" />
+    <Compile Include="Util\AppDomains\Proxies\ActionCodeGeneratorProxy.cs" />
+    <Compile Include="Util\AppDomains\Proxies\CodeGeneratorProxy.cs" />
     <Compile Include="Builders\ClassBuilder.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Extensions\Reflection\ParameterInfoExtensions.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Factories\ConditionalFactory.cs" />
     <Compile Include="Factories\EqualsValueClauseFactory.cs" />
     <Compile Include="Factories\MathOperatorFactory.cs" />
@@ -131,6 +138,7 @@
     <Compile Include="Compilations\OutputRow.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Models\Types\CustomType.cs" />
+    <Compile Include="Models\Types\CustomTypeProxy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Saver\CodeSaver.cs" />
     <Compile Include="Saver\ICodeSaver.cs" />
@@ -140,6 +148,9 @@
     <Compile Include="Statements\JumpStatement.cs" />
     <Compile Include="Statements\Statement.cs" />
     <Compile Include="Statements\DeclarationStatement.cs" />
+    <Compile Include="Util\TypeNameFormatting\GenericTypeNameFormatting.cs" />
+    <Compile Include="Util\TypeNameFormatting\InterfaceTypeNameFormatting.cs" />
+    <Compile Include="Util\TypeNameFormatting\ValueTypeNameFormatting.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
