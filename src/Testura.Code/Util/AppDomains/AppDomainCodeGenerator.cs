@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Testura.Code.Util.AppDomains.Proxies;
 
@@ -13,12 +14,13 @@ namespace Testura.Code.Util.AppDomains
         /// <typeparam name="T">Type of custom generator proxy to use</typeparam>
         /// <param name="assembly">Path to the external assembly</param>
         /// <param name="customCodeGeneratorProxy">The custom code generator proxy to use</param>
-        public void GenerateCode<T>(string assembly, T customCodeGeneratorProxy)
+        /// <param name="extraData">Extra data</param>
+        public void GenerateCode<T>(string assembly, T customCodeGeneratorProxy, IDictionary<string, object> extraData = null)
             where T : CodeGeneratorProxy
         {
             var domain = CreateDomain();
             var proxy = CreateProxy<T>(domain);
-            proxy.GenerateCode(assembly);
+            proxy.GenerateCode(assembly, extraData);
             AppDomain.Unload(domain);
         }
 
@@ -28,11 +30,12 @@ namespace Testura.Code.Util.AppDomains
         /// </summary>
         /// <param name="assembly">Path to the external assembly</param>
         /// <param name="generateCode">Action to invoke inside the new app domain</param>
-        public void GenerateCode(string assembly, Action<Assembly> generateCode)
+        /// <param name="extraData">Extra data</param>
+        public void GenerateCode(string assembly, Action<Assembly, IDictionary<string, object>> generateCode, IDictionary<string, object> extraData = null)
         {
             var domain = CreateDomain();
             var proxy = CreateProxy<ActionCodeGeneratorProxy>(domain);
-            proxy.GenerateCode(assembly, generateCode);
+            proxy.GenerateCode(assembly, generateCode, extraData);
             AppDomain.Unload(domain);
         }
 

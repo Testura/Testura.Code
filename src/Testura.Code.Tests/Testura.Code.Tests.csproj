@@ -91,6 +91,7 @@
     <Compile Include="Builders\ClassBuilderTests.cs" />
     <Compile Include="Builders\MethodBuildersTest.cs" />
     <Compile Include="Compilation\CompilerTests.cs" />
+    <Compile Include="Extensions\Naming\TypeNamingExtensionsTests.cs" />
     <Compile Include="Generators\Class\ConstructorGeneratorTests.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentsTests.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\ArrayInitializeArgumentTests.cs" />

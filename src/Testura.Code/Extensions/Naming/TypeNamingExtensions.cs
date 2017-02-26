@@ -14,7 +14,7 @@ namespace Testura.Code.Extensions.Naming
         {
             var typeName = type.Name;
 
-            if (type.ContainsGenericParameters)
+            if (type.IsGenericType)
             {
                 typeName = GenericTypeNameFormatting.FormatName(type);
             }
@@ -34,7 +34,13 @@ namespace Testura.Code.Extensions.Naming
         /// <returns>The formatted class name</returns>
         public static string FormattedClassName(this Type type)
         {
-            return type.Name.Replace("`", string.Empty);
+            var index = type.Name.IndexOf("`");
+            if (index <= 0)
+            {
+                return type.Name;
+            }
+
+            return type.Name.Remove(index, type.Name.Length - index);
         }
 
         /// <summary>
@@ -46,7 +52,7 @@ namespace Testura.Code.Extensions.Naming
         {
             var typeName = type.Name;
 
-            if (type.ContainsGenericParameters)
+            if (type.IsGenericType)
             {
                 return GenericTypeNameFormatting.FormatType(type);
             }

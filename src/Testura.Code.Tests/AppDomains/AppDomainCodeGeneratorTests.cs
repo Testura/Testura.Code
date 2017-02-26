@@ -32,7 +32,7 @@ namespace Testura.Code.Tests.AppDomains
             var path = Path.Combine(TestContext.CurrentContext.TestDirectory, "test.dll");
             await _compiler.CompileSourceAsync(path, new ClassBuilder("TestClass", "Test").Build().NormalizeWhitespace().ToString());
 
-            _appDomainCodeGenerator.GenerateCode(path, assembly =>
+            _appDomainCodeGenerator.GenerateCode(path, (assembly, extraData) =>
             {
                 var types = assembly.GetExportedTypes();
                 Assert.AreEqual(1, types.Length);

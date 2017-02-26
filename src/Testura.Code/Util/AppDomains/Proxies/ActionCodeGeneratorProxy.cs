@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Testura.Code.Util.AppDomains.Proxies
@@ -10,10 +11,11 @@ namespace Testura.Code.Util.AppDomains.Proxies
         /// </summary>
         /// <param name="assemblyPath">Path to the assembly</param>
         /// <param name="generateCode">Action to invoke to generate code</param>
-        public void GenerateCode(string assemblyPath, Action<Assembly> generateCode)
+        /// <param name="extraData">Extra data</param>
+        public void GenerateCode(string assemblyPath, Action<Assembly, IDictionary<string, object>> generateCode, IDictionary<string, object> extraData = null)
         {
             var assembly = Assembly.LoadFrom(assemblyPath);
-            generateCode.Invoke(assembly);
+            generateCode.Invoke(assembly, extraData);
         }
     }
 }

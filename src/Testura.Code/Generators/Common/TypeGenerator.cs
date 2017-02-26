@@ -32,6 +32,20 @@ namespace Testura.Code.Generators.Common
                 return CreateGenericType(type);
             }
 
+            if (type.IsArray)
+            {
+                var predefinedType = CheckPredefinedTypes(type.GetElementType());
+                if (predefinedType != null)
+                {
+                    return
+                        ArrayType(predefinedType)
+                            .WithRankSpecifiers(
+                                SingletonList(
+                                    ArrayRankSpecifier(
+                                        SingletonSeparatedList<ExpressionSyntax>(OmittedArraySizeExpression()))));
+                }
+            }
+
             var typeSyntax = CheckPredefinedTypes(type);
             return typeSyntax ?? ParseTypeName(type.Name);
         }

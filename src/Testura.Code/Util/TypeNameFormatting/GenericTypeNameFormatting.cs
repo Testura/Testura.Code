@@ -23,7 +23,7 @@ namespace Testura.Code.Util.TypeNameFormatting
         internal static string FormatName(Type type)
         {
             var index = type.Name.IndexOf("`");
-            return index == -1 ? type.Name : type.Name.Substring(0, index + 1);
+            return index == -1 ? type.Name : type.Name.Substring(0, index);
         }
     }
 }
