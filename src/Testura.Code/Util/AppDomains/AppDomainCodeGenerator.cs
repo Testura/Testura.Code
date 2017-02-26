@@ -7,6 +7,16 @@ namespace Testura.Code.Util.AppDomains
 {
     public class AppDomainCodeGenerator
     {
+        public AppDomainCodeGenerator()
+        {
+            ApplicationBase = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+        }
+
+        /// <summary>
+        /// Gets or sets the application base for the new app domain
+        /// </summary>
+        public string ApplicationBase { get; set; }
+
         /// <summary>
         /// Load an external assembly and generate code inside a different app domain. Will unload
         /// app domain after finish generating code.
@@ -14,7 +24,7 @@ namespace Testura.Code.Util.AppDomains
         /// <typeparam name="T">Type of custom generator proxy to use</typeparam>
         /// <param name="assembly">Path to the external assembly</param>
         /// <param name="customCodeGeneratorProxy">The custom code generator proxy to use</param>
-        /// <param name="extraData">Extra data</param>
+        /// <param name="extraData">Extra data that we send with the proxy</param>
         public void GenerateCode<T>(string assembly, T customCodeGeneratorProxy, IDictionary<string, object> extraData = null)
             where T : CodeGeneratorProxy
         {
@@ -30,7 +40,7 @@ namespace Testura.Code.Util.AppDomains
         /// </summary>
         /// <param name="assembly">Path to the external assembly</param>
         /// <param name="generateCode">Action to invoke inside the new app domain</param>
-        /// <param name="extraData">Extra data</param>
+        /// <param name="extraData">Extra data that we send with the proxy</param>
         public void GenerateCode(string assembly, Action<Assembly, IDictionary<string, object>> generateCode, IDictionary<string, object> extraData = null)
         {
             var domain = CreateDomain();
@@ -44,7 +54,7 @@ namespace Testura.Code.Util.AppDomains
             return AppDomain.CreateDomain(
                     "Testura external assembly generator domain",
                     null,
-                    new AppDomainSetup { ApplicationBase = AppDomain.CurrentDomain.SetupInformation.ApplicationBase, ApplicationName = "Testura" });
+                    new AppDomainSetup { ApplicationBase = ApplicationBase, ApplicationName = "Testura" });
         }
 
         private T CreateProxy<T>(AppDomain domain)

@@ -17,6 +17,11 @@ namespace Testura.Code.Util.AppDomains.Proxies
             GenerateCode(assembly, extraData);
         }
 
+        /// <summary>
+        /// Generate code
+        /// </summary>
+        /// <param name="assembly">Assembly that we loaded inside the app domain</param>
+        /// <param name="extraData">Extra data sent to the proxy</param>
         protected abstract void GenerateCode(Assembly assembly, IDictionary<string, object> extraData);
     }
 }
