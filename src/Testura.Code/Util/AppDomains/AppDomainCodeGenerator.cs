@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Security;
+using System.Security.Permissions;
+using System.Security.Policy;
 using Testura.Code.Util.AppDomains.Proxies;
 
 namespace Testura.Code.Util.AppDomains
@@ -10,12 +13,24 @@ namespace Testura.Code.Util.AppDomains
         public AppDomainCodeGenerator()
         {
             ApplicationBase = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+            Evidence = null;
+            Permissions = new PermissionSet(PermissionState.Unrestricted);
         }
 
         /// <summary>
         /// Gets or sets the application base for the new app domain
         /// </summary>
         public string ApplicationBase { get; set; }
+
+        /// <summary>
+        /// Gets or sets the app domain permissions
+        /// </summary>
+        public PermissionSet Permissions { get; set; }
+
+        /// <summary>
+        /// Gets or sets the app domain evidence
+        /// </summary>
+        public Evidence Evidence { get; set; }
 
         /// <summary>
         /// Load an external assembly and generate code inside a different app domain. Will unload
@@ -25,7 +40,8 @@ namespace Testura.Code.Util.AppDomains
         /// <param name="assembly">Path to the external assembly</param>
         /// <param name="customCodeGeneratorProxy">The custom code generator proxy to use</param>
         /// <param name="extraData">Extra data that we send with the proxy</param>
-        public void GenerateCode<T>(string assembly, T customCodeGeneratorProxy, IDictionary<string, object> extraData = null)
+        public void GenerateCode<T>(string assembly, T customCodeGeneratorProxy,
+            IDictionary<string, object> extraData = null)
             where T : CodeGeneratorProxy
         {
             var domain = CreateDomain();
@@ -45,16 +61,26 @@ namespace Testura.Code.Util.AppDomains
         {
             var domain = CreateDomain();
             var proxy = CreateProxy<ActionCodeGeneratorProxy>(domain);
-            proxy.GenerateCode(assembly, generateCode, extraData);
+            try
+            {
+                proxy.GenerateCode(assembly, generateCode, extraData);
+            }
+            catch (Exception)
+            {
+                AppDomain.Unload(domain);
+                throw;
+            }
+
             AppDomain.Unload(domain);
         }
 
         private AppDomain CreateDomain()
         {
             return AppDomain.CreateDomain(
-                    "Testura external assembly generator domain",
-                    null,
-                    new AppDomainSetup { ApplicationBase = ApplicationBase, ApplicationName = "Testura" });
+                "Testura external assembly generator domain",
+                Evidence,
+                new AppDomainSetup { ApplicationBase = ApplicationBase, ApplicationName = "Testura" },
+                Permissions);
         }
 
         private T CreateProxy<T>(AppDomain domain)
@@ -62,8 +88,8 @@ namespace Testura.Code.Util.AppDomains
         {
             var activator = typeof(T);
             return domain.CreateInstanceAndUnwrap(
-                        activator.Assembly.FullName,
-                        activator.FullName) as T;
+                activator.Assembly.FullName,
+                activator.FullName) as T;
         }
     }
 }
