@@ -1,4 +1,4 @@
-![Testura Logo](http://testura.net/Content/Images/logo.png)
+![Testura Logo](http://testura.net/Content/Images/logo2.png)
 
 Testura.Code is a wrapper around the Roslyn API and used for generation, saving and and compiling C# code. It provides methods and helpers to generate classes, methods, statements and expressions.
 
