@@ -11,6 +11,7 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
     {
         private readonly IEnumerable<Parameter> _parameters;
         private readonly ExpressionSyntax _expressionSyntax;
+        private readonly BlockSyntax _blockSyntax;
 
         public ParenthesizedLambdaArgument(ExpressionSyntax expressionSyntax, IEnumerable<Parameter> parameters = null)
         {
@@ -23,12 +24,33 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
             _expressionSyntax = expressionSyntax;
         }
 
+        public ParenthesizedLambdaArgument(BlockSyntax blockSyntax, IEnumerable<Parameter> parameters = null)
+        {
+            if (blockSyntax == null)
+            {
+                throw new ArgumentNullException(nameof(blockSyntax));
+            }
+
+            _parameters = parameters ?? new List<Parameter>();
+            _blockSyntax = blockSyntax;
+        }
+
         public ArgumentSyntax GetArgumentSyntax()
         {
-            var expression = ParenthesizedLambdaExpression(_expressionSyntax);
+            ParenthesizedLambdaExpressionSyntax expression = null;
+
+            if (_blockSyntax != null)
+            {
+                expression = ParenthesizedLambdaExpression(_blockSyntax);
+            }
+            else
+            {
+                expression = ParenthesizedLambdaExpression(_expressionSyntax);
+            }
+
             if (_parameters.Any())
             {
-                expression = expression.WithParameterList(ParameterGenerator.Create(_parameters.ToArray()));
+                expression = expression.WithParameterList(ParameterGenerator.ConvertParameterSyntaxToList(_parameters.Select(p => Parameter(Identifier(p.Name))).ToArray()));
             }
 
             return Argument(expression);

@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="Extensions\Naming\StringNamingExtensions.cs" />
     <Compile Include="Extensions\Naming\TypeNamingExtensions.cs" />
+    <Compile Include="Generators\Common\Arguments\ArgumentTypes\LambdaArgument.cs" />
     <Compile Include="Util\AppDomains\AppDomainCodeGenerator.cs" />
     <Compile Include="Util\AppDomains\Proxies\ActionCodeGeneratorProxy.cs" />
     <Compile Include="Util\AppDomains\Proxies\CodeGeneratorProxy.cs" />
