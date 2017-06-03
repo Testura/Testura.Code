@@ -8,12 +8,13 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
-    public class ArrayInitializationArgument : IArgument
+    public class ArrayInitializationArgument : Argument
     {
         private readonly Type _type;
         private readonly IList<IArgument> _arguments;
 
-        public ArrayInitializationArgument(Type type, IEnumerable<IArgument> arguments)
+        public ArrayInitializationArgument(Type type, IEnumerable<IArgument> arguments, string namedArgument = null)
+            : base(namedArgument)
         {
             if (type == null)
             {
@@ -24,7 +25,7 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
             _arguments = arguments == null ? new List<IArgument>() : new List<IArgument>(arguments);
         }
 
-        public ArgumentSyntax GetArgumentSyntax()
+        protected override ArgumentSyntax CreateArgumentSyntax()
         {
             SyntaxNodeOrToken[] syntaxNodeOrTokens = new SyntaxNodeOrToken[0];
             if (_arguments.Any())

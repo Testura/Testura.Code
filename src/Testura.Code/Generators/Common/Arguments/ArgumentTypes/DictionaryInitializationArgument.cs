@@ -7,16 +7,17 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
-    public class DictionaryInitializationArgument<T, T2> : IArgument
+    public class DictionaryInitializationArgument<T, T2> : Argument
     {
         private readonly Dictionary<T, IArgument> _dictionary;
 
-        public DictionaryInitializationArgument(IDictionary<T, IArgument> dictionary)
+        public DictionaryInitializationArgument(IDictionary<T, IArgument> dictionary, string namedArgument = null)
+            : base(namedArgument)
         {
             _dictionary = new Dictionary<T, IArgument>(dictionary);
         }
 
-        public ArgumentSyntax GetArgumentSyntax()
+        protected override ArgumentSyntax CreateArgumentSyntax()
         {
             var syntaxNodeOrTokens = new List<SyntaxNodeOrToken>();
             foreach (var dictionaryValue in _dictionary)

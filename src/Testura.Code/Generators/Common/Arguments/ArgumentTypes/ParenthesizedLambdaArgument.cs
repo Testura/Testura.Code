@@ -7,13 +7,14 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
-    public class ParenthesizedLambdaArgument : IArgument
+    public class ParenthesizedLambdaArgument : Argument
     {
         private readonly IEnumerable<Parameter> _parameters;
         private readonly ExpressionSyntax _expressionSyntax;
         private readonly BlockSyntax _blockSyntax;
 
-        public ParenthesizedLambdaArgument(ExpressionSyntax expressionSyntax, IEnumerable<Parameter> parameters = null)
+        public ParenthesizedLambdaArgument(ExpressionSyntax expressionSyntax, IEnumerable<Parameter> parameters = null, string namedArgument = null)
+            : base(namedArgument)
         {
             if (expressionSyntax == null)
             {
@@ -24,7 +25,8 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
             _expressionSyntax = expressionSyntax;
         }
 
-        public ParenthesizedLambdaArgument(BlockSyntax blockSyntax, IEnumerable<Parameter> parameters = null)
+        public ParenthesizedLambdaArgument(BlockSyntax blockSyntax, IEnumerable<Parameter> parameters = null, string namedArgument = null)
+            : base(namedArgument)
         {
             if (blockSyntax == null)
             {
@@ -35,7 +37,7 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
             _blockSyntax = blockSyntax;
         }
 
-        public ArgumentSyntax GetArgumentSyntax()
+        protected override ArgumentSyntax CreateArgumentSyntax()
         {
             ParenthesizedLambdaExpressionSyntax expression = null;
 

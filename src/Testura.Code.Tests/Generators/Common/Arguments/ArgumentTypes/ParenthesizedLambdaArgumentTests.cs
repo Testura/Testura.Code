@@ -21,6 +21,16 @@ namespace Testura.Code.Tests.Generators.Common.Arguments.ArgumentTypes
         }
 
         [Test]
+        public void GetArgumentSyntax_WhenCreatingEmptyAsNamedArgument_ShouldGetCorrectCode()
+        {
+            var argument = new ParenthesizedLambdaArgument(Statement.Expression.Invoke("MyMethod").AsExpression(), namedArgument: "namedArgument");
+            var syntax = argument.GetArgumentSyntax();
+
+            Assert.IsInstanceOf<ArgumentSyntax>(syntax);
+            Assert.AreEqual("namedArgument:()=>MyMethod()", syntax.ToString());
+        }
+
+        [Test]
         public void GetArgumentSyntax_WhenCreatingWithParameter_ShouldGetCorrectCode()
         {
             var argument = new ParenthesizedLambdaArgument(Statement.Expression.Invoke("MyMethod").AsExpression(), new[] { new Parameter("myPara", typeof(int)) });

@@ -4,13 +4,14 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
-    public class LambdaArgument : IArgument
+    public class LambdaArgument : Argument
     {
         private readonly ExpressionSyntax _expressionSyntax;
         private readonly string _parameterName;
         private readonly BlockSyntax _blockSyntax;
 
-        public LambdaArgument(ExpressionSyntax expressionSyntax, string parameterName)
+        public LambdaArgument(ExpressionSyntax expressionSyntax, string parameterName, string namedArgument = null)
+            : base(namedArgument)
         {
             if (expressionSyntax == null)
             {
@@ -26,7 +27,8 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
             _parameterName = parameterName;
         }
 
-        public LambdaArgument(BlockSyntax blockSyntax, string parameterName)
+        public LambdaArgument(BlockSyntax blockSyntax, string parameterName, string namedArgument = null)
+            : base(namedArgument)
         {
             if (blockSyntax == null)
             {
@@ -42,7 +44,7 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
             _parameterName = parameterName;
         }
 
-        public ArgumentSyntax GetArgumentSyntax()
+        protected override ArgumentSyntax CreateArgumentSyntax()
         {
             SimpleLambdaExpressionSyntax expression = null;
 
