@@ -6,12 +6,13 @@ using Testura.Code.Statements;
 
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
-    public class InvocationArgument : IArgument
+    public class InvocationArgument : Argument
     {
         private readonly ExpressionSyntax _invocation;
         private readonly Type _castTo;
 
-        public InvocationArgument(ExpressionSyntax invocation, Type castTo = null)
+        public InvocationArgument(ExpressionSyntax invocation, Type castTo = null, string namedArgument = null)
+            : base(namedArgument)
         {
             if (invocation == null)
             {
@@ -22,7 +23,8 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
             _castTo = castTo ?? typeof(void);
         }
 
-        public InvocationArgument(VariableReference reference, Type castTo = null)
+        public InvocationArgument(VariableReference reference, Type castTo = null, string namedArgument = null)
+            : base(namedArgument)
         {
             if (reference == null)
             {
@@ -33,7 +35,7 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
             _castTo = castTo ?? typeof(void);
         }
 
-        public ArgumentSyntax GetArgumentSyntax()
+        protected override ArgumentSyntax CreateArgumentSyntax()
         {
             if (_castTo != typeof(void))
             {

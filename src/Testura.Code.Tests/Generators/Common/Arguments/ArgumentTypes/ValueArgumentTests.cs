@@ -18,6 +18,15 @@ namespace Testura.Code.Tests.Generators.Common.Arguments.ArgumentTypes
             Assert.AreEqual("1", syntax.ToString());
         }
 
+        public void GetArgumentSyntax_WhenUsingNumberValueAsNamedArgument_ShouldGetCode()
+        {
+            var argument = new ValueArgument(1, "namedArgument");
+            var syntax = argument.GetArgumentSyntax();
+
+            Assert.IsInstanceOf<ArgumentSyntax>(syntax);
+            Assert.AreEqual("namedArgument:1", syntax.ToString());
+        }
+
         [Test]
         public void GetArgumentSyntax_WhenUsingBooleanValue_ShouldGetCorrectFormat()
         {

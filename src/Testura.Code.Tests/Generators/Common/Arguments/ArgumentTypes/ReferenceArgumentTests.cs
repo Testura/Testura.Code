@@ -19,6 +19,16 @@ namespace Testura.Code.Tests.Generators.Common.Arguments.ArgumentTypes
         }
 
         [Test]
+        public void GetArgumentSyntax_WhenUsingVariableReferenceAsNamedArgument_ShouldGetCode()
+        {
+            var argument = new ReferenceArgument(new VariableReference("test"), "namedArgument");
+            var syntax = argument.GetArgumentSyntax();
+
+            Assert.IsInstanceOf<ArgumentSyntax>(syntax);
+            Assert.AreEqual("namedArgument:test", syntax.ToString());
+        }
+
+        [Test]
         public void GetArgumentSyntax_WhenUsingMethodReference_ShouldGetCode()
         {
             var argument = new ReferenceArgument(new MethodReference("test"));

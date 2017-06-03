@@ -20,6 +20,16 @@ namespace Testura.Code.Tests.Generators.Common.Arguments.ArgumentTypes
         }
 
         [Test]
+        public void GetArgumentSyntax_WhenInitializeClassAsNamedArgument_ShouldGetCorrectCode()
+        {
+            var argument = new ClassInitializationArgument(typeof(String), namedArgument: "namedArgument");
+            var syntax = argument.GetArgumentSyntax();
+
+            Assert.IsInstanceOf<ArgumentSyntax>(syntax);
+            Assert.AreEqual("namedArgument:newstring()", syntax.ToString());
+        }
+
+        [Test]
         public void GetArgumentSyntax_WhenInitializeClassWithArgument_ShouldGetCorrectCode()
         {
             var argument = new ClassInitializationArgument(typeof(String), new List<IArgument> { new ValueArgument(0)});

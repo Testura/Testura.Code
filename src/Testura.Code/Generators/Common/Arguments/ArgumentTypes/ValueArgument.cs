@@ -5,9 +5,10 @@ using Testura.Code.Extensions;
 
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
-    public class ValueArgument : IArgument
+    public class ValueArgument : Argument
     {
-        public ValueArgument(object value)
+        public ValueArgument(object value, string namedArgument = null)
+            : base(namedArgument)
         {
             if (value == null)
             {
@@ -23,7 +24,8 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
             StringType = StringType.Normal;
         }
 
-        public ValueArgument(string value, StringType stringType = StringType.Normal)
+        public ValueArgument(string value, StringType stringType = StringType.Normal, string namedArgument = null)
+            : base(namedArgument)
         {
             if (value == null)
             {
@@ -37,7 +39,7 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 
         public StringType StringType { get; }
 
-        public ArgumentSyntax GetArgumentSyntax()
+        protected override ArgumentSyntax CreateArgumentSyntax()
         {
             if (Value is bool)
             {

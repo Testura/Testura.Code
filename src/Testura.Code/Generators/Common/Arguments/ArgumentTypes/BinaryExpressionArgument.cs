@@ -5,11 +5,12 @@ using Testura.Code.Generators.Common.BinaryExpressions;
 
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
-    public class BinaryExpressionArgument : IArgument
+    public class BinaryExpressionArgument : Argument
     {
         private readonly IBinaryExpression _binaryExpression;
 
-        public BinaryExpressionArgument(IBinaryExpression binaryExpression)
+        public BinaryExpressionArgument(IBinaryExpression binaryExpression, string namedArgument = null)
+            : base(namedArgument)
         {
             if (binaryExpression == null)
             {
@@ -19,7 +20,7 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
             _binaryExpression = binaryExpression;
         }
 
-        public ArgumentSyntax GetArgumentSyntax()
+        protected override ArgumentSyntax CreateArgumentSyntax()
         {
             return SyntaxFactory.Argument(_binaryExpression.GetBinaryExpression());
         }

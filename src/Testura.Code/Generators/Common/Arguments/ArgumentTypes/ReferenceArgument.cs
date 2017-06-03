@@ -5,11 +5,12 @@ using Testura.Code.Models.References;
 
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
-    public class ReferenceArgument : IArgument
+    public class ReferenceArgument : Argument
     {
         private readonly VariableReference _reference;
 
-        public ReferenceArgument(VariableReference reference)
+        public ReferenceArgument(VariableReference reference, string namedArgument = null)
+            : base(namedArgument)
         {
             if (reference == null)
             {
@@ -19,7 +20,7 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
             _reference = reference;
         }
 
-        public ArgumentSyntax GetArgumentSyntax()
+        protected override ArgumentSyntax CreateArgumentSyntax()
         {
             return SyntaxFactory.Argument(ReferenceGenerator.Create(_reference));
         }

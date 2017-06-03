@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
-    public class ClassInitializationArgument : IArgument
+    public class ClassInitializationArgument : Argument
     {
         private readonly Type _type;
         private readonly IList<IArgument> _arguments;
@@ -15,7 +15,9 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
         public ClassInitializationArgument(
             Type type,
             IEnumerable<IArgument> arguments = null,
-            IEnumerable<Type> genericTypes = null)
+            IEnumerable<Type> genericTypes = null,
+            string namedArgument = null)
+            : base(namedArgument)
         {
             if (type == null)
             {
@@ -27,7 +29,7 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
             _genericTypes = genericTypes == null ? new List<Type>() : new List<Type>(genericTypes);
         }
 
-        public ArgumentSyntax GetArgumentSyntax()
+        protected override ArgumentSyntax CreateArgumentSyntax()
         {
             if (_genericTypes != null && _genericTypes.Any())
             {

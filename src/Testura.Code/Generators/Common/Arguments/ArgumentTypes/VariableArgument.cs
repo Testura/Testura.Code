@@ -4,9 +4,10 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
-    public class VariableArgument : IArgument
+    public class VariableArgument : Argument
     {
-        public VariableArgument(string name)
+        public VariableArgument(string name, string namedArgument = null)
+            : base(namedArgument)
         {
             if (name == null)
             {
@@ -18,7 +19,7 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 
         public string Name { get; set; }
 
-        public ArgumentSyntax GetArgumentSyntax()
+        protected override ArgumentSyntax CreateArgumentSyntax()
         {
             return SyntaxFactory.Argument(SyntaxFactory.IdentifierName(Name));
         }
