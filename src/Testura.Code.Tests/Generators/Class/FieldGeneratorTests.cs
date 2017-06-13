@@ -32,5 +32,11 @@ namespace Testura.Code.Tests.Generators.Class
         {
             Assert.AreEqual("publicintmyField;", FieldGenerator.Create(new Field("myField", typeof(int), new List<Modifiers>() { Modifiers.Public})).ToString());
         }
+
+        [Test]
+        public void Create_WhenCreatingFieldWithAttribute_ShouldGenerateCorrectCode()
+        {
+            Assert.AreEqual("[Test]intmyField;", FieldGenerator.Create(new Field("myField", typeof(int), attributes: new List<Attribute>() { new Attribute("Test") })).ToString());
+        }
     }
 }

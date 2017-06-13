@@ -22,9 +22,15 @@ namespace Testura.Code.Generators.Class
             }
 
             var fieldDeclaration = FieldDeclaration(VariableDeclaration(TypeGenerator.Create(field.Type), SeparatedList(new[] { VariableDeclarator(Identifier(field.Name)) })));
+
             if (field.Modifiers != null)
             {
                 fieldDeclaration = fieldDeclaration.WithModifiers(ModifierGenerator.Create(field.Modifiers.ToArray()));
+            }
+
+            if (field.Attributes != null)
+            {
+                fieldDeclaration = fieldDeclaration.WithAttributeLists(AttributeGenerator.Create(field.Attributes.ToArray()));
             }
 
             return fieldDeclaration;
