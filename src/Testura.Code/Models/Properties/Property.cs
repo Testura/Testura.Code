@@ -43,7 +43,7 @@ namespace Testura.Code.Models.Properties
         public IEnumerable<Modifiers> Modifiers { get; set; }
 
         /// <summary>
-        /// Gets or sets the attributes of a property
+        /// Gets or sets the attributes of the property
         /// </summary>
         public IEnumerable<Attribute> Attributes { get; set; }
     }

@@ -57,7 +57,8 @@ namespace Testura.Code.Generators.Common
 
             foreach (var argument in arguments)
             {
-                list.Add(SyntaxFactory.AttributeArgument(argument.GetArgumentSyntax().Expression));
+                var argumentSyntax = argument.GetArgumentSyntax();
+                list.Add(SyntaxFactory.AttributeArgument(argumentSyntax.Expression).WithNameColon(argumentSyntax.NameColon));
                 list.Add(SyntaxFactory.Token(SyntaxKind.CommaToken));
             }
 

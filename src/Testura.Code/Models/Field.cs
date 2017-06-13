@@ -8,7 +8,8 @@ namespace Testura.Code.Models
         public Field(
             string name,
             Type type,
-            IEnumerable<Modifiers> modifiers = null)
+            IEnumerable<Modifiers> modifiers = null,
+            IEnumerable<Attribute> attributes = null)
         {
             if (name == null)
             {
@@ -23,6 +24,7 @@ namespace Testura.Code.Models
             Name = name;
             Type = type;
             Modifiers = modifiers;
+            Attributes = attributes;
         }
 
         /// <summary>
@@ -39,5 +41,10 @@ namespace Testura.Code.Models
         /// Gets or sets the modifier(s) of the field
         /// </summary>
         public IEnumerable<Modifiers> Modifiers { get; set; }
+
+        /// <summary>
+        /// Gets or sets the attributes of the field
+        /// </summary>
+        public IEnumerable<Attribute> Attributes { get; }
     }
 }
