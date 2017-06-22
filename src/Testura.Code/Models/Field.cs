@@ -45,6 +45,6 @@ namespace Testura.Code.Models
         /// <summary>
         /// Gets or sets the attributes of the field
         /// </summary>
-        public IEnumerable<Attribute> Attributes { get; }
+        public IEnumerable<Attribute> Attributes { get; set; }
     }
 }

@@ -15,13 +15,12 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
                 throw new ArgumentNullException(nameof(value));
             }
 
-            if (!(value.IsNumeric() || value is bool))
+            if (!(value.IsNumeric() || value is bool || value is string))
             {
-                throw new ArgumentException($"{nameof(value)} must be a number, boolean or string.");
+                throw new ArgumentException($"{nameof(value)} must be a number or boolean");
             }
 
             Value = value;
-            StringType = StringType.Normal;
         }
 
         public ValueArgument(string value, StringType stringType = StringType.Normal, string namedArgument = null)
@@ -36,8 +35,7 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
         }
 
         public object Value { get; }
-
-        public StringType StringType { get; }
+    
 
         protected override ArgumentSyntax CreateArgumentSyntax()
         {
