@@ -36,6 +36,13 @@ namespace Testura.Code.Tests.Builders
         }
 
         [Test]
+        public void Build_WhenGivingParameterWithModifier_CodeShouldContainParamters()
+        {
+            var builder = new MethodBuilder("MyMethod");
+            Assert.IsTrue(builder.WithParameters(new Parameter("myParamter", typeof(int), ParameterModifiers.This)).Build().ToString().Contains("thisintmyParamter"));
+        }
+
+        [Test]
         public void Build_WhenGivingReturnType_CodeShouldContainReturn()
         {
             var builder = new MethodBuilder("MyMethod");

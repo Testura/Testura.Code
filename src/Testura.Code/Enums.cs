@@ -30,6 +30,14 @@
         Virtual
     }
 
+    public enum ParameterModifiers
+    {
+        None,
+        Out,
+        Ref,
+        This
+    }
+
     public enum PropertyTypes
     {
         Get,

@@ -3,6 +3,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Models;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Generators.Common
 {
@@ -26,22 +27,40 @@ namespace Testura.Code.Generators.Common
 
         internal static ParameterSyntax Create(Parameter parameter)
         {
-            return
-                SyntaxFactory.Parameter(SyntaxFactory.Identifier(parameter.Name))
-                    .WithType(TypeGenerator.Create(parameter.Type));
+            var parameterSyntax = Parameter(Identifier(parameter.Name)).WithType(TypeGenerator.Create(parameter.Type));
+
+            switch (parameter.Modifier)
+            {
+                case ParameterModifiers.Out:
+                    parameterSyntax = parameterSyntax.WithModifiers(TokenList(Token(SyntaxKind.OutKeyword)));
+                    break;
+                case ParameterModifiers.Ref:
+                    parameterSyntax = parameterSyntax.WithModifiers(TokenList(Token(SyntaxKind.RefKeyword)));
+                    break;
+                case ParameterModifiers.This:
+                    parameterSyntax = parameterSyntax.WithModifiers(TokenList(Token(SyntaxKind.ThisKeyword)));
+                    break;
+            }
+
+            return parameterSyntax;
         }
 
         internal static ParameterListSyntax ConvertParameterSyntaxToList(params ParameterSyntax[] parameters)
         {
+            if (parameters.Length == 0)
+            {
+                return ParameterList(SeparatedList<ParameterSyntax>(new SyntaxNodeOrToken[0]));
+            }
+
             var list = new List<SyntaxNodeOrToken>();
-            foreach (ParameterSyntax parameter in parameters)
+            foreach (var parameter in parameters)
             {
                 list.Add(parameter);
-                list.Add(SyntaxFactory.Token(SyntaxKind.CommaToken));
+                list.Add(Token(SyntaxKind.CommaToken));
             }
 
             list.RemoveAt(list.Count - 1);
-            return SyntaxFactory.ParameterList(SyntaxFactory.SeparatedList<ParameterSyntax>(list.ToArray()));
+            return ParameterList(SeparatedList<ParameterSyntax>(list.ToArray()));
         }
     }
 }
