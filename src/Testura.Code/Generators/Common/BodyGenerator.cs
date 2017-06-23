@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace Testura.Code.Generators.Common
 {
     /// <summary>
-    /// Provides the functionallity to generate body/block.
+    /// Provides the functionality to generate body/block.
     /// </summary>
     public static class BodyGenerator
     {

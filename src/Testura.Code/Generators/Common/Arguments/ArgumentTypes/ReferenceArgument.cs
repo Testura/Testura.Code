@@ -7,7 +7,7 @@ using Testura.Code.Models.References;
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
     /// <summary>
-    /// Provides the functionallity to generate reference arguments. Example of generated code: <c>(i.MyProperty)</c>
+    /// Provides the functionality to generate reference arguments. Example of generated code: <c>(i.MyProperty)</c>
     /// </summary>
     public class ReferenceArgument : Argument
     {

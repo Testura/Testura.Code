@@ -9,7 +9,7 @@ using Testura.Code.Models.References;
 namespace Testura.Code.Statements
 {
     /// <summary>
-    /// Provides the functionallity to generate expression statements.
+    /// Provides the functionality to generate expression statements.
     /// </summary>
     public class ExpressionStatement
     {

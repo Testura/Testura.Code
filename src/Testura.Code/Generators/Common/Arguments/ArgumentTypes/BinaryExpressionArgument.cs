@@ -7,7 +7,7 @@ using Testura.Code.Generators.Common.BinaryExpressions;
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
     /// <summary>
-    /// Provides the functionallity to generate binary expression argument. Example of generated code: <c>(1+2)</c>
+    /// Provides the functionality to generate binary expression argument. Example of generated code: <c>(1+2)</c>
     /// </summary>
     public class BinaryExpressionArgument : Argument
     {

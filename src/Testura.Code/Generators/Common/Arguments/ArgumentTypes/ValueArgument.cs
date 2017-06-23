@@ -7,7 +7,7 @@ using Testura.Code.Extensions;
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
     /// <summary>
-    /// Provides the functionallity to generate simple value arguments.
+    /// Provides the functionality to generate simple value arguments.
     /// </summary>
     public class ValueArgument : Argument
     {

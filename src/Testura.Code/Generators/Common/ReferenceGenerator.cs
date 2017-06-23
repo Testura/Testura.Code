@@ -8,7 +8,7 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 namespace Testura.Code.Generators.Common
 {
     /// <summary>
-    /// Provides the functionallity to generate references and reference chains. Example of generated code: "<c>test</c>", "<c>test.MyMethod()</c>".
+    /// Provides the functionality to generate references and reference chains. Example of generated code: "<c>test</c>", "<c>test.MyMethod()</c>".
     /// </summary>
     public class ReferenceGenerator
     {

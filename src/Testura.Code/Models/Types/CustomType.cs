@@ -3,7 +3,7 @@
 namespace Testura.Code.Models.Types
 {
     /// <summary>
-    /// Provides functionallity to create a custom type
+    /// Provides functionality to create a custom type
     /// </summary>
     public static class CustomType
     {

@@ -7,7 +7,7 @@ using Testura.Code.Models.References;
 namespace Testura.Code.Generators.Common.BinaryExpressions
 {
     /// <summary>
-    /// Provides the functionallity to generate a condtional binary expression. Example of generated code: <c>test()+test.MyProp</c>
+    /// Provides the functionality to generate a condtional binary expression. Example of generated code: <c>test()+test.MyProp</c>
     /// </summary>
     public class ConditionalBinaryExpression : IBinaryExpression
     {

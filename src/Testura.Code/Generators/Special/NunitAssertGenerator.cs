@@ -8,7 +8,7 @@ using Testura.Code.Statements;
 namespace Testura.Code.Generators.Special
 {
     /// <summary>
-    /// Provides the functionallity to generate Nunit asserts.
+    /// Provides the functionality to generate Nunit asserts.
     /// </summary>
     public static class NunitAssertGenerator
     {

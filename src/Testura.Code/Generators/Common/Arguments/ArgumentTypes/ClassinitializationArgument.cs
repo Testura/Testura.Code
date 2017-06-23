@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
     /// <summary>
-    /// Provides the functionallity to generate a class initialization argument. Example of generated code: <c>(new MyClass())</c>
+    /// Provides the functionality to generate a class initialization argument. Example of generated code: <c>(new MyClass())</c>
     /// </summary>
     public class ClassInitializationArgument : Argument
     {

@@ -9,7 +9,7 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 namespace Testura.Code.Generators.Class
 {
     /// <summary>
-    /// Provides the functionallity to generate properties.
+    /// Provides the functionality to generate properties.
     /// </summary>
     public static class PropertyGenerator
     {

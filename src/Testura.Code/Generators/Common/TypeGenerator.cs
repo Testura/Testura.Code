@@ -9,7 +9,7 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 namespace Testura.Code.Generators.Common
 {
     /// <summary>
-    /// Provides functionallity to generate predefined and custom types.
+    /// Provides functionality to generate predefined and custom types.
     /// </summary>
     public static class TypeGenerator
     {

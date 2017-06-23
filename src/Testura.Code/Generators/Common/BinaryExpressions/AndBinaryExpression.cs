@@ -6,7 +6,7 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 namespace Testura.Code.Generators.Common.BinaryExpressions
 {
     /// <summary>
-    /// Provides the functionallity to generate a binary expression with an and (<c>&amp;&amp;</c>).
+    /// Provides the functionality to generate a binary expression with an and (<c>&amp;&amp;</c>).
     /// </summary>
     public class AndBinaryExpression : IBinaryExpression
     {

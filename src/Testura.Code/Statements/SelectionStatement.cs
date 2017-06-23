@@ -8,7 +8,7 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 namespace Testura.Code.Statements
 {
     /// <summary>
-    /// Provides the functionallity to generate selection statements.
+    /// Provides the functionality to generate selection statements.
     /// </summary>
     public class SelectionStatement
     {

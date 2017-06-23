@@ -9,7 +9,7 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 namespace Testura.Code.Statements
 {
     /// <summary>
-    /// Provides the functionallity to generate different iteration statements (for, while, etc).
+    /// Provides the functionality to generate different iteration statements (for, while, etc).
     /// </summary>
     public class IterationStatement
     {

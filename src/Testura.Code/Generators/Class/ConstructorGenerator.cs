@@ -10,7 +10,7 @@ using Attribute = Testura.Code.Models.Attribute;
 namespace Testura.Code.Generators.Class
 {
     /// <summary>
-    /// Provides functionallity to generate class constructors
+    /// Provides functionality to generate class constructors
     /// </summary>
     public static class ConstructorGenerator
     {

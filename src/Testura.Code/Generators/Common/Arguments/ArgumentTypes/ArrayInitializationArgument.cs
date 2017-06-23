@@ -10,7 +10,7 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
     /// <summary>
-    /// Provices the functionallity to generate a array initialization argument. Example of generated code:
+    /// Provices the functionality to generate a array initialization argument. Example of generated code:
     /// <c>(new int[] { 1, 2, test.MyInt })</c>
     /// </summary>
     public class ArrayInitializationArgument : Argument

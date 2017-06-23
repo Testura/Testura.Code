@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
     /// <summary>
-    /// Provides the functionallity to generate a <c>typeOf(..)</c> argument
+    /// Provides the functionality to generate a <c>typeOf(..)</c> argument
     /// </summary>
     public class TypeOfArgument : Argument
     {

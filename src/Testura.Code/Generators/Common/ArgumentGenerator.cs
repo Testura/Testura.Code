@@ -8,7 +8,7 @@ using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
 namespace Testura.Code.Generators.Common
 {
     /// <summary>
-    /// Provices functionallity to generate argument lists.
+    /// Provices functionality to generate argument lists.
     /// </summary>
     public static class ArgumentGenerator
     {

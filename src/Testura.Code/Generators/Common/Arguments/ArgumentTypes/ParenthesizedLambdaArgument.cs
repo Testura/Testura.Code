@@ -9,7 +9,7 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
     /// <summary>
-    /// Provides the functionallity to generate parenthesized lambda arguments. Example of generated code: <c>(() => Do()</c>
+    /// Provides the functionality to generate parenthesized lambda arguments. Example of generated code: <c>(() => Do()</c>
     /// </summary>
     public class ParenthesizedLambdaArgument : Argument
     {

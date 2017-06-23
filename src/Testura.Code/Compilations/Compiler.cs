@@ -11,7 +11,7 @@ using Microsoft.CodeAnalysis.Text;
 namespace Testura.Code.Compilations
 {
     /// <summary>
-    /// Provides functionallity to compile in memory or to file.
+    /// Provides functionality to compile in memory or to file.
     /// </summary>
     public class Compiler : ICompiler
     {

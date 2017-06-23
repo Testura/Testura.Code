@@ -8,7 +8,7 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 namespace Testura.Code.Generators.Class
 {
     /// <summary>
-    /// Provides the functionallity to generate fields.
+    /// Provides the functionality to generate fields.
     /// </summary>
     public static class FieldGenerator
     {

@@ -9,7 +9,7 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
     /// <summary>
-    /// Provides the functionallity to generate dictionary initialization argument. Example of generated code: <c>new Dictionary&lt;int,int>{ [1] = 2}</c>
+    /// Provides the functionality to generate dictionary initialization argument. Example of generated code: <c>new Dictionary&lt;int,int>{ [1] = 2}</c>
     /// </summary>
     /// <typeparam name="TKey">The dictionary key type</typeparam>
     /// <typeparam name="TValue">The dictionary value type</typeparam>

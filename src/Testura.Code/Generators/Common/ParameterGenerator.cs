@@ -8,7 +8,7 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 namespace Testura.Code.Generators.Common
 {
     /// <summary>
-    /// Provides the functionallity to generate parameter lists.
+    /// Provides the functionality to generate parameter lists.
     /// </summary>
     public static class ParameterGenerator
     {

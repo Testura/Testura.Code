@@ -8,7 +8,7 @@ using Testura.Code.Statements;
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
     /// <summary>
-    /// Provides the functionallity to generate invocation arguments. Example of generated code: <c>(Do())</c>
+    /// Provides the functionality to generate invocation arguments. Example of generated code: <c>(Do())</c>
     /// </summary>
     public class InvocationArgument : Argument
     {

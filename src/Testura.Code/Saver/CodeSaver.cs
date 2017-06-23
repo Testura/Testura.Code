@@ -10,7 +10,7 @@ using Formatter = Microsoft.CodeAnalysis.Formatting.Formatter;
 namespace Testura.Code.Saver
 {
     /// <summary>
-    /// Provides the functionallity to save code to file or string.
+    /// Provides the functionality to save code to file or string.
     /// </summary>
     public class CodeSaver : ICodeSaver
     {

@@ -10,7 +10,7 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 namespace Testura.Code.Statements
 {
     /// <summary>
-    /// Provides the functionallity to generate declaration statements.
+    /// Provides the functionality to generate declaration statements.
     /// </summary>
     public class DeclarationStatement
     {

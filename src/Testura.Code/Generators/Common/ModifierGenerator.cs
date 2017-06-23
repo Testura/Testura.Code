@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp;
 namespace Testura.Code.Generators.Common
 {
     /// <summary>
-    /// Provivdes the functionallity to generate modifiers (public, protected, etc).
+    /// Provivdes the functionality to generate modifiers (public, protected, etc).
     /// </summary>
     public static class ModifierGenerator
     {

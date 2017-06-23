@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
     /// <summary>
-    /// Provides the functionallity to generate variable argument. Example of generated code: <c>(myVariable)</c>
+    /// Provides the functionality to generate variable argument. Example of generated code: <c>(myVariable)</c>
     /// </summary>
     public class VariableArgument : Argument
     {

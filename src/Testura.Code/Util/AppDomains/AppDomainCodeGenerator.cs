@@ -9,7 +9,7 @@ using Testura.Code.Util.AppDomains.Proxies;
 namespace Testura.Code.Util.AppDomains
 {
     /// <summary>
-    /// Provides the functionallity to generate code in a different app domain.
+    /// Provides the functionality to generate code in a different app domain.
     /// </summary>
     public class AppDomainCodeGenerator
     {

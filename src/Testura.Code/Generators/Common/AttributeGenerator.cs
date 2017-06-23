@@ -9,7 +9,7 @@ using Testura.Code.Models;
 namespace Testura.Code.Generators.Common
 {
     /// <summary>
-    /// Provides the functionallity to generate attributes.
+    /// Provides the functionality to generate attributes.
     /// </summary>
     public static class AttributeGenerator
     {

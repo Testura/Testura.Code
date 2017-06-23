@@ -7,7 +7,7 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 namespace Testura.Code.Generators.Common.BinaryExpressions
 {
     /// <summary>
-    /// Provides the functionallity to generate binary expressions with math operators
+    /// Provides the functionality to generate binary expressions with math operators
     /// </summary>
     public class MathBinaryExpression : IBinaryExpression
     {
