@@ -114,6 +114,7 @@
     <Compile Include="Generators\Common\BinaryExpressions\MathBinaryExpressionTests.cs" />
     <Compile Include="Generators\Common\BinaryExpressions\OrBinaryExpressionTest.cs" />
     <Compile Include="Generators\Common\ModifierGeneratorTests.cs" />
+    <Compile Include="Generators\Common\ParameterGeneratorTests.cs" />
     <Compile Include="Generators\Common\TypeGeneratorTests.cs" />
     <Compile Include="Generators\Special\NunitAssertGeneratorTests.cs" />
     <Compile Include="Integration\ModelClassTests.cs" />

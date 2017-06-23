@@ -12,6 +12,9 @@ using Attribute = Testura.Code.Models.Attribute;
 
 namespace Testura.Code.Builders
 {
+    /// <summary>
+    /// Provides a builder to generate a class
+    /// </summary>
     public class ClassBuilder
     {
         private readonly string _name;
@@ -26,6 +29,11 @@ namespace Testura.Code.Builders
 
         private SyntaxList<AttributeListSyntax> _attributes;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClassBuilder"/> class.
+        /// </summary>
+        /// <param name="name">Name of the class.</param>
+        /// <param name="namespace">Name of the class namespace.</param>
         public ClassBuilder(string name, string @namespace)
         {
             if (string.IsNullOrEmpty(name))
@@ -48,6 +56,11 @@ namespace Testura.Code.Builders
             _usings = new List<string>();
         }
 
+        /// <summary>
+        /// Set the using directives.
+        /// </summary>
+        /// <param name="usings">A set of wanted using directive names.</param>
+        /// <returns>The current class builder</returns>
         public ClassBuilder WithUsings(params string[] usings)
         {
             _usings.Clear();
@@ -55,6 +68,11 @@ namespace Testura.Code.Builders
             return this;
         }
 
+        /// <summary>
+        /// Set class modifiers
+        /// </summary>
+        /// <param name="modifier">A set of wanted modifiers.</param>
+        /// <returns>The current class builder</returns>
         public ClassBuilder WithModifiers(params Modifiers[] modifier)
         {
             _modifiers.Clear();
@@ -62,6 +80,11 @@ namespace Testura.Code.Builders
             return this;
         }
 
+        /// <summary>
+        /// Set type(s) that the generated class should inherit from.
+        /// </summary>
+        /// <param name="types">A set of types to inherit from.</param>
+        /// <returns>The current class builder</returns>
         public ClassBuilder ThatInheritFrom(params Type[] types)
         {
             _inheritance.Clear();
@@ -69,18 +92,33 @@ namespace Testura.Code.Builders
             return this;
         }
 
+        /// <summary>
+        /// Set class attributes.
+        /// </summary>
+        /// <param name="attributes">A set of wanted attributes.</param>
+        /// <returns>The current class builder</returns>
         public ClassBuilder WithAttributes(params Attribute[] attributes)
         {
             _attributes = AttributeGenerator.Create(attributes);
             return this;
         }
 
+        /// <summary>
+        /// Set class attributes.
+        /// </summary>
+        /// <param name="attributes">A syntax list of already generated attributes.</param>
+        /// <returns>The current class builder</returns>
         public ClassBuilder WithAttributes(SyntaxList<AttributeListSyntax> attributes)
         {
             _attributes = attributes;
             return this;
         }
 
+        /// <summary>
+        /// Set class fields.
+        /// </summary>
+        /// <param name="fields">A set of wanted fields.</param>
+        /// <returns>The current class builder</returns>
         public ClassBuilder WithFields(params Field[] fields)
         {
             _fields.Clear();
@@ -92,6 +130,11 @@ namespace Testura.Code.Builders
             return this;
         }
 
+        /// <summary>
+        /// Set class fields.
+        /// </summary>
+        /// <param name="fields">An array of already declared fields.</param>
+        /// <returns>The current class builder</returns>
         public ClassBuilder WithFields(params FieldDeclarationSyntax[] fields)
         {
             _fields.Clear();
@@ -99,12 +142,22 @@ namespace Testura.Code.Builders
             return this;
         }
 
+        /// <summary>
+        /// Set class constructor.
+        /// </summary>
+        /// <param name="constructor">An already generated constructor.</param>
+        /// <returns>The current class builder</returns>
         public ClassBuilder WithConstructor(ConstructorDeclarationSyntax constructor)
         {
             _constructor = constructor;
             return this;
         }
 
+        /// <summary>
+        /// Set class methods.
+        /// </summary>
+        /// <param name="methods">A set of already generated methods</param>
+        /// <returns>The current class builder</returns>
         public ClassBuilder WithMethods(params MethodDeclarationSyntax[] methods)
         {
             _methods.Clear();
@@ -112,6 +165,11 @@ namespace Testura.Code.Builders
             return this;
         }
 
+        /// <summary>
+        /// Set class properties.
+        /// </summary>
+        /// <param name="properties">A set of wanted properties.</param>
+        /// <returns>The current class builder</returns>
         public ClassBuilder WithProperties(params Property[] properties)
         {
             _properties.Clear();
@@ -123,6 +181,11 @@ namespace Testura.Code.Builders
             return this;
         }
 
+        /// <summary>
+        /// A class properties.
+        /// </summary>
+        /// <param name="properties">A sete of already generated properties</param>
+        /// <returns>The current class builder</returns>
         public ClassBuilder WithProperties(params PropertyDeclarationSyntax[] properties)
         {
             _properties.Clear();
@@ -130,6 +193,10 @@ namespace Testura.Code.Builders
             return this;
         }
 
+        /// <summary>
+        /// Build the class and return the generated code.
+        /// </summary>
+        /// <returns>The generated class.</returns>
         public CompilationUnitSyntax Build()
         {
             var members = default(SyntaxList<MemberDeclarationSyntax>);

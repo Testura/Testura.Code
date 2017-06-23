@@ -5,14 +5,25 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+#pragma warning disable 1591
 
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
+    /// <summary>
+    /// Provices the functionality to generate a array initialization argument. Example of generated code:
+    /// <c>(new int[] { 1, 2, test.MyInt })</c>
+    /// </summary>
     public class ArrayInitializationArgument : Argument
     {
         private readonly Type _type;
         private readonly IList<IArgument> _arguments;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ArrayInitializationArgument"/> class.
+        /// </summary>
+        /// <param name="type">Base type of the array.</param>
+        /// <param name="arguments">Values or references used in the array initialization.</param>
+        /// <param name="namedArgument">Specificy the argument for a partical parameter.</param>
         public ArrayInitializationArgument(Type type, IEnumerable<IArgument> arguments, string namedArgument = null)
             : base(namedArgument)
         {

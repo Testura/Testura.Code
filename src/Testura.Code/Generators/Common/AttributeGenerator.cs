@@ -8,13 +8,16 @@ using Testura.Code.Models;
 
 namespace Testura.Code.Generators.Common
 {
+    /// <summary>
+    /// Provides the functionality to generate attributes.
+    /// </summary>
     public static class AttributeGenerator
     {
         /// <summary>
-        /// Create the syntax for an attribute
+        /// Create the syntax for an attribute.
         /// </summary>
-        /// <param name="attributes">Attribute(s) to create</param>
-        /// <returns>The declared syntax list</returns>
+        /// <param name="attributes">Attribute(s) to create.</param>
+        /// <returns>The declared syntax list.</returns>
         public static SyntaxList<AttributeListSyntax> Create(params Attribute[] attributes)
         {
             var attributesSyntax = new AttributeListSyntax[attributes.Length];

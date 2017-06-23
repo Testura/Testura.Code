@@ -6,12 +6,21 @@ using Testura.Code.Models.References;
 
 namespace Testura.Code.Generators.Common.BinaryExpressions
 {
+    /// <summary>
+    /// Provides the functionality to generate a condtional binary expression. Example of generated code: <c>test()+test.MyProp</c>
+    /// </summary>
     public class ConditionalBinaryExpression : IBinaryExpression
     {
         private readonly ExpressionSyntax _leftExpression;
         private readonly ExpressionSyntax _rightExpression;
         private readonly ConditionalStatements _conditional;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConditionalBinaryExpression"/> class.
+        /// </summary>
+        /// <param name="leftExpression">The left expression.</param>
+        /// <param name="rigthExpression">The right expression.</param>
+        /// <param name="conditional">The conditional statement between two expressions.</param>
         public ConditionalBinaryExpression(
             ExpressionSyntax leftExpression,
             ExpressionSyntax rigthExpression,
@@ -32,6 +41,12 @@ namespace Testura.Code.Generators.Common.BinaryExpressions
             _conditional = conditional;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConditionalBinaryExpression"/> class.
+        /// </summary>
+        /// <param name="leftReference">The left reference.</param>
+        /// <param name="rightReference">The right reference.</param>
+        /// <param name="conditional">The conditional statement between two expressions.</param>
         public ConditionalBinaryExpression(
             VariableReference leftReference,
             VariableReference rightReference,
@@ -52,6 +67,10 @@ namespace Testura.Code.Generators.Common.BinaryExpressions
             _conditional = conditional;
         }
 
+        /// <summary>
+        /// Get the generated binary expression.
+        /// </summary>
+        /// <returns>The generated binary expression.</returns>
         public ExpressionSyntax GetBinaryExpression()
         {
             return SyntaxFactory.BinaryExpression(ConditionalFactory.GetSyntaxKind(_conditional), _leftExpression, _rightExpression);

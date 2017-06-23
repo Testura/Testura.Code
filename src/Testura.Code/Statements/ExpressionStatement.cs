@@ -8,16 +8,19 @@ using Testura.Code.Models.References;
 
 namespace Testura.Code.Statements
 {
+    /// <summary>
+    /// Provides the functionality to generate expression statements.
+    /// </summary>
     public class ExpressionStatement
     {
         /// <summary>
-        /// Create the expression statement syntax to invoke a method on variable
+        /// Create the expression statement syntax to invoke a method on variable.
         /// </summary>
-        /// <param name="variableName">The variable name</param>
-        /// <param name="methodName">The method we want to call</param>
-        /// <param name="arguments">Arguments that we end to the method</param>
-        /// <param name="generics">Optional list of types if the method is generic</param>
-        /// <returns>A invocation object with both statement and expression</returns>
+        /// <param name="variableName">The variable name.</param>
+        /// <param name="methodName">The method we want to call.</param>
+        /// <param name="arguments">Arguments that we end to the method.</param>
+        /// <param name="generics">Optional list of types if the method is generic.</param>
+        /// <returns>A invocation object with both statement and expression.</returns>
         public Invocation Invoke(string variableName, string methodName, IEnumerable<IArgument> arguments = null, IEnumerable<Type> generics = null)
         {
             if (string.IsNullOrEmpty(variableName))
@@ -34,12 +37,12 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create the expression statement syntax to invoke a method
+        /// Create the expression statement syntax to invoke a method.
         /// </summary>
-        /// <param name="methodName">The method we want to call</param>
-        /// <param name="arguments">Arguments that we end to the method</param>
-        /// <param name="generics">Optional list of types if the method is generic</param>
-        /// <returns>A invocation object with both statement and expression</returns>
+        /// <param name="methodName">The method we want to call.</param>
+        /// <param name="arguments">Arguments that we end to the method.</param>
+        /// <param name="generics">Optional list of types if the method is generic.</param>
+        /// <returns>A invocation object with both statement and expression.</returns>
         public Invocation Invoke(string methodName, IEnumerable<IArgument> arguments = null, IEnumerable<Type> generics = null)
         {
             if (string.IsNullOrEmpty(methodName))
@@ -51,10 +54,10 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create the expression statement syntax to invoke a method in a chain (for example myVariable.myProperty.MyMethod())
+        /// Create the expression statement syntax to invoke a method in a chain (for example <c>myVariable.myProperty.MyMethod()</c>)
         /// </summary>
-        /// <param name="reference">The reference chain</param>
-        /// <returns>A invocation object with both statement and expression</returns>
+        /// <param name="reference">The reference chain.</param>
+        /// <returns>A invocation object with both statement and expression.</returns>
         public Invocation Invoke(VariableReference reference)
         {
             if (reference == null)

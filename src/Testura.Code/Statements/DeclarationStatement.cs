@@ -9,16 +9,19 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Statements
 {
+    /// <summary>
+    /// Provides the functionality to generate declaration statements.
+    /// </summary>
     public class DeclarationStatement
     {
         /// <summary>
-        /// Create the local declaration statement syntax to declare a variable and assign it a value
+        /// Create the local declaration statement syntax to declare a variable and assign it a value.
         /// </summary>
-        /// <typeparam name="T">The type of the variable</typeparam>
-        /// <param name="name">Name of variable</param>
-        /// <param name="value">Value to assign variable</param>
-        /// <param name="useVarKeyword">Will use "var" keyword if true, otherwise the type</param>
-        /// <returns>The generated local declaration statement</returns>
+        /// <typeparam name="T">The type of the variable.</typeparam>
+        /// <param name="name">Name of variable.</param>
+        /// <param name="value">Value to assign variable.</param>
+        /// <param name="useVarKeyword">Will use "var" keyword if true, otherwise the type.</param>
+        /// <returns>The generated local declaration statement.</returns>
         public LocalDeclarationStatementSyntax DeclareAndAssign<T>(string name, T value, bool useVarKeyword = true)
             where T : struct
         {
@@ -33,12 +36,12 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create the local declaration statement syntax to declare a local variable and assign it a string value
+        /// Create the local declaration statement syntax to declare a local variable and assign it a string value.
         /// </summary>
-        /// <param name="name">Name of variable</param>
-        /// <param name="value">Value to assign variable</param>
-        /// <param name="useVarKeyword">Will use "var" keyword if true, otherwise the type</param>
-        /// <returns>The generated local declaration statement</returns>
+        /// <param name="name">Name of variable.</param>
+        /// <param name="value">Value to assign variable.</param>
+        /// <param name="useVarKeyword">Will use "var" keyword if true, otherwise the type.</param>
+        /// <returns>The generated local declaration statement.</returns>
         public LocalDeclarationStatementSyntax DeclareAndAssign(string name, string value, bool useVarKeyword = true)
         {
             if (name == null)
@@ -57,13 +60,13 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create a local declaration statement which declare a local variable and assign it a complex reference
+        /// Create a local declaration statement which declare a local variable and assign it a complex reference.
         /// </summary>
-        /// <param name="name">Name of variable</param>
-        /// <param name="type">Type of the variable</param>
-        /// <param name="reference">Value of the variable</param>
-        /// <param name="useVarKeyword">Will use "var" keyword if true, otherwise the type</param>
-        /// <returns>The generated local declaration statement</returns>
+        /// <param name="name">Name of variable.</param>
+        /// <param name="type">Type of the variable.</param>
+        /// <param name="reference">Value of the variable.</param>
+        /// <param name="useVarKeyword">Will use "var" keyword if true, otherwise the type.</param>
+        /// <returns>The generated local declaration statement.</returns>
         public LocalDeclarationStatementSyntax DeclareAndAssign(string name, Type type, VariableReference reference, bool useVarKeyword = true)
         {
             if (string.IsNullOrEmpty(name))
@@ -87,13 +90,13 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create the local declaration statement syntax to declare a local variable and assign it a new class instance
+        /// Create the local declaration statement syntax to declare a local variable and assign it a new class instance.
         /// </summary>
-        /// <param name="name">Name of variable</param>
-        /// <param name="type">Type of the variable</param>
-        /// <param name="arguments">Arguments to use when creating the variable</param>
-        /// <param name="useVarKeyword">Will use "var" keyword if true, otherwise the type</param>
-        /// <returns>The generated local declaration statement</returns>
+        /// <param name="name">Name of variable.</param>
+        /// <param name="type">Type of the variable.</param>
+        /// <param name="arguments">Arguments to use when creating the variable.</param>
+        /// <param name="useVarKeyword">Will use "var" keyword if true, otherwise the type.</param>
+        /// <returns>The generated local declaration statement.</returns>
         public LocalDeclarationStatementSyntax DeclareAndAssign(string name, Type type, ArgumentListSyntax arguments, bool useVarKeyword = true)
         {
             if (string.IsNullOrEmpty(name))
@@ -115,14 +118,14 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create the local declaration statement syntax to declare a local variable and assign it an already created expression
+        /// Create the local declaration statement syntax to declare a local variable and assign it an already created expression.
         /// </summary>
-        /// <param name="name">Name of the variable</param>
-        /// <param name="type">Type of the variable </param>
-        /// <param name="expressionSyntax">An already created expression to assign to the variable</param>
-        /// <param name="castTo">Cast the expression to this type</param>
-        /// <param name="useVarKeyword">Will use "var" keyword if true, otherwise the type</param>
-        /// <returns>The generated local declaration statement</returns>
+        /// <param name="name">Name of the variable.</param>
+        /// <param name="type">Type of the variable.</param>
+        /// <param name="expressionSyntax">An already created expression to assign to the variable.</param>
+        /// <param name="castTo">Cast the expression to this type.</param>
+        /// <param name="useVarKeyword">Will use "var" keyword if true, otherwise the type.</param>
+        /// <returns>The generated local declaration statement.</returns>
         public LocalDeclarationStatementSyntax DeclareAndAssign(string name, Type type, ExpressionSyntax expressionSyntax, Type castTo = null, bool useVarKeyword = true)
         {
             if (string.IsNullOrEmpty(name))
@@ -151,13 +154,13 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create the local declaration statement syntax to declare a local variable and assign it to a binary expression
+        /// Create the local declaration statement syntax to declare a local variable and assign it to a binary expression.
         /// </summary>
-        /// <param name="name">Name of the variable</param>
-        /// <param name="type">Type of the variable </param>
-        /// <param name="binaryExpression">The binary expression</param>
-        /// <param name="useVarKeyword">Will use "var" keyword if true, otherwise the type</param>
-        /// <returns>The generated local declaration statement</returns>
+        /// <param name="name">Name of the variable.</param>
+        /// <param name="type">Type of the variable.</param>
+        /// <param name="binaryExpression">The binary expression.</param>
+        /// <param name="useVarKeyword">Will use "var" keyword if true, otherwise the type.</param>
+        /// <returns>The generated local declaration statement.</returns>
         public LocalDeclarationStatementSyntax DeclareAndAssign(string name, Type type, IBinaryExpression binaryExpression, bool useVarKeyword = true)
         {
             if (string.IsNullOrEmpty(name))
@@ -181,12 +184,12 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create the expression statement syntax to assign a variable a new instance with the "new" keyword
+        /// Create the expression statement syntax to assign a variable a new instance with the "new" keyword.
         /// </summary>
-        /// <param name="name">Name of the variable</param>
-        /// <param name="type">Type of the variable</param>
-        /// <param name="arguments">Arguments in the class constructor</param>
-        /// <returns>The generated assign declaration statement</returns>
+        /// <param name="name">Name of the variable.</param>
+        /// <param name="type">Type of the variable.</param>
+        /// <param name="arguments">Arguments in the class constructor.</param>
+        /// <returns>The generated assign declaration statement.</returns>
         public ExpressionStatementSyntax Assign(string name, Type type, ArgumentListSyntax arguments)
         {
             if (string.IsNullOrEmpty(name))
@@ -207,12 +210,12 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create the expression statement syntax to assign a variable to another expression
+        /// Create the expression statement syntax to assign a variable to another expression.
         /// </summary>
-        /// <param name="name">Name of variable</param>
-        /// <param name="expressionSyntax">The expression syntax </param>
-        /// <param name="castTo">If we should do a cast while assign the variable</param>
-        /// <returns>The generated assign declaration syntax</returns>
+        /// <param name="name">Name of variable.</param>
+        /// <param name="expressionSyntax">The expression syntax.</param>
+        /// <param name="castTo">If we should do a cast while assign the variable.</param>
+        /// <returns>The generated assign declaration syntax.</returns>
         public ExpressionStatementSyntax Assign(string name, ExpressionSyntax expressionSyntax, Type castTo = null)
         {
             if (string.IsNullOrEmpty(name))
@@ -229,12 +232,12 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create the expression statement syntax to assign a variable to another reference
+        /// Create the expression statement syntax to assign a variable to another reference.
         /// </summary>
-        /// <param name="name">Name of variable</param>
-        /// <param name="reference">Reference value to assign to the variable</param>
-        /// <param name="castTo">If we should do a cast while assign the variable</param>
-        /// <returns>The generated assign declaration syntax</returns>
+        /// <param name="name">Name of variable.</param>
+        /// <param name="reference">Reference value to assign to the variable.</param>
+        /// <param name="castTo">If we should do a cast while assign the variable.</param>
+        /// <returns>The generated assign declaration syntax.</returns>
         public ExpressionStatementSyntax Assign(string name, VariableReference reference, Type castTo = null)
         {
             if (string.IsNullOrEmpty(name))
@@ -251,12 +254,12 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create the expression statement syntax to assign a reference to another reference. For example a property to a property
+        /// Create the expression statement syntax to assign a reference to another reference. For example a property to a property.
         /// </summary>
-        /// <param name="reference">Reference that should be assigned</param>
-        /// <param name="valueReference">Reference that we should assign to another reference</param>
-        /// <param name="castTo">If we should do a cast while assign the variable</param>
-        /// <returns>The generated assign declaration syntax</returns>
+        /// <param name="reference">Reference that should be assigned.</param>
+        /// <param name="valueReference">Reference that we should assign to another reference.</param>
+        /// <param name="castTo">If we should do a cast while assign the variabl.</param>
+        /// <returns>The generated assign declaration syntax.</returns>
         public ExpressionStatementSyntax Assign(VariableReference reference, VariableReference valueReference, Type castTo = null)
         {
             if (reference == null)
@@ -278,12 +281,12 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create the expression statement syntax to assign a reference to another expression
+        /// Create the expression statement syntax to assign a reference to another expression.
         /// </summary>
-        /// <param name="reference">Reference that should be assigned</param>
-        /// <param name="expressionSyntax">Expression that we should assign to reference</param>
-        /// <param name="castTo">If we should do a cast while assign the variable</param>
-        /// <returns>The generated assign declaration syntax<</returns>
+        /// <param name="reference">Reference that should be assigned.</param>
+        /// <param name="expressionSyntax">Expression that we should assign to reference.</param>
+        /// <param name="castTo">If we should do a cast while assign the variable.</param>
+        /// <returns>The generated assign declaration syntax.</returns>
         public ExpressionStatementSyntax Assign(VariableReference reference, ExpressionSyntax expressionSyntax, Type castTo = null)
         {
             if (reference == null)
@@ -310,11 +313,11 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create the expression statement syntax to assign a reference to a binary expression
+        /// Create the expression statement syntax to assign a reference to a binary expression.
         /// </summary>
-        /// <param name="reference">Reference that should be assigned</param>
-        /// <param name="binaryExpression">The binary expression</param>
-        /// <returns>The generated assign declaration syntax<</returns>
+        /// <param name="reference">Reference that should be assigned.</param>
+        /// <param name="binaryExpression">The binary expression.</param>
+        /// <returns>The generated assign declaration syntax.</returns>
         public ExpressionStatementSyntax Assign(VariableReference reference, IBinaryExpression binaryExpression)
         {
             if (reference == null)
@@ -336,11 +339,11 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create the expression statement syntax to declare a local variable
+        /// Create the expression statement syntax to declare a local variable.
         /// </summary>
-        /// <param name="variableName">Name of the variable</param>
-        /// <param name="type">Type of the variable</param>
-        /// <returns>The declared expression statement syntax</returns>
+        /// <param name="variableName">Name of the variable.</param>
+        /// <param name="type">Type of the variable.</param>
+        /// <returns>The declared expression statement syntax.</returns>
         public LocalDeclarationStatementSyntax Declare(string variableName, Type type)
         {
             if (type == null)

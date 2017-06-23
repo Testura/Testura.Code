@@ -7,72 +7,75 @@ using Testura.Code.Statements;
 
 namespace Testura.Code.Generators.Special
 {
+    /// <summary>
+    /// Provides the functionality to generate Nunit asserts.
+    /// </summary>
     public static class NunitAssertGenerator
     {
         /// <summary>
-        /// Create a NUnit AreEqual assert
+        /// Create a NUnit AreEqual assert.
         /// </summary>
-        /// <param name="expected">The expected argument</param>
-        /// <param name="actual">The actual argument</param>
-        /// <param name="message">Message if test fails</param>
-        /// <returns>The declared expression statement syntax for Assert.AreEqual</returns>
+        /// <param name="expected">The expected argument.</param>
+        /// <param name="actual">The actual argument.</param>
+        /// <param name="message">Message if test fails.</param>
+        /// <returns>The declared expression statement syntax for <c>Assert.AreEqual</c>.</returns>
         public static ExpressionStatementSyntax AreEqual(IArgument expected, IArgument actual, string message = null)
         {
             return Are(AssertType.AreEqual, expected, actual, message);
         }
 
         /// <summary>
-        /// Create a NUnit AreNotEqual assert
+        /// Create a NUnit AreNotEqual assert.
         /// </summary>
-        /// <param name="expected">The expected argument</param>
-        /// <param name="actual">The actual argument</param>
-        /// <param name="message">Message if test fails</param>
-        /// <returns>The declared expression statement syntax for Assert.AreNotEqual</returns>
+        /// <param name="expected">The expected argument.</param>
+        /// <param name="actual">The actual argument.</param>
+        /// <param name="message">Message if test fails.</param>
+        /// <returns>The declared expression statement syntax for  <c>Assert.AreNotEqual</c>.</returns>
         public static ExpressionStatementSyntax AreNotEqual(IArgument expected, IArgument actual, string message = null)
         {
             return Are(AssertType.AreNotEqual, expected, actual, message);
         }
 
         /// <summary>
-        /// Create a NUnit AreSame assert
+        /// Create a NUnit AreSame assert.
         /// </summary>
-        /// <param name="expected">The expected argument</param>
-        /// <param name="actual">The actual argument</param>
-        /// <param name="message">Message if test fails</param>
-        /// <returns>The declared expression statement syntax for Assert.AreSame</returns>
+        /// <param name="expected">The expected argument.</param>
+        /// <param name="actual">The actual argument.</param>
+        /// <param name="message">Message if test fails.</param>
+        /// <returns>The declared expression statement syntax for <c>Assert.AreSame</c>.</returns>
         public static ExpressionStatementSyntax AreSame(IArgument expected, IArgument actual, string message)
         {
             return Are(AssertType.AreSame, expected, actual, message);
         }
 
         /// <summary>
-        /// Create a NUnit AreNotSame assert
+        /// Create a NUnit AreNotSame assert.
         /// </summary>
-        /// <param name="expected">The expected argument</param>
-        /// <param name="actual">The actual argument</param>
-        /// <param name="message">Message if test fails</param>
-        /// <returns>The declared expression statement syntax for Assert.AreNotSame</returns>
+        /// <param name="expected">The expected argument.</param>
+        /// <param name="actual">The actual argument.</param>
+        /// <param name="message">Message if test fails.</param>
+        /// <returns>The declared expression statement syntax for <c>Assert.AreNotSame</c>.</returns>
         public static ExpressionStatementSyntax AreNotSame(IArgument expected, IArgument actual, string message = null)
         {
             return Are(AssertType.AreNotSame, expected, actual, message);
         }
 
         /// <summary>
-        /// Create a NUnit IsTrue assert
+        /// Create a NUnit IsTrue assert.
         /// </summary>
-        /// <param name="actual">The actual argument</param>
-        /// <param name="message">Message if test fails</param>
-        /// <returns>The declared expression statement syntax for Assert.IsTrue</returns>
+        /// <param name="actual">The actual argument.</param>
+        /// <param name="message">Message if test fails.</param>
+        /// <returns>The declared expression statement syntax for <c>Assert.IsTrue</c>.</returns>
         public static ExpressionStatementSyntax IsTrue(IArgument actual, string message = null)
         {
             return Is(true, actual, message);
         }
 
         /// <summary>
-        /// Create a NUnit IsTrue assert
+        /// Create a NUnit IsTrue assert.
         /// </summary>
-        /// <param name="actual">The actual argument</param>
-        /// <param name="message">Message if test fails</param>
+        /// <param name="actual">The actual argument.</param>
+        /// <param name="message">Message if test fails.</param>
         /// <returns>The declared expression statement syntax for Assert.IsFalse</returns>
         public static ExpressionStatementSyntax IsFalse(IArgument actual, string message = null)
         {
@@ -80,12 +83,12 @@ namespace Testura.Code.Generators.Special
         }
 
         /// <summary>
-        /// Create an IsTrue assert that check if a string contains some content
+        /// Create an IsTrue assert that check if a string contains some content.
         /// </summary>
-        /// <param name="expectedContain">Text that the string should contain</param>
-        /// <param name="actual">The actual argument</param>
-        /// <param name="message">Message if test fails</param>
-        /// <returns>The declared expression statement syntax</returns>
+        /// <param name="expectedContain">Text that the string should contain.</param>
+        /// <param name="actual">The actual argument.</param>
+        /// <param name="message">Message if test fails.</param>
+        /// <returns>The declared expression statement syntax.</returns>
         public static ExpressionStatementSyntax Contains(IArgument expectedContain, IArgument actual, string message = null)
         {
             if (expectedContain == null)
@@ -107,12 +110,12 @@ namespace Testura.Code.Generators.Special
         }
 
         /// <summary>
-        /// Create a Assert.Throws assert to check if a method throws and exception
+        /// Create a Assert.Throws assert to check if a method throws and exception.
         /// </summary>
-        /// <param name="variableReference">The reference chain to check for exception</param>
-        /// <param name="exception">The expected exception type</param>
-        /// <param name="message">Message if test fails</param>
-        /// <returns>The declared expression statement syntax</returns>
+        /// <param name="variableReference">The reference chain to check for exception.</param>
+        /// <param name="exception">The expected exception type.</param>
+        /// <param name="message">Message if test fails.</param>
+        /// <returns>The declared expression statement syntax.</returns>
         public static ExpressionStatementSyntax Throws(VariableReference variableReference, Type exception, string message = null)
         {
             if (variableReference == null)

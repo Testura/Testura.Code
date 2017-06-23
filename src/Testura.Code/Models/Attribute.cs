@@ -4,8 +4,15 @@ using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
 
 namespace Testura.Code.Models
 {
+    /// <summary>
+    /// Represent an attribute
+    /// </summary>
     public class Attribute
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Attribute"/> class.
+        /// </summary>
+        /// <param name="name">Name of the attribute.</param>
         public Attribute(string name)
         {
             if (name == null)
@@ -17,6 +24,11 @@ namespace Testura.Code.Models
             Arguments = new List<IArgument>();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Attribute"/> class.
+        /// </summary>
+        /// <param name="name">Name of the attribute.</param>
+        /// <param name="arguments">Arguments sent into the attribute.</param>
         public Attribute(string name, List<IArgument> arguments)
         {
             if (name == null)
@@ -34,12 +46,12 @@ namespace Testura.Code.Models
         }
 
         /// <summary>
-        /// Gets or sets the name of the attribute
+        /// Gets or sets the name of the attribute.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the argument to the attribute
+        /// Gets or sets the argument to the attribute.
         /// </summary>
         public List<IArgument> Arguments { get; set; }
     }

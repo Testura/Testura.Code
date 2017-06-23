@@ -17,25 +17,25 @@ namespace Testura.Code.Tests.Generators.Common
         }
 
         [Test]
-        public void Create_WhenCreatingWithSingleAttrbute_ShoulGenerateCorrectCode()
+        public void Create_WhenCreatingWithSingleAttrbute_ShouldGenerateCorrectCode()
         {
             Assert.AreEqual("[Test]", AttributeGenerator.Create(new Attribute("Test", new List<IArgument>())).ToString());
         }
 
         [Test]
-        public void Create_WhenCreatingWithMultipleAttributes_ShoulGenerateCorrectCode()
+        public void Create_WhenCreatingWithMultipleAttributes_ShouldGenerateCorrectCode()
         {
             Assert.AreEqual("[Test][TestCase]", AttributeGenerator.Create(new Attribute("Test"), new Attribute("TestCase")).ToString());
         }
 
         [Test]
-        public void Create_WhenCreatingAttributeWithArguments_ShoulGenerateCorrectCode()
+        public void Create_WhenCreatingAttributeWithArguments_ShouldGenerateCorrectCode()
         {
             Assert.AreEqual("[Test(1,2)]", AttributeGenerator.Create(new Attribute("Test", new List<IArgument>() { new ValueArgument(1), new ValueArgument(2)})).ToString());
         }
 
         [Test]
-        public void Create_WhenCreatingAttributeWithNamedArgument_ShoulGenerateCorrectCode()
+        public void Create_WhenCreatingAttributeWithNamedArgument_ShouldGenerateCorrectCode()
         {
             Assert.AreEqual("[Test(with:1,value:2)]", AttributeGenerator.Create(new Attribute("Test", new List<IArgument>() { new ValueArgument(1, namedArgument:"with"), new ValueArgument(2, namedArgument:"value") })).ToString());
         }

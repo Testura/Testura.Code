@@ -11,6 +11,9 @@ using Attribute = Testura.Code.Models.Attribute;
 
 namespace Testura.Code.Builders
 {
+    /// <summary>
+    /// Provides a builder to generate a method
+    /// </summary>
     public class MethodBuilder
     {
         private readonly string _name;
@@ -22,6 +25,10 @@ namespace Testura.Code.Builders
 
         private SyntaxList<AttributeListSyntax> _attributes;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MethodBuilder"/> class.
+        /// </summary>
+        /// <param name="name">Name of the method</param>
         public MethodBuilder(string name)
         {
             if (string.IsNullOrEmpty(name))
@@ -35,6 +42,11 @@ namespace Testura.Code.Builders
             _body = BodyGenerator.Create();
         }
 
+        /// <summary>
+        /// Set method parameters.
+        /// </summary>
+        /// <param name="parameters">A set of wanted parameters.</param>
+        /// <returns>The current method builder</returns>
         public MethodBuilder WithParameters(params Parameter[] parameters)
         {
             _parameters.Clear();
@@ -46,6 +58,11 @@ namespace Testura.Code.Builders
             return this;
         }
 
+        /// <summary>
+        /// Set method parameters.
+        /// </summary>
+        /// <param name="parameters">A set of already generated parameters.</param>
+        /// <returns>The current method builder</returns>
         public MethodBuilder WithParameters(params ParameterSyntax[] parameters)
         {
             _parameters.Clear();
@@ -53,36 +70,66 @@ namespace Testura.Code.Builders
             return this;
         }
 
+        /// <summary>
+        /// Set method return type
+        /// </summary>
+        /// <param name="type">The wanted return type</param>
+        /// <returns>The current method builder</returns>
         public MethodBuilder WithReturnType(Type type)
         {
             _returnType = type;
             return this;
         }
 
+        /// <summary>
+        /// Set method attributs.
+        /// </summary>
+        /// <param name="attributes">A set of wanted attributes</param>
+        /// <returns>The current method builder</returns>
         public MethodBuilder WithAttributes(params Attribute[] attributes)
         {
             _attributes = AttributeGenerator.Create(attributes);
             return this;
         }
 
+        /// <summary>
+        /// Set method attributes.
+        /// </summary>
+        /// <param name="attributes">A set of already generated attributes </param>
+        /// <returns>The current method builder</returns>
         public MethodBuilder WithAttributes(SyntaxList<AttributeListSyntax> attributes)
         {
             _attributes = attributes;
             return this;
         }
 
+        /// <summary>
+        /// Set method body.
+        /// </summary>
+        /// <param name="body">The method body.</param>
+        /// <returns>The current method builder</returns>
         public MethodBuilder WithBody(BlockSyntax body)
         {
             _body = body;
             return this;
         }
 
+        /// <summary>
+        /// Set method xml summary.
+        /// </summary>
+        /// <param name="summary">The method summary.</param>
+        /// <returns>The current method builder</returns>
         public MethodBuilder WithSummary(string summary)
         {
             _summary = summary;
             return this;
         }
 
+        /// <summary>
+        /// Set method modifiers.
+        /// </summary>
+        /// <param name="modifiers">A set of wanted modifiers.</param>
+        /// <returns>The current method builder</returns>
         public MethodBuilder WithModifiers(params Modifiers[] modifiers)
         {
             _modifiers.Clear();
@@ -90,6 +137,10 @@ namespace Testura.Code.Builders
             return this;
         }
 
+        /// <summary>
+        /// Build method and return the generated code.
+        /// </summary>
+        /// <returns>The generated method.</returns>
         public MethodDeclarationSyntax Build()
         {
             var method = BuildMethodBase();

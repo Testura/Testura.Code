@@ -7,13 +7,16 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Generators.Class
 {
+    /// <summary>
+    /// Provides the functionality to generate fields.
+    /// </summary>
     public static class FieldGenerator
     {
         /// <summary>
-        /// Create the syntax for a field of a class
+        /// Create the syntax for a field of a class.
         /// </summary>
-        /// <param name="field">Field to create</param>
-        /// <returns>The declaration syntax for a field</returns>
+        /// <param name="field">Field to create.</param>
+        /// <returns>The declaration syntax for a field.</returns>
         public static FieldDeclarationSyntax Create(Field field)
         {
             if (field == null)

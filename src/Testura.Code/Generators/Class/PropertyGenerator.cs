@@ -8,13 +8,16 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Generators.Class
 {
+    /// <summary>
+    /// Provides the functionality to generate properties.
+    /// </summary>
     public static class PropertyGenerator
     {
         /// <summary>
-        /// Create the syntax for a property of a class
+        /// Create the syntax for a property of a class.
         /// </summary>
-        /// <param name="property">The property to create</param>
-        /// <returns>The declaration syntax for a property</returns>
+        /// <param name="property">The property to create.</param>
+        /// <returns>The declaration syntax for a property.</returns>
         public static PropertyDeclarationSyntax Create(Property property)
         {
             if (property == null)
