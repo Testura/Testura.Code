@@ -9,25 +9,35 @@ using Formatter = Microsoft.CodeAnalysis.Formatting.Formatter;
 
 namespace Testura.Code.Saver
 {
+    /// <summary>
+    /// Provides the functionallity to save code to file or string.
+    /// </summary>
     public class CodeSaver : ICodeSaver
     {
         private readonly IList<OptionKeyValue> _options;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeSaver"/> class.
+        /// </summary>
         public CodeSaver()
         {
             _options = new List<OptionKeyValue>();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeSaver"/> class.
+        /// </summary>
+        /// <param name="options">A list with formatting options</param>
         public CodeSaver(IEnumerable<OptionKeyValue> options)
         {
             _options = new List<OptionKeyValue>(options);
         }
 
         /// <summary>
-        /// Save generated code to a file
+        /// Save generated code to a file.
         /// </summary>
-        /// <param name="cu">Generated code</param>
-        /// <param name="path">Full output path</param>
+        /// <param name="cu">Generated code.</param>
+        /// <param name="path">Full output path.</param>
         public void SaveCodeToFile(CompilationUnitSyntax cu, string path)
         {
             if (cu == null)
@@ -49,10 +59,10 @@ namespace Testura.Code.Saver
         }
 
         /// <summary>
-        /// Save generated code as a string
+        /// Save generated code as a string.
         /// </summary>
-        /// <param name="cu">Generated code</param>
-        /// <returns>Generated code as a string</returns>
+        /// <param name="cu">Generated code.</param>
+        /// <returns>Generated code as a string.</returns>
         public string SaveCodeAsString(CompilationUnitSyntax cu)
         {
             if (cu == null)

@@ -4,6 +4,9 @@ using System.Reflection;
 
 namespace Testura.Code.Util.AppDomains.Proxies
 {
+    /// <summary>
+    /// Proxy used when generating code inside a different app domain
+    /// </summary>
     public class ActionCodeGeneratorProxy : MarshalByRefObject
     {
         /// <summary>

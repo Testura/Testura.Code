@@ -7,13 +7,16 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Generators.Common
 {
+    /// <summary>
+    /// Provides the functionallity to generate parameter lists.
+    /// </summary>
     public static class ParameterGenerator
     {
         /// <summary>
-        /// Create syntax for a list of parameter
+        /// Create syntax for a list of parameter.
         /// </summary>
-        /// <param name="parameters">Parameter(s) to create</param>
-        /// <returns>The declared parameter list syntax</returns>
+        /// <param name="parameters">Parameter(s) to create.</param>
+        /// <returns>The declared parameter list syntax.</returns>
         public static ParameterListSyntax Create(params Parameter[] parameters)
         {
             var parameterSyntaxes = new ParameterSyntax[parameters.Length];

@@ -1,9 +1,15 @@
 ﻿using System;
+#pragma warning disable 1591
 
 namespace Testura.Code.Extensions
 {
     public static class TypeExtensions
     {
+        /// <summary>
+        /// Examine if type is a collection.
+        /// </summary>
+        /// <param name="type">Type to examine.</param>
+        /// <returns><c>true</c> if it's a collection, otherwise <c>false</c> .</returns>
         public static bool IsCollection(this Type type)
         {
             var name = type.Name;
@@ -18,6 +24,11 @@ namespace Testura.Code.Extensions
                    name.StartsWith("HashSet");
         }
 
+        /// <summary>
+        /// >Examine if a type is a ICollection.
+        /// </summary>
+        /// <param name="typeReference">Type to examine..</param>
+        /// <returns><c>true</c> it's a ICollection, otherwise <c>false</c>.</returns>
         public static bool IsICollection(this Type typeReference)
         {
             var name = typeReference.Name;

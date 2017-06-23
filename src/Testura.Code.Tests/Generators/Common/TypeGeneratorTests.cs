@@ -45,12 +45,6 @@ namespace Testura.Code.Tests.Generators.Common
         [TestCase(typeof(MyCustomEnum?), "MyCustomEnum?")]
         public void Create_WhenCreatingPredefinedTypesAsNullable_ShouldGenerateCorrectCode(Type type, string expected)
         {
-            if (Nullable.GetUnderlyingType(type) != null)
-            {
-                // It's Nullable
-                var o = 0;
-            }
-
             Assert.AreEqual(expected, TypeGenerator.Create(type).ToString());
         }
 

@@ -3,15 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+#pragma warning disable 1591
 
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
+    /// <summary>
+    /// Provides the functionallity to generate a class initialization argument. Example of generated code: <c>(new MyClass())</c>
+    /// </summary>
     public class ClassInitializationArgument : Argument
     {
         private readonly Type _type;
         private readonly IList<IArgument> _arguments;
         private readonly IList<Type> _genericTypes;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClassInitializationArgument"/> class.
+        /// </summary>
+        /// <param name="type">The class type to initialize.</param>
+        /// <param name="arguments">Arguments used when initializing the class.</param>
+        /// <param name="genericTypes">Generics of the class.</param>
+        /// <param name="namedArgument">Specificy the argument for a partical parameter.</param>
         public ClassInitializationArgument(
             Type type,
             IEnumerable<IArgument> arguments = null,

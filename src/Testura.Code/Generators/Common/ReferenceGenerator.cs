@@ -7,13 +7,16 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Generators.Common
 {
+    /// <summary>
+    /// Provides the functionallity to generate references and reference chains. Example of generated code: "<c>test</c>", "<c>test.MyMethod()</c>".
+    /// </summary>
     public class ReferenceGenerator
     {
         /// <summary>
         /// Create the expression syntax for a variable, method or a chain of member/method(s).
         /// </summary>
-        /// <param name="reference">The start reference</param>
-        /// <returns>The declared expression syntax</returns>
+        /// <param name="reference">The start reference.</param>
+        /// <returns>The declared expression syntax.</returns>
         public static ExpressionSyntax Create(VariableReference reference)
         {
             if (reference == null)
@@ -52,9 +55,9 @@ namespace Testura.Code.Generators.Common
         /// <summary>
         /// Create the expression syntax for a chain of member/method(s).
         /// </summary>
-        /// <param name="expression">The expression to build upon</param>
-        /// <param name="reference">Next member reference in chain</param>
-        /// <returns>The declared expression syntax</returns>
+        /// <param name="expression">The expression to build upon.</param>
+        /// <param name="reference">Next member reference in chain.</param>
+        /// <returns>The declared expression syntax.</returns>
         public static ExpressionSyntax Create(ExpressionSyntax expression, MemberReference reference)
         {
             if (expression == null)

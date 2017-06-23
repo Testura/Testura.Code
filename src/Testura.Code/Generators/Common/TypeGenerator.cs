@@ -8,13 +8,16 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Generators.Common
 {
+    /// <summary>
+    /// Provides functionallity to generate predefined and custom types.
+    /// </summary>
     public static class TypeGenerator
     {
         /// <summary>
-        /// Create the syntax for a type
+        /// Create the syntax for a type.
         /// </summary>
-        /// <param name="type">The type to create</param>
-        /// <returns>The declared type syntax</returns>
+        /// <param name="type">The type to create.</param>
+        /// <returns>The declared type syntax.</returns>
         public static TypeSyntax Create(Type type)
         {
             if (type == null)

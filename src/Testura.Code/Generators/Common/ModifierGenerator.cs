@@ -5,13 +5,16 @@ using Microsoft.CodeAnalysis.CSharp;
 
 namespace Testura.Code.Generators.Common
 {
+    /// <summary>
+    /// Provivdes the functionallity to generate modifiers (public, protected, etc).
+    /// </summary>
     public static class ModifierGenerator
     {
         /// <summary>
         /// Create the syntax for modifier(s) to class, method, fields or properties.
         /// </summary>
-        /// <param name="modifierses">Modifiers to create</param>
-        /// <returns>The declared syntax list</returns>
+        /// <param name="modifierses">Modifiers to create.</param>
+        /// <returns>The declared syntax list.</returns>
         public static SyntaxTokenList Create(params Modifiers[] modifierses)
         {
             if (modifierses.Length == 0)

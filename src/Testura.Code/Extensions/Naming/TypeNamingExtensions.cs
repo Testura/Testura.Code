@@ -1,5 +1,6 @@
 ﻿using System;
 using Testura.Code.Util.TypeNameFormatting;
+#pragma warning disable 1591
 
 namespace Testura.Code.Extensions.Naming
 {
@@ -44,10 +45,10 @@ namespace Testura.Code.Extensions.Naming
         }
 
         /// <summary>
-        /// Get the type name in correct type type convention
+        /// Get the type name in correct type type convention.
         /// </summary>
-        /// <param name="type">Type to created formatted type name from</param>
-        /// <returns>The formatted type name</returns>
+        /// <param name="type">Type to created formatted type name from.</param>
+        /// <returns>The formatted type name.</returns>
         public static string FormattedTypeName(this Type type)
         {
             var typeName = type.Name;

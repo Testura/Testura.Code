@@ -9,17 +9,20 @@ using Attribute = Testura.Code.Models.Attribute;
 
 namespace Testura.Code.Generators.Class
 {
+    /// <summary>
+    /// Provides functionallity to generate class constructors
+    /// </summary>
     public static class ConstructorGenerator
     {
         /// <summary>
-        /// Create the syntax for a class constructor
+        /// Create the syntax for a class constructor.
         /// </summary>
-        /// <param name="className">Name of the class</param>
-        /// <param name="body">The generated body of the constructor</param>
-        /// <param name="parameters">A list with parameters</param>
-        /// <param name="modifiers">A list with modifiers</param>
-        /// <param name="attributes">A list with attributes</param>
-        /// <returns>The declaration syntax for a constructor</returns>
+        /// <param name="className">Name of the class.</param>
+        /// <param name="body">The generated body of the constructor.</param>
+        /// <param name="parameters">A list with parameters.</param>
+        /// <param name="modifiers">A list with modifiers.</param>
+        /// <param name="attributes">A list with attributes.</param>
+        /// <returns>The declaration syntax for a constructor.</returns>
         public static ConstructorDeclarationSyntax Create(
             string className,
             BlockSyntax body,

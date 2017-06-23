@@ -1,12 +1,13 @@
-﻿namespace Testura.Code.Extensions
+﻿#pragma warning disable 1591
+namespace Testura.Code.Extensions
 {
     public static class ObjectExtensions
     {
         /// <summary>
-        /// Check if the object is a numeric type.
+        /// Examine if the object is a numeric type.
         /// </summary>
-        /// <param name="obj">Object to check</param>
-        /// <returns>True if the object is numeric, otherwise false.</returns>
+        /// <param name="obj">Object to examine.</param>
+        /// <returns><c>true</c> if the object is numeric, otherwise <c>false</c>.</returns>
         public static bool IsNumeric(this object obj)
         {
             return obj is sbyte

@@ -82,6 +82,7 @@
     <Compile Include="Extensions\Naming\TypeNamingExtensions.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\Argument.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\LambdaArgument.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Util\AppDomains\AppDomainCodeGenerator.cs" />
     <Compile Include="Util\AppDomains\Proxies\ActionCodeGeneratorProxy.cs" />
     <Compile Include="Util\AppDomains\Proxies\CodeGeneratorProxy.cs" />

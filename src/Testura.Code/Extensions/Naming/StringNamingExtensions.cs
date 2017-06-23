@@ -1,12 +1,13 @@
-﻿namespace Testura.Code.Extensions.Naming
+﻿#pragma warning disable 1591
+namespace Testura.Code.Extensions.Naming
 {
     public static class StringNamingExtensions
     {
         /// <summary>
-        /// Turn the first letter in a string to lower case
+        /// Turn the first letter in a string to lower case.
         /// </summary>
-        /// <param name="value">String to change</param>
-        /// <returns>A new string with the first letter in lower case</returns>
+        /// <param name="value">String to change.</param>
+        /// <returns>A new string with the first letter in lower case.</returns>
         public static string FirstLetterToLowerCase(this string value)
         {
             if (string.IsNullOrEmpty(value))
