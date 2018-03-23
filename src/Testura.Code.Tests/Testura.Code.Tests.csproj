@@ -99,6 +99,7 @@
     <Compile Include="Generators\Class\ConstructorGeneratorTests.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentsTests.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\ArrayInitializeArgumentTests.cs" />
+    <Compile Include="Generators\Common\Arguments\ArgumentTypes\ObjectInitializationArgumentTests.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\ClassInitializationArgumentTests.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\DictionaryArgumentTests.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\InvocationArgumentTests.cs" />
