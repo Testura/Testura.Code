@@ -124,6 +124,16 @@ namespace Testura.Code.Generators.Common
                 typeSyntax = PredefinedType(Token(SyntaxKind.DecimalKeyword));
             }
 
+            if (type == typeof(DateTime))
+            {
+                typeSyntax = IdentifierName("DateTime");
+            }
+
+            if (type == typeof(TimeSpan))
+            {
+                typeSyntax = IdentifierName("TimeSpan");
+            }
+
             if (type.IsEnum)
             {
                 typeSyntax = IdentifierName(type.Name);
