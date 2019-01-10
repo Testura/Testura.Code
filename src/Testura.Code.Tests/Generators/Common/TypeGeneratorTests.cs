@@ -49,6 +49,12 @@ namespace Testura.Code.Tests.Generators.Common
         }
 
         [Test]
+        public void Create_WhenCreatingDateTimeAsNullable_ShouldGenerateCorrectCode()
+        {
+            Assert.AreEqual("DateTime?", TypeGenerator.Create(typeof(DateTime?)).ToString());
+        }
+
+        [Test]
         public void Create_WhenCreatingWithNoPredfinedType_ShouldGenerateCode()
         {
             Assert.AreEqual("List", TypeGenerator.Create(typeof(List)).ToString());
