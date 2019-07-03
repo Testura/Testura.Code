@@ -5,6 +5,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Models.Types;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+using DateTimeOffset = System.DateTimeOffset;
 
 namespace Testura.Code.Generators.Common
 {
@@ -132,6 +133,11 @@ namespace Testura.Code.Generators.Common
             if (type == typeof(TimeSpan))
             {
                 typeSyntax = IdentifierName("TimeSpan");
+            }
+
+            if (type == typeof(DateTimeOffset))
+            {
+                typeSyntax = IdentifierName("DateTimeOffset");
             }
 
             if (type.IsEnum)

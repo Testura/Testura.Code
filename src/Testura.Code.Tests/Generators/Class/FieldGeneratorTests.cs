@@ -1,7 +1,11 @@
 ﻿using System.Collections.Generic;
+using Microsoft.CodeAnalysis.CSharp;
 using NUnit.Framework;
 using Testura.Code.Generators.Class;
+using Testura.Code.Generators.Common;
 using Testura.Code.Models;
+using Testura.Code.Models.References;
+using Testura.Code.Models.Types;
 using Assert = NUnit.Framework.Assert;
 
 namespace Testura.Code.Tests.Generators.Class
@@ -13,6 +17,12 @@ namespace Testura.Code.Tests.Generators.Class
         public void Create_WhenCreatingField_ShouldGenerateCorrectCode()
         {
             Assert.AreEqual("intmyField;", FieldGenerator.Create(new Field("myField", typeof(int))).ToString());
+        }
+
+        [Test]
+        public void Create_WhenCreatingFieldWithInitializer_ShouldGenerateCorrectCode()
+        {
+            Assert.AreEqual("ILogger_logger=LoggerService.Logger();", FieldGenerator.Create(new Field("_logger", CustomType.Create("ILogger"), initializeWith: ReferenceGenerator.Create(new VariableReference("LoggerService", new MethodReference( "Logger"))))).ToString());
         }
 
         [Test]
