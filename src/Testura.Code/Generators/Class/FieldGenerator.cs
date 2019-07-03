@@ -24,7 +24,14 @@ namespace Testura.Code.Generators.Class
                 throw new ArgumentNullException(nameof(field));
             }
 
-            var fieldDeclaration = FieldDeclaration(VariableDeclaration(TypeGenerator.Create(field.Type), SeparatedList(new[] { VariableDeclarator(Identifier(field.Name)) })));
+            var variableDeclarator = VariableDeclarator(Identifier(field.Name));
+
+            if (field.InitializeWith != null)
+            {
+                variableDeclarator = variableDeclarator.WithInitializer(EqualsValueClause(field.InitializeWith));
+            }
+
+            var fieldDeclaration = FieldDeclaration(VariableDeclaration(TypeGenerator.Create(field.Type), SeparatedList(new[] { variableDeclarator})));
 
             if (field.Modifiers != null)
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Testura.Code.Models
 {
@@ -15,11 +16,13 @@ namespace Testura.Code.Models
         /// <param name="type">Type of the field.</param>
         /// <param name="modifiers">The fields modifiers.</param>
         /// <param name="attributes">The fields attributes.</param>
+        /// <param name="initializeWith">Expression used to initialize field</param>
         public Field(
             string name,
             Type type,
             IEnumerable<Modifiers> modifiers = null,
-            IEnumerable<Attribute> attributes = null)
+            IEnumerable<Attribute> attributes = null,
+            ExpressionSyntax initializeWith = null)
         {
             if (name == null)
             {
@@ -35,6 +38,7 @@ namespace Testura.Code.Models
             Type = type;
             Modifiers = modifiers;
             Attributes = attributes;
+            InitializeWith = initializeWith;
         }
 
         /// <summary>
@@ -56,5 +60,10 @@ namespace Testura.Code.Models
         /// Gets or sets the attributes of the field.
         /// </summary>
         public IEnumerable<Attribute> Attributes { get; set; }
+
+        /// <summary>
+        /// Gets or sets expression used to assign field
+        /// </summary>
+        public ExpressionSyntax InitializeWith { get; set; }
     }
 }
