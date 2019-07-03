@@ -64,7 +64,32 @@
         /// <summary>
         /// Generate with the <c>virtual</c> modifier.
         /// </summary>
-        Virtual
+        Virtual,
+
+        /// <summary>
+        /// Generate with the <c>override</c> modifier.
+        /// </summary>
+        Override,
+
+        /// <summary>
+        /// Generate with the <c>readonly</c> modifier.
+        /// </summary>
+        Readonly,
+
+        /// <summary>
+        /// Generate with the <c>async</c> modifier.
+        /// </summary>
+        Async,
+
+        /// <summary>
+        /// Generate with the <c>sealed</c> modifier.
+        /// </summary>
+        Sealed,
+
+        /// <summary>
+        /// Generate with the <c>new</c> modifier.
+        /// </summary>
+        New
     }
 
     /// <summary>

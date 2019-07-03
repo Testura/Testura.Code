@@ -11,6 +11,11 @@ namespace Testura.Code.Tests.Generators.Common
         [TestCase(Modifiers.Public, "public")]
         [TestCase(Modifiers.Static, "static")]
         [TestCase(Modifiers.Virtual, "virtual")]
+        [TestCase(Modifiers.Override, "override")]
+        [TestCase(Modifiers.Readonly, "readonly")]
+        [TestCase(Modifiers.Async, "async")]
+        [TestCase(Modifiers.Sealed, "sealed")]
+        [TestCase(Modifiers.New, "new")]
         public void Create_WhenCreatingWithModifier_ShouldGenerateCode(Modifiers modifier, string expected)
         {
             Assert.AreEqual(expected, ModifierGenerator.Create(modifier).ToString());

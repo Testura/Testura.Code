@@ -6,24 +6,24 @@ using Microsoft.CodeAnalysis.CSharp;
 namespace Testura.Code.Generators.Common
 {
     /// <summary>
-    /// Provivdes the functionality to generate modifiers (public, protected, etc).
+    /// Provides the functionality to generate modifiers (public, protected, etc).
     /// </summary>
     public static class ModifierGenerator
     {
         /// <summary>
         /// Create the syntax for modifier(s) to class, method, fields or properties.
         /// </summary>
-        /// <param name="modifierses">Modifiers to create.</param>
+        /// <param name="modifiers">Modifiers to create.</param>
         /// <returns>The declared syntax list.</returns>
-        public static SyntaxTokenList Create(params Modifiers[] modifierses)
+        public static SyntaxTokenList Create(params Modifiers[] modifiers)
         {
-            if (modifierses.Length == 0)
+            if (modifiers.Length == 0)
             {
                 return SyntaxFactory.TokenList();
             }
 
             var tokens = new List<SyntaxToken>();
-            foreach (var modifierse in modifierses)
+            foreach (var modifierse in modifiers)
             {
                 switch (modifierse)
                 {
@@ -41,6 +41,21 @@ namespace Testura.Code.Generators.Common
                         break;
                     case Modifiers.Virtual:
                         tokens.Add(SyntaxFactory.Token(SyntaxKind.VirtualKeyword));
+                        break;
+                    case Modifiers.Async:
+                        tokens.Add(SyntaxFactory.Token(SyntaxKind.AsyncKeyword));
+                        break;
+                    case Modifiers.Override:
+                        tokens.Add(SyntaxFactory.Token(SyntaxKind.OverrideKeyword));
+                        break;
+                    case Modifiers.Readonly:
+                        tokens.Add(SyntaxFactory.Token(SyntaxKind.ReadOnlyKeyword));
+                        break;
+                    case Modifiers.Sealed:
+                        tokens.Add(SyntaxFactory.Token(SyntaxKind.SealedKeyword));
+                        break;
+                    case Modifiers.New:
+                        tokens.Add(SyntaxFactory.Token(SyntaxKind.NewKeyword));
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
