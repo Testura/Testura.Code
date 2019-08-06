@@ -18,28 +18,32 @@ namespace Testura.Code.Tests.Builders
         public void Build_WhenGivingAttribute_CodeShouldContainAttribute()
         {
             var builder = new MethodBuilder("MyMethod");
-            Assert.IsTrue(builder.WithAttributes(new Attribute("MyAttribute")).Build().ToString().Contains("[MyAttribute]"));
+            Assert.IsTrue(builder.WithAttributes(new Attribute("MyAttribute")).Build().ToString()
+                .Contains("[MyAttribute]"));
         }
 
         [Test]
         public void Build_WhenGivingModifier_CodeShouldContainModifiers()
         {
             var builder = new MethodBuilder("MyMethod");
-            Assert.IsTrue(builder.WithModifiers(Modifiers.Public, Modifiers.Abstract).Build().ToString().Contains("publicabstract"));
+            Assert.IsTrue(builder.WithModifiers(Modifiers.Public, Modifiers.Abstract).Build().ToString()
+                .Contains("publicabstract"));
         }
 
         [Test]
         public void Build_WhenGivingParameters_CodeShouldContainParamters()
         {
             var builder = new MethodBuilder("MyMethod");
-            Assert.IsTrue(builder.WithParameters(new Parameter("myParamter", typeof(int))).Build().ToString().Contains("intmyParamter"));
+            Assert.IsTrue(builder.WithParameters(new Parameter("myParamter", typeof(int))).Build().ToString()
+                .Contains("intmyParamter"));
         }
 
         [Test]
         public void Build_WhenGivingParameterWithModifier_CodeShouldContainParamters()
         {
             var builder = new MethodBuilder("MyMethod");
-            Assert.IsTrue(builder.WithParameters(new Parameter("myParamter", typeof(int), ParameterModifiers.This)).Build().ToString().Contains("thisintmyParamter"));
+            Assert.IsTrue(builder.WithParameters(new Parameter("myParamter", typeof(int), ParameterModifiers.This))
+                .Build().ToString().Contains("thisintmyParamter"));
         }
 
         [Test]
@@ -47,6 +51,13 @@ namespace Testura.Code.Tests.Builders
         {
             var builder = new MethodBuilder("MyMethod");
             Assert.IsTrue(builder.WithReturnType(typeof(int)).Build().ToString().Contains("intMyMethod()"));
+        }
+
+        [Test]
+        public void Build_WhenGivingNullBody_CodeShouldContainMethodWithSemicolonAtTheEnd()
+        {
+            var builder = new MethodBuilder("MyMethod");
+            Assert.IsTrue(builder.WithBody(null).Build().ToString().Contains("MyMethod();"));
         }
     }
 }

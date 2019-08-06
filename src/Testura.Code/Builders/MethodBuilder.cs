@@ -224,7 +224,12 @@ namespace Testura.Code.Builders
 
         private MethodDeclarationSyntax BuildBody(MethodDeclarationSyntax method)
         {
-            return _body == null ? method : method.WithBody(_body);
+            if (_body == null)
+            {
+                return method.WithSemicolonToken(Token(SyntaxKind.SemicolonToken));
+            }
+
+            return method.WithBody(_body);
         }
     }
 }

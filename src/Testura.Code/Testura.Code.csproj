@@ -222,11 +222,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\TypeBuilderBase.cs" />
     <Compile Include="Extensions\Naming\StringNamingExtensions.cs" />
     <Compile Include="Extensions\Naming\TypeNamingExtensions.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\Argument.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\LambdaArgument.cs" />
     <Compile Include="Generators\Common\Arguments\ArgumentTypes\ObjectInitializationArgument.cs" />
+    <Compile Include="Builders\InterfaceBuilder.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Util\AppDomains\AppDomainCodeGenerator.cs" />
     <Compile Include="Util\AppDomains\Proxies\ActionCodeGeneratorProxy.cs" />
@@ -309,9 +311,8 @@
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.3\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.3\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
-    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\Newtonsoft.Json.dll" />
-    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
