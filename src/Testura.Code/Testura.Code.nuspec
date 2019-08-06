@@ -2,24 +2,24 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>0.7.0</version>
+    <version>0.11.0</version>
     <title>$title$</title>
-    <authors>Mille Boström</authors>
-    <owners>Mille Boström</owners>
+    <authors>Mille Bostrom</authors>
+    <owners>Mille Bostrom</owners>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/Testura/Testura.Code</projectUrl>
-    <iconUrl>http://testura.net/Content/Images/logo128-new.png</iconUrl>
+    <iconUrl>https://i.ibb.co/nnSPd11/logo128-new.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Testura.Code is a wrapper around the Roslyn API and used for generation, saving and and compiling C# code. It provides methods and helpers to generate classes, methods, statements and expressions.</description>
-    <releaseNotes>Release 0.7.0:
-		- Added support for attributes on fields 
-		- Fixed named arguments in attributes
+    <releaseNotes>Release 0.11.0:
+			- Added interface builder 
+			- Changed method builder so it add a semicolon if you set body to null
 	</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Code generation roslyn</tags>
 	    <dependencies>
-      <dependency id="Microsoft.CodeAnalysis.CSharp" version="1.3.2" />
-	  <dependency id="Microsoft.CodeAnalysis.CSharp.Workspaces" version="1.3.2" />
+      <dependency id="Microsoft.CodeAnalysis.CSharp" version="2.10.0" />
+	  <dependency id="Microsoft.CodeAnalysis.CSharp.Workspaces" version="2.10.0" />
     </dependencies>
   </metadata>
       <files>

@@ -64,7 +64,6 @@ namespace Testura.Code.Tests.Builders
         [Test]
         public void Build_WhenGivenInheritance_CodeShouldContainInheritance()
         {
-            var o = _classBuilder.ThatInheritFrom(typeof(int)).Build().ToString();
             Assert.IsTrue(_classBuilder.ThatInheritFrom(typeof(int)).Build().ToString().Contains("TestClass:int"));
         }
     }
