@@ -45,19 +45,24 @@ namespace Testura.Code.Builders.BuildMembers
 
         public SyntaxList<MemberDeclarationSyntax> AddStartRegion(SyntaxList<MemberDeclarationSyntax> newMembersSyntaxList)
         {
-            var modifiedFirstMember = newMembersSyntaxList.First().WithLeadingTrivia(TriviaList(
-                Trivia(RegionDirectiveTrivia(true)
-                        .WithEndOfDirectiveToken(Token(TriviaList(PreprocessingMessage($" {_regionName} \n")), // A bit hackish.. see if there are a better solution.
-                                SyntaxKind.EndOfDirectiveToken,
-                                TriviaList())))));
+            // A bit hackish.. see if there are a better solution.
+            var modifiedFirstMember = newMembersSyntaxList
+                .First()
+                .WithLeadingTrivia(
+                    TriviaList(
+                        Trivia(
+                            RegionDirectiveTrivia(true)
+                                .WithEndOfDirectiveToken(
+                                    Token(TriviaList(PreprocessingMessage($" {_regionName} \n")), SyntaxKind.EndOfDirectiveToken,TriviaList())))));
 
             return newMembersSyntaxList.Replace(newMembersSyntaxList.First(), modifiedFirstMember);
         }
 
         public SyntaxList<MemberDeclarationSyntax> AddEndRegion(SyntaxList<MemberDeclarationSyntax> newMembersSyntaxList)
         {
-            var modifiedLastMember = newMembersSyntaxList.Last().WithTrailingTrivia(TriviaList(
-                Trivia(EndRegionDirectiveTrivia(true))));
+            var modifiedLastMember = newMembersSyntaxList
+                .Last()
+                .WithTrailingTrivia(TriviaList(Trivia(EndRegionDirectiveTrivia(true))));
 
             return newMembersSyntaxList.Replace(newMembersSyntaxList.Last(), modifiedLastMember);
         }
