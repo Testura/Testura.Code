@@ -46,13 +46,8 @@ namespace Testura.Code.Builders.BuildMembers
         public SyntaxList<MemberDeclarationSyntax> AddStartRegion(SyntaxList<MemberDeclarationSyntax> newMembersSyntaxList)
         {
             var modifiedFirstMember = newMembersSyntaxList.First().WithLeadingTrivia(TriviaList(
-                Trivia(
-                    RegionDirectiveTrivia(
-                            true)
-                        .WithEndOfDirectiveToken(
-                            Token(
-                                TriviaList(
-                                    PreprocessingMessage($" {_regionName} \n")), // A bit hackish.. see if there are a better solution.
+                Trivia(RegionDirectiveTrivia(true)
+                        .WithEndOfDirectiveToken(Token(TriviaList(PreprocessingMessage($" {_regionName} \n")), // A bit hackish.. see if there are a better solution.
                                 SyntaxKind.EndOfDirectiveToken,
                                 TriviaList())))));
 
