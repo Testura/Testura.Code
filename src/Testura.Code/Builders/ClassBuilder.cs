@@ -1,20 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Testura.Code.Builders.BuildMembers;
 using Testura.Code.Generators.Class;
 using Testura.Code.Models;
 
 namespace Testura.Code.Builders
 {
     /// <summary>
-    /// Provides a builder to generate a class
+    /// Provides a builder to generate a class.
     /// </summary>
     public class ClassBuilder : TypeBuilderBase<ClassBuilder>
     {
-        private readonly List<FieldDeclarationSyntax> _fields;
-        private ConstructorDeclarationSyntax _constructor;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ClassBuilder"/> class.
         /// </summary>
@@ -23,45 +21,38 @@ namespace Testura.Code.Builders
         public ClassBuilder(string name, string @namespace)
          : base(name, @namespace)
         {
-            _fields = new List<FieldDeclarationSyntax>();
         }
 
         /// <summary>
-        /// Set class fields.
+        /// Add class fields.
         /// </summary>
         /// <param name="fields">A set of wanted fields.</param>
         /// <returns>The current class builder</returns>
         public ClassBuilder WithFields(params Field[] fields)
         {
-            _fields.Clear();
-            foreach (var field in fields)
-            {
-                _fields.Add(FieldGenerator.Create(field));
-            }
-
+            Members.Add(new FieldMember(fields.Select(FieldGenerator.Create)));
             return this;
         }
 
         /// <summary>
-        /// Set class fields.
+        /// Add class fields.
         /// </summary>
         /// <param name="fields">An array of already declared fields.</param>
         /// <returns>The current class builder</returns>
         public ClassBuilder WithFields(params FieldDeclarationSyntax[] fields)
         {
-            _fields.Clear();
-            _fields.AddRange(fields);
+            Members.Add(new FieldMember(fields));
             return this;
         }
 
         /// <summary>
-        /// Set class constructor.
+        /// Add class constructor.
         /// </summary>
         /// <param name="constructor">An already generated constructor.</param>
         /// <returns>The current class builder</returns>
-        public ClassBuilder WithConstructor(ConstructorDeclarationSyntax constructor)
+        public ClassBuilder WithConstructor(params ConstructorDeclarationSyntax[] constructor)
         {
-            _constructor = constructor;
+            Members.Add(new ConstructorMember(constructor));
             return this;
         }
 
@@ -72,10 +63,12 @@ namespace Testura.Code.Builders
         public CompilationUnitSyntax Build()
         {
             var members = default(SyntaxList<MemberDeclarationSyntax>);
-            members = BuildFields(members);
-            members = BuildConstructor(members);
-            members = BuildProperties(members);
-            members = BuildMethods(members);
+
+            foreach (var member in Members)
+            {
+                members = member.AddMember(members);
+            }
+
             var @class = BuildClassBase();
             @class = BuildAttributes(@class);
             @class = @class.WithMembers(members);
@@ -84,22 +77,6 @@ namespace Testura.Code.Builders
             @base = BuildNamespace(@base, @class);
             return @base;
         }
-
-        private SyntaxList<MemberDeclarationSyntax> BuildFields(SyntaxList<MemberDeclarationSyntax> members)
-        {
-            return AddMembers(members, _fields);
-        }
-
-        private SyntaxList<MemberDeclarationSyntax> BuildConstructor(SyntaxList<MemberDeclarationSyntax> members)
-        {
-            if (_constructor == null)
-            {
-                return members;
-            }
-
-            return members.AddRange(SyntaxFactory.SingletonList<MemberDeclarationSyntax>(_constructor));
-        }
-
 
         private TypeDeclarationSyntax BuildClassBase()
         {

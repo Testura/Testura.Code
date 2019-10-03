@@ -26,8 +26,12 @@ namespace Testura.Code.Builders
         public CompilationUnitSyntax Build()
         {
             var members = default(SyntaxList<MemberDeclarationSyntax>);
-            members = BuildProperties(members);
-            members = BuildMethods(members);
+
+            foreach (var member in Members)
+            {
+                members = member.AddMember(members);
+            }
+
             var @interface = BuildInterfaceBase();
             @interface = BuildAttributes(@interface);
             @interface = @interface.WithMembers(members);
