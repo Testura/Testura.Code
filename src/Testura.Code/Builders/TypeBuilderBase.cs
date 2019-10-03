@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Testura.Code.Builders.BuildMembers;
 using Testura.Code.Generators.Class;
 using Testura.Code.Generators.Common;
 using Testura.Code.Models.Properties;
@@ -15,13 +16,10 @@ namespace Testura.Code.Builders
         where TBuilder : TypeBuilderBase<TBuilder>
     {
         private readonly string _namespace;
-        private readonly List<MethodDeclarationSyntax> _methods;
         private readonly List<Type> _inheritance;
-        private SyntaxList<AttributeListSyntax> _attributes;
-        private readonly List<PropertyDeclarationSyntax> _properties;
-
         private readonly List<string> _usings;
         private readonly List<Modifiers> _modifiers;
+        private SyntaxList<AttributeListSyntax> _attributes;
 
         protected TypeBuilderBase(string name, string @namespace)
         {
@@ -37,14 +35,15 @@ namespace Testura.Code.Builders
 
             Name = name.Replace(" ", "_");
             _namespace = @namespace;
-            _methods = new List<MethodDeclarationSyntax>();
             _inheritance = new List<Type>();
             _modifiers = new List<Modifiers> { Modifiers.Public };
             _usings = new List<string>();
-            _properties = new List<PropertyDeclarationSyntax>();
+            Members = new List<IBuildMember>();
         }
 
         protected string Name { get; }
+
+        protected List<IBuildMember> Members { get; set; }
 
         /// <summary>
         /// Set the using directives.
@@ -111,8 +110,7 @@ namespace Testura.Code.Builders
         /// <returns>The current class builder</returns>
         public TBuilder WithMethods(params MethodDeclarationSyntax[] methods)
         {
-            _methods.Clear();
-            _methods.AddRange(methods);
+            Members.Add(new MethodMember(methods));
             return (TBuilder)this;
         }
 
@@ -123,24 +121,29 @@ namespace Testura.Code.Builders
         /// <returns>The current builder</returns>
         public TBuilder WithProperties(params Property[] properties)
         {
-            _properties.Clear();
-            foreach (var property in properties)
-            {
-                _properties.Add(PropertyGenerator.Create(property));
-            }
-
+            Members.Add(new PropertyMember(properties.Select(PropertyGenerator.Create)));
             return (TBuilder)this;
         }
 
         /// <summary>
-        /// A class properties.
+        /// Add class properties.
         /// </summary>
         /// <param name="properties">A sete of already generated properties</param>
         /// <returns>The current builder</returns>
         public TBuilder WithProperties(params PropertyDeclarationSyntax[] properties)
         {
-            _properties.Clear();
-            _properties.AddRange(properties);
+            Members.Add(new PropertyMember(properties));
+            return (TBuilder)this;
+        }
+
+        /// <summary>
+        /// Add region.
+        /// </summary>
+        /// <param name="regionMember">The region</param>
+        /// <returns>The current builder</returns>
+        public TBuilder WithRegions(params RegionMember[] regionMember)
+        {
+            Members.AddRange(regionMember);
             return (TBuilder)this;
         }
 
@@ -163,16 +166,6 @@ namespace Testura.Code.Builders
             }
 
             return @base;
-        }
-
-        protected SyntaxList<MemberDeclarationSyntax> BuildProperties(SyntaxList<MemberDeclarationSyntax> members)
-        {
-            return AddMembers(members, _properties);
-        }
-
-        protected SyntaxList<MemberDeclarationSyntax> BuildMethods(SyntaxList<MemberDeclarationSyntax> members)
-        {
-            return AddMembers(members, _methods);
         }
 
         protected TypeDeclarationSyntax BuildAttributes(TypeDeclarationSyntax @class)
@@ -208,21 +201,6 @@ namespace Testura.Code.Builders
             }
 
             return SyntaxFactory.BaseList(SyntaxFactory.SeparatedList<BaseTypeSyntax>(syntaxNodeOrToken));
-        }
-
-        protected SyntaxList<MemberDeclarationSyntax> AddMembers(SyntaxList<MemberDeclarationSyntax> members, IEnumerable<MemberDeclarationSyntax> memberDeclarationSyntaxs)
-        {
-            if (!memberDeclarationSyntaxs.Any())
-            {
-                return members;
-            }
-
-            foreach (var memberDeclarationSyntax in memberDeclarationSyntaxs)
-            {
-                members = members.Add(memberDeclarationSyntax);
-            }
-
-            return members;
         }
     }
 }
