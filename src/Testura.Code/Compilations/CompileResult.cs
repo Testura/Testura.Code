@@ -15,17 +15,11 @@ namespace Testura.Code.Compilations
         /// <param name="pathToDll">Path to the dll.</param>
         /// <param name="success">If the compilation was successful or not.</param>
         /// <param name="outputRows">Output from the compilation.</param>
-        public CompileResult(string pathToDll, bool success, IList<OutputRow> outputRows)
+        public CompileResult(bool success, IList<OutputRow> outputRows)
         {
-            PathToDll = pathToDll;
             Success = success;
             OutputRows = outputRows;
         }
-
-        /// <summary>
-        /// Gets or sets path to the generated dlls.
-        /// </summary>
-        public string PathToDll { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the test are successful.
