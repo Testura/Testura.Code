@@ -7,12 +7,12 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Builders.BuildMembers
 {
-    public class RegionMember : IBuildMember
+    public class RegionBuildMember : IBuildMember
     {
         private readonly string _regionName;
         private readonly IEnumerable<IBuildMember> _members;
 
-        public RegionMember(string regionName, IEnumerable<IBuildMember> members)
+        public RegionBuildMember(string regionName, IEnumerable<IBuildMember> members)
         {
             _regionName = regionName;
             _members = members;

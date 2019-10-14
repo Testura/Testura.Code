@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Testura.Code.Models;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using Attribute = Testura.Code.Models.Attribute;
 
@@ -13,18 +14,18 @@ namespace Testura.Code.Generators.Common
     {
         public static MemberDeclarationSyntax Create(
             string name,
-            IEnumerable<string> values,
+            IEnumerable<EnumMember> enumMembers,
             IEnumerable<Modifiers> modifiers = null,
             IEnumerable<Attribute> attributes = null)
         {
             var enumDeclaration = EnumDeclaration(name);
 
-            if (values.Any())
+            if (enumMembers.Any())
             {
                 var enumMemberDeclarations = new List<SyntaxNodeOrToken>();
-                foreach (var value in values)
+                foreach (var enumMember in enumMembers)
                 {
-                    enumMemberDeclarations.Add(EnumMemberDeclaration(Identifier(value)));
+                    enumMemberDeclarations.Add(CreateEnumMemberDeclarationSyntax(enumMember));
                     enumMemberDeclarations.Add(Token(SyntaxKind.CommaToken));
                 }
 
@@ -44,6 +45,24 @@ namespace Testura.Code.Generators.Common
             }
 
             return enumDeclaration;
+        }
+
+        private static EnumMemberDeclarationSyntax CreateEnumMemberDeclarationSyntax(EnumMember enumMember)
+        {
+            var enumMemberDeclarationSyntax = EnumMemberDeclaration(Identifier(enumMember.Name));
+
+            if (enumMember.Value.HasValue)
+            {
+                enumMemberDeclarationSyntax = enumMemberDeclarationSyntax.WithEqualsValue(
+                    EqualsValueClause(LiteralExpression(SyntaxKind.NumericLiteralExpression, Literal(enumMember.Value.Value))));
+            }
+
+            if (enumMember.Attributes != null)
+            {
+                enumMemberDeclarationSyntax = enumMemberDeclarationSyntax.WithAttributeLists(AttributeGenerator.Create(enumMember.Attributes.ToArray()));
+            }
+
+            return enumMemberDeclarationSyntax;
         }
     }
 }

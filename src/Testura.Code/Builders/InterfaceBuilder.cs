@@ -1,5 +1,4 @@
-﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
+﻿using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Testura.Code.Builders
@@ -19,29 +18,7 @@ namespace Testura.Code.Builders
         {
         }
 
-        /// <summary>
-        /// Build the interface and return the generated code.
-        /// </summary>
-        /// <returns>The generated class.</returns>
-        public CompilationUnitSyntax Build()
-        {
-            var members = default(SyntaxList<MemberDeclarationSyntax>);
-
-            foreach (var member in Members)
-            {
-                members = member.AddMember(members);
-            }
-
-            var @interface = BuildInterfaceBase();
-            @interface = BuildAttributes(@interface);
-            @interface = @interface.WithMembers(members);
-            var @base = SyntaxFactory.CompilationUnit();
-            @base = BuildUsings(@base);
-            @base = BuildNamespace(@base, @interface);
-            return @base;
-        }
-
-        private TypeDeclarationSyntax BuildInterfaceBase()
+        protected override TypeDeclarationSyntax BuildBase()
         {
             return SyntaxFactory.InterfaceDeclaration(Name).WithBaseList(CreateBaseList()).WithModifiers(CreateModifiers());
         }

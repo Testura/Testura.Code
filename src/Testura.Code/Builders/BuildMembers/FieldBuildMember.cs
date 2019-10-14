@@ -4,11 +4,11 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Testura.Code.Builders.BuildMembers
 {
-    public class FieldMember : IBuildMember
+    public class FieldBuildMember : IBuildMember
     {
         private readonly IEnumerable<FieldDeclarationSyntax> _fieldDeclarationSyntaxs;
 
-        public FieldMember(IEnumerable<FieldDeclarationSyntax> fieldDeclarationSyntaxs)
+        public FieldBuildMember(IEnumerable<FieldDeclarationSyntax> fieldDeclarationSyntaxs)
         {
             _fieldDeclarationSyntaxs = fieldDeclarationSyntaxs;
         }

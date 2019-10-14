@@ -45,14 +45,11 @@ namespace Testura.Code.Tests.Integration
             var classBuilder = new ClassBuilder("Cat", "Models");
             var @class = classBuilder
                 .WithUsings("System")
-                .With(new EnumMember("MyEnum", new List<string> { "EnumValueOne", "EnumValueTwo"}, new List<Modifiers> { Modifiers.Public }))
+                .With(new EnumBuildMember("MyEnum", new List<EnumMember> { new EnumMember("EnumValueOne", 2, new Attribute[] { new Attribute("MyAttribute"), }), new EnumMember("EnumValueTwo")}, new List<Modifiers> { Modifiers.Public }))
                 .Build();
 
-
-            var generatedCode = new CodeSaver().SaveCodeAsString(@class);
-
             Assert.AreEqual(
-                "usingSystem;namespaceModels{publicclassCat{publicenumMyEnum{EnumValueOne,EnumValueTwo}}}",
+                "usingSystem;namespaceModels{publicclassCat{publicenumMyEnum{[MyAttribute]EnumValueOne=2,EnumValueTwo}}}",
                 @class.ToString());
         }
 
