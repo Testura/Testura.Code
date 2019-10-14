@@ -13,6 +13,8 @@ namespace Testura.Code.Tests.Generators.Common
         [TestCase(Modifiers.Virtual, "virtual")]
         [TestCase(Modifiers.Override, "override")]
         [TestCase(Modifiers.Readonly, "readonly")]
+        [TestCase(Modifiers.Internal, "internal")]
+        [TestCase(Modifiers.Partial, "partial")]
         [TestCase(Modifiers.Async, "async")]
         [TestCase(Modifiers.Sealed, "sealed")]
         [TestCase(Modifiers.New, "new")]
