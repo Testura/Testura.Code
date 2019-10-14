@@ -89,7 +89,17 @@
         /// <summary>
         /// Generate with the <c>new</c> modifier.
         /// </summary>
-        New
+        New,
+
+        /// <summary>
+        /// Generate with the <c>partial</c> modifier.
+        /// </summary>
+        Partial,
+
+        /// <summary>
+        /// Generate with the <c>Internal</c> modifier.
+        /// </summary>
+        Internal,
     }
 
     /// <summary>
