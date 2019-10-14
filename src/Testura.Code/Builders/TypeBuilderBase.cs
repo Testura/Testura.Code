@@ -147,6 +147,17 @@ namespace Testura.Code.Builders
             return (TBuilder)this;
         }
 
+        /// <summary>
+        /// Add build members that will be generated.
+        /// </summary>
+        /// <param name="buidMembers">Build members to add</param>
+        /// <returns>The current builder</returns>
+        public TBuilder With(params IBuildMember[] buidMembers)
+        {
+            Members.AddRange(buidMembers);
+            return (TBuilder)this;
+        }
+
         protected CompilationUnitSyntax BuildUsings(CompilationUnitSyntax @base)
         {
             var usingSyntaxes = default(SyntaxList<UsingDirectiveSyntax>);

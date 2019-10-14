@@ -10,7 +10,7 @@ namespace Testura.Code.Generators.Common
     /// <summary>
     /// Provides the functionality to generate references and reference chains. Example of generated code: "<c>test</c>", "<c>test.MyMethod()</c>".
     /// </summary>
-    public class ReferenceGenerator
+    public static class ReferenceGenerator
     {
         /// <summary>
         /// Create the expression syntax for a variable, method or a chain of member/method(s).

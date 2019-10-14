@@ -2,6 +2,7 @@
 using Testura.Code.Statements;
 using NUnit.Framework;
 using Testura.Code.Builders;
+using Testura.Code.Builders.BuildMembers;
 using Testura.Code.Generators.Class;
 using Testura.Code.Generators.Common;
 using Testura.Code.Models;
@@ -35,6 +36,23 @@ namespace Testura.Code.Tests.Integration
 
             Assert.AreEqual(
                 "usingSystem;namespaceModels{publicclassCat{publicCat(stringname,intage){Name=name;Age=age;}publicstringName{get;set;}publicintAge{get;set;}}}",
+                @class.ToString());
+        }
+
+        [Test]
+        public void Test_CreateClassWithEnum()
+        {
+            var classBuilder = new ClassBuilder("Cat", "Models");
+            var @class = classBuilder
+                .WithUsings("System")
+                .With(new EnumMember("MyEnum", new List<string> { "EnumValueOne", "EnumValueTwo"}, new List<Modifiers> { Modifiers.Public }))
+                .Build();
+
+
+            var generatedCode = new CodeSaver().SaveCodeAsString(@class);
+
+            Assert.AreEqual(
+                "usingSystem;namespaceModels{publicclassCat{publicenumMyEnum{EnumValueOne,EnumValueTwo}}}",
                 @class.ToString());
         }
 
@@ -116,8 +134,6 @@ namespace Testura.Code.Tests.Integration
             Assert.AreEqual(
                 "usingSystem;namespaceModels{publicclassCat{#region MyRegion \nprivatestring_name;privateint_age;publicstringName{get;set;}publicCat(stringname,intage){Name=name;Age=age;}#endregion}}",
                 @class.ToString());
-
-            var generatedCode = new CodeSaver().SaveCodeAsString(@class);
         }
     }
 }
