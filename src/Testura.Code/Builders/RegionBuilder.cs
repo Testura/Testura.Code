@@ -26,7 +26,7 @@ namespace Testura.Code.Builders
         /// <returns>The current region builder</returns>
         public RegionBuilder WithMethods(params MethodDeclarationSyntax[] methods)
         {
-            _buildMembers.Add(new MethodMember(methods));
+            _buildMembers.Add(new MethodBuildMember(methods));
             return this;
         }
 
@@ -37,7 +37,7 @@ namespace Testura.Code.Builders
         /// <returns>The current builder</returns>
         public RegionBuilder WithProperties(params Property[] properties)
         {
-            _buildMembers.Add(new PropertyMember(properties.Select(PropertyGenerator.Create)));
+            _buildMembers.Add(new PropertyBuildMember(properties.Select(PropertyGenerator.Create)));
             return this;
         }
 
@@ -48,7 +48,7 @@ namespace Testura.Code.Builders
         /// <returns>The current builder</returns>
         public RegionBuilder WithProperties(params PropertyDeclarationSyntax[] properties)
         {
-            _buildMembers.Add(new PropertyMember(properties));
+            _buildMembers.Add(new PropertyBuildMember(properties));
             return this;
         }
 
@@ -59,7 +59,7 @@ namespace Testura.Code.Builders
         /// <returns>The current class builder</returns>
         public RegionBuilder WithConstructor(params ConstructorDeclarationSyntax[] constructor)
         {
-            _buildMembers.Add(new ConstructorMember(constructor));
+            _buildMembers.Add(new ConstructorBuildMember(constructor));
             return this;
         }
 
@@ -70,7 +70,7 @@ namespace Testura.Code.Builders
         /// <returns>The current class builder</returns>
         public RegionBuilder WithFields(params Field[] fields)
         {
-            _buildMembers.Add(new FieldMember(fields.Select(FieldGenerator.Create)));
+            _buildMembers.Add(new FieldBuildMember(fields.Select(FieldGenerator.Create)));
             return this;
         }
 
@@ -81,13 +81,13 @@ namespace Testura.Code.Builders
         /// <returns>The current class builder</returns>
         public RegionBuilder WithFields(params FieldDeclarationSyntax[] fields)
         {
-            _buildMembers.Add(new FieldMember(fields));
+            _buildMembers.Add(new FieldBuildMember(fields));
             return this;
         }
 
-        public RegionMember Build()
+        public RegionBuildMember Build()
         {
-            return new RegionMember(_name, new List<IBuildMember>(_buildMembers));
+            return new RegionBuildMember(_name, new List<IBuildMember>(_buildMembers));
         }
     }
 }

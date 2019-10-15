@@ -4,11 +4,11 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Testura.Code.Builders.BuildMembers
 {
-    public class ConstructorMember : IBuildMember
+    public class ConstructorBuildMember : IBuildMember
     {
         private readonly IEnumerable<ConstructorDeclarationSyntax> _constructorDeclarationSyntax;
 
-        public ConstructorMember(IEnumerable<ConstructorDeclarationSyntax> constructorDeclarationSyntax)
+        public ConstructorBuildMember(IEnumerable<ConstructorDeclarationSyntax> constructorDeclarationSyntax)
         {
             _constructorDeclarationSyntax = constructorDeclarationSyntax;
         }

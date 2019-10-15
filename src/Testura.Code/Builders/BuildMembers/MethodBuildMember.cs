@@ -3,11 +3,11 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Testura.Code.Builders.BuildMembers
 {
-    public class MethodMember : IBuildMember
+    public class MethodBuildMember : IBuildMember
     {
         private readonly MethodDeclarationSyntax[] _methodDeclarationSyntaxs;
 
-        public MethodMember(MethodDeclarationSyntax[] methodDeclarationSyntaxs)
+        public MethodBuildMember(MethodDeclarationSyntax[] methodDeclarationSyntaxs)
         {
             _methodDeclarationSyntaxs = methodDeclarationSyntaxs;
         }
