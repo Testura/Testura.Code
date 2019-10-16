@@ -11,6 +11,14 @@ namespace Testura.Code.Tests.Generators.Common
     {
         private enum MyCustomEnum { Stuff }
 
+        private struct MyStruct
+        {
+        }
+
+        private class MyClass
+        {       
+        }
+
         [TestCase(typeof(int), "int")]
         [TestCase(typeof(double), "double")]
         [TestCase(typeof(float), "float")]
@@ -25,6 +33,7 @@ namespace Testura.Code.Tests.Generators.Common
         [TestCase(typeof(char), "char")]
         [TestCase(typeof(bool), "bool")]
         [TestCase(typeof(MyCustomEnum), "MyCustomEnum")]
+        [TestCase(typeof(Guid), "Guid")]
         public void Create_WhenCreatingPredefinedTypes_ShouldGenerateCorrectCode(Type type, string expected)
         {
             Assert.AreEqual(expected, TypeGenerator.Create(type).ToString());
@@ -43,6 +52,7 @@ namespace Testura.Code.Tests.Generators.Common
         [TestCase(typeof(char?), "char?")]
         [TestCase(typeof(bool?), "bool?")]
         [TestCase(typeof(MyCustomEnum?), "MyCustomEnum?")]
+        [TestCase(typeof(Guid?), "Guid?")]
         public void Create_WhenCreatingPredefinedTypesAsNullable_ShouldGenerateCorrectCode(Type type, string expected)
         {
             Assert.AreEqual(expected, TypeGenerator.Create(type).ToString());
@@ -58,6 +68,24 @@ namespace Testura.Code.Tests.Generators.Common
         public void Create_WhenCreatingWithNoPredfinedType_ShouldGenerateCode()
         {
             Assert.AreEqual("List", TypeGenerator.Create(typeof(List)).ToString());
+        }
+
+        [Test]
+        public void Create_WhenCreatingWithClass_ShouldGenerateCode()
+        {
+            Assert.AreEqual("MyClass", TypeGenerator.Create(typeof(MyClass)).ToString());
+        }
+
+        [Test]
+        public void Create_WhenCreatingWithStruct_ShouldGenerateCode()
+        {
+            Assert.AreEqual("MyStruct", TypeGenerator.Create(typeof(MyStruct)).ToString());
+        }
+
+        [Test]
+        public void Create_WhenCreatingWithNullableStruct_ShouldGenerateCode()
+        {
+            Assert.AreEqual("MyStruct?", TypeGenerator.Create(typeof(MyStruct?)).ToString());
         }
 
         [Test]
