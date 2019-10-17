@@ -54,6 +54,7 @@ namespace Testura.Code.Generators.Common
         {
             TypeSyntax typeSyntax = null;
             var isNullable = false;
+
             if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
                 type = type.GetGenericArguments()[0];
@@ -140,7 +141,7 @@ namespace Testura.Code.Generators.Common
                 typeSyntax = IdentifierName("DateTimeOffset");
             }
 
-            if (type.IsEnum)
+            if (type.IsEnum || (typeSyntax == null && type.IsValueType))
             {
                 typeSyntax = IdentifierName(type.Name);
             }
