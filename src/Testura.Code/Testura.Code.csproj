@@ -1,14 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>0.12.0</Version>
+    <Version>0.13.0</Version>
     <Authors>Mille Bostrom</Authors>
     <Copyright>Copyright 2016</Copyright>
     <Title>$(ProjectName)</Title>
     <Description>Testura.Code is a wrapper around the Roslyn API and used for generation, saving and and compiling C# code. It provides methods and helpers to generate classes, methods, statements and expressions.</Description>
     <PackageReleaseNotes>
-      Release $(Version):
-      - Switch to targeting .NET Standard 2.0
-    </PackageReleaseNotes>
+      Release 0.13.0:
+      - Updated ClassBuilder with regions 
+      - Changed so ClassBuilder preserv order when generating
+      - Added internal and partial modifiers
+      - Added support for enums
+      - Added NamespaceBuilder
+      - Fixed nullable structs 
+
+
+</PackageReleaseNotes>
     <PackageTags>
       Code generation roslyn
     </PackageTags>
@@ -21,7 +28,9 @@
     <NoWarn>$(NoWarn);NU5048</NoWarn>
     <CodeAnalysisRuleSet>Settings\Testura.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>  
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>  
+    <AssemblyVersion>0.13.0.0</AssemblyVersion>  
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   
   
