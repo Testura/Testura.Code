@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Generators.Common;
@@ -26,13 +28,13 @@ namespace Testura.Code.Generators.Class
             }
 
             PropertyDeclarationSyntax propertyDeclaration;
-            if (property is AutoProperty)
+            if (property is AutoProperty autoProperty)
             {
-                propertyDeclaration = CreateAutoProperty((AutoProperty)property);
+                propertyDeclaration = CreateAutoProperty(autoProperty);
             }
-            else if (property is BodyProperty)
+            else if (property is BodyProperty bodyProperty)
             {
-                propertyDeclaration = CreateBodyProperty((BodyProperty)property);
+                propertyDeclaration = CreateBodyProperty(bodyProperty);
             }
             else
             {
@@ -56,12 +58,11 @@ namespace Testura.Code.Generators.Class
         {
             var propertyDeclaration = PropertyDeclaration(
                 TypeGenerator.Create(property.Type), Identifier(property.Name))
-                .AddAccessorListAccessors(AccessorDeclaration(SyntaxKind.GetAccessorDeclaration).
-                    WithSemicolonToken(Token(SyntaxKind.SemicolonToken)));
+                .AddAccessorListAccessors(CreateAccessDeclaration(SyntaxKind.GetAccessorDeclaration, null, property.GetModifiers));
+
             if (property.PropertyType == PropertyTypes.GetAndSet)
             {
-                propertyDeclaration = propertyDeclaration.AddAccessorListAccessors(AccessorDeclaration(SyntaxKind.SetAccessorDeclaration).
-                     WithSemicolonToken(Token(SyntaxKind.SemicolonToken)));
+                propertyDeclaration = propertyDeclaration.AddAccessorListAccessors(CreateAccessDeclaration(SyntaxKind.SetAccessorDeclaration, null, property.SetModifiers));
             }
 
             return propertyDeclaration;
@@ -71,16 +72,29 @@ namespace Testura.Code.Generators.Class
         {
             var propertyDeclaration = PropertyDeclaration(
                     TypeGenerator.Create(property.Type), Identifier(property.Name))
-                .AddAccessorListAccessors(
-                    AccessorDeclaration(SyntaxKind.GetAccessorDeclaration).WithBody(property.GetBody));
+                .AddAccessorListAccessors(CreateAccessDeclaration(SyntaxKind.GetAccessorDeclaration, property.GetBody, property.GetModifiers));
+
             if (property.SetBody != null)
             {
                 propertyDeclaration =
-                    propertyDeclaration.AddAccessorListAccessors(
-                        AccessorDeclaration(SyntaxKind.SetAccessorDeclaration).WithBody(property.SetBody));
+                    propertyDeclaration.AddAccessorListAccessors(CreateAccessDeclaration(SyntaxKind.SetAccessorDeclaration, property.SetBody, property.SetModifiers));
             }
 
             return propertyDeclaration;
+        }
+
+        private static AccessorDeclarationSyntax CreateAccessDeclaration(SyntaxKind kind, BlockSyntax body, IEnumerable<Modifiers> modifiers)
+        {
+            var accessDeclaration = AccessorDeclaration(kind);
+
+            if (modifiers != null)
+            {
+                accessDeclaration = accessDeclaration.WithModifiers(ModifierGenerator.Create(modifiers.ToArray()));
+            }
+
+            accessDeclaration = body != null ? accessDeclaration.WithBody(body) : accessDeclaration.WithSemicolonToken(Token(SyntaxKind.SemicolonToken));
+
+            return accessDeclaration;
         }
     }
 }

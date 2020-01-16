@@ -63,6 +63,9 @@ namespace Testura.Code.Generators.Common
                     case Modifiers.Internal:
                         tokens.Add(SyntaxFactory.Token(SyntaxKind.InternalKeyword));
                         break;
+                    case Modifiers.Protected:
+                        tokens.Add(SyntaxFactory.Token(SyntaxKind.ProtectedKeyword));
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
