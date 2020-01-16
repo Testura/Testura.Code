@@ -18,8 +18,18 @@ namespace Testura.Code.Models.Properties
         /// <param name="setBody">The generated set body.</param>
         /// <param name="modifiers">Modifiers of the property.</param>
         /// <param name="attributes">Attributes of the property.</param>
-        public BodyProperty(string name, Type type, BlockSyntax getBody, BlockSyntax setBody, IEnumerable<Modifiers> modifiers = null, IEnumerable<Attribute> attributes = null)
-            : base(name, type, modifiers, attributes)
+        /// <param name="getModifiers">The get modifiers.</param>
+        /// <param name="setModifiers">The set modifiers.</param>
+        public BodyProperty(
+            string name,
+            Type type,
+            BlockSyntax getBody,
+            BlockSyntax setBody,
+            IEnumerable<Modifiers> modifiers = null,
+            IEnumerable<Attribute> attributes = null,
+            IEnumerable<Modifiers> getModifiers = null,
+            IEnumerable<Modifiers> setModifiers = null)
+            : base(name, type, modifiers, attributes, getModifiers, setModifiers)
         {
             if (getBody == null)
             {

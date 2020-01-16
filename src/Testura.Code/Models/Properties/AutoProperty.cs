@@ -13,16 +13,20 @@ namespace Testura.Code.Models.Properties
         /// </summary>
         /// <param name="name">Name of the property.</param>
         /// <param name="type">The property type.</param>
-        /// <param name="propertyType">What kind of of property to geneate (get or get/set).</param>
-        /// <param name="modifiers">The properpty modifiers.</param>
+        /// <param name="propertyType">What kind of of property to generate (get or get/set).</param>
+        /// <param name="modifiers">The property modifiers.</param>
         /// <param name="attributes">Attributes on the property.</param>
+        /// <param name="getModifiers">The get modifiers.</param>
+        /// <param name="setModifiers">The set modifiers.</param>
         public AutoProperty(
             string name,
             Type type,
             PropertyTypes propertyType,
             IEnumerable<Code.Modifiers> modifiers = null,
-            IEnumerable<Attribute> attributes = null)
-            : base(name, type, modifiers, attributes)
+            IEnumerable<Attribute> attributes = null,
+            IEnumerable<Modifiers> getModifiers = null,
+            IEnumerable<Modifiers> setModifiers = null)
+            : base(name, type, modifiers, attributes, getModifiers, setModifiers)
         {
             PropertyType = propertyType;
         }

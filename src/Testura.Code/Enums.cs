@@ -100,6 +100,11 @@
         /// Generate with the <c>Internal</c> modifier.
         /// </summary>
         Internal,
+
+        /// <summary>
+        /// Generate with the <c>Protected</c> modifier.
+        /// </summary>
+        Protected
     }
 
     /// <summary>

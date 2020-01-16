@@ -26,6 +26,18 @@ namespace Testura.Code.Tests.Generators.Class
         }
 
         [Test]
+        public void Create_WhenCreatingPropertyWithGetModifiers_ShouldHaveGetModifiers()
+        {
+            Assert.AreEqual("intMyProperty{protectedget;set;}", PropertyGenerator.Create(new AutoProperty("MyProperty", typeof(int), PropertyTypes.GetAndSet, getModifiers: new List<Modifiers> { Modifiers.Protected})).ToString());
+        }
+
+        [Test]
+        public void Create_WhenCreatingPropertyWithSetModifiers_ShouldHaveGetModifiers()
+        {
+            Assert.AreEqual("intMyProperty{get;privateinternalset;}", PropertyGenerator.Create(new AutoProperty("MyProperty", typeof(int), PropertyTypes.GetAndSet, setModifiers: new List<Modifiers> { Modifiers.Private, Modifiers.Internal })).ToString());
+        }
+
+        [Test]
         public void Create_WhenCreatingAutoPropertyWithAttribute_ShouldHaveAttribute()
         {
             Assert.AreEqual("[Test]intMyProperty{get;set;}", PropertyGenerator.Create(new AutoProperty("MyProperty", typeof(int), PropertyTypes.GetAndSet, new List<Modifiers>(), new List<Attribute> { new Attribute("Test")})).ToString());

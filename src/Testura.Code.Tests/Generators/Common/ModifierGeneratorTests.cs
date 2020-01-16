@@ -18,6 +18,7 @@ namespace Testura.Code.Tests.Generators.Common
         [TestCase(Modifiers.Async, "async")]
         [TestCase(Modifiers.Sealed, "sealed")]
         [TestCase(Modifiers.New, "new")]
+        [TestCase(Modifiers.Protected, "protected")]
         public void Create_WhenCreatingWithModifier_ShouldGenerateCode(Modifiers modifier, string expected)
         {
             Assert.AreEqual(expected, ModifierGenerator.Create(modifier).ToString());

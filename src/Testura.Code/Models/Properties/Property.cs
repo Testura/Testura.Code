@@ -13,13 +13,17 @@ namespace Testura.Code.Models.Properties
         /// </summary>
         /// <param name="name">Name of the property.</param>
         /// <param name="type">The property type.</param>
-        /// <param name="modifiers">The properpty modifiers.</param>
+        /// <param name="modifiers">The property modifiers.</param>
         /// <param name="attributes">Attributes on the property.</param>
+        /// <param name="getModifiers">The get modifiers.</param>
+        /// <param name="setModifiers">The set modifiers.</param>
         protected Property(
             string name,
             Type type,
-            IEnumerable<Code.Modifiers> modifiers = null,
-            IEnumerable<Attribute> attributes = null)
+            IEnumerable<Modifiers> modifiers = null,
+            IEnumerable<Attribute> attributes = null,
+            IEnumerable<Modifiers> getModifiers = null,
+            IEnumerable<Modifiers> setModifiers = null)
         {
             if (name == null)
             {
@@ -35,6 +39,8 @@ namespace Testura.Code.Models.Properties
             Type = type;
             Modifiers = modifiers;
             Attributes = attributes;
+            GetModifiers = getModifiers;
+            SetModifiers = setModifiers;
         }
 
         /// <summary>
@@ -56,5 +62,15 @@ namespace Testura.Code.Models.Properties
         /// Gets or sets the attributes of the property.
         /// </summary>
         public IEnumerable<Attribute> Attributes { get; set; }
+
+        /// <summary>
+        /// Gets or sets the get modifiers.
+        /// </summary>
+        public IEnumerable<Modifiers> GetModifiers { get; set; }
+
+        /// <summary>
+        /// Gets or sets the set modifiers.
+        /// </summary>
+        public IEnumerable<Modifiers> SetModifiers { get; }
     }
 }
