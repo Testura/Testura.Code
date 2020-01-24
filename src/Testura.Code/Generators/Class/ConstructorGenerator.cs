@@ -10,7 +10,7 @@ using Attribute = Testura.Code.Models.Attribute;
 namespace Testura.Code.Generators.Class
 {
     /// <summary>
-    /// Provides functionality to generate class constructors
+    /// Provides functionality to generate class constructors.
     /// </summary>
     public static class ConstructorGenerator
     {
@@ -28,7 +28,8 @@ namespace Testura.Code.Generators.Class
             BlockSyntax body,
             IEnumerable<Parameter> parameters = null,
             IEnumerable<Modifiers> modifiers = null,
-            IEnumerable<Attribute> attributes = null)
+            IEnumerable<Attribute> attributes = null,
+            ConstructorInitializer constructorInitializer = null)
         {
             if (className == null)
             {
@@ -40,6 +41,14 @@ namespace Testura.Code.Generators.Class
             if (parameters != null)
             {
                 constructor = constructor.WithParameterList(ParameterGenerator.Create(parameters.ToArray()));
+            }
+
+            if (constructorInitializer != null)
+            {
+                constructor = constructor.WithInitializer(
+                    SyntaxFactory.ConstructorInitializer(
+                        constructorInitializer.ConstructorInitializerType == ConstructorInitializerTypes.Base ? SyntaxKind.BaseConstructorInitializer : SyntaxKind.ThisConstructorInitializer,
+                        constructorInitializer.Arguments == null ? null : ArgumentGenerator.Create(constructorInitializer.Arguments.ToArray())));
             }
 
             if (attributes != null)

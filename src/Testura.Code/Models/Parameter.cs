@@ -13,7 +13,8 @@ namespace Testura.Code.Models
         /// <param name="name">Name of the paramter.</param>
         /// <param name="type">Type of the paramter.</param>
         /// <param name="modifier">The paramter modifiers.</param>
-        public Parameter(string name, Type type, ParameterModifiers modifier = ParameterModifiers.None)
+        /// <param name="xmlDocumentation">The parameters xml documentation.</param>
+        public Parameter(string name, Type type, ParameterModifiers modifier = ParameterModifiers.None, string xmlDocumentation = null)
         {
             if (name == null)
             {
@@ -28,6 +29,7 @@ namespace Testura.Code.Models
             Name = name;
             Type = type;
             Modifier = modifier;
+            XmlDocumentation = xmlDocumentation;
         }
 
         /// <summary>
@@ -44,5 +46,10 @@ namespace Testura.Code.Models
         /// Gets or sets the parameter modifier.
         /// </summary>
         public ParameterModifiers Modifier { get; set; }
+
+        /// <summary>
+        /// Gets or sets the xml documentation
+        /// </summary>
+        public string XmlDocumentation { get; }
     }
 }
