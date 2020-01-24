@@ -201,4 +201,17 @@
         AreSame,
         AreNotSame
     }
+
+    public enum ConstructorInitializerTypes
+    {
+        /// <summary>
+        /// Generate constructor initializer with <c>Base</c>
+        /// </summary>
+        Base,
+
+        /// <summary>
+        /// Generate constructor initializer with <c>This</c>
+        /// </summary>
+        This
+    }
 }

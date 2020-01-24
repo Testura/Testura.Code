@@ -132,5 +132,22 @@ namespace Testura.Code.Tests.Integration
                 "usingSystem;namespaceModels{publicclassCat{#region MyRegion \nprivatestring_name;privateint_age;publicstringName{get;set;}publicCat(stringname,intage){Name=name;Age=age;}#endregion}}",
                 @class.ToString());
         }
+
+        [Test]
+        public void Test_CreateClassWithMethodThatHaveXmlDocumentation()
+        {
+            var classBuilder = new ClassBuilder("Cat", "Models");
+            var @class = classBuilder
+                .WithUsings("System")
+                .WithMethods(new MethodBuilder("MyMethod")
+                    .WithParameters(new Parameter("MyParameter", typeof(string), xmlDocumentation: "Some documentation"))
+                    .WithSummary("Some summary")
+                    .Build())
+                .Build();
+
+            Assert.AreEqual(
+                "usingSystem;namespaceModels{publicclassCat{/// <summary>\n/// Some summary\n/// </summary>\n/// <param name=\"MyParameter\">Some documentation</param>\nvoidMyMethod(stringMyParameter){}}}",
+                @class.ToString());
+        }
     }
 }

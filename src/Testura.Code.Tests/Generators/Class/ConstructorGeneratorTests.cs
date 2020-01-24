@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using Testura.Code.Generators.Class;
 using Testura.Code.Generators.Common;
+using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
 using Testura.Code.Models;
 using Attribute = Testura.Code.Models.Attribute;
 
@@ -14,6 +15,24 @@ namespace Testura.Code.Tests.Generators.Class
         public void Constructor_WhenCreatingConstructor_ShouldGenerateCorrectCode()
         {
             Assert.AreEqual("MyClass(){}", ConstructorGenerator.Create("MyClass", BodyGenerator.Create()).ToString());
+        }
+
+        [Test]
+        public void Constructor_WhenCreatingConstructorWithThisInitializer_ShouldGenerateCorrectCode()
+        {
+            Assert.AreEqual("MyClass():this(){}", ConstructorGenerator.Create("MyClass", BodyGenerator.Create(), constructorInitializer: new ConstructorInitializer(ConstructorInitializerTypes.This, null)).ToString());
+        }
+
+        [Test]
+        public void Constructor_WhenCreatingConstructorWithBaseInitializer_ShouldGenerateCorrectCode()
+        {
+            Assert.AreEqual("MyClass():base(){}", ConstructorGenerator.Create("MyClass", BodyGenerator.Create(), constructorInitializer: new ConstructorInitializer(ConstructorInitializerTypes.Base, null)).ToString());
+        }
+        
+        [Test]
+        public void Constructor_WhenCreatingConstructorWithBaseInitializerWithArgument_ShouldGenerateCorrectCode()
+        {
+            Assert.AreEqual("MyClass():base(\"myText\"){}", ConstructorGenerator.Create("MyClass", BodyGenerator.Create(), constructorInitializer: new ConstructorInitializer(ConstructorInitializerTypes.Base, new List<Argument> { new ValueArgument("myText")})).ToString());
         }
 
         [Test]
