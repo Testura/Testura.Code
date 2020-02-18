@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Testura.Code.Statements;
 using NUnit.Framework;
 using Testura.Code.Builders;
 using Testura.Code.Builders.BuildMembers;
+using Testura.Code.Extensions;
 using Testura.Code.Generators.Class;
 using Testura.Code.Generators.Common;
 using Testura.Code.Models;
@@ -144,6 +147,30 @@ namespace Testura.Code.Tests.Integration
                     .WithSummary("Some summary")
                     .Build())
                 .Build();
+
+            Assert.AreEqual(
+                "usingSystem;namespaceModels{publicclassCat{/// <summary>\n/// Some summary\n/// </summary>\n/// <param name=\"MyParameter\">Some documentation</param>\nvoidMyMethod(stringMyParameter){}}}",
+                @class.ToString());
+        }
+
+        [Test]
+        public void Test_CreateClassWithMethodThatHaveSingleLineAndMultilineComments()
+        {
+            var classBuilder = new ClassBuilder("Cat", "Models");
+            var @class = classBuilder
+                .WithUsings("System")
+                .WithMethods(new MethodBuilder("MyMethod")
+                    .WithParameters(new Parameter("MyParameter", typeof(string)))
+                    .WithBody(
+                            BodyGenerator.Create(
+                                Statement.Declaration.Declare("hello", typeof(int)).WithComment("My comment above").WithComment("hej"),
+                                            Statement.Declaration.Declare("hello", typeof(int)).WithComment("My comment to the side", CommentPosition.Right)
+                            ))
+                    .Build())
+                .Build();
+
+            var c = new CodeSaver();
+            var p = c.SaveCodeAsString(@class);
 
             Assert.AreEqual(
                 "usingSystem;namespaceModels{publicclassCat{/// <summary>\n/// Some summary\n/// </summary>\n/// <param name=\"MyParameter\">Some documentation</param>\nvoidMyMethod(stringMyParameter){}}}",
