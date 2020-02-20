@@ -4,14 +4,14 @@ using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Testura.Code.Builders.Base;
 using Testura.Code.Builders.BuildMembers;
 using Testura.Code.Generators.Class;
 using Testura.Code.Generators.Common;
+using Testura.Code.Generators.Special;
 using Testura.Code.Models.Properties;
 using Attribute = Testura.Code.Models.Attribute;
 
-namespace Testura.Code.Builders
+namespace Testura.Code.Builders.Base
 {
     public abstract class TypeBuilderBase<TBuilder> : BuilderBase<TBuilder>
         where TBuilder : TypeBuilderBase<TBuilder>
@@ -19,6 +19,7 @@ namespace Testura.Code.Builders
         private readonly List<Type> _inheritance;
         private readonly List<Modifiers> _modifiers;
         private SyntaxList<AttributeListSyntax> _attributes;
+        private string _summary;
 
         protected TypeBuilderBase(string name, string @namespace)
          : base(@namespace)
@@ -115,10 +116,21 @@ namespace Testura.Code.Builders
         /// Add region.
         /// </summary>
         /// <param name="regionMember">The region</param>
-        /// <returns>The current builder</returns>
+        /// <returns>The current builder.</returns>
         public TBuilder WithRegions(params RegionBuildMember[] regionMember)
         {
             return With(regionMember);
+        }
+
+        /// <summary>
+        /// Add summary.
+        /// </summary>
+        /// <param name="summary">The summary text.</param>
+        /// <returns>The current builder.</returns>
+        public TBuilder WithSummary(string summary)
+        {
+            _summary = summary;
+            return (TBuilder)this;
         }
 
         /// <summary>
@@ -140,6 +152,7 @@ namespace Testura.Code.Builders
         public TypeDeclarationSyntax BuildWithoutNamespace()
         {
             var @type = BuildBase();
+            @type = @type.WithSummary(_summary);
             @type = BuildAttributes(@type);
             @type = BuildMembers(@type);
             return @type;

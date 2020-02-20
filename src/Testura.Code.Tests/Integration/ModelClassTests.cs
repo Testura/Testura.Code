@@ -154,11 +154,23 @@ namespace Testura.Code.Tests.Integration
         }
 
         [Test]
-        public void Test_CreateClassWithMethodThatHaveSingleLineAndMultilineComments()
+        public void Test_CreateClassWithMethodThatHaveMultipleSUmmarysAndSingleLineComments()
         {
             var classBuilder = new ClassBuilder("Cat", "Models");
             var @class = classBuilder
                 .WithUsings("System")
+                .WithSummary("My class summary")
+                .WithConstructor(ConstructorGenerator.Create(
+                    "Cat",
+                    BodyGenerator.Create(
+                        Statement.Declaration.Assign("Name", ReferenceGenerator.Create(new VariableReference("name"))),
+                        Statement.Declaration.Assign("Age", ReferenceGenerator.Create(new VariableReference("age")))),
+                    new List<Parameter> { new Parameter("name", typeof(string)), new Parameter("age", typeof(int), xmlDocumentation: "My parameter") },
+                    new List<Modifiers> { Modifiers.Public },
+                    summary: "MyConstructor summary"))
+                .WithProperties(new AutoProperty("MyProperty", typeof(int), PropertyTypes.GetAndSet, summary: "MyPropertySummary"))
+                .WithFields(
+                    new Field("_name", typeof(string), new List<Modifiers>() { Modifiers.Private }, summary: "My field summary")) 
                 .WithMethods(new MethodBuilder("MyMethod")
                     .WithParameters(new Parameter("MyParameter", typeof(string)))
                     .WithBody(
@@ -169,11 +181,8 @@ namespace Testura.Code.Tests.Integration
                     .Build())
                 .Build();
 
-            var c = new CodeSaver();
-            var p = c.SaveCodeAsString(@class);
-
             Assert.AreEqual(
-                "usingSystem;namespaceModels{publicclassCat{/// <summary>\n/// Some summary\n/// </summary>\n/// <param name=\"MyParameter\">Some documentation</param>\nvoidMyMethod(stringMyParameter){}}}",
+                "usingSystem;namespaceModels{/// <summary>\n/// My class summary\n/// </summary>\npublicclassCat{/// <summary>\n/// MyConstructor summary\n/// </summary>\n/// <param name=\"age\">My parameter</param>\npublicCat(stringname,intage){Name=name;Age=age;}/// <summary>\n/// MyPropertySummary\n/// </summary>\nintMyProperty{get;set;}/// <summary>\n/// My field summary\n/// </summary>\nprivatestring_name;voidMyMethod(stringMyParameter){//hej\ninthello;inthello; //My comment to the side\n}}}",
                 @class.ToString());
         }
     }

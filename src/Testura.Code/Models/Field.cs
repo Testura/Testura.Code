@@ -17,12 +17,14 @@ namespace Testura.Code.Models
         /// <param name="modifiers">The fields modifiers.</param>
         /// <param name="attributes">The fields attributes.</param>
         /// <param name="initializeWith">Expression used to initialize field</param>
+        /// <param name="summary">XML documentation summary</param>
         public Field(
             string name,
             Type type,
             IEnumerable<Modifiers> modifiers = null,
             IEnumerable<Attribute> attributes = null,
-            ExpressionSyntax initializeWith = null)
+            ExpressionSyntax initializeWith = null,
+            string summary = null)
         {
             if (name == null)
             {
@@ -39,6 +41,7 @@ namespace Testura.Code.Models
             Modifiers = modifiers;
             Attributes = attributes;
             InitializeWith = initializeWith;
+            Summary = summary;
         }
 
         /// <summary>
@@ -62,8 +65,13 @@ namespace Testura.Code.Models
         public IEnumerable<Attribute> Attributes { get; set; }
 
         /// <summary>
-        /// Gets or sets expression used to assign field
+        /// Gets or sets expression used to assign field.
         /// </summary>
         public ExpressionSyntax InitializeWith { get; set; }
+
+        /// <summary>
+        /// Gets or sets the xml documentation summary of the field.
+        /// </summary>
+        public string Summary { get; }
     }
 }

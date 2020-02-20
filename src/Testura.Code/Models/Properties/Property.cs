@@ -17,13 +17,15 @@ namespace Testura.Code.Models.Properties
         /// <param name="attributes">Attributes on the property.</param>
         /// <param name="getModifiers">The get modifiers.</param>
         /// <param name="setModifiers">The set modifiers.</param>
+        /// <param name="summary">XML documentation summary</param>
         protected Property(
             string name,
             Type type,
             IEnumerable<Modifiers> modifiers = null,
             IEnumerable<Attribute> attributes = null,
             IEnumerable<Modifiers> getModifiers = null,
-            IEnumerable<Modifiers> setModifiers = null)
+            IEnumerable<Modifiers> setModifiers = null,
+            string summary = null)
         {
             if (name == null)
             {
@@ -41,6 +43,7 @@ namespace Testura.Code.Models.Properties
             Attributes = attributes;
             GetModifiers = getModifiers;
             SetModifiers = setModifiers;
+            Summary = summary;
         }
 
         /// <summary>
@@ -72,5 +75,7 @@ namespace Testura.Code.Models.Properties
         /// Gets or sets the set modifiers.
         /// </summary>
         public IEnumerable<Modifiers> SetModifiers { get; }
+
+        public string Summary { get; }
     }
 }

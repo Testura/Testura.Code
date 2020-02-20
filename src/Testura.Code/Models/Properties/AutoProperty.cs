@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Testura.Code.Models.Properties
 {
     /// <summary>
-    /// Represent an auto property
+    /// Represent an auto property.
     /// </summary>
     public class AutoProperty : Property
     {
@@ -18,6 +18,7 @@ namespace Testura.Code.Models.Properties
         /// <param name="attributes">Attributes on the property.</param>
         /// <param name="getModifiers">The get modifiers.</param>
         /// <param name="setModifiers">The set modifiers.</param>
+        /// <param name="summary">XML documentation summary</param>
         public AutoProperty(
             string name,
             Type type,
@@ -25,8 +26,9 @@ namespace Testura.Code.Models.Properties
             IEnumerable<Code.Modifiers> modifiers = null,
             IEnumerable<Attribute> attributes = null,
             IEnumerable<Modifiers> getModifiers = null,
-            IEnumerable<Modifiers> setModifiers = null)
-            : base(name, type, modifiers, attributes, getModifiers, setModifiers)
+            IEnumerable<Modifiers> setModifiers = null,
+            string summary = null)
+            : base(name, type, modifiers, attributes, getModifiers, setModifiers, summary)
         {
             PropertyType = propertyType;
         }
