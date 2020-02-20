@@ -214,4 +214,17 @@
         /// </summary>
         This
     }
+
+    public enum CommentPosition
+    {
+        /// <summary>
+        /// Generate comment above statement.
+        /// </summary>
+        Above,
+
+        /// <summary>
+        /// Generate comment to the right of statement.
+        /// </summary>
+        Right
+    }
 }

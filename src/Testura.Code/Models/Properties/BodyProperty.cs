@@ -20,6 +20,7 @@ namespace Testura.Code.Models.Properties
         /// <param name="attributes">Attributes of the property.</param>
         /// <param name="getModifiers">The get modifiers.</param>
         /// <param name="setModifiers">The set modifiers.</param>
+        /// <param name="summary">XML documentation summary</param>
         public BodyProperty(
             string name,
             Type type,
@@ -28,8 +29,9 @@ namespace Testura.Code.Models.Properties
             IEnumerable<Modifiers> modifiers = null,
             IEnumerable<Attribute> attributes = null,
             IEnumerable<Modifiers> getModifiers = null,
-            IEnumerable<Modifiers> setModifiers = null)
-            : base(name, type, modifiers, attributes, getModifiers, setModifiers)
+            IEnumerable<Modifiers> setModifiers = null,
+            string summary = null)
+            : base(name, type, modifiers, attributes, getModifiers, setModifiers, summary)
         {
             if (getBody == null)
             {

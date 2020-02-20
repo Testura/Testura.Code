@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
 
 namespace Testura.Code.Models

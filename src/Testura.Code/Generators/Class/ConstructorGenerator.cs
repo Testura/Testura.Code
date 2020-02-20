@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Generators.Common;
+using Testura.Code.Generators.Special;
 using Testura.Code.Models;
 using Attribute = Testura.Code.Models.Attribute;
 
@@ -22,6 +23,8 @@ namespace Testura.Code.Generators.Class
         /// <param name="parameters">A list with parameters.</param>
         /// <param name="modifiers">A list with modifiers.</param>
         /// <param name="attributes">A list with attributes.</param>
+        /// <param name="constructorInitializer">The constructor initializer</param>
+        /// <param name="summary">XML documentation summary</param>
         /// <returns>The declaration syntax for a constructor.</returns>
         public static ConstructorDeclarationSyntax Create(
             string className,
@@ -29,7 +32,8 @@ namespace Testura.Code.Generators.Class
             IEnumerable<Parameter> parameters = null,
             IEnumerable<Modifiers> modifiers = null,
             IEnumerable<Attribute> attributes = null,
-            ConstructorInitializer constructorInitializer = null)
+            ConstructorInitializer constructorInitializer = null,
+            string summary = null)
         {
             if (className == null)
             {
@@ -59,6 +63,11 @@ namespace Testura.Code.Generators.Class
             if (modifiers != null)
             {
                 constructor = constructor.WithModifiers(ModifierGenerator.Create(modifiers.ToArray()));
+            }
+
+            if (!string.IsNullOrEmpty(summary))
+            {
+                constructor = constructor.WithSummary(summary, parameters);
             }
 
             return constructor;

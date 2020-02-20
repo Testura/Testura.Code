@@ -5,6 +5,7 @@ using System.Net;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Generators.Common;
+using Testura.Code.Generators.Special;
 using Testura.Code.Models.Properties;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
@@ -49,6 +50,11 @@ namespace Testura.Code.Generators.Class
             if (property.Attributes != null)
             {
                 propertyDeclaration = propertyDeclaration.WithAttributeLists(AttributeGenerator.Create(property.Attributes.ToArray()));
+            }
+
+            if (!string.IsNullOrEmpty(property.Summary))
+            {
+                propertyDeclaration = propertyDeclaration.WithSummary(property.Summary);
             }
 
             return propertyDeclaration;
