@@ -227,4 +227,21 @@
         /// </summary>
         Right
     }
+
+    public enum Operators
+    {
+        Multiplication,
+        Division,
+        Reminder,
+        Addition,
+        Subtraction,
+        Equal,
+        NotEqual,
+        GreaterThan,
+        GreaterThanOrEqual,
+        LessThan,
+        LessThanOrEqual,
+        Increment,
+        Decrement
+    }
 }

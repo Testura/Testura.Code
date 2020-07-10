@@ -185,5 +185,28 @@ namespace Testura.Code.Tests.Integration
                 "usingSystem;namespaceModels{/// <summary>\n/// My class summary\n/// </summary>\npublicclassCat{/// <summary>\n/// MyConstructor summary\n/// </summary>\n/// <param name=\"age\">My parameter</param>\npublicCat(stringname,intage){Name=name;Age=age;}/// <summary>\n/// MyPropertySummary\n/// </summary>\nintMyProperty{get;set;}/// <summary>\n/// My field summary\n/// </summary>\nprivatestring_name;voidMyMethod(stringMyParameter){//hej\ninthello;inthello; //My comment to the side\n}}}",
                 @class.ToString());
         }
+
+        [Test]
+        public void Test_CreateClassWithMethodThatHaveOverrideOperators()
+        {
+            var classBuilder = new ClassBuilder("Cat", "Models");
+            var @class = classBuilder
+                .WithUsings("System")
+                .WithMethods(new MethodBuilder("MyMethod")
+                    .WithModifiers(Modifiers.Public, Modifiers.Static)
+                    .WithOperatorOverloading(Operators.Increment)
+                    .WithParameters(new Parameter("MyParameter", typeof(string)))
+                    .WithBody(
+                            BodyGenerator.Create(
+                                Statement.Declaration.Declare("hello", typeof(int)).WithComment("My comment above").WithComment("hej"),
+                                            Statement.Declaration.Declare("hello", typeof(int)).WithComment("My comment to the side", CommentPosition.Right)
+                            ))
+                    .Build())
+                .Build();
+
+            Assert.AreEqual(
+                "usingSystem;namespaceModels{publicclassCat{publicstaticMyMethodoperator++(stringMyParameter){//hej\ninthello;inthello; //My comment to the side\n}}}",
+                @class.ToString());
+        }
     }
 }

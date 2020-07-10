@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>0.16.0</Version>
+    <Version>0.17.0</Version>
     <Authors>Mille Bostrom</Authors>
     <Copyright>Copyright 2016</Copyright>
     <Title>$(ProjectName)</Title>
     <Description>Testura.Code is a wrapper around the Roslyn API and used for generation, saving and and compiling C# code. It provides methods and helpers to generate classes, methods, statements and expressions.</Description>
     <PackageReleaseNotes>
-      Release 0.16.0:
-      - Added support for xml documentation to class, constructot, fields and properties.
-	  - Added support for single line comments to statements.
+      Release 0.17.0:
+      - Added support for operator overloading
+	  - Fixed bug with ThatInheritFrom and multiple types
 
 </PackageReleaseNotes>
     <PackageTags>
@@ -24,8 +24,11 @@
     <CodeAnalysisRuleSet>Settings\Testura.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>  
     <TargetFrameworks>netstandard2.0</TargetFrameworks>  
-    <AssemblyVersion>0.16.0.0</AssemblyVersion>  
+    <AssemblyVersion>0.17.0.0</AssemblyVersion>  
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+    <WarningLevel>3</WarningLevel>
   </PropertyGroup>
   
   

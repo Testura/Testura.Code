@@ -5,9 +5,9 @@ namespace Testura.Code.Builders.BuildMembers
 {
     public class MethodBuildMember : IBuildMember
     {
-        private readonly MethodDeclarationSyntax[] _methodDeclarationSyntaxs;
+        private readonly BaseMethodDeclarationSyntax[] _methodDeclarationSyntaxs;
 
-        public MethodBuildMember(MethodDeclarationSyntax[] methodDeclarationSyntaxs)
+        public MethodBuildMember(BaseMethodDeclarationSyntax[] methodDeclarationSyntaxs)
         {
             _methodDeclarationSyntaxs = methodDeclarationSyntaxs;
         }

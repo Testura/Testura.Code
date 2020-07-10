@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Testura.Code.Builders;
+using Testura.Code.Generators.Common;
 using Testura.Code.Models;
 
 namespace Testura.Code.Tests.Builders
@@ -58,6 +59,17 @@ namespace Testura.Code.Tests.Builders
         {
             var builder = new MethodBuilder("MyMethod");
             Assert.IsTrue(builder.WithBody(null).Build().ToString().Contains("MyMethod();"));
+        }
+
+        [Test]
+        public void Build_WhenHavingOperatorOverloading_ShouldGenerateOverloading()
+        {
+            var builder = new MethodBuilder("MyMethod")
+                .WithModifiers(Modifiers.Public, Modifiers.Static)
+                .WithOperatorOverloading(Operators.Equal)
+                .WithBody(BodyGenerator.Create());
+
+            StringAssert.Contains("publicstaticMyMethodoperator==(){}",builder.Build().ToString());
         }
     }
 }

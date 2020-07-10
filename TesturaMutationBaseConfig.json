@@ -1,0 +1,10 @@
+{
+    "TestProjects": ["Testura.Code.Tests (net472)", "Testura.Code.Tests (netcoreapp2.1)"],
+    "IgnoredProjects": [],
+    "ProjectMappings": [],
+    "NumberOfTestRunInstances": 3,
+    "MaxTestTimeMin": 5,
+    "TestRunner": "DotNet",
+    "Mutators": ["ConditionalBoundary", "NegateCondtional", "Math", "NegateTypeCompability", "Increment", "ReturnValue", "MethodCall"],
+    "CreateBaseline": true
+}
