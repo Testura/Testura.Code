@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Testura.Code.Factories;
 using Testura.Code.Generators.Common;
 using Testura.Code.Generators.Special;
 using Testura.Code.Models;
@@ -23,6 +24,7 @@ namespace Testura.Code.Builders
         private Type _returnType;
         private BlockSyntax _body;
         private string _summary;
+        private SyntaxKind? _overrideOperator;
 
         private SyntaxList<AttributeListSyntax> _attributes;
         private readonly List<Parameter> _parameterXmlDocumentation;
@@ -148,10 +150,32 @@ namespace Testura.Code.Builders
         }
 
         /// <summary>
+        /// Set operator overloading.
+        /// </summary>
+        /// <param name="operator">Operator to overload</param>
+        /// <returns>The current method builder.</returns>
+        public MethodBuilder WithOperatorOverloading(Operators @operator)
+        {
+            _overrideOperator = OperatorFactory.GetSyntaxKind(@operator);
+            return this;
+        }
+
+        /// <summary>
+        /// Set operator overloading.
+        /// </summary>
+        /// <param name="operator">Operator to overload</param>
+        /// <returns>The current method builder.</returns>
+        public MethodBuilder WithOperatorOverloading(SyntaxKind @operator)
+        {
+            _overrideOperator = @operator;
+            return this;
+        }
+
+        /// <summary>
         /// Build method and return the generated code.
         /// </summary>
         /// <returns>The generated method.</returns>
-        public MethodDeclarationSyntax Build()
+        public BaseMethodDeclarationSyntax Build()
         {
             var method = BuildMethodBase();
             method = BuildModifiers(method);
@@ -162,8 +186,13 @@ namespace Testura.Code.Builders
             return method;
         }
 
-        private MethodDeclarationSyntax BuildMethodBase()
+        private BaseMethodDeclarationSyntax BuildMethodBase()
         {
+            if (_overrideOperator != null)
+            {
+                return OperatorDeclaration(IdentifierName(_name), Token(_overrideOperator.Value));
+            }
+
             if (_returnType != null)
             {
                 return MethodDeclaration(TypeGenerator.Create(_returnType), Identifier(_name));
@@ -176,7 +205,7 @@ namespace Testura.Code.Builders
             }
         }
 
-        private MethodDeclarationSyntax BuildModifiers(MethodDeclarationSyntax method)
+        private BaseMethodDeclarationSyntax BuildModifiers(BaseMethodDeclarationSyntax method)
         {
             if (_modifiers == null || !_modifiers.Any())
             {
@@ -186,17 +215,17 @@ namespace Testura.Code.Builders
             return method.WithModifiers(ModifierGenerator.Create(_modifiers.ToArray()));
         }
 
-        private MethodDeclarationSyntax BuildAttributes(MethodDeclarationSyntax method)
+        private BaseMethodDeclarationSyntax BuildAttributes(BaseMethodDeclarationSyntax method)
         {
             return !_attributes.Any() ? method : method.WithAttributeLists(_attributes);
         }
 
-        private MethodDeclarationSyntax BuildParameters(MethodDeclarationSyntax method)
+        private BaseMethodDeclarationSyntax BuildParameters(BaseMethodDeclarationSyntax method)
         {
             return !_parameters.Any() ? method : method.WithParameterList(ParameterGenerator.ConvertParameterSyntaxToList(_parameters.ToArray()));
         }
 
-        private MethodDeclarationSyntax BuildBody(MethodDeclarationSyntax method)
+        private BaseMethodDeclarationSyntax BuildBody(BaseMethodDeclarationSyntax method)
         {
             if (_body == null)
             {

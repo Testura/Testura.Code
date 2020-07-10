@@ -10,6 +10,7 @@ using Testura.Code.Generators.Common;
 using Testura.Code.Generators.Special;
 using Testura.Code.Models.Properties;
 using Attribute = Testura.Code.Models.Attribute;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Builders.Base
 {
@@ -87,7 +88,7 @@ namespace Testura.Code.Builders.Base
         /// </summary>
         /// <param name="methods">A set of already generated methods</param>
         /// <returns>The current class builder</returns>
-        public TBuilder WithMethods(params MethodDeclarationSyntax[] methods)
+        public TBuilder WithMethods(params BaseMethodDeclarationSyntax[] methods)
         {
             return With(new MethodBuildMember(methods));
         }
@@ -177,17 +178,10 @@ namespace Testura.Code.Builders.Base
                 return null;
             }
 
-            var syntaxNodeOrToken = new SyntaxNodeOrToken[(_inheritance.Count * 2) - 1];
-            for (int n = 0; n < (_inheritance.Count * 2) - 1; n += 2)
-            {
-                syntaxNodeOrToken[n] = SyntaxFactory.SimpleBaseType(TypeGenerator.Create(_inheritance[n]));
-                if (n + 1 < _inheritance.Count - 1)
-                {
-                    syntaxNodeOrToken[n + 1] = SyntaxFactory.Token(SyntaxKind.CommaToken);
-                }
-            }
-
-            return SyntaxFactory.BaseList(SyntaxFactory.SeparatedList<BaseTypeSyntax>(syntaxNodeOrToken));
+            return BaseList(
+                SeparatedList<BaseTypeSyntax>(
+                    _inheritance.Select(i => SimpleBaseType(TypeGenerator.Create(i))), 
+                    _inheritance.Select(i => Token(SyntaxKind.CommaToken))));
         }
     }
 }

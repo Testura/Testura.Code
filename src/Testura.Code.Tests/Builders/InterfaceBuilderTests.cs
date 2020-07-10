@@ -57,8 +57,20 @@ namespace Testura.Code.Tests.Builders
         [Test]
         public void Build_WhenGivenInheritance_CodeShouldContainInheritance()
         {
-            var o = _interfaceBuilder.ThatInheritFrom(typeof(int)).Build().ToString();
             Assert.IsTrue(_interfaceBuilder.ThatInheritFrom(typeof(int)).Build().ToString().Contains("TestInterface:int"));
+        }
+
+
+        [Test]
+        public void Build_WhenGivenInheritanceWithTwoTypes_CodeShouldContainInheritance()
+        {
+            Assert.IsTrue(_interfaceBuilder.ThatInheritFrom(typeof(int), typeof(string)).Build().ToString().Contains("TestInterface:int,string"));
+        }
+
+        [Test]
+        public void Build_WhenGivenInheritanceWithThreeTypes_CodeShouldContainInheritance()
+        {
+            Assert.IsTrue(_interfaceBuilder.ThatInheritFrom(typeof(int), typeof(string), typeof(double)).Build().ToString().Contains("TestInterface:int,string,double"));
         }
     }
 }
