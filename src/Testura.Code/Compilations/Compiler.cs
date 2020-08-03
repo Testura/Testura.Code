@@ -79,7 +79,10 @@ namespace Testura.Code.Compilations
                 source[n] = File.ReadAllText(pathsToCsFiles[n]);
             }
 
-            return await CompileSourceAsync(outputPath, source);
+            using (var fs = File.OpenWrite(outputPath))
+            {
+                return await CompileSourceToStreamAsync("compilationResult", fs, source);
+            }
         }
 
         /// <summary>
@@ -89,6 +92,22 @@ namespace Testura.Code.Compilations
         /// <param name="source">Source string to compile.</param>
         /// <returns>The result of the compilation.</returns>
         public async Task<CompileResult> CompileSourceAsync(string outputPath, params string[] source)
+        {
+            var stream = outputPath != null ? (Stream)File.OpenWrite(outputPath) : new MemoryStream();
+            using (stream)
+            {
+                return await CompileSourceToStreamAsync("temporary", stream, source);
+            }
+        }
+
+        /// <summary>
+        /// Compile code from a string source into a dll.
+        /// </summary>
+        /// <param name="assemblyName">Name for the assembly.</param>
+        /// <param name="stream">Stream to write the assembly to.</param>
+        /// <param name="source">Source string to compile.</param>
+        /// <returns>The result of the compilation.</returns>
+        public async Task<CompileResult> CompileSourceToStreamAsync(string assemblyName, Stream stream, params string[] source)
         {
             if (source.Length == 0)
             {
@@ -111,26 +130,16 @@ namespace Testura.Code.Compilations
                     .WithUsings(_defaultNamespaces);
 
                 var compilation = CSharpCompilation.Create(
-                    string.IsNullOrEmpty(outputPath) ? "temporary" : Path.GetFileName(outputPath),
+                    assemblyName,
                     parsedSyntaxTrees,
                     ConvertReferenceToMetaDataReferfence(),
                     defaultCompilationOptions);
 
                 EmitResult result;
 
-                if (string.IsNullOrEmpty(outputPath))
-                {
-                    using (var memoryStream = new MemoryStream())
-                    {
-                        result = compilation.Emit(memoryStream);
-                    }
-                }
-                else
-                {
-                    result = compilation.Emit(outputPath);
-                }
+                result = compilation.Emit(stream);
                 var outputRows = ConvertDiagnosticsToOutputRows(result.Diagnostics);
-                return new CompileResult(outputPath, result.Success, outputRows);
+                return new CompileResult(result.Success, outputRows);
             });
         }
 
