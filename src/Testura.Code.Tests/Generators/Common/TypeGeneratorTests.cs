@@ -9,14 +9,9 @@ namespace Testura.Code.Tests.Generators.Common
     [TestFixture]
     public class TypeGeneratorTests
     {
-        private enum MyCustomEnum { Stuff }
-
-        private struct MyStruct
+        private enum MyCustomEnum
         {
-        }
-
-        private class MyClass
-        {       
+            Stuff
         }
 
         [TestCase(typeof(int), "int")]
@@ -116,6 +111,14 @@ namespace Testura.Code.Tests.Generators.Common
         public void Create_WhenCreatingArrayWithGenericClassType_ShouldGenerateCode()
         {
             Assert.AreEqual("List<string>[]", TypeGenerator.Create(typeof(List<string>[])).ToString());
+        }
+
+        private struct MyStruct
+        {
+        }
+
+        private class MyClass
+        {
         }
     }
 }

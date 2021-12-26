@@ -15,7 +15,7 @@ namespace Testura.Code.Tests.Generators.Common.Arguments.ArgumentTypes
         {
             var argument = new ParenthesizedLambdaArgument(Statement.Expression.Invoke("MyMethod").AsExpression());
             var syntax = argument.GetArgumentSyntax();
-            
+
             Assert.IsInstanceOf<ArgumentSyntax>(syntax);
             Assert.AreEqual("()=>MyMethod()", syntax.ToString());
         }

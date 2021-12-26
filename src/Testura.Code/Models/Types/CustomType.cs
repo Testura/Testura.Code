@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Testura.Code.Models.Types
+﻿namespace Testura.Code.Models.Types
 {
     /// <summary>
     /// Provides functionality to create a custom type

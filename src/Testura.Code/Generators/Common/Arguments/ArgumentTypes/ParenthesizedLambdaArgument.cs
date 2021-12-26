@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Models;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 #pragma warning disable 1591
@@ -26,13 +23,8 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
         public ParenthesizedLambdaArgument(ExpressionSyntax expressionSyntax, IEnumerable<Parameter> parameters = null, string namedArgument = null)
             : base(namedArgument)
         {
-            if (expressionSyntax == null)
-            {
-                throw new ArgumentNullException(nameof(expressionSyntax));
-            }
-
             _parameters = parameters ?? new List<Parameter>();
-            _expressionSyntax = expressionSyntax;
+            _expressionSyntax = expressionSyntax ?? throw new ArgumentNullException(nameof(expressionSyntax));
         }
 
         /// <summary>

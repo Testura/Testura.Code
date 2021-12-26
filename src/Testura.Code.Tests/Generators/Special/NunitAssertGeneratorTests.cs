@@ -33,7 +33,6 @@ namespace Testura.Code.Tests.Generators.Special
             Assert.AreEqual("Assert.AreNotEqual(true,false,\"Message\");", NunitAssertGenerator.AreNotEqual(new ValueArgument(true), new ValueArgument(false), "Message").ToString());
         }
 
-
         [Test]
         public void AreSame_WhenCallingWithMessage_ShouldGenerateCode()
         {

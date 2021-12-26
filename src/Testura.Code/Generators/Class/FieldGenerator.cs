@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Generators.Common;
 using Testura.Code.Generators.Special;
 using Testura.Code.Models;
@@ -32,7 +30,7 @@ namespace Testura.Code.Generators.Class
                 variableDeclarator = variableDeclarator.WithInitializer(EqualsValueClause(field.InitializeWith));
             }
 
-            var fieldDeclaration = FieldDeclaration(VariableDeclaration(TypeGenerator.Create(field.Type), SeparatedList(new[] { variableDeclarator})));
+            var fieldDeclaration = FieldDeclaration(VariableDeclaration(TypeGenerator.Create(field.Type), SeparatedList(new[] { variableDeclarator })));
 
             if (field.Modifiers != null)
             {

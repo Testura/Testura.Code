@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.CodeAnalysis.CSharp;
+﻿using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Factories;
 using Testura.Code.Generators.Common;
@@ -307,9 +306,7 @@ namespace Testura.Code.Statements
             return
                 ExpressionStatement(
                     AssignmentExpression(
-                        SyntaxKind.SimpleAssignmentExpression,
-                    ReferenceGenerator.Create(reference),
-                    expressionSyntax));
+                        SyntaxKind.SimpleAssignmentExpression, ReferenceGenerator.Create(reference), expressionSyntax));
         }
 
         /// <summary>
@@ -333,9 +330,7 @@ namespace Testura.Code.Statements
             return
                 ExpressionStatement(
                     AssignmentExpression(
-                        SyntaxKind.SimpleAssignmentExpression,
-                    ReferenceGenerator.Create(reference),
-                    binaryExpression.GetBinaryExpression()));
+                        SyntaxKind.SimpleAssignmentExpression, ReferenceGenerator.Create(reference), binaryExpression.GetBinaryExpression()));
         }
 
         /// <summary>

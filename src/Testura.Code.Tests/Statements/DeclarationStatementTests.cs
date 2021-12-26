@@ -19,7 +19,6 @@ namespace Testura.Code.Tests.Statements
             _statement = new DeclarationStatement();
         }
 
-
         [Test]
         public void DeclareAndAssign_WhenCreatingVariableWithVar_ShouldUseVar()
         {
@@ -79,10 +78,11 @@ namespace Testura.Code.Tests.Statements
         {
             Assert.AreEqual("vartest=MyMethod();", _statement.DeclareAndAssign("test", typeof(int), new ExpressionStatement().Invoke("MyMethod").AsExpression()).ToString());
         }
+
         [Test]
         public void DeclareAndAssign_WhenCreateTypeAndAssignToExpressionAndNotUsingVarKeyword_ShouldAssignToExpressionWithoutVarKeyword()
         {
-            Assert.AreEqual("inttest=MyMethod();", _statement.DeclareAndAssign("test", typeof(int), new ExpressionStatement().Invoke("MyMethod").AsExpression(), useVarKeyword:false).ToString());
+            Assert.AreEqual("inttest=MyMethod();", _statement.DeclareAndAssign("test", typeof(int), new ExpressionStatement().Invoke("MyMethod").AsExpression(), useVarKeyword: false).ToString());
         }
 
         [Test]
@@ -126,6 +126,7 @@ namespace Testura.Code.Tests.Statements
         {
             Assert.AreEqual("test.Test=test.Do;", _statement.Assign(new VariableReference("test", new MemberReference("Test")), new VariableReference("test", new MemberReference("Do"))).ToString());
         }
+
         [Test]
         public void Assign_WhenAssignVariableReferenceThatIsAMethodToVariableReference_ShouldThrowException()
         {
@@ -137,7 +138,6 @@ namespace Testura.Code.Tests.Statements
         {
             Assert.AreEqual("test.Test=(int)test.Do;", _statement.Assign(new VariableReference("test", new MemberReference("Test")), new VariableReference("test", new MemberReference("Do")), typeof(int)).ToString());
         }
-
 
         [Test]
         public void Assign_WhenAssignVariableReferenceToBinaryExpression_ShouldAssignVariable()

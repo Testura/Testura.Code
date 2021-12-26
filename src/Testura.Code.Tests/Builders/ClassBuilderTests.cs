@@ -32,7 +32,7 @@ namespace Testura.Code.Tests.Builders
         [Test]
         public void Build_WhenGivenField_CodeShouldContainField()
         {
-            Assert.IsTrue(_classBuilder.WithFields(new Field("myField", typeof(int), new List<Modifiers>() { Modifiers.Public})) .Build().ToString().Contains("publicintmyField;"));
+            Assert.IsTrue(_classBuilder.WithFields(new Field("myField", typeof(int), new List<Modifiers>() { Modifiers.Public })).Build().ToString().Contains("publicintmyField;"));
         }
 
         [Test]
@@ -40,7 +40,6 @@ namespace Testura.Code.Tests.Builders
         {
             Assert.IsTrue(_classBuilder.WithAttributes(new Attribute("MyAttribute")).Build().ToString().Contains("[MyAttribute]"));
         }
-
 
         [Test]
         public void Build_WhenGivenProperty_CodeShouldContainProperty()
@@ -53,7 +52,6 @@ namespace Testura.Code.Tests.Builders
         {
             Assert.IsTrue(_classBuilder.WithUsings("some.namespace").Build().ToString().Contains("some.namespace"));
         }
-
 
         [Test]
         public void Build_WhenGivenModifiers_CodeShouldContainModifiers()

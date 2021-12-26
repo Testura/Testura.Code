@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -27,12 +24,7 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
         public ArrayInitializationArgument(Type type, IEnumerable<IArgument> arguments, string namedArgument = null)
             : base(namedArgument)
         {
-            if (type == null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
-
-            _type = type;
+            _type = type ?? throw new ArgumentNullException(nameof(type));
             _arguments = arguments == null ? new List<IArgument>() : new List<IArgument>(arguments);
         }
 

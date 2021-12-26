@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Factories;
@@ -21,13 +18,14 @@ namespace Testura.Code.Builders
         private readonly string _name;
         private readonly List<ParameterSyntax> _parameters;
         private readonly List<Modifiers> _modifiers;
+        private readonly List<Parameter> _parameterXmlDocumentation;
+
         private Type _returnType;
         private BlockSyntax _body;
         private string _summary;
         private SyntaxKind? _overrideOperator;
 
         private SyntaxList<AttributeListSyntax> _attributes;
-        private readonly List<Parameter> _parameterXmlDocumentation;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MethodBuilder"/> class.

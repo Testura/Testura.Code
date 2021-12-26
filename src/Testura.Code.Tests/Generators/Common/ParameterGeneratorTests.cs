@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Testura.Code.Generators.Common;
 using Testura.Code.Models;
 
@@ -41,6 +36,5 @@ namespace Testura.Code.Tests.Generators.Common
         {
             Assert.AreEqual("(thisinttest)", ParameterGenerator.Create(new Parameter("test", typeof(int), ParameterModifiers.This)).ToString());
         }
-
     }
 }

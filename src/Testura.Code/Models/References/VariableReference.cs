@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Testura.Code.Models.References
+﻿namespace Testura.Code.Models.References
 {
     /// <summary>
     /// The reference classes are used to simplify call to methods, fields, properties etc.
@@ -22,12 +20,7 @@ namespace Testura.Code.Models.References
         /// <param name="variableName">Name of the variable,</param>
         public VariableReference(string variableName)
         {
-            if (variableName == null)
-            {
-                throw new ArgumentNullException(nameof(variableName));
-            }
-
-            Name = variableName;
+            Name = variableName ?? throw new ArgumentNullException(nameof(variableName));
         }
 
         /// <summary>

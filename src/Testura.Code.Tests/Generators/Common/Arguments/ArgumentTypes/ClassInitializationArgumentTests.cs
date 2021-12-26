@@ -12,7 +12,7 @@ namespace Testura.Code.Tests.Generators.Common.Arguments.ArgumentTypes
         [Test]
         public void GetArgumentSyntax_WhenInitializeClass_ShouldGetCorrectCode()
         {
-            var argument = new ClassInitializationArgument(typeof(String));
+            var argument = new ClassInitializationArgument(typeof(string));
             var syntax = argument.GetArgumentSyntax();
 
             Assert.IsInstanceOf<ArgumentSyntax>(syntax);
@@ -22,7 +22,7 @@ namespace Testura.Code.Tests.Generators.Common.Arguments.ArgumentTypes
         [Test]
         public void GetArgumentSyntax_WhenInitializeClassAsNamedArgument_ShouldGetCorrectCode()
         {
-            var argument = new ClassInitializationArgument(typeof(String), namedArgument: "namedArgument");
+            var argument = new ClassInitializationArgument(typeof(string), namedArgument: "namedArgument");
             var syntax = argument.GetArgumentSyntax();
 
             Assert.IsInstanceOf<ArgumentSyntax>(syntax);
@@ -32,7 +32,7 @@ namespace Testura.Code.Tests.Generators.Common.Arguments.ArgumentTypes
         [Test]
         public void GetArgumentSyntax_WhenInitializeClassWithArgument_ShouldGetCorrectCode()
         {
-            var argument = new ClassInitializationArgument(typeof(String), new List<IArgument> { new ValueArgument(0)});
+            var argument = new ClassInitializationArgument(typeof(string), new List<IArgument> { new ValueArgument(0) });
             var syntax = argument.GetArgumentSyntax();
 
             Assert.IsInstanceOf<ArgumentSyntax>(syntax);

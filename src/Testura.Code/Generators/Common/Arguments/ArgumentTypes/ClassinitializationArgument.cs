@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 #pragma warning disable 1591
@@ -30,12 +27,7 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
             string namedArgument = null)
             : base(namedArgument)
         {
-            if (type == null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
-
-            _type = type;
+            _type = type ?? throw new ArgumentNullException(nameof(type));
             _arguments = arguments == null ? new List<IArgument>() : new List<IArgument>(arguments);
             _genericTypes = genericTypes == null ? new List<Type>() : new List<Type>(genericTypes);
         }

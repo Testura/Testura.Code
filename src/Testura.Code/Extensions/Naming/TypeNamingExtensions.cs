@@ -1,5 +1,4 @@
-﻿using System;
-using Testura.Code.Util.TypeNameFormatting;
+﻿using Testura.Code.Util.TypeNameFormatting;
 #pragma warning disable 1591
 
 namespace Testura.Code.Extensions.Naming

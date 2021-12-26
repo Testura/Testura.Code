@@ -245,3 +245,5 @@ ModelManifest.xml
 .fake/
 /src/Testura.Android/Testura.Android.nuspec
 /src/Testura.Android/nuget.exe
+
+/.idea/

@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.CodeAnalysis.CSharp;
+﻿using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Generators.Common;
 using Testura.Code.Models.References;
@@ -16,28 +15,13 @@ namespace Testura.Code.Factories
         /// <returns>The correct equals value clause</returns>
         internal static EqualsValueClauseSyntax GetEqualsValueClause(object value)
         {
-            if (value is int)
+            return value switch
             {
-                return EqualsValueClause(
-                        LiteralExpression(
-                                SyntaxKind.NumericLiteralExpression,
-                                Literal(TriviaList(), value.ToString(), (int)value, TriviaList())));
-            }
-
-            if (value is string)
-            {
-                return EqualsValueClause(
-                        LiteralExpression(
-                            SyntaxKind.StringLiteralExpression,
-                            Literal(TriviaList(), value.ToString(), (string)value, TriviaList())));
-            }
-
-            if (value is VariableReference)
-            {
-                return EqualsValueClause(ReferenceGenerator.Create((VariableReference)value));
-            }
-
-            throw new NotSupportedException("Not a supported value");
+                int i => EqualsValueClause(LiteralExpression(SyntaxKind.NumericLiteralExpression, Literal(TriviaList(), i.ToString(), i, TriviaList()))),
+                string s => EqualsValueClause(LiteralExpression(SyntaxKind.StringLiteralExpression, Literal(TriviaList(), s.ToString(), s, TriviaList()))),
+                VariableReference reference => EqualsValueClause(ReferenceGenerator.Create(reference)),
+                _ => throw new NotSupportedException("Not a supported value")
+            };
         }
     }
 }

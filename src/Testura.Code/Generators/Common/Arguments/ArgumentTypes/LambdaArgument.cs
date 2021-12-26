@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 #pragma warning disable 1591
 
@@ -23,18 +22,8 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
         public LambdaArgument(ExpressionSyntax expressionSyntax, string parameterName, string namedArgument = null)
             : base(namedArgument)
         {
-            if (expressionSyntax == null)
-            {
-                throw new ArgumentNullException(nameof(expressionSyntax));
-            }
-
-            if (parameterName == null)
-            {
-                throw new ArgumentNullException(nameof(parameterName));
-            }
-
-            _expressionSyntax = expressionSyntax;
-            _parameterName = parameterName;
+            _expressionSyntax = expressionSyntax ?? throw new ArgumentNullException(nameof(expressionSyntax));
+            _parameterName = parameterName ?? throw new ArgumentNullException(nameof(parameterName));
         }
 
         /// <summary>
@@ -46,18 +35,8 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
         public LambdaArgument(BlockSyntax blockSyntax, string parameterName, string namedArgument = null)
             : base(namedArgument)
         {
-            if (blockSyntax == null)
-            {
-                throw new ArgumentNullException(nameof(blockSyntax));
-            }
-
-            if (parameterName == null)
-            {
-                throw new ArgumentNullException(nameof(parameterName));
-            }
-
-            _blockSyntax = blockSyntax;
-            _parameterName = parameterName;
+            _blockSyntax = blockSyntax ?? throw new ArgumentNullException(nameof(blockSyntax));
+            _parameterName = parameterName ?? throw new ArgumentNullException(nameof(parameterName));
         }
 
         protected override ArgumentSyntax CreateArgumentSyntax()

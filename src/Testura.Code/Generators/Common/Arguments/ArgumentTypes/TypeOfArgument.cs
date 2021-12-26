@@ -1,4 +1,3 @@
-using System;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 #pragma warning disable 1591
@@ -20,12 +19,7 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
         public TypeOfArgument(Type type, string namedArgument = null)
             : base(namedArgument)
         {
-            if (type == null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
-
-            _type = type;
+            _type = type ?? throw new ArgumentNullException(nameof(type));
         }
 
         protected override ArgumentSyntax CreateArgumentSyntax()

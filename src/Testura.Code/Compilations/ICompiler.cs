@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-#pragma warning disable 1591
+﻿#pragma warning disable 1591
 
 namespace Testura.Code.Compilations
 {

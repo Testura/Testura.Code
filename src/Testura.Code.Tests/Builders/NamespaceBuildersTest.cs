@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
 using Testura.Code.Builders;
 using Testura.Code.Builders.BuildMembers;
 using Testura.Code.Models;
-using Testura.Code.Saver;
 
 namespace Testura.Code.Tests.Builders
 {
@@ -19,7 +14,7 @@ namespace Testura.Code.Tests.Builders
         {
             var @namespace = new NamespaceBuilder("MyNamespace")
                 .WithUsings("System")
-                .With(new EnumBuildMember("MyEnum", new List<EnumMember> {new EnumMember("SomeEnum", 2)}))
+                .With(new EnumBuildMember("MyEnum", new List<EnumMember> { new EnumMember("SomeEnum", 2) }))
                 .With(new ClassBuildMember(new ClassBuilder("MyClass", null).BuildWithoutNamespace()))
                 .Build();
 

@@ -26,7 +26,7 @@ namespace Testura.Code.Tests.Generators.Common.References
         [Test]
         public void Create_WhenCreatingVariableRefernceWithMethodMemberThatHasArgument_ShouldGenerateCorrectCode()
         {
-            Assert.AreEqual("myVariable.MyMethod(1,\"test\")", ReferenceGenerator.Create(new VariableReference("myVariable", new MethodReference("MyMethod", new List<IArgument> { new ValueArgument(1), new ValueArgument("test")}))).ToString());
+            Assert.AreEqual("myVariable.MyMethod(1,\"test\")", ReferenceGenerator.Create(new VariableReference("myVariable", new MethodReference("MyMethod", new List<IArgument> { new ValueArgument(1), new ValueArgument("test") }))).ToString());
         }
 
         [Test]

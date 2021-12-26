@@ -15,7 +15,7 @@ namespace Testura.Code.Tests.Extensions.Naming
         [Test]
         public void FirstLetterToLowerCase_WhenHavingAEmptyString_ShouldReturnSameString()
         {
-            Assert.AreEqual(string.Empty, "".FirstLetterToLowerCase());
+            Assert.AreEqual(string.Empty, string.Empty.FirstLetterToLowerCase());
         }
 
         [Test]
@@ -27,7 +27,7 @@ namespace Testura.Code.Tests.Extensions.Naming
         [Test]
         public void FirstLetterToUpperCase_WhenHavingAEmptyString_ShouldReturnSameString()
         {
-            Assert.AreEqual(string.Empty, "".FirstLetterToUpperCase());
+            Assert.AreEqual(string.Empty, string.Empty.FirstLetterToUpperCase());
         }
     }
 }

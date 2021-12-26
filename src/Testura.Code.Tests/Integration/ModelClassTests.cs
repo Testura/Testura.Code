@@ -1,7 +1,4 @@
 ﻿using System.Collections.Generic;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Testura.Code.Statements;
 using NUnit.Framework;
 using Testura.Code.Builders;
 using Testura.Code.Builders.BuildMembers;
@@ -11,7 +8,7 @@ using Testura.Code.Generators.Common;
 using Testura.Code.Models;
 using Testura.Code.Models.Properties;
 using Testura.Code.Models.References;
-using Testura.Code.Saver;
+using Testura.Code.Statements;
 
 namespace Testura.Code.Tests.Integration
 {
@@ -48,7 +45,7 @@ namespace Testura.Code.Tests.Integration
             var classBuilder = new ClassBuilder("Cat", "Models");
             var @class = classBuilder
                 .WithUsings("System")
-                .With(new EnumBuildMember("MyEnum", new List<EnumMember> { new EnumMember("EnumValueOne", 2, new Attribute[] { new Attribute("MyAttribute"), }), new EnumMember("EnumValueTwo")}, new List<Modifiers> { Modifiers.Public }))
+                .With(new EnumBuildMember("MyEnum", new List<EnumMember> { new("EnumValueOne", 2, new Attribute[] { new Attribute("MyAttribute"), }), new EnumMember("EnumValueTwo") }, new List<Modifiers> { Modifiers.Public }))
                 .Build();
 
             Assert.AreEqual(
@@ -63,7 +60,7 @@ namespace Testura.Code.Tests.Integration
             var @class = classBuilder
                 .WithUsings("System")
                 .WithFields(
-                    new Field("_name", typeof(string), new List<Modifiers>() { Modifiers.Private}),
+                    new Field("_name", typeof(string), new List<Modifiers>() { Modifiers.Private }),
                     new Field("_age", typeof(int), new List<Modifiers>() { Modifiers.Private }))
                 .WithConstructor(
                     ConstructorGenerator.Create(
@@ -170,14 +167,13 @@ namespace Testura.Code.Tests.Integration
                     summary: "MyConstructor summary"))
                 .WithProperties(new AutoProperty("MyProperty", typeof(int), PropertyTypes.GetAndSet, summary: "MyPropertySummary"))
                 .WithFields(
-                    new Field("_name", typeof(string), new List<Modifiers>() { Modifiers.Private }, summary: "My field summary")) 
+                    new Field("_name", typeof(string), new List<Modifiers>() { Modifiers.Private }, summary: "My field summary"))
                 .WithMethods(new MethodBuilder("MyMethod")
                     .WithParameters(new Parameter("MyParameter", typeof(string)))
                     .WithBody(
                             BodyGenerator.Create(
                                 Statement.Declaration.Declare("hello", typeof(int)).WithComment("My comment above").WithComment("hej"),
-                                            Statement.Declaration.Declare("hello", typeof(int)).WithComment("My comment to the side", CommentPosition.Right)
-                            ))
+                                Statement.Declaration.Declare("hello", typeof(int)).WithComment("My comment to the side", CommentPosition.Right)))
                     .Build())
                 .Build();
 
@@ -199,8 +195,7 @@ namespace Testura.Code.Tests.Integration
                     .WithBody(
                             BodyGenerator.Create(
                                 Statement.Declaration.Declare("hello", typeof(int)).WithComment("My comment above").WithComment("hej"),
-                                            Statement.Declaration.Declare("hello", typeof(int)).WithComment("My comment to the side", CommentPosition.Right)
-                            ))
+                                Statement.Declaration.Declare("hello", typeof(int)).WithComment("My comment to the side", CommentPosition.Right)))
                     .Build())
                 .Build();
 

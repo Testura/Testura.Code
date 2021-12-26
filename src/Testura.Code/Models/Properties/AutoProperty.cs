@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Testura.Code.Models.Properties
+﻿namespace Testura.Code.Models.Properties
 {
     /// <summary>
     /// Represent an auto property.

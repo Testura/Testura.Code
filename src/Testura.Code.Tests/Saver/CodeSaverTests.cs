@@ -29,7 +29,7 @@ namespace Testura.Code.Tests.Saver
         [Test]
         public void SaveCodeAsString_WhenSavingCodeAsStringAndOptions_ShouldGetString()
         {
-            var codeSaver = new CodeSaver(new List<OptionKeyValue> {  new OptionKeyValue(CSharpFormattingOptions.NewLinesForBracesInMethods, false) });
+            var codeSaver = new CodeSaver(new List<OptionKeyValue> { new OptionKeyValue(CSharpFormattingOptions.NewLinesForBracesInMethods, false) });
             var code = codeSaver.SaveCodeAsString(
                 new ClassBuilder("TestClass", "test")
                     .WithMethods(
@@ -38,6 +38,6 @@ namespace Testura.Code.Tests.Saver
                     .Build());
             Assert.IsNotNull(code);
             Assert.AreEqual("namespace test\r\n{\r\n    public class TestClass\r\n    {\r\n        void MyMethod() {\r\n        }\r\n    }\r\n}", code);
-        } 
+        }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Testura.Code.Models
+﻿namespace Testura.Code.Models
 {
     /// <summary>
     /// Represent a parameter.
@@ -16,18 +14,8 @@ namespace Testura.Code.Models
         /// <param name="xmlDocumentation">The parameters xml documentation.</param>
         public Parameter(string name, Type type, ParameterModifiers modifier = ParameterModifiers.None, string xmlDocumentation = null)
         {
-            if (name == null)
-            {
-                throw new ArgumentNullException(nameof(name));
-            }
-
-            if (type == null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
-
-            Name = name;
-            Type = type;
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            Type = type ?? throw new ArgumentNullException(nameof(type));
             Modifier = modifier;
             XmlDocumentation = xmlDocumentation;
         }
@@ -48,7 +36,7 @@ namespace Testura.Code.Models
         public ParameterModifiers Modifier { get; set; }
 
         /// <summary>
-        /// Gets or sets the xml documentation
+        /// Gets he xml documentation
         /// </summary>
         public string XmlDocumentation { get; }
     }

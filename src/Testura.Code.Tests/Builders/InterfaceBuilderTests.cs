@@ -34,7 +34,6 @@ namespace Testura.Code.Tests.Builders
             Assert.IsTrue(_interfaceBuilder.WithAttributes(new Attribute("MyAttribute")).Build().ToString().Contains("[MyAttribute]"));
         }
 
-
         [Test]
         public void Build_WhenGivenProperty_CodeShouldContainProperty()
         {
@@ -47,7 +46,6 @@ namespace Testura.Code.Tests.Builders
             Assert.IsTrue(_interfaceBuilder.WithUsings("some.namespace").Build().ToString().Contains("some.namespace"));
         }
 
-
         [Test]
         public void Build_WhenGivenModifiers_CodeShouldContainModifiers()
         {
@@ -59,7 +57,6 @@ namespace Testura.Code.Tests.Builders
         {
             Assert.IsTrue(_interfaceBuilder.ThatInheritFrom(typeof(int)).Build().ToString().Contains("TestInterface:int"));
         }
-
 
         [Test]
         public void Build_WhenGivenInheritanceWithTwoTypes_CodeShouldContainInheritance()

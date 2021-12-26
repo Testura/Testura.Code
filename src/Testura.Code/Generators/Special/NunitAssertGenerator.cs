@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
 using Testura.Code.Models.References;
 using Testura.Code.Statements;
