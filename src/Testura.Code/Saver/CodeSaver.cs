@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Formatting;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Models.Options;
@@ -81,7 +78,7 @@ namespace Testura.Code.Saver
             cw.Options.WithChangedOption(CSharpFormattingOptions.IndentBraces, true);
             foreach (var optionKeyValue in _options)
             {
-                cw.Options = cw.Options.WithChangedOption(optionKeyValue.FormattingOption, optionKeyValue.Value);
+                cw.TryApplyChanges(cw.CurrentSolution.WithOptions(cw.Options.WithChangedOption(optionKeyValue.FormattingOption, optionKeyValue.Value)));
             }
 
             return cw;

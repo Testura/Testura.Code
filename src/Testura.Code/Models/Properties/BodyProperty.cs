@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Testura.Code.Models.Properties
 {
@@ -33,12 +31,7 @@ namespace Testura.Code.Models.Properties
             string summary = null)
             : base(name, type, modifiers, attributes, getModifiers, setModifiers, summary)
         {
-            if (getBody == null)
-            {
-                throw new ArgumentNullException(nameof(getBody));
-            }
-
-            GetBody = getBody;
+            GetBody = getBody ?? throw new ArgumentNullException(nameof(getBody));
             SetBody = setBody;
         }
 

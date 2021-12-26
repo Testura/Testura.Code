@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.CodeAnalysis.CSharp;
+﻿using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
@@ -20,18 +19,8 @@ namespace Testura.Code.Generators.Common.BinaryExpressions
         /// <param name="rightExpression">The right expresion.</param>
         public AndBinaryExpression(ExpressionSyntax leftExpression, ExpressionSyntax rightExpression)
         {
-            if (leftExpression == null)
-            {
-                throw new ArgumentNullException(nameof(leftExpression));
-            }
-
-            if (rightExpression == null)
-            {
-                throw new ArgumentNullException(nameof(rightExpression));
-            }
-
-            _leftExpression = leftExpression;
-            _rightExpression = rightExpression;
+            _leftExpression = leftExpression ?? throw new ArgumentNullException(nameof(leftExpression));
+            _rightExpression = rightExpression ?? throw new ArgumentNullException(nameof(rightExpression));
         }
 
         /// <summary>

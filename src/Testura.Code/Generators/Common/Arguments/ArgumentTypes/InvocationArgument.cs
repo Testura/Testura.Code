@@ -1,4 +1,3 @@
-using System;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Models.References;
@@ -24,12 +23,7 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
         public InvocationArgument(ExpressionSyntax invocation, Type castTo = null, string namedArgument = null)
             : base(namedArgument)
         {
-            if (invocation == null)
-            {
-                throw new ArgumentNullException(nameof(invocation));
-            }
-
-            _invocation = invocation;
+            _invocation = invocation ?? throw new ArgumentNullException(nameof(invocation));
             _castTo = castTo ?? typeof(void);
         }
 

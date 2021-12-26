@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
@@ -53,7 +51,7 @@ namespace Testura.Code.Builders.BuildMembers
                         Trivia(
                             RegionDirectiveTrivia(true)
                                 .WithEndOfDirectiveToken(
-                                    Token(TriviaList(PreprocessingMessage($" {_regionName} \n")), SyntaxKind.EndOfDirectiveToken,TriviaList())))));
+                                    Token(TriviaList(PreprocessingMessage($" {_regionName} \n")), SyntaxKind.EndOfDirectiveToken, TriviaList())))));
 
             return newMembersSyntaxList.Replace(newMembersSyntaxList.First(), modifiedFirstMember);
         }

@@ -1,44 +1,43 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <Version>0.17.0</Version>
-    <Authors>Mille Bostrom</Authors>
-    <Copyright>Copyright 2016</Copyright>
-    <Title>$(ProjectName)</Title>
-    <Description>Testura.Code is a wrapper around the Roslyn API and used for generation, saving and and compiling C# code. It provides methods and helpers to generate classes, methods, statements and expressions.</Description>
-    <PackageReleaseNotes>
-      Release 0.17.0:
-      - Added support for operator overloading
-	  - Fixed bug with ThatInheritFrom and multiple types
+<Project Sdk="Microsoft.NET.Sdk">
 
-</PackageReleaseNotes>
-    <PackageTags>
-      Code generation roslyn
-    </PackageTags>
-    <PackageIconUrl>https://i.ibb.co/nnSPd11/logo128-new.png</PackageIconUrl>
-    <RepositoryUrl>https://github.com/Testura/Testura.Code</RepositoryUrl>
-    <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <NeutralLanguage>en-US</NeutralLanguage>
-    <NoWarn>$(NoWarn);NU5048</NoWarn>
-    <CodeAnalysisRuleSet>Settings\Testura.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>  
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>  
-    <AssemblyVersion>0.17.0.0</AssemblyVersion>  
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
-    <WarningLevel>3</WarningLevel>
-  </PropertyGroup>
-  
-  
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.3.1" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.3.1" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <None Include="..\..\README.md" Pack="true" PackagePath="" />
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Version>0.17.0</Version>
+        <Authors>Mille Bostrom</Authors>
+        <Copyright>Copyright 2016</Copyright>
+        <Title>$(ProjectName)</Title>
+        <Description>Testura.Code is a wrapper around the Roslyn API and used for generation, saving and and compiling C# code. It provides methods and helpers to generate classes, methods, statements and expressions.</Description>
+        <PackageReleaseNotes>
+            Release 0.17.0:
+            - Added support for operator overloading
+            - Fixed bug with ThatInheritFrom and multiple types
+
+        </PackageReleaseNotes>
+        <PackageTags>
+            Code generation roslyn
+        </PackageTags>
+        <PackageIconUrl>https://i.ibb.co/nnSPd11/logo128-new.png</PackageIconUrl>
+        <RepositoryUrl>https://github.com/Testura/Testura.Code</RepositoryUrl>
+        <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
+        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <NeutralLanguage>en-US</NeutralLanguage>
+        <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+        <AssemblyVersion>0.17.0.0</AssemblyVersion>
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+        <WarningLevel>3</WarningLevel>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" />
+      <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.0.1" />
+    </ItemGroup>
+
 </Project>

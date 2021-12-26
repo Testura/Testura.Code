@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Models;
@@ -22,7 +19,7 @@ namespace Testura.Code.Generators.Special
         /// <param name="summary">Summary text.</param>
         /// <param name="parameters">Parameters in the summary</param>
         /// <returns>Return syntax node with summary.</returns>
-        public static T WithSummary<T>(this T syntax, string summary, IEnumerable<Parameter> parameters = null)
+        public static T WithSummary<T>(this T syntax, string summary, IEnumerable<Parameter>? parameters = null)
             where T : CSharpSyntaxNode
         {
             parameters = parameters ?? new List<Parameter>();
@@ -79,7 +76,8 @@ namespace Testura.Code.Generators.Special
 
         private static SyntaxList<XmlNodeSyntax> CreateParameterDocumentation(SyntaxList<XmlNodeSyntax> content, Parameter parameter)
         {
-            return content.AddRange(new List<XmlNodeSyntax> {
+            return content.AddRange(new List<XmlNodeSyntax>
+            {
                 XmlText().WithTextTokens(
                         TokenList(
                             new[]
@@ -118,7 +116,8 @@ namespace Testura.Code.Generators.Special
                     .WithEndTag(
                         XmlElementEndTag(
                             XmlName(
-                                Identifier("param")))) });
+                                Identifier("param"))))
+            });
         }
     }
 }

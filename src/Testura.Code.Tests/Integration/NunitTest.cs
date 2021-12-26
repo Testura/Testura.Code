@@ -11,7 +11,7 @@ using Attribute = Testura.Code.Models.Attribute;
 namespace Testura.Code.Tests.Integration
 {
     [TestFixture]
-    class NunitTest
+    public class NunitTest
     {
         [Test]
         public void Test_ArgumentNull()

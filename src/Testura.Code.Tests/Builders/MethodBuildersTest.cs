@@ -69,7 +69,7 @@ namespace Testura.Code.Tests.Builders
                 .WithOperatorOverloading(Operators.Equal)
                 .WithBody(BodyGenerator.Create());
 
-            StringAssert.Contains("publicstaticMyMethodoperator==(){}",builder.Build().ToString());
+            StringAssert.Contains("publicstaticMyMethodoperator==(){}", builder.Build().ToString());
         }
     }
 }

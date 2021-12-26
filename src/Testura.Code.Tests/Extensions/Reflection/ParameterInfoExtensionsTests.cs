@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework.Internal;
+﻿using System.Linq;
 using NUnit.Framework;
 using Testura.Code.Extensions.Reflection;
 
@@ -25,7 +19,6 @@ namespace Testura.Code.Tests.Extensions.Reflection
         {
             public void Method(int firstPar)
             {
-                
             }
         }
     }

@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Factories;
 using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
 using Testura.Code.Generators.Common.BinaryExpressions;

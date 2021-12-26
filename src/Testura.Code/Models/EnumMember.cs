@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Testura.Code.Models
+﻿namespace Testura.Code.Models
 {
     /// <summary>
     /// Represent a enum member.
@@ -13,7 +11,7 @@ namespace Testura.Code.Models
         /// <param name="name">Name of the enum member</param>
         /// <param name="value">Value of the enum member</param>
         /// <param name="attributes">Attributes of the enum member</param>
-        public EnumMember(string name, int? value = null, IEnumerable<Attribute> attributes = null)
+        public EnumMember(string name, int? value = null, IEnumerable<Attribute>? attributes = null)
         {
             Name = name;
             Value = value;

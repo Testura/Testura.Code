@@ -33,7 +33,7 @@ namespace Testura.Code.Builders.Base
         /// <summary>
         /// Add build members that will be generated.
         /// </summary>
-        /// <param name="buidMembers">Build members to add</param>
+        /// <param name="buildMembers">Build members to add</param>
         /// <returns>The current builder</returns>
         public TBuilder With(params IBuildMember[] buildMembers)
         {

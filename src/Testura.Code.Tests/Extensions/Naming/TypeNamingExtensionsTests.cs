@@ -25,7 +25,6 @@ namespace Testura.Code.Tests.Extensions.Naming
             Assert.AreEqual("list", typeof(List<int>).FormattedFieldName());
         }
 
-
         [Test]
         public void FormattedClassName_WhenHavingGenericType_ShouldHaveCorrectName()
         {

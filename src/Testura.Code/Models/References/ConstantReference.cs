@@ -1,5 +1,4 @@
-﻿using System;
-using Testura.Code.Extensions;
+﻿using Testura.Code.Extensions;
 #pragma warning disable 1591
 
 namespace Testura.Code.Models.References

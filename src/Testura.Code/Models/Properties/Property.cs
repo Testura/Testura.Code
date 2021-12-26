@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Testura.Code.Models.Properties
+﻿namespace Testura.Code.Models.Properties
 {
     /// <summary>
     /// Provides the base class from which classes that represent properties are derived.
@@ -27,18 +24,8 @@ namespace Testura.Code.Models.Properties
             IEnumerable<Modifiers> setModifiers = null,
             string summary = null)
         {
-            if (name == null)
-            {
-                throw new ArgumentNullException(nameof(name));
-            }
-
-            if (type == null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
-
-            Name = name;
-            Type = type;
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            Type = type ?? throw new ArgumentNullException(nameof(type));
             Modifiers = modifiers;
             Attributes = attributes;
             GetModifiers = getModifiers;
@@ -72,10 +59,13 @@ namespace Testura.Code.Models.Properties
         public IEnumerable<Modifiers> GetModifiers { get; set; }
 
         /// <summary>
-        /// Gets or sets the set modifiers.
+        /// Gets the set modifiers.
         /// </summary>
         public IEnumerable<Modifiers> SetModifiers { get; }
 
+        /// <summary>
+        /// Gets the property summary
+        /// </summary>
         public string Summary { get; }
     }
 }

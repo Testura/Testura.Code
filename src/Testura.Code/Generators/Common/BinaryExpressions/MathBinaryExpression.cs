@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Factories;
 using Testura.Code.Models.References;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
@@ -29,18 +28,8 @@ namespace Testura.Code.Generators.Common.BinaryExpressions
             MathOperators mathOperator,
             bool useParenthes = false)
         {
-            if (leftExpression == null)
-            {
-                throw new ArgumentNullException(nameof(leftExpression));
-            }
-
-            if (rigthExpression == null)
-            {
-                throw new ArgumentNullException(nameof(rigthExpression));
-            }
-
-            _leftExpression = leftExpression;
-            _rightExpression = rigthExpression;
+            _leftExpression = leftExpression ?? throw new ArgumentNullException(nameof(leftExpression));
+            _rightExpression = rigthExpression ?? throw new ArgumentNullException(nameof(rigthExpression));
             _mathOperator = mathOperator;
             _useParenthes = useParenthes;
         }

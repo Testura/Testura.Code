@@ -32,6 +32,5 @@ namespace Testura.Code.Tests.Extensions
         {
             Assert.AreEqual(expects, type.IsICollection());
         }
-
     }
 }

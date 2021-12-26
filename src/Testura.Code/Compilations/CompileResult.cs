@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Testura.Code.Compilations
+﻿namespace Testura.Code.Compilations
 {
     /// <summary>
     /// Represent the result after a compilation

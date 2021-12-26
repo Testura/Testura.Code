@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Generators.Common;
 using Testura.Code.Models;

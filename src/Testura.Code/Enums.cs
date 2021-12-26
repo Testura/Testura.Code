@@ -191,17 +191,6 @@
         Multiply
     }
 
-    internal enum AssertType
-    {
-        AreEqual,
-        AreNotEqual,
-        IsTrue,
-        IsFalse,
-        Contains,
-        AreSame,
-        AreNotSame
-    }
-
     public enum ConstructorInitializerTypes
     {
         /// <summary>
@@ -243,5 +232,16 @@
         LessThanOrEqual,
         Increment,
         Decrement
+    }
+
+    internal enum AssertType
+    {
+        AreEqual,
+        AreNotEqual,
+        IsTrue,
+        IsFalse,
+        Contains,
+        AreSame,
+        AreNotSame
     }
 }

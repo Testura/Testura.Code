@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Testura.Code.Models
 {
@@ -26,18 +24,8 @@ namespace Testura.Code.Models
             ExpressionSyntax initializeWith = null,
             string summary = null)
         {
-            if (name == null)
-            {
-                throw new ArgumentNullException(nameof(name));
-            }
-
-            if (type == null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
-
-            Name = name;
-            Type = type;
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            Type = type ?? throw new ArgumentNullException(nameof(type));
             Modifiers = modifiers;
             Attributes = attributes;
             InitializeWith = initializeWith;
@@ -70,7 +58,7 @@ namespace Testura.Code.Models
         public ExpressionSyntax InitializeWith { get; set; }
 
         /// <summary>
-        /// Gets or sets the xml documentation summary of the field.
+        /// Gets the xml documentation summary of the field.
         /// </summary>
         public string Summary { get; }
     }

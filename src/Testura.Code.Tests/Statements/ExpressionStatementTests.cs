@@ -13,7 +13,6 @@ namespace Testura.Code.Tests.Statements
     {
         private ExpressionStatement expressionStatement;
 
-
         [OneTimeSetUp]
         public void SetUp()
         {
@@ -25,7 +24,7 @@ namespace Testura.Code.Tests.Statements
         {
            var invocation = expressionStatement.Invoke("myClass", "Do");
            Assert.IsNotNull(invocation);
-            Assert.AreEqual("myClass.Do();", invocation.AsStatement().ToString());
+           Assert.AreEqual("myClass.Do();", invocation.AsStatement().ToString());
         }
 
         [Test]
@@ -53,7 +52,7 @@ namespace Testura.Code.Tests.Statements
         [Test]
         public void Invoke_WhenUsingGenericMethodReference_ShouldGenerateCorrectCode()
         {
-            var invocation = expressionStatement.Invoke(new VariableReference("myClass", new MethodReference("Do", new List<IArgument>(), new List<Type>() { typeof(int)})));
+            var invocation = expressionStatement.Invoke(new VariableReference("myClass", new MethodReference("Do", new List<IArgument>(), new List<Type>() { typeof(int) })));
             Assert.IsNotNull(invocation);
             Assert.AreEqual("myClass.Do<int>();", invocation.AsStatement().ToString());
         }
@@ -61,7 +60,7 @@ namespace Testura.Code.Tests.Statements
         [Test]
         public void Invoke_WhenInvokeWithMethodNameAndArguments_ShouldGenerateCorrectCode()
         {
-            var invocation = expressionStatement.Invoke("MyMethod", new List<IArgument> { new ValueArgument(1)});
+            var invocation = expressionStatement.Invoke("MyMethod", new List<IArgument> { new ValueArgument(1) });
             Assert.IsNotNull(invocation);
             Assert.AreEqual("MyMethod(1);", invocation.AsStatement().ToString());
         }
@@ -69,11 +68,9 @@ namespace Testura.Code.Tests.Statements
         [Test]
         public void Invoke_WhenInvokeWithMethodNameAndBinaryExpressionArgument_ShouldGenerateCorrectCode()
         {
-            var invocation = expressionStatement.Invoke("MyMethod", new List<IArgument> { new BinaryExpressionArgument(new MathBinaryExpression(new ConstantReference(1), new ConstantReference(2), MathOperators.Add ))});
+            var invocation = expressionStatement.Invoke("MyMethod", new List<IArgument> { new BinaryExpressionArgument(new MathBinaryExpression(new ConstantReference(1), new ConstantReference(2), MathOperators.Add )) });
             Assert.IsNotNull(invocation);
             Assert.AreEqual("MyMethod(1+2);", invocation.AsStatement().ToString());
         }
-
-
     }
 }

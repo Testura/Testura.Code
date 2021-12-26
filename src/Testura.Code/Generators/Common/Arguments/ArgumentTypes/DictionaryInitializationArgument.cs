@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -14,6 +12,7 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
     /// <typeparam name="TKey">The dictionary key type</typeparam>
     /// <typeparam name="TValue">The dictionary value type</typeparam>
     public class DictionaryInitializationArgument<TKey, TValue> : Argument
+        where TKey : notnull
     {
         private readonly Dictionary<TKey, IArgument> _dictionary;
 

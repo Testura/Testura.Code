@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Emit;
@@ -129,6 +125,7 @@ namespace Testura.Code.Compilations
                 {
                     result = compilation.Emit(outputPath);
                 }
+
                 var outputRows = ConvertDiagnosticsToOutputRows(result.Diagnostics);
                 return new CompileResult(outputPath, result.Success, outputRows);
             });

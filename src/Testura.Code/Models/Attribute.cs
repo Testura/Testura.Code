@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
+﻿using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
 
 namespace Testura.Code.Models
 {
@@ -15,12 +13,7 @@ namespace Testura.Code.Models
         /// <param name="name">Name of the attribute.</param>
         public Attribute(string name)
         {
-            if (name == null)
-            {
-                throw new ArgumentNullException(nameof(name));
-            }
-
-            Name = name;
+            Name = name ?? throw new ArgumentNullException(nameof(name));
             Arguments = new List<IArgument>();
         }
 
@@ -31,18 +24,8 @@ namespace Testura.Code.Models
         /// <param name="arguments">Arguments sent into the attribute.</param>
         public Attribute(string name, List<IArgument> arguments)
         {
-            if (name == null)
-            {
-                throw new ArgumentNullException(nameof(name));
-            }
-
-            if (arguments == null)
-            {
-                throw new ArgumentNullException(nameof(arguments));
-            }
-
-            Name = name;
-            Arguments = arguments;
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            Arguments = arguments ?? throw new ArgumentNullException(nameof(arguments));
         }
 
         /// <summary>

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Microsoft.CodeAnalysis.CSharp;
 using NUnit.Framework;
 using Testura.Code.Generators.Class;
 using Testura.Code.Generators.Common;
@@ -22,7 +21,7 @@ namespace Testura.Code.Tests.Generators.Class
         [Test]
         public void Create_WhenCreatingFieldWithInitializer_ShouldGenerateCorrectCode()
         {
-            Assert.AreEqual("ILogger_logger=LoggerService.Logger();", FieldGenerator.Create(new Field("_logger", CustomType.Create("ILogger"), initializeWith: ReferenceGenerator.Create(new VariableReference("LoggerService", new MethodReference( "Logger"))))).ToString());
+            Assert.AreEqual("ILogger_logger=LoggerService.Logger();", FieldGenerator.Create(new Field("_logger", CustomType.Create("ILogger"), initializeWith: ReferenceGenerator.Create(new VariableReference("LoggerService", new MethodReference("Logger"))))).ToString());
         }
 
         [Test]
@@ -40,7 +39,7 @@ namespace Testura.Code.Tests.Generators.Class
         [Test]
         public void Create_WhenCreatingFieldWithModifiers_ShouldGenerateCorrectCode()
         {
-            Assert.AreEqual("publicintmyField;", FieldGenerator.Create(new Field("myField", typeof(int), new List<Modifiers>() { Modifiers.Public})).ToString());
+            Assert.AreEqual("publicintmyField;", FieldGenerator.Create(new Field("myField", typeof(int), new List<Modifiers>() { Modifiers.Public })).ToString());
         }
 
         [Test]

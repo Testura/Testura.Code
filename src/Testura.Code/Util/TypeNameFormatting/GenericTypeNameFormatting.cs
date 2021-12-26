@@ -1,5 +1,4 @@
-﻿using System;
-using Testura.Code.Generators.Common;
+﻿using Testura.Code.Generators.Common;
 
 namespace Testura.Code.Util.TypeNameFormatting
 {

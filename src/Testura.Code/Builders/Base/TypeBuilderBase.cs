@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Builders.BuildMembers;
@@ -9,8 +6,8 @@ using Testura.Code.Generators.Class;
 using Testura.Code.Generators.Common;
 using Testura.Code.Generators.Special;
 using Testura.Code.Models.Properties;
-using Attribute = Testura.Code.Models.Attribute;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+using Attribute = Testura.Code.Models.Attribute;
 
 namespace Testura.Code.Builders.Base
 {
@@ -180,7 +177,7 @@ namespace Testura.Code.Builders.Base
 
             return BaseList(
                 SeparatedList<BaseTypeSyntax>(
-                    _inheritance.Select(i => SimpleBaseType(TypeGenerator.Create(i))), 
+                    _inheritance.Select(i => SimpleBaseType(TypeGenerator.Create(i))),
                     _inheritance.Select(i => Token(SyntaxKind.CommaToken))));
         }
     }

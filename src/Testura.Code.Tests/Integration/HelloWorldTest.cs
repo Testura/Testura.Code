@@ -16,16 +16,15 @@ namespace Testura.Code.Tests.Integration
         {
             var classBuilder = new ClassBuilder("Program", "HelloWorld");
             var @class = classBuilder
-                .WithUsings("System") 
+                .WithUsings("System")
                 .WithModifiers(Modifiers.Public)
                 .WithMethods(
                     new MethodBuilder("Main")
                     .WithParameters(new Parameter("args", typeof(string[])))
                     .WithBody(
                         BodyGenerator.Create(
-                            Statement.Expression.Invoke("Console", "WriteLine", new List<IArgument>() { new ValueArgument("Hello world") }).AsStatement(),
-                            Statement.Expression.Invoke("Console", "ReadLine").AsStatement()
-                            ))
+                            Statement.Expression.Invoke("Console", "WriteLine", new List<IArgument> { new ValueArgument("Hello world") }).AsStatement(),
+                            Statement.Expression.Invoke("Console", "ReadLine").AsStatement()))
                     .WithModifiers(Modifiers.Public, Modifiers.Static)
                     .Build())
                 .Build();

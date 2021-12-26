@@ -24,7 +24,7 @@ namespace Testura.Code.Tests.Generators.Common.Arguments.ArgumentTypes
         public void GetArgumentSyntax_WhenUsingMethodAsNamedArgument_ShouldGetCode()
         {
             var argument =
-                new InvocationArgument(Statement.Expression.Invoke(new MethodReference("Do")).AsExpression(), namedArgument:"namedArgument");
+                new InvocationArgument(Statement.Expression.Invoke(new MethodReference("Do")).AsExpression(), namedArgument: "namedArgument");
             var syntax = argument.GetArgumentSyntax();
 
             Assert.IsInstanceOf<ArgumentSyntax>(syntax);

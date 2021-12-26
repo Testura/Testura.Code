@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.CodeAnalysis.CSharp;
+﻿using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Factories;
 using Testura.Code.Models.References;
@@ -26,18 +25,8 @@ namespace Testura.Code.Generators.Common.BinaryExpressions
             ExpressionSyntax rigthExpression,
             ConditionalStatements conditional)
         {
-            if (leftExpression == null)
-            {
-                throw new ArgumentNullException(nameof(leftExpression));
-            }
-
-            if (rigthExpression == null)
-            {
-                throw new ArgumentNullException(nameof(rigthExpression));
-            }
-
-            _leftExpression = leftExpression;
-            _rightExpression = rigthExpression;
+            _leftExpression = leftExpression ?? throw new ArgumentNullException(nameof(leftExpression));
+            _rightExpression = rigthExpression ?? throw new ArgumentNullException(nameof(rigthExpression));
             _conditional = conditional;
         }
 

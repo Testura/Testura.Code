@@ -11,7 +11,7 @@ namespace Testura.Code.Tests.Generators.Common.Arguments.ArgumentTypes
         [Test]
         public void GetArgumentSyntax_WhenUsingDictionary_ShouldGetCorrectCode()
         {
-            var argument = new DictionaryInitializationArgument<int, int>(new Dictionary<int, IArgument>() { [1] = new ValueArgument(2)});
+            var argument = new DictionaryInitializationArgument<int, int>(new Dictionary<int, IArgument>() { [1] = new ValueArgument(2) });
             var syntax = argument.GetArgumentSyntax();
 
             Assert.IsInstanceOf<ArgumentSyntax>(syntax);

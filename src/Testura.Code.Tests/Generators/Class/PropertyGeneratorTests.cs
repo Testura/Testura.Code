@@ -11,12 +11,12 @@ using Assert = NUnit.Framework.Assert;
 namespace Testura.Code.Tests.Generators.Class
 {
     [TestFixture]
-    class PropertyGeneratorTests
+    public class PropertyGeneratorTests
     {
         [Test]
         public void Create_WhenCreatingAutoPropertyWithOnlyGet_ShouldHaveNoSet()
         {
-            Assert.AreEqual("intMyProperty{get;}", PropertyGenerator.Create(new AutoProperty("MyProperty", typeof(int), PropertyTypes.Get)).ToString());   
+            Assert.AreEqual("intMyProperty{get;}", PropertyGenerator.Create(new AutoProperty("MyProperty", typeof(int), PropertyTypes.Get)).ToString());
         }
 
         [Test]
@@ -28,7 +28,7 @@ namespace Testura.Code.Tests.Generators.Class
         [Test]
         public void Create_WhenCreatingPropertyWithGetModifiers_ShouldHaveGetModifiers()
         {
-            Assert.AreEqual("intMyProperty{protectedget;set;}", PropertyGenerator.Create(new AutoProperty("MyProperty", typeof(int), PropertyTypes.GetAndSet, getModifiers: new List<Modifiers> { Modifiers.Protected})).ToString());
+            Assert.AreEqual("intMyProperty{protectedget;set;}", PropertyGenerator.Create(new AutoProperty("MyProperty", typeof(int), PropertyTypes.GetAndSet, getModifiers: new List<Modifiers> { Modifiers.Protected })).ToString());
         }
 
         [Test]
@@ -40,7 +40,7 @@ namespace Testura.Code.Tests.Generators.Class
         [Test]
         public void Create_WhenCreatingAutoPropertyWithAttribute_ShouldHaveAttribute()
         {
-            Assert.AreEqual("[Test]intMyProperty{get;set;}", PropertyGenerator.Create(new AutoProperty("MyProperty", typeof(int), PropertyTypes.GetAndSet, new List<Modifiers>(), new List<Attribute> { new Attribute("Test")})).ToString());
+            Assert.AreEqual("[Test]intMyProperty{get;set;}", PropertyGenerator.Create(new AutoProperty("MyProperty", typeof(int), PropertyTypes.GetAndSet, new List<Modifiers>(), new List<Attribute> { new Attribute("Test") })).ToString());
         }
 
         [Test]
@@ -65,18 +65,19 @@ namespace Testura.Code.Tests.Generators.Class
         public void Create_WhenCreatingBodyPropertyWithAttribute_ShouldHaveAttribute()
         {
             Assert.AreEqual("[Test]intMyProperty{get{return1;}}", PropertyGenerator.Create(new BodyProperty(
-                "MyProperty", 
+                "MyProperty",
                 typeof(int),
-                BodyGenerator.Create(Statement.Jump.Return(new ConstantReference(1))), 
-                attributes: new List<Attribute> { new Attribute("Test")})).ToString());
+                BodyGenerator.Create(Statement.Jump.Return(new ConstantReference(1))),
+                attributes: new List<Attribute> { new Attribute("Test") })).ToString());
         }
+
         [Test]
         public void Create_WhenCreatingBodyPropertyWithModifier_ShouldHaveModifier()
         {
             Assert.AreEqual("publicvirtualintMyProperty{get{return1;}}", PropertyGenerator.Create(new BodyProperty(
-                "MyProperty", 
-                typeof(int), 
-                BodyGenerator.Create(Statement.Jump.Return(new ConstantReference(1))), 
+                "MyProperty",
+                typeof(int),
+                BodyGenerator.Create(Statement.Jump.Return(new ConstantReference(1))),
                 new List<Modifiers> { Modifiers.Public, Modifiers.Virtual })).ToString());
         }
     }

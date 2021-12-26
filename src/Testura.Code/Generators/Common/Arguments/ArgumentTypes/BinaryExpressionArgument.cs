@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.CodeAnalysis.CSharp;
+﻿using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Generators.Common.BinaryExpressions;
 #pragma warning disable 1591
@@ -21,12 +20,7 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
         public BinaryExpressionArgument(IBinaryExpression binaryExpression, string namedArgument = null)
             : base(namedArgument)
         {
-            if (binaryExpression == null)
-            {
-                throw new ArgumentNullException(nameof(binaryExpression));
-            }
-
-            _binaryExpression = binaryExpression;
+            _binaryExpression = binaryExpression ?? throw new ArgumentNullException(nameof(binaryExpression));
         }
 
         protected override ArgumentSyntax CreateArgumentSyntax()

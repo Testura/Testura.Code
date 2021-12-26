@@ -1,5 +1,4 @@
-﻿using System;
-using Testura.Code.Extensions.Naming;
+﻿using Testura.Code.Extensions.Naming;
 
 namespace Testura.Code.Util.TypeNameFormatting
 {
