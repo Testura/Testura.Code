@@ -3,6 +3,7 @@ using Testura.Code.Generators.Common;
 using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
 using Testura.Code.Models;
 using Testura.Code.Models.References;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Statements
 {
@@ -73,6 +74,30 @@ namespace Testura.Code.Statements
             }
 
             return new Invocation((InvocationExpressionSyntax)ReferenceGenerator.Create(reference));
+        }
+
+        /// <summary>
+        /// Create the expression statement syntax to create object (for example <c>new MyClass()</c>)
+        /// </summary>
+        /// <param name="type">Type of the object.</param>
+        /// <returns>An object creation expression.</returns>
+        public ExpressionSyntax ObjectCreation(string type)
+        {
+            return ObjectCreationExpression(
+                IdentifierName(type))
+                .WithArgumentList(ArgumentList());
+        }
+
+        /// <summary>
+        /// Create the expression statement syntax to create object (for example <c>new MyClass()</c>)
+        /// </summary>
+        /// <param name="type">Type of the object.</param>
+        /// <param name="arguments">Arguments to use when creating the instance of the object.</param>
+        /// <returns>An object creation expression.</returns>
+        public ExpressionSyntax ObjectCreation(string type, IEnumerable<IArgument> arguments)
+        {
+            return ObjectCreationExpression(
+                IdentifierName(type)).WithArgumentList(ArgumentGenerator.Create(arguments.ToArray()));
         }
     }
 }

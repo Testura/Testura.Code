@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
 using Testura.Code.Models.References;
 using Testura.Code.Statements;
 using Assert = NUnit.Framework.Assert;
@@ -44,6 +45,18 @@ namespace Testura.Code.Tests.Statements
         public void Return_WhenReturnThis_ShouldGenerateCorrectCode()
         {
             Assert.AreEqual("returnthis;", @return.ReturnThis().ToString());
+        }
+
+        [Test]
+        public void Return_WhenReturnNewObject_ShouldGenerateCorrectCode()
+        {
+            Assert.AreEqual("returnnewHello(1,\"test\");", @return.Return(Statement.Expression.ObjectCreation("Hello", new[] { new ValueArgument(1), new ValueArgument("test") }) ).ToString());
+        }
+
+        [Test]
+        public void Return_WhenReturnNewObjectWithoutParameters_ShouldGenerateCorrectCode()
+        {
+            Assert.AreEqual("returnnewHello();", @return.Return(Statement.Expression.ObjectCreation("Hello")).ToString());
         }
     }
 }
