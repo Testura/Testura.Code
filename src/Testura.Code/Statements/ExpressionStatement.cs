@@ -77,7 +77,7 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create the expression statement syntax to create object (for example <c>new MyClass()</c>)
+        /// Create the expression statement syntax to create an object (for example <c>new MyClass()</c>)
         /// </summary>
         /// <param name="type">Type of the object.</param>
         /// <returns>An object creation expression.</returns>
@@ -89,7 +89,7 @@ namespace Testura.Code.Statements
         }
 
         /// <summary>
-        /// Create the expression statement syntax to create object (for example <c>new MyClass()</c>)
+        /// Create the expression statement syntax to create an object (for example <c>new MyClass(1, "hello")</c>)
         /// </summary>
         /// <param name="type">Type of the object.</param>
         /// <param name="arguments">Arguments to use when creating the instance of the object.</param>
