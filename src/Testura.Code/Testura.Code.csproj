@@ -5,19 +5,18 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <IsPackable>true</IsPackable>
-        <PackageVersion>1.0.0</PackageVersion>
+        <PackageVersion>1.1.0</PackageVersion>
     </PropertyGroup>
 
     <PropertyGroup>
-        <Version>1.0.0</Version>
+        <Version>1.1.0</Version>
         <Authors>Mille Bostrom</Authors>
         <Copyright>Copyright 2021</Copyright>
         <Title>$(ProjectName)</Title>
         <Description>Testura.Code is a wrapper around the Roslyn API and used for generation, saving and and compiling C# code. It provides methods and helpers to generate classes, methods, statements and expressions.</Description>
-        <PackageReleaseNotes>1.0.0
+        <PackageReleaseNotes>1.1.0
 
-- Updated project to .NET 6
-- Fixed issue with inheritance and extra comma
+- Added new method to generate object creation
 </PackageReleaseNotes>
         <PackageTags>
             Code generation roslyn
@@ -38,7 +37,7 @@
     </PropertyGroup>
 	
 	<ItemGroup>
-		<None Include="logo.png" Pack="true" PackagePath="\"/>
+		<None Include="logo.png" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
     <ItemGroup>
