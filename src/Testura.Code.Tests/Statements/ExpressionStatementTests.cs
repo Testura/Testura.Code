@@ -73,21 +73,5 @@ namespace Testura.Code.Tests.Statements
             Assert.IsNotNull(invocation);
             Assert.AreEqual("MyMethod(1+2);", invocation.AsStatement().ToString());
         }
-
-        [Test]
-        public void ObjectCreation_WhenCreateObjectWithJustType_ShouldGenerateCorrectCode()
-        {
-            var objectCreation = expressionStatement.ObjectCreation("Hello");
-            Assert.IsNotNull(objectCreation);
-            Assert.AreEqual("newHello()", objectCreation.ToString());
-        }
-
-        [Test]
-        public void ObjectCreation_WhenCreateObjectWithTypeAndArguments_ShouldGenerateCorrectCode()
-        {
-            var objectCreation = expressionStatement.ObjectCreation("Hello",  new List<IArgument> { new ValueArgument(1) });
-            Assert.IsNotNull(objectCreation);
-            Assert.AreEqual("newHello(1)", objectCreation.ToString());
-        }
     }
 }
