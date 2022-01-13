@@ -9,18 +9,11 @@ public class AssignArgument : IArgument
 {
     private readonly string _name;
     private readonly ExpressionSyntax _expressionSyntax;
-    private readonly object _value;
-
-    public AssignArgument(string name, ExpressionSyntax expressionSyntax)
-    {
-        _name = name;
-        _expressionSyntax = expressionSyntax;
-    }
 
     public AssignArgument(string name, object value)
     {
         _name = name;
-        _value = value;
+        _expressionSyntax = IdentifierName(value is bool ? value.ToString().ToLower() : value.ToString());
     }
 
     public AssignArgument(string name, string value, StringType stringType = StringType.Normal)
@@ -31,7 +24,13 @@ public class AssignArgument : IArgument
         }
 
         _name = name;
-        _value = stringType == StringType.Path ? $"@\"{value}\"" : $"\"{value}\"";
+        _expressionSyntax = IdentifierName(stringType == StringType.Path ? $"@\"{value}\"" : $"\"{value}\"");
+    }
+
+    public AssignArgument(string name, ExpressionSyntax expressionSyntax)
+    {
+        _name = name;
+        _expressionSyntax = expressionSyntax;
     }
 
     public ArgumentSyntax GetArgumentSyntax()

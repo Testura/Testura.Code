@@ -10,20 +10,11 @@ public static class ObjectCreationGenerator
     /// Create the expression syntax for an object creation (for example <c>new MyClass()</c>)
     /// </summary>
     /// <param name="type">Type of the object.</param>
+    /// <param name="genericTypes">Generics of the type.</param>
     /// <returns>An object creation expression.</returns>
-    public static ExpressionSyntax Create(Type type)
+    public static ExpressionSyntax Create(Type type, IEnumerable<Type> genericTypes = null)
     {
         return ObjectCreationExpression(TypeGenerator.Create(type)).WithArgumentList(ArgumentList());
-    }
-
-    /// <summary>
-    /// Create the expression syntax for an object creation (for example <c>new MyClass()</c>)
-    /// </summary>
-    /// <param name="type">Type of the object.</param>
-    /// <returns>An object creation expression.</returns>
-    public static ExpressionSyntax Create(string type)
-    {
-        return ObjectCreationExpression(IdentifierName(type)).WithArgumentList(ArgumentList());
     }
 
     /// <summary>
@@ -31,10 +22,15 @@ public static class ObjectCreationGenerator
     /// </summary>
     /// <param name="type">Type of the object.</param>
     /// <param name="arguments">Arguments to use when creating the instance of the object.</param>
+    /// <param name="genericTypes">Generics of the type.</param>
     /// <returns>An object creation expression.</returns>
-    public static ExpressionSyntax Create(string type, IEnumerable<IArgument> arguments)
+    public static ExpressionSyntax Create(Type type, IEnumerable<IArgument> arguments, IEnumerable<Type> genericTypes = null)
     {
-        return ObjectCreationExpression(
-            IdentifierName(type)).WithArgumentList(ArgumentGenerator.Create(arguments.ToArray()));
+        if (genericTypes != null && genericTypes.Any())
+        {
+            return ObjectCreationExpression(GenericGenerator.Create(type.Name, genericTypes.ToArray())).WithArgumentList(ArgumentGenerator.Create(arguments.ToArray()));
+        }
+
+        return ObjectCreationExpression(TypeGenerator.Create(type)).WithArgumentList(ArgumentGenerator.Create(arguments.ToArray()));
     }
 }

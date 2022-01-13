@@ -12,7 +12,7 @@ public class ObjectCreationTests
     [Test]
     public void ObjectCreation_WhenCreateObjectWithJustType_ShouldGenerateCorrectCode()
     {
-        var objectCreation = ObjectCreationGenerator.Create("Hello");
+        var objectCreation = ObjectCreationGenerator.Create(CustomType.Create("Hello"));
         Assert.IsNotNull(objectCreation);
         Assert.AreEqual("newHello()", objectCreation.ToString());
     }
@@ -20,16 +20,16 @@ public class ObjectCreationTests
     [Test]
     public void ObjectCreation_WhenCreateObjectWithTypeAndArguments_ShouldGenerateCorrectCode()
     {
-        var objectCreation = ObjectCreationGenerator.Create("Hello",  new List<IArgument> { new ValueArgument(1) });
+        var objectCreation = ObjectCreationGenerator.Create(CustomType.Create("Hello"),  new List<IArgument> { new ValueArgument(1) });
         Assert.IsNotNull(objectCreation);
         Assert.AreEqual("newHello(1)", objectCreation.ToString());
     }
 
     [Test]
-    public void ObjectCreation_WhenCreateObjectWithCustomType_ShouldGenerateCorrectCode()
+    public void ObjectCreation_WhenCreateObjectWithTypeThatHaveGenerics_ShouldGenerateCorrectCode()
     {
-        var objectCreation = ObjectCreationGenerator.Create(CustomType.Create("MyCustomType"));
+        var objectCreation = ObjectCreationGenerator.Create(typeof(List<string>));
         Assert.IsNotNull(objectCreation);
-        Assert.AreEqual("newMyCustomType()", objectCreation.ToString());
+        Assert.AreEqual("newList<string>()", objectCreation.ToString());
     }
 }

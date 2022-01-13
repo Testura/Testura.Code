@@ -39,12 +39,13 @@ namespace Testura.Code.Tests.Generators.Common
         [Test]
         public void Create_WhenCreatingAttributeWithNamedArgument_ShouldGenerateCorrectCode()
         {
-            var binaryExpression = new ConditionalBinaryExpression(
-                new ConstantReference(1),
-                new ConstantReference(2),
-                ConditionalStatements.Equal);
-
             Assert.AreEqual("[Test(with:1,value:2)]", AttributeGenerator.Create(new Attribute("Test", new List<IArgument>() { new ValueArgument(1, namedArgument: "with"), new ValueArgument(2, namedArgument: "value") })).ToString());
+        }
+
+        [Test]
+        public void Create_WhenCreatingAttributeWithAssignedArgument_ShouldGenerateCorrectCode()
+        {
+            Assert.AreEqual("[Test(with=1,value=true)]", AttributeGenerator.Create(new Attribute("Test", new List<IArgument>() { new AssignArgument("with", 1), new AssignArgument("value", true) })).ToString());
         }
     }
 }

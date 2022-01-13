@@ -9,7 +9,7 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
     /// <summary>
-    /// Provides the functionality to generate a object initialization. Example of generated code: <c>(new MyClass())</c>
+    /// Provides the functionality to generate creation of an object using it's initializer. Example of generated code: <c>(new MyClass { Hello = 10 })</c>
     /// </summary>
     public class ObjectInitializationArgument : Argument
     {
