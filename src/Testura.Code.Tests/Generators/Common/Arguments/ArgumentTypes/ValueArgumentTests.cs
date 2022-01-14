@@ -9,6 +9,7 @@ namespace Testura.Code.Tests.Generators.Common.Arguments.ArgumentTypes
     [TestFixture]
     public class ValueArgumentTests
     {
+        [Test]
         public void GetArgumentSyntax_WhenUsingNumberValue_ShouldGetCode()
         {
             var argument = new ValueArgument(1);
@@ -18,6 +19,7 @@ namespace Testura.Code.Tests.Generators.Common.Arguments.ArgumentTypes
             Assert.AreEqual("1", syntax.ToString());
         }
 
+        [Test]
         public void GetArgumentSyntax_WhenUsingNumberValueAsNamedArgument_ShouldGetCode()
         {
             var argument = new ValueArgument(1, "namedArgument");

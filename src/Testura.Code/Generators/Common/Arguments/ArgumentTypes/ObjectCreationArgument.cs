@@ -5,22 +5,22 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 {
     /// <summary>
-    /// Provides the functionality to generate a class initialization argument. Example of generated code: <c>(new MyClass())</c>
+    /// Provides the functionality to generate creation of an objection using it's constructor. Example of generated code: <c>(new MyClass())</c>
     /// </summary>
-    public class ClassInitializationArgument : Argument
+    public class ObjectCreationArgument : Argument
     {
         private readonly Type _type;
         private readonly IList<IArgument> _arguments;
         private readonly IList<Type> _genericTypes;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ClassInitializationArgument"/> class.
+        /// Initializes a new instance of the <see cref="ObjectCreationArgument"/> class.
         /// </summary>
-        /// <param name="type">The class type to initialize.</param>
+        /// <param name="type">The object type to initialize.</param>
         /// <param name="arguments">Arguments used when initializing the class.</param>
-        /// <param name="genericTypes">Generics of the class.</param>
-        /// <param name="namedArgument">Specificy the argument for a partical parameter.</param>
-        public ClassInitializationArgument(
+        /// <param name="genericTypes">Generics of the type.</param>
+        /// <param name="namedArgument">Specify the argument for a parameter.</param>
+        public ObjectCreationArgument(
             Type type,
             IEnumerable<IArgument> arguments = null,
             IEnumerable<Type> genericTypes = null,
@@ -34,12 +34,7 @@ namespace Testura.Code.Generators.Common.Arguments.ArgumentTypes
 
         protected override ArgumentSyntax CreateArgumentSyntax()
         {
-            if (_genericTypes != null && _genericTypes.Any())
-            {
-                return SyntaxFactory.Argument(SyntaxFactory.ObjectCreationExpression(GenericGenerator.Create(_type.Name, _genericTypes.ToArray())).WithArgumentList(ArgumentGenerator.Create(_arguments.ToArray())));
-            }
-
-            return SyntaxFactory.Argument(SyntaxFactory.ObjectCreationExpression(TypeGenerator.Create(_type)).WithArgumentList(ArgumentGenerator.Create(_arguments.ToArray())));
+            return SyntaxFactory.Argument(ObjectCreationGenerator.Create(_type, _arguments, _genericTypes));
         }
     }
 }

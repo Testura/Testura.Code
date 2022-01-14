@@ -11,7 +11,7 @@ namespace Testura.Code.Generators.Common.BinaryExpressions
     public class MathBinaryExpression : IBinaryExpression
     {
         private readonly MathOperators _mathOperator;
-        private readonly bool _useParenthes;
+        private readonly bool _useParentheses;
         private readonly ExpressionSyntax _leftExpression;
         private readonly ExpressionSyntax _rightExpression;
 
@@ -19,19 +19,19 @@ namespace Testura.Code.Generators.Common.BinaryExpressions
         /// Initializes a new instance of the <see cref="MathBinaryExpression"/> class.
         /// </summary>
         /// <param name="leftExpression">The left expression.</param>
-        /// <param name="rigthExpression">The right expression.</param>
+        /// <param name="rightExpression">The right expression.</param>
         /// <param name="mathOperator">The math operator to generate.</param>
-        /// <param name="useParenthes">If we should generate with paranthes surounding the the binary expression.</param>
+        /// <param name="useParentheses">If we should generate with parentheses surrounding the the binary expression.</param>
         public MathBinaryExpression(
             ExpressionSyntax leftExpression,
-            ExpressionSyntax rigthExpression,
+            ExpressionSyntax rightExpression,
             MathOperators mathOperator,
-            bool useParenthes = false)
+            bool useParentheses = false)
         {
             _leftExpression = leftExpression ?? throw new ArgumentNullException(nameof(leftExpression));
-            _rightExpression = rigthExpression ?? throw new ArgumentNullException(nameof(rigthExpression));
+            _rightExpression = rightExpression ?? throw new ArgumentNullException(nameof(rightExpression));
             _mathOperator = mathOperator;
-            _useParenthes = useParenthes;
+            _useParentheses = useParentheses;
         }
 
         /// <summary>
@@ -40,12 +40,12 @@ namespace Testura.Code.Generators.Common.BinaryExpressions
         /// <param name="leftReference">The left reference</param>
         /// <param name="rightReference">The right reference</param>
         /// <param name="mathOperator">The math operator to generate</param>
-        /// <param name="useParenthes">If we should generate with paranthes surounding the the binary expression</param>
+        /// <param name="useParentheses">If we should generate with paranthes surounding the the binary expression</param>
         public MathBinaryExpression(
             VariableReference leftReference,
             VariableReference rightReference,
             MathOperators mathOperator,
-            bool useParenthes = false)
+            bool useParentheses = false)
         {
             if (leftReference == null)
             {
@@ -60,7 +60,7 @@ namespace Testura.Code.Generators.Common.BinaryExpressions
             _leftExpression = ReferenceGenerator.Create(leftReference);
             _rightExpression = ReferenceGenerator.Create(rightReference);
             _mathOperator = mathOperator;
-            _useParenthes = useParenthes;
+            _useParentheses = useParentheses;
         }
 
         /// <summary>
@@ -69,12 +69,12 @@ namespace Testura.Code.Generators.Common.BinaryExpressions
         /// <param name="leftReference">The left reference.</param>
         /// <param name="rightBinaryExpression">The right other binary expression.</param>
         /// <param name="mathOperator">The math operator to generate.</param>
-        /// <param name="useParenthes">If we should generate with paranthes surounding the the binary expression.</param>
+        /// <param name="useParentheses">If we should generate with parentheses surrounding the the binary expression.</param>
         public MathBinaryExpression(
             VariableReference leftReference,
             MathBinaryExpression rightBinaryExpression,
             MathOperators mathOperator,
-            bool useParenthes = false)
+            bool useParentheses = false)
         {
             if (leftReference == null)
             {
@@ -89,7 +89,7 @@ namespace Testura.Code.Generators.Common.BinaryExpressions
             _leftExpression = ReferenceGenerator.Create(leftReference);
             _rightExpression = rightBinaryExpression.GetBinaryExpression();
             _mathOperator = mathOperator;
-            _useParenthes = useParenthes;
+            _useParentheses = useParentheses;
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace Testura.Code.Generators.Common.BinaryExpressions
         public ExpressionSyntax GetBinaryExpression()
         {
             var binaryExpression = BinaryExpression(MathOperatorFactory.GetSyntaxKind(_mathOperator), _leftExpression, _rightExpression);
-            if (_useParenthes)
+            if (_useParentheses)
             {
                 return ParenthesizedExpression(binaryExpression);
             }
