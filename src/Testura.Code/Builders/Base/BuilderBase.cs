@@ -5,18 +5,18 @@ using Testura.Code.Builders.BuildMembers;
 
 namespace Testura.Code.Builders.Base;
 
-public class BuilderBase<TBuilder>
+public abstract class BuilderBase<TBuilder>
     where TBuilder : BuilderBase<TBuilder>
 {
     private readonly NamespaceHelper _namespaceHelper;
     private readonly UsingHelper _usingHelper;
     private readonly MemberHelper _memberHelper;
 
-    public BuilderBase(string @namespace)
+    protected BuilderBase(string @namespace, NamespaceType namespaceType)
     {
         _memberHelper = new MemberHelper();
         _usingHelper = new UsingHelper();
-        _namespaceHelper = new NamespaceHelper(@namespace);
+        _namespaceHelper = new NamespaceHelper(@namespace, namespaceType);
     }
 
     /// <summary>

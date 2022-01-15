@@ -19,8 +19,8 @@ public abstract class TypeBuilderBase<TBuilder> : BuilderBase<TBuilder>
     private SyntaxList<AttributeListSyntax> _attributes;
     private string _summary;
 
-    protected TypeBuilderBase(string name, string @namespace)
-        : base(@namespace)
+    protected TypeBuilderBase(string name, string @namespace, NamespaceType namespaceType = NamespaceType.Classic)
+        : base(@namespace, namespaceType)
     {
         if (string.IsNullOrEmpty(name))
         {

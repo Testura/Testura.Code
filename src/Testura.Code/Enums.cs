@@ -241,3 +241,16 @@ internal enum AssertType
     AreSame,
     AreNotSame
 }
+
+public enum NamespaceType
+{
+    /// <summary>
+    /// Classical namespaces
+    /// </summary>
+    Classic,
+
+    /// <summary>
+    /// File scoped namespaces added in c# 10.0
+    /// </summary>
+    FileScoped
+}

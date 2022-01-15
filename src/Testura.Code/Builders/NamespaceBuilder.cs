@@ -6,8 +6,8 @@ namespace Testura.Code.Builders;
 
 public class NamespaceBuilder : BuilderBase<NamespaceBuilder>
 {
-    public NamespaceBuilder(string @namespace)
-        : base(@namespace)
+    public NamespaceBuilder(string @namespace, NamespaceType namespaceType = NamespaceType.Classic)
+        : base(@namespace, namespaceType)
     {
         if (string.IsNullOrEmpty(@namespace))
         {
