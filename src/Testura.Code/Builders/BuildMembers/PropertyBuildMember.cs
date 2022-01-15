@@ -1,25 +1,24 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Testura.Code.Builders.BuildMembers
+namespace Testura.Code.Builders.BuildMembers;
+
+public class PropertyBuildMember : IBuildMember
 {
-    public class PropertyBuildMember : IBuildMember
+    private readonly IEnumerable<PropertyDeclarationSyntax> _propertyDeclarationSyntaxs;
+
+    public PropertyBuildMember(IEnumerable<PropertyDeclarationSyntax> propertyDeclarationSyntaxs)
     {
-        private readonly IEnumerable<PropertyDeclarationSyntax> _propertyDeclarationSyntaxs;
+        _propertyDeclarationSyntaxs = propertyDeclarationSyntaxs;
+    }
 
-        public PropertyBuildMember(IEnumerable<PropertyDeclarationSyntax> propertyDeclarationSyntaxs)
+    public SyntaxList<MemberDeclarationSyntax> AddMember(SyntaxList<MemberDeclarationSyntax> members)
+    {
+        foreach (var propertyDeclarationSyntax in _propertyDeclarationSyntaxs)
         {
-            _propertyDeclarationSyntaxs = propertyDeclarationSyntaxs;
+            members = members.Add(propertyDeclarationSyntax);
         }
 
-        public SyntaxList<MemberDeclarationSyntax> AddMember(SyntaxList<MemberDeclarationSyntax> members)
-        {
-            foreach (var propertyDeclarationSyntax in _propertyDeclarationSyntaxs)
-            {
-                members = members.Add(propertyDeclarationSyntax);
-            }
-
-            return members;
-        }
+        return members;
     }
 }

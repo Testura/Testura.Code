@@ -6,20 +6,20 @@ using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
 using Testura.Code.Models;
 using Testura.Code.Statements;
 
-namespace Testura.Code.Tests.Integration
+namespace Testura.Code.Tests.Integration;
+
+[TestFixture]
+public class HelloWorldTest
 {
-    [TestFixture]
-    public class HelloWorldTest
+    [Test]
+    public void Test_HelloWorld()
     {
-        [Test]
-        public void Test_HelloWorld()
-        {
-            var classBuilder = new ClassBuilder("Program", "HelloWorld");
-            var @class = classBuilder
-                .WithUsings("System")
-                .WithModifiers(Modifiers.Public)
-                .WithMethods(
-                    new MethodBuilder("Main")
+        var classBuilder = new ClassBuilder("Program", "HelloWorld");
+        var @class = classBuilder
+            .WithUsings("System")
+            .WithModifiers(Modifiers.Public)
+            .WithMethods(
+                new MethodBuilder("Main")
                     .WithParameters(new Parameter("args", typeof(string[])))
                     .WithBody(
                         BodyGenerator.Create(
@@ -27,11 +27,10 @@ namespace Testura.Code.Tests.Integration
                             Statement.Expression.Invoke("Console", "ReadLine").AsStatement()))
                     .WithModifiers(Modifiers.Public, Modifiers.Static)
                     .Build())
-                .Build();
+            .Build();
 
-            Assert.AreEqual(
-                @"usingSystem;namespaceHelloWorld{publicclassProgram{publicstaticvoidMain(string[]args){Console.WriteLine(""Hello world"");Console.ReadLine();}}}",
-                @class.ToString());
-        }
+        Assert.AreEqual(
+            @"usingSystem;namespaceHelloWorld{publicclassProgram{publicstaticvoidMain(string[]args){Console.WriteLine(""Hello world"");Console.ReadLine();}}}",
+            @class.ToString());
     }
 }

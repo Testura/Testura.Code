@@ -5,98 +5,97 @@ using Testura.Code.Generators.Special;
 using Testura.Code.Models.Properties;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
-namespace Testura.Code.Generators.Class
+namespace Testura.Code.Generators.Class;
+
+/// <summary>
+/// Provides the functionality to generate properties.
+/// </summary>
+public static class PropertyGenerator
 {
     /// <summary>
-    /// Provides the functionality to generate properties.
+    /// Create the syntax for a property of a class.
     /// </summary>
-    public static class PropertyGenerator
+    /// <param name="property">The property to create.</param>
+    /// <returns>The declaration syntax for a property.</returns>
+    public static PropertyDeclarationSyntax Create(Property property)
     {
-        /// <summary>
-        /// Create the syntax for a property of a class.
-        /// </summary>
-        /// <param name="property">The property to create.</param>
-        /// <returns>The declaration syntax for a property.</returns>
-        public static PropertyDeclarationSyntax Create(Property property)
+        if (property == null)
         {
-            if (property == null)
-            {
-                throw new ArgumentNullException(nameof(property));
-            }
-
-            PropertyDeclarationSyntax propertyDeclaration;
-            if (property is AutoProperty autoProperty)
-            {
-                propertyDeclaration = CreateAutoProperty(autoProperty);
-            }
-            else if (property is BodyProperty bodyProperty)
-            {
-                propertyDeclaration = CreateBodyProperty(bodyProperty);
-            }
-            else
-            {
-                throw new ArgumentException($"Unknown property type: {property.Type}, could not generate code.");
-            }
-
-            if (property.Modifiers != null)
-            {
-                propertyDeclaration = propertyDeclaration.WithModifiers(ModifierGenerator.Create(property.Modifiers.ToArray()));
-            }
-
-            if (property.Attributes != null)
-            {
-                propertyDeclaration = propertyDeclaration.WithAttributeLists(AttributeGenerator.Create(property.Attributes.ToArray()));
-            }
-
-            if (!string.IsNullOrEmpty(property.Summary))
-            {
-                propertyDeclaration = propertyDeclaration.WithSummary(property.Summary);
-            }
-
-            return propertyDeclaration;
+            throw new ArgumentNullException(nameof(property));
         }
 
-        private static PropertyDeclarationSyntax CreateAutoProperty(AutoProperty property)
+        PropertyDeclarationSyntax propertyDeclaration;
+        if (property is AutoProperty autoProperty)
         {
-            var propertyDeclaration = PropertyDeclaration(
+            propertyDeclaration = CreateAutoProperty(autoProperty);
+        }
+        else if (property is BodyProperty bodyProperty)
+        {
+            propertyDeclaration = CreateBodyProperty(bodyProperty);
+        }
+        else
+        {
+            throw new ArgumentException($"Unknown property type: {property.Type}, could not generate code.");
+        }
+
+        if (property.Modifiers != null)
+        {
+            propertyDeclaration = propertyDeclaration.WithModifiers(ModifierGenerator.Create(property.Modifiers.ToArray()));
+        }
+
+        if (property.Attributes != null)
+        {
+            propertyDeclaration = propertyDeclaration.WithAttributeLists(AttributeGenerator.Create(property.Attributes.ToArray()));
+        }
+
+        if (!string.IsNullOrEmpty(property.Summary))
+        {
+            propertyDeclaration = propertyDeclaration.WithSummary(property.Summary);
+        }
+
+        return propertyDeclaration;
+    }
+
+    private static PropertyDeclarationSyntax CreateAutoProperty(AutoProperty property)
+    {
+        var propertyDeclaration = PropertyDeclaration(
                 TypeGenerator.Create(property.Type), Identifier(property.Name))
-                .AddAccessorListAccessors(CreateAccessDeclaration(SyntaxKind.GetAccessorDeclaration, null, property.GetModifiers));
+            .AddAccessorListAccessors(CreateAccessDeclaration(SyntaxKind.GetAccessorDeclaration, null, property.GetModifiers));
 
-            if (property.PropertyType == PropertyTypes.GetAndSet)
-            {
-                propertyDeclaration = propertyDeclaration.AddAccessorListAccessors(CreateAccessDeclaration(SyntaxKind.SetAccessorDeclaration, null, property.SetModifiers));
-            }
-
-            return propertyDeclaration;
-        }
-
-        private static PropertyDeclarationSyntax CreateBodyProperty(BodyProperty property)
+        if (property.PropertyType == PropertyTypes.GetAndSet)
         {
-            var propertyDeclaration = PropertyDeclaration(
-                    TypeGenerator.Create(property.Type), Identifier(property.Name))
-                .AddAccessorListAccessors(CreateAccessDeclaration(SyntaxKind.GetAccessorDeclaration, property.GetBody, property.GetModifiers));
-
-            if (property.SetBody != null)
-            {
-                propertyDeclaration =
-                    propertyDeclaration.AddAccessorListAccessors(CreateAccessDeclaration(SyntaxKind.SetAccessorDeclaration, property.SetBody, property.SetModifiers));
-            }
-
-            return propertyDeclaration;
+            propertyDeclaration = propertyDeclaration.AddAccessorListAccessors(CreateAccessDeclaration(SyntaxKind.SetAccessorDeclaration, null, property.SetModifiers));
         }
 
-        private static AccessorDeclarationSyntax CreateAccessDeclaration(SyntaxKind kind, BlockSyntax body, IEnumerable<Modifiers> modifiers)
+        return propertyDeclaration;
+    }
+
+    private static PropertyDeclarationSyntax CreateBodyProperty(BodyProperty property)
+    {
+        var propertyDeclaration = PropertyDeclaration(
+                TypeGenerator.Create(property.Type), Identifier(property.Name))
+            .AddAccessorListAccessors(CreateAccessDeclaration(SyntaxKind.GetAccessorDeclaration, property.GetBody, property.GetModifiers));
+
+        if (property.SetBody != null)
         {
-            var accessDeclaration = AccessorDeclaration(kind);
-
-            if (modifiers != null)
-            {
-                accessDeclaration = accessDeclaration.WithModifiers(ModifierGenerator.Create(modifiers.ToArray()));
-            }
-
-            accessDeclaration = body != null ? accessDeclaration.WithBody(body) : accessDeclaration.WithSemicolonToken(Token(SyntaxKind.SemicolonToken));
-
-            return accessDeclaration;
+            propertyDeclaration =
+                propertyDeclaration.AddAccessorListAccessors(CreateAccessDeclaration(SyntaxKind.SetAccessorDeclaration, property.SetBody, property.SetModifiers));
         }
+
+        return propertyDeclaration;
+    }
+
+    private static AccessorDeclarationSyntax CreateAccessDeclaration(SyntaxKind kind, BlockSyntax? body, IEnumerable<Modifiers>? modifiers)
+    {
+        var accessDeclaration = AccessorDeclaration(kind);
+
+        if (modifiers != null)
+        {
+            accessDeclaration = accessDeclaration.WithModifiers(ModifierGenerator.Create(modifiers.ToArray()));
+        }
+
+        accessDeclaration = body != null ? accessDeclaration.WithBody(body) : accessDeclaration.WithSemicolonToken(Token(SyntaxKind.SemicolonToken));
+
+        return accessDeclaration;
     }
 }

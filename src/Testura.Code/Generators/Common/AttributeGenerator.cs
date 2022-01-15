@@ -4,67 +4,65 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
 using Attribute = Testura.Code.Models.Attribute;
 
-namespace Testura.Code.Generators.Common
+namespace Testura.Code.Generators.Common;
+
+/// <summary>
+/// Provides the functionality to generate attributes.
+/// </summary>
+public static class AttributeGenerator
 {
     /// <summary>
-    /// Provides the functionality to generate attributes.
+    /// Create the syntax for an attribute.
     /// </summary>
-    public static class AttributeGenerator
+    /// <param name="attributes">Attribute(s) to create.</param>
+    /// <returns>The declared syntax list.</returns>
+    public static SyntaxList<AttributeListSyntax> Create(params Attribute[] attributes)
     {
-        /// <summary>
-        /// Create the syntax for an attribute.
-        /// </summary>
-        /// <param name="attributes">Attribute(s) to create.</param>
-        /// <returns>The declared syntax list.</returns>
-        public static SyntaxList<AttributeListSyntax> Create(params Attribute[] attributes)
+        var attributesSyntax = new AttributeListSyntax[attributes.Length];
+        for (int n = 0; n < attributes.Length; n++)
         {
-            var attributesSyntax = new AttributeListSyntax[attributes.Length];
-            for (int n = 0; n < attributes.Length; n++)
-            {
-                var attributeSyntax = Create(attributes[n]);
-                attributesSyntax[n] =
-                    SyntaxFactory.AttributeList(SyntaxFactory.SingletonSeparatedList(attributeSyntax));
-            }
-
-            return
-                SyntaxFactory.List<AttributeListSyntax>(attributesSyntax);
+            var attributeSyntax = Create(attributes[n]);
+            attributesSyntax[n] =
+                SyntaxFactory.AttributeList(SyntaxFactory.SingletonSeparatedList(attributeSyntax));
         }
 
-        private static AttributeSyntax Create(Attribute attribute)
-        {
-            var attributeSyntax = SyntaxFactory.Attribute(SyntaxFactory.IdentifierName(attribute.Name));
-            if (attribute.Arguments.Any())
-            {
-                attributeSyntax = attributeSyntax.WithArgumentList(GetArguments(attribute.Arguments));
-            }
+        return
+            SyntaxFactory.List<AttributeListSyntax>(attributesSyntax);
+    }
 
-            return attributeSyntax;
+    private static AttributeSyntax Create(Attribute attribute)
+    {
+        var attributeSyntax = SyntaxFactory.Attribute(SyntaxFactory.IdentifierName(attribute.Name));
+        if (attribute.Arguments.Any())
+        {
+            attributeSyntax = attributeSyntax.WithArgumentList(GetArguments(attribute.Arguments));
         }
 
-        private static AttributeArgumentListSyntax GetArguments(List<IArgument> arguments)
+        return attributeSyntax;
+    }
+
+    private static AttributeArgumentListSyntax GetArguments(List<IArgument> arguments)
+    {
+        var list = ConvertArgumentsToSyntaxNodesOrTokens(arguments);
+        return SyntaxFactory.AttributeArgumentList(SyntaxFactory.SeparatedList<AttributeArgumentSyntax>(list));
+    }
+
+    private static List<SyntaxNodeOrToken> ConvertArgumentsToSyntaxNodesOrTokens(List<IArgument> arguments)
+    {
+        if (!arguments.Any())
         {
-            var list = ConvertArgumentsToSyntaxNodesOrTokens(arguments);
-            return SyntaxFactory.AttributeArgumentList(SyntaxFactory.SeparatedList<AttributeArgumentSyntax>(list));
+            return new List<SyntaxNodeOrToken>();
         }
 
-        private static List<SyntaxNodeOrToken> ConvertArgumentsToSyntaxNodesOrTokens(List<IArgument> arguments)
+        var list = new List<SyntaxNodeOrToken>();
+
+        foreach (var argumentSyntax in arguments.Select(argument => argument.GetArgumentSyntax()))
         {
-            if (!arguments.Any())
-            {
-                return new List<SyntaxNodeOrToken>();
-            }
-
-            var list = new List<SyntaxNodeOrToken>();
-
-            foreach (var argument in arguments)
-            {
-                var argumentSyntax = argument.GetArgumentSyntax();
-                list.Add(SyntaxFactory.AttributeArgument(argumentSyntax.Expression).WithNameColon(argumentSyntax.NameColon));
-                list.Add(SyntaxFactory.Token(SyntaxKind.CommaToken));
-            }
-
-            list.RemoveAt(list.Count - 1);
-            return list;
+            list.Add(SyntaxFactory.AttributeArgument(argumentSyntax.Expression).WithNameColon(argumentSyntax.NameColon));
+            list.Add(SyntaxFactory.Token(SyntaxKind.CommaToken));
         }
+
+        list.RemoveAt(list.Count - 1);
+        return list;
     }
 }

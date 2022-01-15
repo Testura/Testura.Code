@@ -1,25 +1,24 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Testura.Code.Builders.BuildMembers
+namespace Testura.Code.Builders.BuildMembers;
+
+public class FieldBuildMember : IBuildMember
 {
-    public class FieldBuildMember : IBuildMember
+    private readonly IEnumerable<FieldDeclarationSyntax> _fieldDeclarationSyntaxs;
+
+    public FieldBuildMember(IEnumerable<FieldDeclarationSyntax> fieldDeclarationSyntaxs)
     {
-        private readonly IEnumerable<FieldDeclarationSyntax> _fieldDeclarationSyntaxs;
+        _fieldDeclarationSyntaxs = fieldDeclarationSyntaxs;
+    }
 
-        public FieldBuildMember(IEnumerable<FieldDeclarationSyntax> fieldDeclarationSyntaxs)
+    public SyntaxList<MemberDeclarationSyntax> AddMember(SyntaxList<MemberDeclarationSyntax> members)
+    {
+        foreach (var fieldDeclarationSyntax in _fieldDeclarationSyntaxs)
         {
-            _fieldDeclarationSyntaxs = fieldDeclarationSyntaxs;
+            members = members.Add(fieldDeclarationSyntax);
         }
 
-        public SyntaxList<MemberDeclarationSyntax> AddMember(SyntaxList<MemberDeclarationSyntax> members)
-        {
-            foreach (var fieldDeclarationSyntax in _fieldDeclarationSyntaxs)
-            {
-                members = members.Add(fieldDeclarationSyntax);
-            }
-
-            return members;
-        }
+        return members;
     }
 }
