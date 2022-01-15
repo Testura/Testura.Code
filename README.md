@@ -119,6 +119,210 @@ var result = await compiler.CompileSourceInMemoryAsync(generatedCode);
 var result = await compiler.CompileFilesInMemoryAsync(@"/path/HelloWorld.cs");
 ```
 
+## More advanced examples
+
+### Model class
+
+```c#
+        var classBuilder = new ClassBuilder("Cat", "Models");
+        var @class = classBuilder
+            .WithUsings("System")
+            .WithConstructor(
+                ConstructorGenerator.Create(
+                    "Cat",
+                    BodyGenerator.Create(
+                        Statement.Declaration.Assign("Name", ReferenceGenerator.Create(new VariableReference("name"))),
+                        Statement.Declaration.Assign("Age", ReferenceGenerator.Create(new VariableReference("age")))),
+                    new List<Parameter> { new Parameter("name", typeof(string)), new Parameter("age", typeof(int)) },
+                    new List<Modifiers> { Modifiers.Public }))
+            .WithProperties(
+                PropertyGenerator.Create(new AutoProperty("Name", typeof(string), PropertyTypes.GetAndSet, new List<Modifiers> { Modifiers.Public })),
+                PropertyGenerator.Create(new AutoProperty("Age", typeof(int), PropertyTypes.GetAndSet, new List<Modifiers> { Modifiers.Public })))
+            .Build();
+```
+
+Will generate 
+
+```c#
+using System;
+
+namespace Models
+{
+    public class Cat
+    {
+        public Cat(string name, int age)
+        {
+            Name = name;
+            Age = age;
+        }
+
+        public string Name { get; set; }
+        public int Age { get; set; }
+    }
+}
+```
+
+### Enum 
+
+```c#
+        var @class = new ClassBuilder("Cat", "Models")
+            .WithUsings("System")
+            .With(new EnumBuildMember("MyEnum", new List<EnumMember> { new("EnumValueOne", 2, new Attribute[] { new Attribute("MyAttribute"), }), new EnumMember("EnumValueTwo") }, new List<Modifiers> { Modifiers.Public }))
+            .Build();
+```
+
+Will generate
+
+```c#
+using System;
+
+namespace Models
+{
+    public class Cat
+    {
+        public enum MyEnum
+        {
+            [MyAttribute]
+            EnumValueOne = 2,
+            EnumValueTwo
+        }
+    }
+}
+```
+
+### Class with file scoped namespace and body properties
+
+```c#
+        var @class = new ClassBuilder("Cat", "Models", NamespaceType.FileScoped)
+            .WithUsings("System")
+            .WithFields(
+                new Field("_name", typeof(string), new List<Modifiers>() { Modifiers.Private }),
+                new Field("_age", typeof(int), new List<Modifiers>() { Modifiers.Private }))
+            .WithConstructor(
+                ConstructorGenerator.Create(
+                    "Cat",
+                    BodyGenerator.Create(
+                        Statement.Declaration.Assign("Name", ReferenceGenerator.Create(new VariableReference("name"))),
+                        Statement.Declaration.Assign("Age", ReferenceGenerator.Create(new VariableReference("age")))),
+                    new List<Parameter> { new Parameter("name", typeof(string)), new Parameter("age", typeof(int)) },
+                    new List<Modifiers> { Modifiers.Public }))
+            .WithProperties(
+                PropertyGenerator.Create(
+                    new BodyProperty(
+                        "Name",
+                        typeof(string),
+                        BodyGenerator.Create(Statement.Jump.Return(new VariableReference("_name"))), BodyGenerator.Create(Statement.Declaration.Assign("_name", new ValueKeywordReference())),
+                        new List<Modifiers> { Modifiers.Public })),
+                PropertyGenerator.Create(
+                    new BodyProperty(
+                        "Age",
+                        typeof(int),
+                        BodyGenerator.Create(Statement.Jump.Return(new VariableReference("_age"))), BodyGenerator.Create(Statement.Declaration.Assign("_age", new ValueKeywordReference())),
+                        new List<Modifiers> { Modifiers.Public })))
+            .Build();
+```
+
+Will generate
+
+```c#
+using System;
+
+namespace Models;
+
+public class Cat
+{
+    private string _name;
+    private int _age;
+
+    public Cat(string name, int age)
+    {
+        Name = name;
+        Age = age;
+    }
+
+    public string Name
+    {
+        get
+        {
+            return _name;
+        }
+
+        set
+        {
+            _name = value;
+        }
+    }
+
+    public int Age
+    {
+        get
+        {
+            return _age;
+        }
+
+        set
+        {
+            _age = value;
+        }
+    }
+}
+```
+
+### Record with primary constructor
+
+```c#
+        var record = new RecordBuilder("Cat", "Models", NamespaceType.FileScoped)
+            .WithUsings("System")
+            .WithPrimaryConstructor(new Parameter("Age", typeof(int)))
+            .Build();
+```
+
+Will generate
+
+```c#
+using System;
+
+namespace Models;
+
+public record Cat(int Age);
+```
+
+### Class with methods that override operators and comments
+
+```c#
+        var @class = new ClassBuilder("Cat", "Models")
+            .WithUsings("System")
+            .WithMethods(new MethodBuilder("MyMethod")
+                .WithModifiers(Modifiers.Public, Modifiers.Static)
+                .WithOperatorOverloading(Operators.Increment)
+                .WithParameters(new Parameter("MyParameter", typeof(string)))
+                .WithBody(
+                    BodyGenerator.Create(
+                        Statement.Declaration.Declare("hello", typeof(int)).WithComment("My comment above").WithComment("hej"),
+                        Statement.Declaration.Declare("hello", typeof(int)).WithComment("My comment to the side", CommentPosition.Right)))
+                .Build())
+            .Build();
+```
+
+Will generate
+
+```c#
+using System;
+
+namespace Models
+{
+    public class Cat
+    {
+        public static MyMethod operator ++(string MyParameter)
+        {
+            //hej
+            int hello;
+            int hello; //My comment to the side
+        }
+    }
+}
+```
+
 ## Missing anything? 
 
 If we miss a feature, syntax or statements - just create an issue or contact us and I'm sure we can add it.

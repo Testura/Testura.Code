@@ -153,10 +153,15 @@ public abstract class TypeBuilderBase<TBuilder> : BuilderBase<TBuilder>
         type = type.WithSummary(_summary);
         type = BuildAttributes(type);
         type = BuildMembers(type);
-        return type;
+        return FinishBase(type);
     }
 
     protected abstract TypeDeclarationSyntax BuildBase();
+
+    protected virtual TypeDeclarationSyntax FinishBase(TypeDeclarationSyntax type)
+    {
+        return type;
+    }
 
     protected TypeDeclarationSyntax BuildAttributes(TypeDeclarationSyntax @class)
     {

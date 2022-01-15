@@ -8,6 +8,7 @@ using Testura.Code.Generators.Common;
 using Testura.Code.Models;
 using Testura.Code.Models.Properties;
 using Testura.Code.Models.References;
+using Testura.Code.Saver;
 using Testura.Code.Statements;
 
 namespace Testura.Code.Tests.Integration;
@@ -42,8 +43,7 @@ public class ModelClassTests
     [Test]
     public void Test_CreateClassWithEnum()
     {
-        var classBuilder = new ClassBuilder("Cat", "Models");
-        var @class = classBuilder
+        var @class = new ClassBuilder("Cat", "Models")
             .WithUsings("System")
             .With(new EnumBuildMember("MyEnum", new List<EnumMember> { new("EnumValueOne", 2, new Attribute[] { new Attribute("MyAttribute"), }), new EnumMember("EnumValueTwo") }, new List<Modifiers> { Modifiers.Public }))
             .Build();
@@ -56,8 +56,7 @@ public class ModelClassTests
     [Test]
     public void Test_CreateModelClassWithBodyProperties()
     {
-        var classBuilder = new ClassBuilder("Cat", "Models");
-        var @class = classBuilder
+        var @class = new ClassBuilder("Cat", "Models", NamespaceType.FileScoped)
             .WithUsings("System")
             .WithFields(
                 new Field("_name", typeof(string), new List<Modifiers>() { Modifiers.Private }),
@@ -85,8 +84,13 @@ public class ModelClassTests
                         new List<Modifiers> { Modifiers.Public })))
             .Build();
 
+        var saver = new CodeSaver();
+
+        // As a string
+        var generatedCode = saver.SaveCodeAsString(@class);
+
         Assert.AreEqual(
-            "usingSystem;namespaceModels{publicclassCat{privatestring_name;privateint_age;publicCat(stringname,intage){Name=name;Age=age;}publicstringName{get{return_name;}set{_name=value;}}publicintAge{get{return_age;}set{_age=value;}}}}",
+            "usingSystem;namespaceModels;publicclassCat{privatestring_name;privateint_age;publicCat(stringname,intage){Name=name;Age=age;}publicstringName{get{return_name;}set{_name=value;}}publicintAge{get{return_age;}set{_age=value;}}}",
             @class.ToString());
     }
 
@@ -151,7 +155,7 @@ public class ModelClassTests
     }
 
     [Test]
-    public void Test_CreateClassWithMethodThatHaveMultipleSUmmarysAndSingleLineComments()
+    public void Test_CreateClassWithMethodThatHaveMultipleSummarysAndSingleLineComments()
     {
         var classBuilder = new ClassBuilder("Cat", "Models");
         var @class = classBuilder
@@ -185,8 +189,7 @@ public class ModelClassTests
     [Test]
     public void Test_CreateClassWithMethodThatHaveOverrideOperators()
     {
-        var classBuilder = new ClassBuilder("Cat", "Models");
-        var @class = classBuilder
+        var @class = new ClassBuilder("Cat", "Models")
             .WithUsings("System")
             .WithMethods(new MethodBuilder("MyMethod")
                 .WithModifiers(Modifiers.Public, Modifiers.Static)
@@ -202,5 +205,18 @@ public class ModelClassTests
         Assert.AreEqual(
             "usingSystem;namespaceModels{publicclassCat{publicstaticMyMethodoperator++(stringMyParameter){//hej\ninthello;inthello; //My comment to the side\n}}}",
             @class.ToString());
+    }
+
+    [Test]
+    public void Test_CreateRecordWithPrimaryConstructor()
+    {
+        var record = new RecordBuilder("Cat", "Models", NamespaceType.FileScoped)
+            .WithUsings("System")
+            .WithPrimaryConstructor(new Parameter("Age", typeof(int)))
+            .Build();
+
+        Assert.AreEqual(
+            "usingSystem;namespaceModels;publicrecordCat(intAge);",
+            @record.ToString());
     }
 }
