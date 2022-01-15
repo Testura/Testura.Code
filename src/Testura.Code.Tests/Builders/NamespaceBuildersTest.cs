@@ -20,4 +20,16 @@ public class NamespaceBuildersTest
 
         Assert.AreEqual("usingSystem;namespaceMyNamespace{enumMyEnum{SomeEnum=2}publicclassMyClass{}}", @namespace.ToString());
     }
+
+    [Test]
+    public void Build_WhenBuildingNamespaceWithTypeFileScoped_CodeShouldContainMembers()
+    {
+        var @namespace = new NamespaceBuilder("MyNamespace", NamespaceType.FileScoped)
+            .WithUsings("System")
+            .With(new EnumBuildMember("MyEnum", new List<EnumMember> { new EnumMember("SomeEnum", 2) }))
+            .With(new ClassBuildMember(new ClassBuilder("MyClass", null).BuildWithoutNamespace()))
+            .Build();
+
+        Assert.AreEqual("usingSystem;namespaceMyNamespace;enumMyEnum{SomeEnum=2}publicclassMyClass{}", @namespace.ToString());
+    }
 }

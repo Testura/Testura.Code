@@ -17,8 +17,9 @@ public class ClassBuilder : TypeBuilderBase<ClassBuilder>
     /// </summary>
     /// <param name="name">Name of the class.</param>
     /// <param name="namespace">Name of the class namespace.</param>
-    public ClassBuilder(string name, string @namespace)
-        : base(name, @namespace)
+    /// <param name="namespaceType">Type of namespace</param>
+    public ClassBuilder(string name, string @namespace, NamespaceType namespaceType = NamespaceType.Classic)
+        : base(name, @namespace, namespaceType)
     {
     }
 

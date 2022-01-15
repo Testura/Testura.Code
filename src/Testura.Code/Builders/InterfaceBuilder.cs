@@ -14,8 +14,9 @@ public class InterfaceBuilder : TypeBuilderBase<InterfaceBuilder>
     /// </summary>
     /// <param name="name">Name of the interface.</param>
     /// <param name="namespace">Name of the interface namespace.</param>
-    public InterfaceBuilder(string name, string @namespace)
-        : base(name, @namespace)
+    /// <param name="namespaceType">Type of namespace</param>
+    public InterfaceBuilder(string name, string @namespace, NamespaceType namespaceType = NamespaceType.Classic)
+        : base(name, @namespace, namespaceType)
     {
     }
 

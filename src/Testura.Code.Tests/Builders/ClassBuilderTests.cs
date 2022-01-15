@@ -30,6 +30,13 @@ public class ClassBuilderTests
     }
 
     [Test]
+    public void Build_WhenGivenNamespaceWithFileScopedNamespace_CodeShouldContainNamespace()
+    {
+        var classBuilder = new ClassBuilder("TestClass", "MyNamespace", NamespaceType.FileScoped);
+        Assert.IsTrue(classBuilder.Build().ToString().Contains("MyNamespace;"));
+    }
+
+    [Test]
     public void Build_WhenGivenField_CodeShouldContainField()
     {
         Assert.IsTrue(_classBuilder.WithFields(new Field("myField", typeof(int), new List<Modifiers>() { Modifiers.Public })).Build().ToString().Contains("publicintmyField;"));
