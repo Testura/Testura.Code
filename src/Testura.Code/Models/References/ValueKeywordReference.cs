@@ -1,22 +1,21 @@
 ﻿#pragma warning disable 1591
-namespace Testura.Code.Models.References
+namespace Testura.Code.Models.References;
+
+/// <summary>
+/// Represent a <c>value</c> keyword reference.
+/// </summary>
+public class ValueKeywordReference : VariableReference
 {
     /// <summary>
-    /// Represent a <c>value</c> keyword reference.
+    /// Initializes a new instance of the <see cref="ValueKeywordReference"/> class.
     /// </summary>
-    public class ValueKeywordReference : VariableReference
+    public ValueKeywordReference()
+        : base("value")
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ValueKeywordReference"/> class.
-        /// </summary>
-        public ValueKeywordReference()
-            : base("value")
-        {
-        }
+    }
 
-        protected ValueKeywordReference(MemberReference member)
-            : base("value", member)
-        {
-        }
+    protected ValueKeywordReference(MemberReference member)
+        : base("value", member)
+    {
     }
 }

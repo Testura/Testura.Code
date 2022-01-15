@@ -2,30 +2,29 @@
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Testura.Code.Builders.Base;
 
-namespace Testura.Code.Builders
+namespace Testura.Code.Builders;
+
+public class NamespaceBuilder : BuilderBase<NamespaceBuilder>
 {
-    public class NamespaceBuilder : BuilderBase<NamespaceBuilder>
+    public NamespaceBuilder(string @namespace)
+        : base(@namespace)
     {
-        public NamespaceBuilder(string @namespace)
-          : base(@namespace)
+        if (string.IsNullOrEmpty(@namespace))
         {
-            if (string.IsNullOrEmpty(@namespace))
-            {
-                throw new ArgumentException("Value cannot be null or empty.", nameof(@namespace));
-            }
+            throw new ArgumentException("Value cannot be null or empty.", nameof(@namespace));
         }
+    }
 
-        /// <summary>
-        /// Build the namespace and return the generated code.
-        /// </summary>
-        /// <returns>The generated class.</returns>
-        public CompilationUnitSyntax Build()
-        {
-            var @base = SyntaxFactory.CompilationUnit();
-            @base = BuildUsings(@base);
-            @base = BuildNamespace(@base);
+    /// <summary>
+    /// Build the namespace and return the generated code.
+    /// </summary>
+    /// <returns>The generated class.</returns>
+    public CompilationUnitSyntax Build()
+    {
+        var @base = SyntaxFactory.CompilationUnit();
+        @base = BuildUsings(@base);
+        @base = BuildNamespace(@base);
 
-            return @base;
-        }
+        return @base;
     }
 }

@@ -1,9 +1,8 @@
 ﻿using NUnit.Framework;
 
-namespace Testura.Code.Tests.Generators.Common
+namespace Testura.Code.Tests.Generators.Common;
+
+[TestFixture]
+public class GenericGeneratorTests
 {
-    [TestFixture]
-    public class GenericGeneratorTests
-    {
-    }
 }

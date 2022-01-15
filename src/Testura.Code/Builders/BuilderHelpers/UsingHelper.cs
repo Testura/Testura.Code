@@ -2,46 +2,45 @@
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
-namespace Testura.Code.Builders.BuilderHelpers
+namespace Testura.Code.Builders.BuilderHelpers;
+
+internal class UsingHelper
 {
-    internal class UsingHelper
+    public UsingHelper()
     {
-        public UsingHelper()
-        {
-            Usings = new List<string>();
-        }
+        Usings = new List<string>();
+    }
 
-        public List<string> Usings { get; }
+    public List<string> Usings { get; }
 
-        /// <summary>
-        /// Set the using directives.
-        /// </summary>
-        /// <param name="usings">A set of wanted using directive names.</param>
-        public void AddUsings(params string[] usings)
-        {
-            Usings.Clear();
-            Usings.AddRange(usings);
-        }
+    /// <summary>
+    /// Set the using directives.
+    /// </summary>
+    /// <param name="usings">A set of wanted using directive names.</param>
+    public void AddUsings(params string[] usings)
+    {
+        Usings.Clear();
+        Usings.AddRange(usings);
+    }
 
-        public CompilationUnitSyntax BuildUsings(CompilationUnitSyntax @base)
+    public CompilationUnitSyntax BuildUsings(CompilationUnitSyntax @base)
+    {
+        var usingSyntaxes = default(SyntaxList<UsingDirectiveSyntax>);
+        foreach (var @using in Usings)
         {
-            var usingSyntaxes = default(SyntaxList<UsingDirectiveSyntax>);
-            foreach (var @using in Usings)
+            if (@using == null)
             {
-                if (@using == null)
-                {
-                    continue;
-                }
-
-                usingSyntaxes = usingSyntaxes.Add(UsingDirective(IdentifierName(@using)));
+                continue;
             }
 
-            foreach (var @using in usingSyntaxes)
-            {
-                @base = @base.AddUsings(@using);
-            }
-
-            return @base;
+            usingSyntaxes = usingSyntaxes.Add(UsingDirective(IdentifierName(@using)));
         }
+
+        foreach (var @using in usingSyntaxes)
+        {
+            @base = @base.AddUsings(@using);
+        }
+
+        return @base;
     }
 }

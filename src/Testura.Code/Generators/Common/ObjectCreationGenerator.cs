@@ -14,7 +14,7 @@ public static class ObjectCreationGenerator
     /// <returns>An object creation expression.</returns>
     public static ExpressionSyntax Create(Type type, IEnumerable<Type> genericTypes = null)
     {
-        return ObjectCreationExpression(TypeGenerator.Create(type)).WithArgumentList(ArgumentList());
+        return Create(type, new List<IArgument>(), genericTypes);
     }
 
     /// <summary>
@@ -24,7 +24,7 @@ public static class ObjectCreationGenerator
     /// <param name="arguments">Arguments to use when creating the instance of the object.</param>
     /// <param name="genericTypes">Generics of the type.</param>
     /// <returns>An object creation expression.</returns>
-    public static ExpressionSyntax Create(Type type, IEnumerable<IArgument> arguments, IEnumerable<Type> genericTypes = null)
+    public static ExpressionSyntax Create(Type type, IEnumerable<IArgument> arguments, IEnumerable<Type>? genericTypes = null)
     {
         if (genericTypes != null && genericTypes.Any())
         {

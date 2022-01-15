@@ -1,25 +1,24 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Testura.Code.Builders.BuildMembers
+namespace Testura.Code.Builders.BuildMembers;
+
+public class MethodBuildMember : IBuildMember
 {
-    public class MethodBuildMember : IBuildMember
+    private readonly BaseMethodDeclarationSyntax[] _methodDeclarationSyntaxs;
+
+    public MethodBuildMember(BaseMethodDeclarationSyntax[] methodDeclarationSyntaxs)
     {
-        private readonly BaseMethodDeclarationSyntax[] _methodDeclarationSyntaxs;
+        _methodDeclarationSyntaxs = methodDeclarationSyntaxs;
+    }
 
-        public MethodBuildMember(BaseMethodDeclarationSyntax[] methodDeclarationSyntaxs)
+    public SyntaxList<MemberDeclarationSyntax> AddMember(SyntaxList<MemberDeclarationSyntax> members)
+    {
+        foreach (var methodDeclarationSyntax in _methodDeclarationSyntaxs)
         {
-            _methodDeclarationSyntaxs = methodDeclarationSyntaxs;
+            members = members.Add(methodDeclarationSyntax);
         }
 
-        public SyntaxList<MemberDeclarationSyntax> AddMember(SyntaxList<MemberDeclarationSyntax> members)
-        {
-            foreach (var methodDeclarationSyntax in _methodDeclarationSyntaxs)
-            {
-                members = members.Add(methodDeclarationSyntax);
-            }
-
-            return members;
-        }
+        return members;
     }
 }
