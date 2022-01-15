@@ -141,7 +141,7 @@ var result = await compiler.CompileFilesInMemoryAsync(@"/path/HelloWorld.cs");
             .Build();
 ```
 
-Will generate 
+This code will generate following code: 
 
 ```c#
 using System;
@@ -171,7 +171,7 @@ namespace Models
             .Build();
 ```
 
-Will generate
+This code will generate following code:
 
 ```c#
 using System;
@@ -222,7 +222,7 @@ namespace Models
             .Build();
 ```
 
-Will generate
+This code will generate following code:
 
 ```c#
 using System;
@@ -277,7 +277,7 @@ public class Cat
             .Build();
 ```
 
-Will generate
+This code will generate following code:
 
 ```c#
 using System;
@@ -304,7 +304,7 @@ public record Cat(int Age);
             .Build();
 ```
 
-Will generate
+This code will generate following code:
 
 ```c#
 using System;
