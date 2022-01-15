@@ -40,7 +40,6 @@ Testura.Code have three different types of helpers:
 ## Documentation 
 
 - Wiki -[https://github.com/Testura/Testura.Code/wiki](https://github.com/Testura/Testura.Code/wiki)
-- Api - [https://testura.github.io/Code/api/index.html](https://testura.github.io/Code/api/index.html)
 
 ## Examples 
 
@@ -318,6 +317,53 @@ namespace Models
             //hej
             int hello;
             int hello; //My comment to the side
+        }
+    }
+}
+```
+
+### Test class with method references
+
+```c#
+       var @class = new ClassBuilder("NullTest", "MyTest")
+            .WithUsings("System", "NUnit.Framework")
+            .WithModifiers(Modifiers.Public)
+            .WithMethods(
+                new MethodBuilder("SetUp")
+                    .WithAttributes(new Attribute("SetUp"))
+                    .WithModifiers(Modifiers.Public)
+                    .Build(),
+                new MethodBuilder("Test_WhenAddingNumber_ShouldBeCorrectSum")
+                    .WithAttributes(new Attribute("Test"))
+                    .WithModifiers(Modifiers.Public)
+                    .WithBody(
+                        BodyGenerator.Create(
+                            Statement.Declaration.Declare("myList", typeof(List<int>)),
+                            NunitAssertGenerator.Throws(new VariableReference("myList", new MethodReference("First")), typeof(ArgumentNullException))))
+                    .Build())
+            .Build();
+```
+
+This code will generate following code:
+
+```c#
+using System;
+using NUnit.Framework;
+
+namespace MyTest
+{
+    public class NullTest
+    {
+        [SetUp]
+        public void SetUp()
+        {
+        }
+
+        [Test]
+        public void Test_WhenAddingNumber_ShouldBeCorrectSum()
+        {
+            List<int> myList;
+            Assert.Throws<ArgumentNullException>(() => myList.First(), "");
         }
     }
 }
