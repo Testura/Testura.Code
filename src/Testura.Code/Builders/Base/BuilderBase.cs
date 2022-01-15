@@ -19,6 +19,8 @@ public abstract class BuilderBase<TBuilder>
         _namespaceHelper = new NamespaceHelper(@namespace, namespaceType);
     }
 
+    protected bool HaveMembers => _memberHelper.Members.Any();
+
     /// <summary>
     /// Set the using directives.
     /// </summary>
