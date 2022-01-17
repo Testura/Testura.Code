@@ -15,10 +15,22 @@ public class NamespaceBuildersTest
         var @namespace = new NamespaceBuilder("MyNamespace")
             .WithUsings("System")
             .With(new EnumBuildMember("MyEnum", new List<EnumMember> { new EnumMember("SomeEnum", 2) }))
-            .With(new ClassBuildMember(new ClassBuilder("MyClass", null).BuildWithoutNamespace()))
+            .With(new ClassBuildMember(new ClassBuilder("MyClass", null)))
             .Build();
 
         Assert.AreEqual("usingSystem;namespaceMyNamespace{enumMyEnum{SomeEnum=2}publicclassMyClass{}}", @namespace.ToString());
+    }
+
+    [Test]
+    public void Build_WhenBuildingNamespaceWithInterfaceBuildMember_CodeShouldContainMembers()
+    {
+        var @namespace = new NamespaceBuilder("MyNamespace")
+            .WithUsings("System")
+            .With(new EnumBuildMember("MyEnum", new List<EnumMember> { new EnumMember("SomeEnum", 2) }))
+            .With(new InterfaceBuildMember(new InterfaceBuilder("MyInterface", null)))
+            .Build();
+
+        Assert.AreEqual("usingSystem;namespaceMyNamespace{enumMyEnum{SomeEnum=2}publicinterfaceMyInterface{}}", @namespace.ToString());
     }
 
     [Test]
