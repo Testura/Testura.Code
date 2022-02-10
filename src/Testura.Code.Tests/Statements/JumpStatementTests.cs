@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Linq;
+using NUnit.Framework;
 using Testura.Code.Generators.Common;
 using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
 using Testura.Code.Models.References;
@@ -59,5 +60,18 @@ public class JumpStatementTests
     public void Return_WhenReturnNewObjectWithoutParameters_ShouldGenerateCorrectCode()
     {
         Assert.AreEqual("returnnewHello();", @return.Return(ObjectCreationGenerator.Create(CustomType.Create("Hello"))).ToString());
+    }
+
+    [Test]
+    public void Return_WhenReturnNewObjectWithInitializer_ShouldGenerateCorrectCode()
+    {
+        var initializers = new[]
+        {
+            Statement.Declaration.Assign("hej", new VariableReference("test"))
+        };
+
+        var objectCreation = ObjectCreationGenerator.Create(CustomType.Create("Hello"), initialization: initializers.Select(i => i.Expression));
+
+        Assert.AreEqual("returnnewHello{hej=test};", @return.Return(objectCreation).ToString());
     }
 }
