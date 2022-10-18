@@ -2,11 +2,12 @@
 using NUnit.Framework;
 using Testura.Code.Generators.Class;
 using Testura.Code.Generators.Common;
-using Testura.Code.Models;
 using Testura.Code.Models.Properties;
 using Testura.Code.Models.References;
+using Testura.Code.Models.Types;
 using Testura.Code.Statements;
 using Assert = NUnit.Framework.Assert;
+using Attribute = Testura.Code.Models.Attribute;
 
 namespace Testura.Code.Tests.Generators.Class;
 
@@ -78,6 +79,16 @@ public class PropertyGeneratorTests
             "MyProperty",
             typeof(int),
             BodyGenerator.Create(Statement.Jump.Return(new ConstantReference(1))),
+            new List<Modifiers> { Modifiers.Public, Modifiers.Virtual })).ToString());
+    }
+
+    [Test]
+    public void Create_WhenArrowExpressionProperty_ShouldGenerateProperty()
+    {
+        Assert.AreEqual("publicvirtualintMyProperty=>Set<Student>();", PropertyGenerator.Create(new ArrowExpressionProperty(
+            "MyProperty",
+            typeof(int),
+            Statement.Expression.Invoke("Set", generics: new[] { CustomType.Create("Student" ) }).AsExpression(),
             new List<Modifiers> { Modifiers.Public, Modifiers.Virtual })).ToString());
     }
 }
