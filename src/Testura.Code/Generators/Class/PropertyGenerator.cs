@@ -33,6 +33,10 @@ public static class PropertyGenerator
         {
             propertyDeclaration = CreateBodyProperty(bodyProperty);
         }
+        else if (property is ArrowExpressionProperty arrowExpressionProperty)
+        {
+            propertyDeclaration = CreateArrowExpressionProperty(arrowExpressionProperty);
+        }
         else
         {
             throw new ArgumentException($"Unknown property type: {property.Type}, could not generate code.");
@@ -80,6 +84,20 @@ public static class PropertyGenerator
         {
             propertyDeclaration =
                 propertyDeclaration.AddAccessorListAccessors(CreateAccessDeclaration(SyntaxKind.SetAccessorDeclaration, property.SetBody, property.SetModifiers));
+        }
+
+        return propertyDeclaration;
+    }
+
+    private static PropertyDeclarationSyntax CreateArrowExpressionProperty(ArrowExpressionProperty property)
+    {
+        var propertyDeclaration = PropertyDeclaration(
+                TypeGenerator.Create(property.Type), Identifier(property.Name))
+            .WithExpressionBody(ArrowExpressionClause(property.ExpressionSyntax));
+
+        if (property.AddSemicolon)
+        {
+            propertyDeclaration = propertyDeclaration.WithSemicolonToken(Token(SyntaxKind.SemicolonToken));
         }
 
         return propertyDeclaration;
