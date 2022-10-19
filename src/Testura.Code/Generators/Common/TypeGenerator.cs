@@ -16,8 +16,9 @@ public static class TypeGenerator
     /// Create the syntax for a type.
     /// </summary>
     /// <param name="type">The type to create.</param>
+    /// <param name="isNullableString">special case for nullable string</param>
     /// <returns>The declared type syntax.</returns>
-    public static TypeSyntax Create(Type type)
+    public static TypeSyntax Create(Type type, bool isNullableString = false)
     {
         switch (type)
         {
@@ -42,11 +43,11 @@ public static class TypeGenerator
             return CreateGenericType(type);
         }
 
-        var typeSyntax = CheckPredefinedTypes(type);
+        var typeSyntax = CheckPredefinedTypes(type, isNullableString);
         return typeSyntax ?? ParseTypeName(type.Name);
     }
 
-    private static TypeSyntax? CheckPredefinedTypes(Type type)
+    private static TypeSyntax? CheckPredefinedTypes(Type type, bool nullableString = false)
     {
         TypeSyntax typeSyntax = null;
         var isNullable = false;
@@ -89,7 +90,14 @@ public static class TypeGenerator
 
         if (type == typeof(string))
         {
-            typeSyntax = PredefinedType(Token(SyntaxKind.StringKeyword));
+            if (nullableString)
+            {
+                typeSyntax = PredefinedType(Token(default, SyntaxKind.StringKeyword, "string?", "?", default));
+            }
+            else
+            {
+                typeSyntax = PredefinedType(Token(SyntaxKind.StringKeyword));
+            }
         }
 
         if (type == typeof(sbyte))

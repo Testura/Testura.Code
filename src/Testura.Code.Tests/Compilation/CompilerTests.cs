@@ -6,7 +6,6 @@ using Testura.Code.Builders;
 using Testura.Code.Compilations;
 
 namespace Testura.Code.Tests.Compilation;
-
 [TestFixture]
 public class CompilerTests
 {
@@ -15,7 +14,7 @@ public class CompilerTests
     [OneTimeSetUp]
     public void SetUp()
     {
-        _compiler = new Compiler(null);
+        _compiler = new Compiler(null, @"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\");
     }
 
     [Test]

@@ -53,6 +53,13 @@ public class TypeGeneratorTests
         Assert.AreEqual(expected, TypeGenerator.Create(type).ToString());
     }
 
+    [TestCase(typeof(string), "string?")]
+    public void Create_WhenCreatingNullableString_ShouldGenerateCorrectCode(Type type, string expected)
+    {
+        const bool isNullableString = true;
+        Assert.AreEqual(expected, TypeGenerator.Create(type, isNullableString).ToString());
+    }
+
     [Test]
     public void Create_WhenCreatingDateTimeAsNullable_ShouldGenerateCorrectCode()
     {
