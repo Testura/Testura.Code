@@ -47,6 +47,7 @@ public class CodeSaver : ICodeSaver
             throw new ArgumentException("Value cannot be null or empty.", nameof(path));
         }
 
+        EnsurePathExists(path);
         var workspace = CreateWorkspace();
         var formattedCode = Formatter.Format(cu, workspace);
         using var sourceWriter = new StreamWriter(path);
@@ -74,6 +75,7 @@ public class CodeSaver : ICodeSaver
             throw new ArgumentException("Value cannot be null or empty.", nameof(path));
         }
 
+        EnsurePathExists(path);
         await using var fileStream = File.Open(path, FileMode.Create, FileAccess.Write);
         await using var sourceWriter = new StreamWriter(fileStream);
         await sourceWriter.WriteAsync(Formatter.Format(cu, CreateWorkspace()).ToFullString());
@@ -106,5 +108,14 @@ public class CodeSaver : ICodeSaver
         }
 
         return cw;
+    }
+
+    private void EnsurePathExists(string filePath)
+    {
+        var fi = new FileInfo(filePath);
+        if (!Directory.Exists(fi.Directory.FullName))
+        {
+            Directory.CreateDirectory(fi.Directory.FullName);
+        }
     }
 }
