@@ -54,6 +54,32 @@ public class CodeSaver : ICodeSaver
     }
 
     /// <summary>
+    /// Save generated code to a file asynchronously
+    /// </summary>
+    /// <param name="cu">Generated code.</param>
+    /// <param name="path">Full output path.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>Writes the generated code to the <paramref name="path"/> supplied by the user.</returns>
+    public async Task SaveCodeToFileAsync(CompilationUnitSyntax cu, string path, CancellationToken cancellationToken = default)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        if (cu == null)
+        {
+            throw new ArgumentNullException(nameof(cu));
+        }
+
+        if (string.IsNullOrEmpty(path))
+        {
+            throw new ArgumentException("Value cannot be null or empty.", nameof(path));
+        }
+
+        await using var fileStream = File.Open(path, FileMode.Create, FileAccess.Write);
+        await using var sourceWriter = new StreamWriter(fileStream);
+        await sourceWriter.WriteAsync(Formatter.Format(cu, CreateWorkspace()).ToFullString());
+    }
+
+    /// <summary>
     /// Save generated code as a string.
     /// </summary>
     /// <param name="cu">Generated code.</param>

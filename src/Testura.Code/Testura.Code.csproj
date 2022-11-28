@@ -16,13 +16,14 @@
         <Description>Testura.Code is a wrapper around the Roslyn API and used for generation, saving and and compiling C# code. It provides methods and helpers to generate classes, methods, statements and expressions.</Description>
         <PackageReleaseNotes>1.3.0
 
-- Added support for object initialization (with ObjectCreationGenerator)</PackageReleaseNotes>
+            - Added support for object initialization (with ObjectCreationGenerator)
+        </PackageReleaseNotes>
         <PackageTags>
             Code generation roslyn
         </PackageTags>
         <PackageIconUrl>https://i.ibb.co/nnSPd11/logo128-new.png</PackageIconUrl>
         <RepositoryUrl>https://github.com/Testura/Testura.Code</RepositoryUrl>
-		<PackageIcon>logo.png</PackageIcon>
+        <PackageIcon>logo.png</PackageIcon>
         <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -34,14 +35,14 @@
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
         <WarningLevel>3</WarningLevel>
     </PropertyGroup>
-	
-	<ItemGroup>
-		<None Include="logo.png" Pack="true" PackagePath="\" />
-	</ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" />
-      <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.0.1" />
+        <None Include="logo.png" Pack="true" PackagePath="\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.0.1"/>
     </ItemGroup>
 
 </Project>
