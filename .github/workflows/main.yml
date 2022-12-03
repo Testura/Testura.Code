@@ -23,7 +23,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2.5.0
     
-    - name: Increment Build Version (minor version)
+    - name: Increment Build Version (patch number only)
       run: |       
        sed -i "s/\(<Version>\([0-9]\+\.\)\{2\}\)\([0-9]\+\)/\1${{github.run_number}}/" Testura.Code.csproj
 
