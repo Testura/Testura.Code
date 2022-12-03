@@ -42,8 +42,7 @@ jobs:
  #     run: dotnet test /p:Configuration=$env:BUILD_CONFIG --no-restore --no-build --verbosity normal
  
 #    - name: Pack
-#      run: dotnet pack /src/Testura.Code.csproj -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
- 
+#      run: dotnet pack /src/Testura.Code.csproj -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg 
       
 #    - name: Publish Package and Symbols
 #      if: startsWith(github.ref, 'refs/heads/release')
