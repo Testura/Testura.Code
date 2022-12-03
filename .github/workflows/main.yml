@@ -25,7 +25,7 @@ jobs:
     
     - name: Increment Build Version (patch number only)
       run: |       
-       sed -i "s/\(<Version>\([0-9]\+\.\)\{2\}\)\([0-9]\+\)/\1${{github.run_number}}/" Testura.Code.csproj
+       sed -i "s/\(<Version>\([0-9]\+\.\)\{2\}\)\([0-9]\+\)/\1${{github.run_number}}/" /src/Testura.Code.csproj
 
     - name: Restore dependencies
       run: nuget restore $SOLUTION
