@@ -16,20 +16,16 @@ jobs:
 
     env:
       BUILD_CONFIG: 'Release'
-      SOLUTION: 'MySolution.sln'
+      SOLUTION: 'Testura.Code.sln'
 
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v2.5.0
     
-    - name: Get Build Version
-      run: |
-        Import-Module .\build\GetBuildVersion.psm1
-        Write-Host $Env:GITHUB_REF
-        $version = GetBuildVersion -VersionString $Env:GITHUB_REF
-        echo "BUILD_VERSION=$version" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
-      shell: pwsh
+    - name: Increment Build Version (minor version)
+      run: |       
+       sed -i "s/\(<Version>\([0-9]\+\.\)\{2\}\)\([0-9]\+\)/\1${{github.run_number}}/" Testura.Code.csproj
 
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.1.1
