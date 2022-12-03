@@ -27,9 +27,6 @@ jobs:
       run: |       
        sed -i "s/\(<Version>\([0-9]\+\.\)\{2\}\)\([0-9]\+\)/\1${{github.run_number}}/" Testura.Code.csproj
 
-    - name: Setup NuGet
-      uses: NuGet/setup-nuget@v1.1.1
-
     - name: Restore dependencies
       run: nuget restore $SOLUTION
 
@@ -43,7 +40,13 @@ jobs:
 
  #   - name: Run tests
  #     run: dotnet test /p:Configuration=$env:BUILD_CONFIG --no-restore --no-build --verbosity normal
+ 
+#    - name: Pack
+#      run: dotnet pack /src/Testura.Code.csproj -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+ 
       
-#   - name: Publish
+#    - name: Publish Package and Symbols
 #      if: startsWith(github.ref, 'refs/heads/release')
-#      run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_PUBLISH_KEY}}
+#      run: | 
+#        nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_PUBLISH_KEY}}
+#        nuget push **\*.snupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_PUBLISH_KEY}}
