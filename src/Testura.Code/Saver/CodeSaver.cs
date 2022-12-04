@@ -33,89 +33,89 @@ public class CodeSaver : ICodeSaver
     /// <summary>
     /// Save generated code to a file.
     /// </summary>
-    /// <param name="cu">Generated code.</param>
-    /// <param name="path">Full output path.</param>
-    public void SaveCodeToFile(CompilationUnitSyntax cu, string path)
+    /// <param name="compiledSourceCode">Generated code.</param>
+    /// <param name="destinationFileAbsolutePath">Full output destinationFileAbsolutePath.</param>
+    public void SaveCodeToFile(CompilationUnitSyntax compiledSourceCode, string destinationFileAbsolutePath)
     {
-        if (cu == null)
+        if (compiledSourceCode == null)
         {
-            throw new ArgumentNullException(nameof(cu));
+            throw new ArgumentNullException(nameof(compiledSourceCode));
         }
 
-        if (string.IsNullOrEmpty(path))
+        if (string.IsNullOrEmpty(destinationFileAbsolutePath))
         {
-            throw new ArgumentException("Value cannot be null or empty.", nameof(path));
+            throw new ArgumentException("Value cannot be null or empty.", nameof(destinationFileAbsolutePath));
         }
 
-        EnsurePathExists(path);
-        var workspace = CreateWorkspace();
-        var formattedCode = Formatter.Format(cu, workspace);
-        using var sourceWriter = new StreamWriter(path);
+        EnsurePathExists(destinationFileAbsolutePath);
+        var createdWorkspaceForCodeGen = CreateWorkspace();
+        var formattedCode = Formatter.Format(compiledSourceCode, createdWorkspaceForCodeGen);
+        using var sourceWriter = new StreamWriter(destinationFileAbsolutePath);
         formattedCode.WriteTo(sourceWriter);
     }
 
     /// <summary>
     /// Save generated code to a file asynchronously
     /// </summary>
-    /// <param name="cu">Generated code.</param>
-    /// <param name="path">Full output path.</param>
+    /// <param name="compiledSourceCode">Generated code.</param>
+    /// <param name="destinationFileAbsolutePath">Full output destinationFileAbsolutePath.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>Writes the generated code to the <paramref name="path"/> supplied by the user.</returns>
-    public async Task SaveCodeToFileAsync(CompilationUnitSyntax cu, string path, CancellationToken cancellationToken = default)
+    /// <returns>Writes the generated code to the <paramref name="destinationFileAbsolutePath"/> supplied by the user.</returns>
+    public async Task SaveCodeToFileAsync(CompilationUnitSyntax compiledSourceCode, string destinationFileAbsolutePath, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        if (cu == null)
+        if (compiledSourceCode == null)
         {
-            throw new ArgumentNullException(nameof(cu));
+            throw new ArgumentNullException(nameof(compiledSourceCode));
         }
 
-        if (string.IsNullOrEmpty(path))
+        if (string.IsNullOrEmpty(destinationFileAbsolutePath))
         {
-            throw new ArgumentException("Value cannot be null or empty.", nameof(path));
+            throw new ArgumentException("Value cannot be null or empty.", nameof(destinationFileAbsolutePath));
         }
 
-        EnsurePathExists(path);
-        await using var fileStream = File.Open(path, FileMode.Create, FileAccess.Write);
+        EnsurePathExists(destinationFileAbsolutePath);
+        await using var fileStream = File.Open(destinationFileAbsolutePath, FileMode.Create, FileAccess.Write);
         await using var sourceWriter = new StreamWriter(fileStream);
-        await sourceWriter.WriteAsync(Formatter.Format(cu, CreateWorkspace()).ToFullString());
+        await sourceWriter.WriteAsync(Formatter.Format(compiledSourceCode, CreateWorkspace()).ToFullString());
     }
 
     /// <summary>
     /// Save generated code as a string.
     /// </summary>
-    /// <param name="cu">Generated code.</param>
+    /// <param name="compiledSourceCode">Generated code.</param>
     /// <returns>Generated code as a string.</returns>
-    public string SaveCodeAsString(CompilationUnitSyntax cu)
+    public string SaveCodeAsString(CompilationUnitSyntax compiledSourceCode)
     {
-        if (cu == null)
+        if (compiledSourceCode == null)
         {
-            throw new ArgumentNullException(nameof(cu));
+            throw new ArgumentNullException(nameof(compiledSourceCode));
         }
 
-        var workspace = CreateWorkspace();
-        var formattedCode = Formatter.Format(cu, workspace);
+        var createdWorkspaceForCodeGen = CreateWorkspace();
+        var formattedCode = Formatter.Format(compiledSourceCode, createdWorkspaceForCodeGen);
         return formattedCode.ToFullString();
     }
 
     private AdhocWorkspace CreateWorkspace()
     {
-        var cw = new AdhocWorkspace();
-        cw.Options.WithChangedOption(CSharpFormattingOptions.IndentBraces, true);
+        var createdWorkspaceForCodeGen = new AdhocWorkspace();
+        createdWorkspaceForCodeGen.Options.WithChangedOption(CSharpFormattingOptions.IndentBraces, true);
         foreach (var optionKeyValue in _options)
         {
-            cw.TryApplyChanges(cw.CurrentSolution.WithOptions(cw.Options.WithChangedOption(optionKeyValue.FormattingOption, optionKeyValue.Value)));
+            createdWorkspaceForCodeGen.TryApplyChanges(createdWorkspaceForCodeGen.CurrentSolution.WithOptions(createdWorkspaceForCodeGen.Options.WithChangedOption(optionKeyValue.FormattingOption, optionKeyValue.Value)));
         }
 
-        return cw;
+        return createdWorkspaceForCodeGen;
     }
 
-    private void EnsurePathExists(string filePath)
+    private void EnsurePathExists(string destinationFileAbsolutePath)
     {
-        var fi = new FileInfo(filePath);
-        if (!Directory.Exists(fi.Directory.FullName))
+        var fileInfo = new FileInfo(destinationFileAbsolutePath);
+        if (!Directory.Exists(fileInfo.Directory.FullName))
         {
-            Directory.CreateDirectory(fi.Directory.FullName);
+            Directory.CreateDirectory(fileInfo.Directory.FullName);
         }
     }
 }

@@ -8,14 +8,14 @@ public interface ICodeSaver
     /// <summary>
     /// Save generated code to a file.
     /// </summary>
-    /// <param name="cu">Generated code.</param>
-    /// <param name="path">Full output path.</param>
-    void SaveCodeToFile(CompilationUnitSyntax cu, string path);
+    /// <param name="compiledSourceCode">Generated code.</param>
+    /// <param name="destinationFileAbsolutePath">Full output path.</param>
+    void SaveCodeToFile(CompilationUnitSyntax compiledSourceCode, string destinationFileAbsolutePath);
 
     /// <summary>
     /// Save generated code as a string.
     /// </summary>
-    /// <param name="cu">Generated code.</param>
+    /// <param name="compiledSourceCode">Generated code.</param>
     /// <returns>Generated code as a string.</returns>
-    string SaveCodeAsString(CompilationUnitSyntax cu);
+    string SaveCodeAsString(CompilationUnitSyntax compiledSourceCode);
 }
