@@ -48,8 +48,9 @@ public class CodeSaver : ICodeSaver
         }
 
         EnsurePathExists(destinationFileAbsolutePath);
-        var createdWorkspaceForCodeGen = CreateWorkspace();
+        using var createdWorkspaceForCodeGen = CreateWorkspace();
         var formattedCode = Formatter.Format(compiledSourceCode, createdWorkspaceForCodeGen);
+        createdWorkspaceForCodeGen.Dispose();
         using var sourceWriter = new StreamWriter(destinationFileAbsolutePath);
         formattedCode.WriteTo(sourceWriter);
     }
@@ -78,7 +79,9 @@ public class CodeSaver : ICodeSaver
         EnsurePathExists(destinationFileAbsolutePath);
         await using var fileStream = File.Open(destinationFileAbsolutePath, FileMode.Create, FileAccess.Write);
         await using var sourceWriter = new StreamWriter(fileStream);
-        await sourceWriter.WriteAsync(Formatter.Format(compiledSourceCode, CreateWorkspace()).ToFullString());
+        using var createdWorkspaceForCodeGen = CreateWorkspace();
+        await sourceWriter.WriteAsync(Formatter.Format(compiledSourceCode, createdWorkspaceForCodeGen, cancellationToken: cancellationToken).ToFullString());
+        createdWorkspaceForCodeGen.Dispose();
     }
 
     /// <summary>
@@ -93,8 +96,9 @@ public class CodeSaver : ICodeSaver
             throw new ArgumentNullException(nameof(compiledSourceCode));
         }
 
-        var createdWorkspaceForCodeGen = CreateWorkspace();
+        using var createdWorkspaceForCodeGen = CreateWorkspace();
         var formattedCode = Formatter.Format(compiledSourceCode, createdWorkspaceForCodeGen);
+        createdWorkspaceForCodeGen.Dispose();
         return formattedCode.ToFullString();
     }
 
@@ -113,6 +117,13 @@ public class CodeSaver : ICodeSaver
     private void EnsurePathExists(string destinationFileAbsolutePath)
     {
         var fileInfo = new FileInfo(destinationFileAbsolutePath);
+        if (fileInfo.Directory == null)
+        {
+            throw new DirectoryNotFoundException(
+                $"The parent directory of the target destination file cannot be null.  Target destination file full path: {
+                    fileInfo.FullName}");
+        }
+
         if (!Directory.Exists(fileInfo.Directory.FullName))
         {
             Directory.CreateDirectory(fileInfo.Directory.FullName);
