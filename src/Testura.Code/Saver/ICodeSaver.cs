@@ -18,4 +18,16 @@ public interface ICodeSaver
     /// <param name="compiledSourceCode">Generated code.</param>
     /// <returns>Generated code as a string.</returns>
     string SaveCodeAsString(CompilationUnitSyntax compiledSourceCode);
+
+    /// <summary>
+    /// Save generated code to a file.
+    /// </summary>
+    /// <param name="compiledSourceCode">Generated code.</param>
+    /// <param name="destinationFileAbsolutePath">Full output path.</param>
+    /// <param name="cancellationToken">The cancellation token</param>
+    /// <returns>Saves the generated code to the filesystem.</returns>
+    Task SaveCodeToFileAsync(
+        CompilationUnitSyntax compiledSourceCode,
+        string destinationFileAbsolutePath,
+        CancellationToken cancellationToken = default);
 }
