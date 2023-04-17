@@ -44,6 +44,11 @@ public static class ParameterGenerator
                 break;
         }
 
+        if(parameter.Attributes != null && parameter.Attributes.Any())
+        {
+            parameterSyntax = parameterSyntax.WithAttributeLists(AttributeGenerator.Create(parameter.Attributes.ToArray()));
+        }
+
         return parameterSyntax;
     }
 
