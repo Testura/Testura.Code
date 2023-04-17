@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 using Testura.Code.Builders;
 using Testura.Code.Generators.Common;
 using Testura.Code.Models;
@@ -45,6 +46,15 @@ public class MethodBuildersTest
         var builder = new MethodBuilder("MyMethod");
         Assert.IsTrue(builder.WithParameters(new Parameter("myParamter", typeof(int), ParameterModifiers.This))
             .Build().ToString().Contains("thisintmyParamter"));
+    }
+
+    [Test]
+    public void Build_WhenGivingParameterWithAttribute_CodeShouldContainParameters()
+    {
+        var builder = new MethodBuilder("MyMethod");
+
+        Assert.IsTrue(builder.WithParameters(new Parameter("myParamter", typeof(int), attributes: new List<Attribute> { new Attribute("FromRoute") }))
+            .Build().ToString().Contains("[FromRoute]intmyParamter"));
     }
 
     [Test]

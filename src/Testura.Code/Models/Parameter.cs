@@ -12,12 +12,19 @@ public class Parameter
     /// <param name="type">Type of the parameter.</param>
     /// <param name="modifier">The parameter modifiers.</param>
     /// <param name="xmlDocumentation">The parameters xml documentation.</param>
-    public Parameter(string name, Type type, ParameterModifiers modifier = ParameterModifiers.None, string xmlDocumentation = null)
+    /// <param name="attributes">The parameters attributes </param>
+    public Parameter(
+        string name,
+        Type type,
+        ParameterModifiers modifier = ParameterModifiers.None,
+        string xmlDocumentation = null,
+        IEnumerable<Attribute> attributes = null)
     {
         Name = name ?? throw new ArgumentNullException(nameof(name));
         Type = type ?? throw new ArgumentNullException(nameof(type));
         Modifier = modifier;
         XmlDocumentation = xmlDocumentation;
+        Attributes = attributes;
     }
 
     /// <summary>
@@ -36,7 +43,12 @@ public class Parameter
     public ParameterModifiers Modifier { get; set; }
 
     /// <summary>
-    /// Gets he xml documentation
+    /// Gets or sets the xml documentation
     /// </summary>
-    public string XmlDocumentation { get; }
+    public string XmlDocumentation { get; set; }
+
+    /// <summary>
+    /// Gets or sets the attributes of the parameter.
+    /// </summary>
+    public IEnumerable<Attribute> Attributes { get; set; }
 }
