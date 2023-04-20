@@ -5,7 +5,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <IsPackable>true</IsPackable>
-        <PackageVersion>1.4.0</PackageVersion>
+        <PackageVersion>1.4.1</PackageVersion>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -16,7 +16,7 @@
         <Description>Testura.Code is a wrapper around the Roslyn API and used for generation, saving and and compiling C# code. It provides methods and helpers to generate classes, methods, statements and expressions.</Description>
         <PackageReleaseNotes>1.4.0
 
-- Added support for attributes with parameters</PackageReleaseNotes>
+- Fixed newlines for summaries and comment</PackageReleaseNotes>
         <PackageTags>
             Code generation roslyn
         </PackageTags>

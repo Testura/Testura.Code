@@ -18,9 +18,9 @@ public static class StatementSyntaxExtensions
         switch (commentPosition)
         {
             case CommentPosition.Above:
-                return statementSyntax.WithLeadingTrivia(SyntaxFactory.TriviaList(SyntaxFactory.Comment($"//{comment}\n")));
+                return statementSyntax.WithLeadingTrivia(SyntaxFactory.TriviaList(SyntaxFactory.Comment($"//{comment}{Environment.NewLine}")));
             case CommentPosition.Right:
-                return statementSyntax.WithTrailingTrivia(SyntaxFactory.TriviaList(SyntaxFactory.Comment($" //{comment}\n")));
+                return statementSyntax.WithTrailingTrivia(SyntaxFactory.TriviaList(SyntaxFactory.Comment($" //{comment}{Environment.NewLine}")));
             default:
                 throw new ArgumentOutOfRangeException(nameof(commentPosition), commentPosition, null);
         }

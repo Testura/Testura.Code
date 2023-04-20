@@ -106,7 +106,7 @@ public class ModelClassTests
             .Build();
 
         Assert.AreEqual(
-            "usingSystem;namespaceModels{publicclassCat{#region MyRegion \npublicstringName{get;set;}#endregion}}",
+            "usingSystem;namespaceModels{publicclassCat{#region MyRegion \r\npublicstringName{get;set;}#endregion}}",
             @class.ToString());
     }
 
@@ -133,7 +133,7 @@ public class ModelClassTests
             .Build();
 
         Assert.AreEqual(
-            "usingSystem;namespaceModels{publicclassCat{#region MyRegion \nprivatestring_name;privateint_age;publicstringName{get;set;}publicCat(stringname,intage){Name=name;Age=age;}#endregion}}",
+            "usingSystem;namespaceModels{publicclassCat{#region MyRegion \r\nprivatestring_name;privateint_age;publicstringName{get;set;}publicCat(stringname,intage){Name=name;Age=age;}#endregion}}",
             @class.ToString());
     }
 
@@ -150,7 +150,7 @@ public class ModelClassTests
             .Build();
 
         Assert.AreEqual(
-            "usingSystem;namespaceModels{publicclassCat{/// <summary>\n/// Some summary\n/// </summary>\n/// <param name=\"MyParameter\">Some documentation</param>\nvoidMyMethod(stringMyParameter){}}}",
+            "usingSystem;namespaceModels{publicclassCat{/// <summary>\r\n/// Some summary\r\n/// </summary>\r\n/// <param name=\"MyParameter\">Some documentation</param>\r\nvoidMyMethod(stringMyParameter){}}}",
             @class.ToString());
     }
 
@@ -182,7 +182,7 @@ public class ModelClassTests
             .Build();
 
         Assert.AreEqual(
-            "usingSystem;namespaceModels{/// <summary>\n/// My class summary\n/// </summary>\npublicclassCat{/// <summary>\n/// MyConstructor summary\n/// </summary>\n/// <param name=\"age\">My parameter</param>\npublicCat(stringname,intage){Name=name;Age=age;}/// <summary>\n/// MyPropertySummary\n/// </summary>\nintMyProperty{get;set;}/// <summary>\n/// My field summary\n/// </summary>\nprivatestring_name;voidMyMethod(stringMyParameter){//hej\ninthello;inthello; //My comment to the side\n}}}",
+            "usingSystem;namespaceModels{/// <summary>\r\n/// My class summary\r\n/// </summary>\r\npublicclassCat{/// <summary>\r\n/// MyConstructor summary\r\n/// </summary>\r\n/// <param name=\"age\">My parameter</param>\r\npublicCat(stringname,intage){Name=name;Age=age;}/// <summary>\r\n/// MyPropertySummary\r\n/// </summary>\r\nintMyProperty{get;set;}/// <summary>\r\n/// My field summary\r\n/// </summary>\r\nprivatestring_name;voidMyMethod(stringMyParameter){//hej\r\ninthello;inthello; //My comment to the side\r\n}}}",
             @class.ToString());
     }
 
@@ -203,7 +203,7 @@ public class ModelClassTests
             .Build();
 
         Assert.AreEqual(
-            "usingSystem;namespaceModels{publicclassCat{publicstaticMyMethodoperator++(stringMyParameter){//hej\ninthello;inthello; //My comment to the side\n}}}",
+            "usingSystem;namespaceModels{publicclassCat{publicstaticMyMethodoperator++(stringMyParameter){//hej\r\ninthello;inthello; //My comment to the side\r\n}}}",
             @class.ToString());
     }
 
