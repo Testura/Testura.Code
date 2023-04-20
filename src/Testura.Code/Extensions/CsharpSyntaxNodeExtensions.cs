@@ -38,7 +38,7 @@ public static class CsharpSyntaxNodeExtensions
             content = CreateParameterDocumentation(content, parameter);
         }
 
-        content = content.Add(XmlText().WithTextTokens(TokenList(XmlTextNewLine(TriviaList(), "\n", "\n", TriviaList()))));
+        content = content.Add(XmlText().WithTextTokens(TokenList(XmlTextNewLine(TriviaList(), Environment.NewLine, Environment.NewLine, TriviaList()))));
 
         var trivia = Trivia(
             DocumentationCommentTrivia(
@@ -50,20 +50,20 @@ public static class CsharpSyntaxNodeExtensions
     private static SyntaxList<XmlNodeSyntax> CreateSummaryDocumentation(SyntaxList<XmlNodeSyntax> content, string text)
     {
         var summary = new List<SyntaxToken>();
-        summary.Add(XmlTextNewLine(TriviaList(), "\n", "\n", TriviaList()));
-        var commentLines = text.Split(new[] { "\n" }, StringSplitOptions.None);
+        summary.Add(XmlTextNewLine(TriviaList(), Environment.NewLine, Environment.NewLine, TriviaList()));
+        var commentLines = text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
         for (int n = 0; n < commentLines.Length; n++)
         {
             var fixedCommentLine = $" {commentLines[n]}";
             if (n != commentLines.Length - 1)
             {
-                fixedCommentLine += "\n";
+                fixedCommentLine += Environment.NewLine;
             }
 
             summary.Add(XmlTextLiteral(TriviaList(DocumentationCommentExterior("///")), fixedCommentLine, fixedCommentLine, TriviaList()));
         }
 
-        summary.Add(XmlTextNewLine(TriviaList(), "\n", "\n", TriviaList()));
+        summary.Add(XmlTextNewLine(TriviaList(), Environment.NewLine, Environment.NewLine, TriviaList()));
         summary.Add(XmlTextLiteral(TriviaList(DocumentationCommentExterior("///")), " ", " ", TriviaList()));
 
         return content.AddRange(new List<XmlNodeSyntax>
@@ -84,8 +84,8 @@ public static class CsharpSyntaxNodeExtensions
                     {
                         XmlTextNewLine(
                             TriviaList(),
-                            "\n",
-                            "\n",
+                            Environment.NewLine,
+                            Environment.NewLine,
                             TriviaList()),
                         XmlTextLiteral(
                             TriviaList(
