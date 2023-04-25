@@ -19,7 +19,11 @@ public class ExpressionStatement
     /// <param name="arguments">Arguments that we end to the method.</param>
     /// <param name="generics">Optional list of types if the method is generic.</param>
     /// <returns>A invocation object with both statement and expression.</returns>
-    public Invocation Invoke(string variableName, string methodName, IEnumerable<IArgument> arguments = null, IEnumerable<Type> generics = null)
+    public Invocation Invoke(
+        string variableName,
+        string methodName,
+        IEnumerable<IArgument> arguments = null,
+        IEnumerable<Type> generics = null)
     {
         if (string.IsNullOrEmpty(variableName))
         {

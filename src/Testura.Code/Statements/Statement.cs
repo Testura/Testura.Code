@@ -12,6 +12,7 @@ public static class Statement
         Selection = new SelectionStatement();
         Iteration = new IterationStatement();
         Expression = new ExpressionStatement();
+        ExceptionHandlingStatement = new ExceptionHandlingStatement();
     }
 
     /// <summary>
@@ -38,4 +39,9 @@ public static class Statement
     /// Gets the generator for expression statements.
     /// </summary>
     public static ExpressionStatement Expression { get; }
+
+    /// <summary>
+    /// Gets the generator for exception handling statements.
+    /// </summary>
+    public static ExceptionHandlingStatement ExceptionHandlingStatement { get; }
 }

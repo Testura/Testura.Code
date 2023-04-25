@@ -29,6 +29,14 @@ public class ExpressionStatementTests
     }
 
     [Test]
+    public void Invoke_WhenUsingSimpleNamesWithAwait_ShouldGenerateCorrectCode()
+    {
+        var invocation = expressionStatement.Invoke("myClass", "Do");
+        Assert.IsNotNull(invocation);
+        Assert.AreEqual("awaitmyClass.Do();", invocation.AsStatement(true).ToString());
+    }
+
+    [Test]
     public void Invoke_WhenUsingSimpleNamesWithArguments_ShouldGenerateCorrectCode()
     {
         var invocation = expressionStatement.Invoke("myClass", "Do", new List<IArgument> { new ValueArgument(1) });
