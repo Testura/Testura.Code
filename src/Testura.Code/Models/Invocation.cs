@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Testura.Code.Models;
@@ -22,9 +23,15 @@ public class Invocation
     /// <summary>
     /// Convert the invocation expression to a statement.
     /// </summary>
+    /// <param name="await">If we should await expression statement</param>
     /// <returns>A statement.</returns>
-    public ExpressionStatementSyntax AsStatement()
+    public ExpressionStatementSyntax AsStatement(bool await = false)
     {
+        if (await)
+        {
+            return ExpressionStatement(AwaitExpression(_invocation));
+        }
+
         return ExpressionStatement(_invocation);
     }
 
