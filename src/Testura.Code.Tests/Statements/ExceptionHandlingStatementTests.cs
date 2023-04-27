@@ -3,6 +3,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using NUnit.Framework;
 using Testura.Code.Generators.Common;
 using Testura.Code.Generators.Common.Arguments.ArgumentTypes;
+using Testura.Code.Models.Types;
 using Testura.Code.Statements;
 
 namespace Testura.Code.Tests.Statements;
@@ -25,6 +26,12 @@ public class ExceptionHandlingStatementTests
     }
 
     [Test]
+    public void TryCatch_WhenCreatingTryCatchWithCustomType_ShouldCreateTryCatch()
+    {
+        Assert.AreEqual("try{}catch(SomeOtherExceptione){}", exceptionHandlingStatement.TryCatch(SyntaxFactory.Block(), SyntaxFactory.Block(), CustomType.Create("SomeOtherException"), "e").ToString());
+    }
+
+    [Test]
     public void Throw_WhenCreatingThrow_ShouldCreateThrow()
     {
         Assert.AreEqual("throw;", exceptionHandlingStatement.Throw().ToString());
@@ -42,6 +49,7 @@ public class ExceptionHandlingStatementTests
         Assert.AreEqual("thrownewException(\"test\");", exceptionHandlingStatement.ThrowNew(typeof(Exception), new ValueArgument("test")).ToString());
     }
 
+    [Test]
     public void ThrowNew_WhenCreatingThrowNewWithObjectInitializer_ShouldCreateThrow()
     {
         Assert.AreEqual("thrownewException();", exceptionHandlingStatement.ThrowNew(ObjectCreationGenerator.Create(typeof(Exception))).ToString());
