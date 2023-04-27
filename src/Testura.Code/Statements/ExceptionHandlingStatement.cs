@@ -38,7 +38,7 @@ public class ExceptionHandlingStatement
             SyntaxFactory.TryStatement(
                     SyntaxFactory.SingletonList(SyntaxFactory.CatchClause()
                         .WithDeclaration(SyntaxFactory.CatchDeclaration(
-                            SyntaxFactory.ParseTypeName(exceptionTypeToCatch.Name),
+                            TypeGenerator.Create(exceptionTypeToCatch),
                             SyntaxFactory.Identifier(parameterName)))
                         .WithBlock(catchBlock)))
                 .WithBlock(tryBlock);
