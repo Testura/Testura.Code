@@ -1,4 +1,5 @@
-﻿using Testura.Code.Util.TypeNameFormatting;
+﻿using Testura.Code.Models.Types;
+using Testura.Code.Util.TypeNameFormatting;
 #pragma warning disable 1591
 
 namespace Testura.Code.Extensions.Naming;
@@ -50,6 +51,11 @@ public static class TypeNamingExtensions
     /// <returns>The formatted type name.</returns>
     public static string FormattedTypeName(this Type type)
     {
+        if(type is CustomTypeProxy customTypeProxy)
+        {
+            return customTypeProxy.TypeName;
+        }
+
         var typeName = type.Name;
 
         if (type.IsGenericType)

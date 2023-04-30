@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
 using Testura.Code.Extensions.Naming;
+using Testura.Code.Models.Types;
 
 namespace Testura.Code.Tests.Extensions.Naming;
 
@@ -11,6 +12,12 @@ public class TypeNamingExtensionsTests
     public void FormattedTypeName_WhenHavingValueType_ShouldHaveCorrectName()
     {
         Assert.AreEqual("int", typeof(int).FormattedTypeName());
+    }
+
+    [Test]
+    public void FormattedTypeName_WhenHavingCustomType_ShouldHaveCorrectName()
+    {
+        Assert.AreEqual("test", CustomType.Create("test").FormattedTypeName());
     }
 
     [Test]
